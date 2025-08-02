@@ -1,0 +1,21 @@
+import { useState } from '#imports'
+import { usePocketBaseClient } from './pocketBaseClient'
+
+export const usePocketBaseUser = () => {
+  let client = usePocketBaseClient()
+  let user = useState('user', () => null)
+  let isUserLoggedIn = client?.authStore.isValid;
+
+  if(isUserLoggedIn) {
+    user.value = {
+      id: client.authStore.model.id,
+      email: client.authStore.model.email,
+      nama: client.authStore.model.nama,
+      role: client.authStore.model.role,
+      program_keahlian: client.authStore.model.program_keahlian,
+    }
+  } else {
+    user.value = null
+  }
+  return { user, isUserLoggedIn }
+}
