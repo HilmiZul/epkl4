@@ -1,0 +1,66 @@
+<template>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary mb-3">
+    <div class="container-fluid">
+      <nuxt-link v-if="user" class="navbar-brand romana" to="/">Halo, <span class="border-3 border-bottom">{{ prokel }}</span>! 😃</nuxt-link>
+      <button class="navbar-toggler rounded-0 border-2 border-dark shadow-lg" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="bi-list fs-1 text-dark"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <nuxt-link class="nav-link" to="/"><i class="bi bi-bar-chart-fill"></i> Statistik</nuxt-link>
+          </li>
+          <li class="nav-item">
+            <nuxt-link class="nav-link" to="/peserta"><i class="bi bi-people-fill"></i> Peserta Didik</nuxt-link>
+          </li>
+          <li class="nav-item">
+            <nuxt-link class="nav-link" to="/dudi"><i class="bi bi-buildings-fill"></i> DU/DI</nuxt-link>
+          </li>
+          <li class="nav-item">
+            <nuxt-link class="nav-link" to="/pemetaan"><i class="bi bi-git"></i> Pemetaan</nuxt-link>
+          </li>
+          <li v-if="role === 'admin'" class="nav-item">
+            <nuxt-link class="nav-link" to="/users"><i class="bi bi-person-fill"></i> Users</nuxt-link>
+          </li>
+          <li class="nav-item">
+            <nuxt-link class="nav-link text-danger" to="/logout"><i class="bi bi-box-arrow-right"></i> Keluar</nuxt-link>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</template>
+
+<script setup>
+let user = usePocketBaseUser()
+let client = usePocketBaseClient()
+let prokel = ref()
+let nama = user?.user.value.nama
+let role = user?.user.value.role
+
+const getProkel = async () => {
+  client.autoCancellation(false)
+  let data = await client
+    .collection('program_keahlian')
+    .getOne(user?.user.value.program_keahlian, {
+      expand: 'nama'
+    })
+  if(data) prokel.value = data.nama
+}
+
+onMounted(() => {
+  getProkel()
+})
+</script>
+
+<style scoped>
+@media screen and (min-width: 900px) {
+  .navbar {
+    display: none;
+  }
+}
+.nav-item a {
+  color: #000;
+}
+</style>
