@@ -7,7 +7,7 @@
         <i class="bi-list fs-1 text-dark"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav small">
           <li class="nav-item">
             <nuxt-link class="nav-link" to="/"><i class="bi bi-bar-chart-fill"></i> Statistik</nuxt-link>
           </li>
@@ -19,6 +19,15 @@
           </li>
           <li class="nav-item">
             <nuxt-link class="nav-link" to="/pemetaan"><i class="bi bi-git"></i> Pemetaan</nuxt-link>
+          </li>
+          <li class="nav-item">
+            <nuxt-link class="nav-link" to="/jurnal"><i class="bi bi-journals"></i> Jurnal Peserta</nuxt-link>
+          </li>
+          <li class="nav-item">
+            <nuxt-link class="nav-link" to="/verifikasi"><i class="bi bi-patch-check-fill"></i> Verifikasi</nuxt-link>
+          </li>
+          <li class="nav-item">
+            <nuxt-link class="nav-link" to="/analitik"><i class="bi bi-bar-chart-fill"></i> Analitik</nuxt-link>
           </li>
           <li v-if="role === 'admin'" class="nav-item">
             <nuxt-link class="nav-link" to="/users"><i class="bi bi-person-fill"></i> Users</nuxt-link>

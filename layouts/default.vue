@@ -40,6 +40,7 @@ html, body {
 }
 .alert {
   border-radius: 0 !important;
+  border-width: 2px;
 }
 .btn {
   transition: all 0.2s ease-in-out;
@@ -77,7 +78,7 @@ table {
   font-size: small;
 }
 .table-responsive {
-  height: 570px;
+  height: 500px;
   overflow-x: auto;
   overflow-y: auto;
   border: 2px solid #000
@@ -116,5 +117,8 @@ input[type="checkbox"]:not(:checked) {
   border-color: #bababa !important;
   margin-right: .8em;
   box-shadow: none;
+}
+.text-grey {
+  color: #4f4f4f;
 }
 </style>

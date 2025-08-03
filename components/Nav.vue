@@ -1,24 +1,33 @@
 <template>
-  <div class="col-md-2 side-nav">
+  <div class="col-2 side-nav">
     <div class="card shadow-lg">
       <div class="card-body p-0">
-        <div v-if="user" class="romana small text-center text-muted py-2">Halo, <span class="border-3 border-bottom">{{ prokel }}</span>! 😃</div>
+        <div v-if="user" class="romana text-center text-muted py-2">Halo, <span class="border-3 border-bottom">{{ prokel }}</span>! 😃</div>
         <nav>
-          <ol class="list-group list-group-flush small">
+          <ol class="list-group list-group-flush">
             <nuxt-link to="/">
-              <li class="list-group-item"><i class="bi bi-bar-chart-fill"></i> Statistik</li>
+              <li class="list-group-item"><i class="bi bi-pie-chart-fill"></i> Statistik</li>
             </nuxt-link>
             <nuxt-link to="/peserta">
-              <li class="list-group-item"><i class="bi bi-people-fill"></i> Peserta Didik</li>
+              <li class="list-group-item"><i class="bi bi-person-fill"></i> Peserta Didik</li>
             </nuxt-link>
             <nuxt-link to="/dudi">
               <li class="list-group-item"><i class="bi bi-buildings-fill"></i> DU/DI</li>
             </nuxt-link>
             <nuxt-link to="/pemetaan">
-              <li class="list-group-item"><i class="bi bi-git"></i> Pemetaan</li>
+              <li class="list-group-item"><i class="bi bi-diagram-3-fill"></i> Pemetaan</li>
+            </nuxt-link>
+            <nuxt-link to="/jurnal">
+              <li class="list-group-item"><i class="bi bi-journals"></i> Jurnal Peserta</li>
+            </nuxt-link>
+            <nuxt-link to="/verifikasi">
+              <li class="list-group-item"><i class="bi bi-patch-check-fill"></i> Verifikasi</li>
+            </nuxt-link>
+            <nuxt-link to="/analitik">
+              <li class="list-group-item"><i class="bi bi-bar-chart-fill"></i> Analitik</li>
             </nuxt-link>
             <nuxt-link to="/users" v-if="role === 'admin'">
-              <li class="list-group-item"><i class="bi bi-person-fill"></i> Users</li>
+              <li class="list-group-item"><i class="bi bi-people-fill"></i> Users</li>
             </nuxt-link>
             <nuxt-link to="/logout">
               <li class="list-group-item text-danger"><i class="bi bi-box-arrow-right"></i> Keluar</li>
