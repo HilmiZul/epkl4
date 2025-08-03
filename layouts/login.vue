@@ -4,7 +4,11 @@
 
     <slot />
 
-    <Footer />
+    <div class="row">
+      <div class="col-3">
+        <Footer />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -13,9 +17,16 @@
   font-family: 'Romana BT';
   src: url('~/assets/font/RomanaB.ttf');
 }
+@font-face {
+  font-family: 'Metropolis';
+  src: url('~/assets/font/Metropolis-Regular.otf');
+}
 html, body {
   background-color: #f5fff2;
-  font-family: 'Romana BT';
+  font-family: 'Metropolis';
+}
+.metropolis {
+  font-family: 'Metropolis';
 }
 .romana {
   font-family: 'Romana BT';
@@ -24,14 +35,14 @@ html, body {
   box-shadow: 0.5rem 0.5rem 0 #000000 !important;
 }
 .card {
-  border-radius: 1em !important;
+  border-radius: 0 !important;
   border: 1.9px solid #000000;
   box-shadow: 0.5rem 0.5rem 0 #000000 !important;
 }
 .btn {
   transition: all 0.2s ease-in-out;
   border: 1.9px solid #000000;
-  border-radius: 0.5em !important;
+  border-radius: 0 !important;
   box-shadow: 0.2rem 0.2rem 0 #000000 !important;
 }
 .btn:hover {
@@ -45,7 +56,7 @@ html, body {
 }
 .form {
   border: 1.9px solid #000000;
-  border-radius: 0.5em !important;
+  border-radius: 0 !important;
   box-shadow: 0.2rem 0.2rem 0 #000000 !important;
 }
 .form:focus {

@@ -1,7 +1,7 @@
 <template>
   <div class="col-md small text-muted">
     <div class="mb-2">
-      <h5>PPLG</h5>
+      <h5 class="romana">PPLG</h5>
       <ul>
         <li>Peserta didik: </li>
         <li>Terserap: .. dari ..</li>
@@ -11,7 +11,7 @@
       </ul>
     </div>
     <div class="mb-2">
-      <h5>TJKT</h5>
+      <h5 class="romana">TJKT</h5>
       <ul>
         <li>Peserta didik: </li>
         <li>Terserap: .. dari ..</li>
@@ -22,3 +22,4 @@
     </div>
   </div>
 </template>
+

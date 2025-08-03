@@ -2,48 +2,57 @@
   <div>
     <div class="card shadow-lg">
       <div class="card-header">
-        <span class="h4">DU/DI</span>
+        <span class="h4 romana">DU/DI</span>
       </div>
       <div class="card-body">
-        <div class="my-3 col-lg-3 float-end">
-          <input type="search" @input="searchByKeyword" v-model="keyword" class="form form-control form-control-md" placeholder="Cari berdasarkan nama..." />
+        <div class="row">
+          <div class="col">
+            <div class="my-3">
+              <span class="small me-2"><i class="bi bi-funnel-fill"></i></span>
+              <select @change="filterByWilayah" v-model="opsiWilayah" class="form form-control-select form-control-sm">
+                <option disabled value="">Filter wilayah</option>
+                <option value="dalam">Dalam kota</option>
+                <option value="luar">Luar kota</option>
+              </select>
+              <button class="btn btn-light btn-sm ms-2" @click="()=>{getCompanies(); opsiWilayah=''}" :disabled="!opsiWilayah">reset</button>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="my-3">
+              <input type="search" @input="searchByKeyword" v-model="keyword" class="form form-control form-control-md" placeholder="Cari berdasarkan nama..." />
+            </div>
+          </div>
         </div>
-        <div class="my-3">
-          <span class="small me-2"><i class="bi bi-funnel-fill"></i></span>
-          <select @change="filterByWilayah" v-model="opsiWilayah" class="form form-control-select form-control-sm">
-            <option disabled value="">Filter wilayah</option>
-            <option value="dalam">Dalam kota</option>
-            <option value="luar">Luar kota</option>
-          </select>
-          <button class="btn btn-light btn-sm ms-2" @click="()=>{getCompanies(); opsiWilayah=''}" :disabled="!opsiWilayah">reset filter</button>
+        <div v-if="isLoading"><Loading /></div>
+        <div v-else class="table-responsive">
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th width="2%">#</th>
+                <th width="20%">Nama</th>
+                <th width="50%">Alamat</th>
+                <th width="8%">Terisi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(company, i) in companies" :key="i">
+                <td>{{ i + 1 }} </td>
+                <td>{{ company.nama }} </td>
+                <td>{{ company.alamat }} </td>
+                <td>{{ company.terisi }} dari {{ company.jumlah_kuota }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div v-if="isLoading">
-          <Loading />
-        </div>
-        <table v-else class="table table-hover table-striped">
-          <thead>
-            <tr>
-              <th width="2%">#</th>
-              <th width="20%">Nama</th>
-              <th width="50%">Alamat</th>
-              <th width="8%">Terisi</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(company, i) in companies" :key="i">
-              <td>{{ i + 1 }} </td>
-              <td>{{ company.nama }} </td>
-              <td>{{ company.alamat }} </td>
-              <td>{{ company.terisi }} dari {{ company.jumlah_kuota }}</td>
-            </tr>
-          </tbody>
-        </table>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+definePageMeta({
+  middleware: 'auth'
+})
 let client = usePocketBaseClient()
 let user = usePocketBaseUser()
 let companies = ref([])
@@ -59,6 +68,7 @@ onMounted(() => {
 async function searchByKeyword() {
   isLoading.value = true
   if(keyword.value.length > 0) {
+    client.autoCancellation(false)
     let data = await client
       .collection('dudi')
       .getFullList({
@@ -76,6 +86,7 @@ async function searchByKeyword() {
 async function getCompanies() {
   isLoading.value = true
   try {
+    client.autoCancellation(false)
     let response = await client.collection('dudi').getFullList({
       filter: 'program_keahlian = "' + user.user.value.program_keahlian + '"',
       sort: '-wilayah'
@@ -92,6 +103,7 @@ async function getCompanies() {
 async function filterByWilayah() {
   isLoading.value = true
   if(opsiWilayah.value.length > 0) {
+    client.autoCancellation(false)
     const data = await client
       .collection('dudi')
       .getFullList({

@@ -1,11 +1,12 @@
 <template>
-  <div class="col-md-2">
+  <div class="col-md-2 side-nav">
     <div class="card shadow-lg">
-      <div class="card-body">
+      <div class="card-body p-0">
+        <div v-if="user" class="romana small text-center text-muted py-2">Halo, <span class="border-3 border-bottom">{{ prokel }}</span>! 😃</div>
         <nav>
-          <ol class="list-group list-group-flush">
+          <ol class="list-group list-group-flush small">
             <nuxt-link to="/">
-              <li class="list-group-item"><i class="bi bi-speedometer"></i> Dashboard</li>
+              <li class="list-group-item"><i class="bi bi-bar-chart-fill"></i> Statistik</li>
             </nuxt-link>
             <nuxt-link to="/peserta">
               <li class="list-group-item"><i class="bi bi-people-fill"></i> Peserta Didik</li>
@@ -16,7 +17,7 @@
             <nuxt-link to="/pemetaan">
               <li class="list-group-item"><i class="bi bi-git"></i> Pemetaan</li>
             </nuxt-link>
-            <nuxt-link to="/pemetaan">
+            <nuxt-link to="/users" v-if="role === 'admin'">
               <li class="list-group-item"><i class="bi bi-person-fill"></i> Users</li>
             </nuxt-link>
             <nuxt-link to="/logout">
@@ -44,11 +45,42 @@
   </div>
 </template>
 
+<script setup>
+let user = usePocketBaseUser()
+let client = usePocketBaseClient()
+let prokel = ref()
+let nama = user?.user.value.nama
+let role = user?.user.value.role
+
+const getProkel = async () => {
+  client.autoCancellation(false)
+  let data = await client
+    .collection('program_keahlian')
+    .getOne(user?.user.value.program_keahlian, {
+      expand: 'nama'
+    })
+  if(data) prokel.value = data.nama
+}
+
+onMounted(() => {
+  getProkel()
+})
+</script>
+
 <style scoped>
 a {
   text-decoration: none;
 }
 a:hover > li {
   background-color: #f0f0f0;
+}
+.list-group-item {
+  border: none !important;
+  border-bottom: 1px solid #dfdfdf !important;
+}
+@media screen and (max-width: 900px) {
+  .side-nav {
+    display: none;
+  }
 }
 </style>
