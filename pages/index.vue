@@ -2,7 +2,7 @@
   <div>
     <div class="card">
       <div class="card-header">
-        <span class="h4 romana">Statistik</span>
+        <span class="h4 romana text-grey"><i class="bi bi-pie-chart-fill"></i> Statistik</span>
       </div>
       <div class="card-body">
         <div class="row">

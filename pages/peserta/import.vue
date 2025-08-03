@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 romana">Peserta Didik / <span class="text-muted">Impor dari .csv</span></span>
+      <span class="h4 romana text-grey">Peserta Didik / <span class="text-muted">Impor dari .csv</span></span>
     </div>
     <div class="card-body">
       <div class="row">
@@ -24,8 +24,8 @@
         </div>
         <div class="col">
           <div class="alert alert-warning border-5 border-dark shadow-lg">
-            <div class="h5">Perhatian!</div>
-            <ul>
+            <div class="h5 romana">Perhatian!</div>
+            <ul class="small">
               <li>Tidak perlu impor apabila data peserta didik sudah lengkap</li>
               <li>Sebelum impor, pastikan sesuai dengan format <nuxt-link to="https://docs.google.com/spreadsheets/d/1Q5mfr7UTqWlmkGLVMe8NdYgQfczttdKiYtHJj9GX2gA/edit?usp=sharing" target="_blank" class="link">disini</nuxt-link></li>
               <li>Sistem hanya membaca file <code>.CSV</code></li>

@@ -1,30 +1,29 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 romana">Peserta Didik</span>
+      <span class="h4 romana text-grey"><i class="bi bi-person-fill"></i> Peserta Didik</span>
       <span class="float-end">
         <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/peserta/import" class="btn btn-success btn-sm">Impor dari .csv</nuxt-link>
       </span>
     </div>
     <div class="card-body">
       <div class="row">
-        <div class="col">
+        <div class="col-2">
           <div class="my-3">
-            <span class="small me-2"><i class="bi bi-funnel-fill"></i></span>
-            <select @change="filterByKelas" v-model="opsiKelas" class="form form-control-select form-control-sm">
-              <option disabled value="">Filter kelas</option>
+            <select @change="filterByKelas" v-model="opsiKelas" class="form form-control form-select">
+              <option disabled value="">🗂 Filter kelas</option>
               <option value="">Semua</option>
               <option value="PPLG-1">PPLG-1</option>
               <option value="PPLG-2">PPLG-2</option>
               <option value="PPLG-3">PPLG-3</option>
               <option value="PPLG-4">PPLG-4</option>
             </select>
-            <button class="btn btn-light btn-sm ms-2" @click="()=>{getStudents(); opsiKelas=''}" :disabled="!opsiKelas">reset</button>
+            <button v-if="opsiKelas" class="btn btn-light btn-sm ms-2" @click="()=>{getStudents(); opsiKelas=''}">reset</button>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-4">
           <div class="my-3">
-            <input type="search" @input="searchByKeyword" v-model="keyword" class="form form-control form-control-md" placeholder="Cari berdasarkan nama..." />
+            <input type="search" @input="searchByKeyword" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan nama..." />
           </div>
         </div>
       </div>
@@ -43,7 +42,7 @@
           </thead>
           <tbody>
             <tr v-if="students.length < 1" class="text-center my-5">
-              <td colspan="6">Data tidak ada.</td>
+              <td colspan="6">Data tidak ditemukan.</td>
             </tr>
             <tr v-for="(student,i) in students" :key="student.id">
               <td>{{ i+1 }}. </td>

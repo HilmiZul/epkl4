@@ -2,24 +2,23 @@
   <div>
     <div class="card shadow-lg">
       <div class="card-header">
-        <span class="h4 romana">DU/DI</span>
+        <span class="h4 romana text-grey"><i class="bi bi-buildings-fill"></i> DU/DI</span>
       </div>
       <div class="card-body">
         <div class="row">
-          <div class="col">
+          <div class="col-2">
             <div class="my-3">
-              <span class="small me-2"><i class="bi bi-funnel-fill"></i></span>
-              <select @change="filterByWilayah" v-model="opsiWilayah" class="form form-control-select form-control-sm">
-                <option disabled value="">Filter wilayah</option>
+              <select @change="filterByWilayah" v-model="opsiWilayah" class="form form-control form-select">
+                <option disabled value="">🌏 Filter wilayah</option>
                 <option value="dalam">Dalam kota</option>
                 <option value="luar">Luar kota</option>
               </select>
-              <button class="btn btn-light btn-sm ms-2" @click="()=>{getCompanies(); opsiWilayah=''}" :disabled="!opsiWilayah">reset</button>
+              <button v-if="opsiWilayah" class="btn btn-light btn-sm ms-2" @click="()=>{getCompanies(); opsiWilayah=''}">reset</button>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-4">
             <div class="my-3">
-              <input type="search" @input="searchByKeyword" v-model="keyword" class="form form-control form-control-md" placeholder="Cari berdasarkan nama..." />
+              <input type="search" @input="searchByKeyword" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan nama..." />
             </div>
           </div>
         </div>
@@ -35,6 +34,9 @@
               </tr>
             </thead>
             <tbody>
+              <tr v-if="companies.length < 1" class="text-center my-5">
+                <td colspan="4">Data tidak ditemukan</td>
+              </tr>
               <tr v-for="(company, i) in companies" :key="i">
                 <td>{{ i + 1 }} </td>
                 <td>{{ company.nama }} </td>

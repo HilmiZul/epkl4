@@ -5,15 +5,15 @@
         <div class="card-body">
           <form @submit.prevent="handleLogin">
             <div v-if="isError" class="mb-3">
-              <div class="alert alert-danger text-danger border-3 border-dark">user/password gak cocok!</div>
+              <div class="alert alert-danger text-danger rounded-0 border-3 border-danger">Kombinasi salah! coba lagi besok!</div>
             </div>
             <div class="mb-3">
               <input v-model="email" type="text" class="form form-control" name="username" id="email" placeholder="username" required autofocus>
             </div>
             <div class="mb-3">
-              <input v-model="password" type="password" class="form form-control" name="password" id="password" placeholder="password" required>
+              <input v-model="password" :disabled="email.length < 3" type="password" class="form form-control" name="password" id="password" placeholder="ga lupa password kan?" required>
             </div>
-            <button :disabled="sending" type="submit" class="btn btn-dark">
+            <button :disabled="sending || email.length < 3 || password.length < 5" type="submit" class="btn btn-dark">
               <span v-if="!sending">Gass masuk!</span>
               <span v-else>tunggu bentar...</span>
             </button>
@@ -26,15 +26,16 @@
 
 <script setup>
 definePageMeta({
-  layout: 'login'
+  layout: 'login',
+  middleware: 'check-auth'
 })
 
 let client = usePocketBaseClient()
 let user = usePocketBaseUser()
 // console.log(user.value)
 if(user.value) navigateTo('/')
-let email = ref()
-let password = ref()
+let email = ref('')
+let password = ref('')
 let isError = ref(false)
 let sending = ref(false)
 
@@ -54,6 +55,7 @@ async function handleLogin() {
   } catch (error) {
     isError.value = true
     sending.value = false
+    password.value = ''
   }
 }
 </script>

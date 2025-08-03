@@ -1,9 +1,8 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 romana">
-        {{ form.nama }} /
-        <span class="text-muted">{{ form.kelas }}</span>
+      <span class="h4 romana text-grey">
+        {{ form.nama }} / {{ form.kelas }}
       </span>
     </div>
     <div class="card-body">
@@ -39,7 +38,7 @@
         <div class="col">
           <div class="alert alert-warning shadow-lg border-2 border-dark">
             <h5 class="romana">Perhatian!</h5>
-            <ul>
+            <ul class="small">
               <li>Peserta PKL adalah siswa Semester 6</li>
               <li>Telah menuntaskan nilai rapor Semester 1 s.d 5</li>
               <li>Status <strong>Pemetaan PKL</strong> diubah oleh sistem ketika siswa di petakan</li>
@@ -49,11 +48,42 @@
           </div>
         </div>
       </div>
+      <hr class="my-5">
+      <div class="row">
+        <div class="col-2 align-content-center">
+          <div class="emoji text-center">🙅🏻‍♂️</div>
+        </div>
+        <div class="col">
+          <div class="alert text-danger border-danger">
+            <h5 class="romana">Danger Zone!</h5>
+            <p class="small">Apabila Siswa yang bernama <span class="border-2 border-bottom border-danger pb-1">{{ form.nama }}</span> telah pindah/mengundurkan diri, silahkan hapus!</p>
+            <button class="btn btn-danger border-danger" data-bs-toggle="modal" :data-bs-target="`#siswa-${form.id}`">Hapus</button>
+            <div class="modal" :id="`siswa-${form.id}`">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content rounded-0 border-3 border-dark shadow-lg">
+                  <div class="modal-header rounded-0 h4 bg-danger text-white">
+                    Peringatan!
+                  </div>
+                  <div class="modal-body text-dark">
+                    Yakin nih mau hapus? pikir-piki dulu deh!
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn text-dark" data-bs-dismiss="modal">Iya iyaa</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
+definePageMeta({
+  middleware: ['auth']
+})
 let client = usePocketBaseClient()
 let user = usePocketBaseUser()
 let route = useRoute()
@@ -62,6 +92,7 @@ let isLoadingSave = ref(false)
 let isSaved = ref(false)
 let student = ref()
 let form = ref({
+  id: '',
   nama: '⏳',
   kelas: '⏳',
   status_rapot: false,
@@ -107,3 +138,9 @@ onMounted(() => {
   }, {});
 })
 </script>
+
+<style scoped>
+.emoji {
+  font-size: 5vw;
+}
+</style>
