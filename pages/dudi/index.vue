@@ -6,18 +6,19 @@
       </div>
       <div class="card-body">
         <div class="row">
-          <div class="col-2">
-            <div class="my-3">
+          <div class="col-3">
+            <div class="my-2">
               <select @change="filterByWilayah" v-model="opsiWilayah" class="form form-control form-select">
-                <option disabled value="">🌏 Filter wilayah</option>
+                <option disabled value="">🌏 Wilayah</option>
+                <option value="">Semua</option>
                 <option value="dalam">Dalam kota</option>
                 <option value="luar">Luar kota</option>
               </select>
-              <button v-if="opsiWilayah" class="btn btn-light btn-sm ms-2" @click="()=>{getCompanies(); opsiWilayah=''}">reset</button>
+              <!-- <button v-if="opsiWilayah" class="btn btn-light btn-sm ms-2" @click="()=>{getCompanies(); opsiWilayah=''}">reset</button> -->
             </div>
           </div>
-          <div class="col-4">
-            <div class="my-3">
+          <div class="col">
+            <div class="my-2 mb-4">
               <input type="search" @input="searchByKeyword" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan nama..." />
             </div>
           </div>
@@ -117,7 +118,7 @@ async function filterByWilayah() {
       companies.value = data
     }
   } else {
-    getStudents()
+    getCompanies()
   }
 }
 </script>

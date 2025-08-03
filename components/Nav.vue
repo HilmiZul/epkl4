@@ -1,10 +1,10 @@
 <template>
-  <div class="col-2 side-nav">
+  <div class="col-sm-3 side-nav">
     <div class="card shadow-lg">
       <div class="card-body p-0">
         <div v-if="user" class="romana text-center text-muted py-2">Halo, <span class="border-3 border-bottom">{{ prokel }}</span>! 😃</div>
         <nav>
-          <ol class="list-group list-group-flush">
+          <ol class="list-group list-group-flush small">
             <nuxt-link to="/">
               <li class="list-group-item"><i class="bi bi-pie-chart-fill"></i> Statistik</li>
             </nuxt-link>
@@ -25,6 +25,9 @@
             </nuxt-link>
             <nuxt-link to="/analitik">
               <li class="list-group-item"><i class="bi bi-bar-chart-fill"></i> Analitik</li>
+            </nuxt-link>
+            <nuxt-link to="/users" v-if="role === 'admin'">
+              <li class="list-group-item"><i class="bi bi-person-square"></i> Profil</li>
             </nuxt-link>
             <nuxt-link to="/users" v-if="role === 'admin'">
               <li class="list-group-item"><i class="bi bi-people-fill"></i> Users</li>
@@ -87,7 +90,7 @@ a:hover > li {
   border: none !important;
   border-bottom: 1px solid #dfdfdf !important;
 }
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 992px) {
   .side-nav {
     display: none;
   }

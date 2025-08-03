@@ -8,21 +8,21 @@
     </div>
     <div class="card-body">
       <div class="row">
-        <div class="col-2">
-          <div class="my-3">
+        <div class="col-3">
+          <div class="my-2">
             <select @change="filterByKelas" v-model="opsiKelas" class="form form-control form-select">
-              <option disabled value="">🗂 Filter kelas</option>
+              <option disabled value="">🗂 Kelas</option>
               <option value="">Semua</option>
               <option value="PPLG-1">PPLG-1</option>
               <option value="PPLG-2">PPLG-2</option>
               <option value="PPLG-3">PPLG-3</option>
               <option value="PPLG-4">PPLG-4</option>
             </select>
-            <button v-if="opsiKelas" class="btn btn-light btn-sm ms-2" @click="()=>{getStudents(); opsiKelas=''}">reset</button>
+            <!-- <button v-if="opsiKelas" class="btn btn-light btn-sm ms-2" @click="()=>{getStudents(); opsiKelas=''}">reset</button> -->
           </div>
         </div>
-        <div class="col-4">
-          <div class="my-3">
+        <div class="col">
+          <div class="mt-2 mb-4">
             <input type="search" @input="searchByKeyword" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan nama..." />
           </div>
         </div>

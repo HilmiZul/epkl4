@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid pb-5">
+  <div class="container pb-5">
     <Header />
     <div class="row">
       <Navbar />
@@ -78,7 +78,7 @@ table {
   font-size: small;
 }
 .table-responsive {
-  height: 500px;
+  height: 400px;
   overflow-x: auto;
   overflow-y: auto;
   border: 2px solid #000
