@@ -15,7 +15,7 @@
             <nuxt-link class="nav-link" to="/peserta"><i class="bi bi-people-fill"></i> Peserta Didik</nuxt-link>
           </li>
           <li class="nav-item">
-            <nuxt-link class="nav-link" to="/dudi"><i class="bi bi-buildings-fill"></i> DU/DI</nuxt-link>
+            <nuxt-link class="nav-link" to="/iduka"><i class="bi bi-buildings-fill"></i> IDUKA</nuxt-link>
           </li>
           <li class="nav-item">
             <nuxt-link class="nav-link" to="/pemetaan"><i class="bi bi-git"></i> Pemetaan</nuxt-link>

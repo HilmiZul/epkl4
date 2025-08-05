@@ -22,6 +22,7 @@
 }
 html, body {
   background-color: #f5fff2;
+  /*background-color: #a0a0a0;*/
   font-family: 'Metropolis';
 }
 .metropolis {
@@ -92,7 +93,7 @@ table {
 a.link {
   text-decoration: none;
   color: #000;
-  border-bottom: 3px dashed #c1ccd5;
+  border-bottom: 2px dashed #c1ccd5;
   transition: all .2s ease-in-out;
   padding-bottom: .2rem;
 }

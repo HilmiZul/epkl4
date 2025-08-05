@@ -3,10 +3,11 @@
     <div class="card-header">
       <span class="h4 romana text-grey"><i class="bi bi-patch-check-fill"></i> Verifikasi</span>
     </div>
-    <div class="card-body">
-      <li>Jadwal</li>
-      <li>Penilaian dan</li>
-      <li>Karya?</li>
+    <div class="card-body small">
+      <li>Buat jadwal</li>
+      <li>Rilis jadwal</li>
+      <li>Penilaian sesuai format sertifikat, dan</li>
+      <li>link Karya (PPLG)?</li>
     </div>
   </div>
 </template>

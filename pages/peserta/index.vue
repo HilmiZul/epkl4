@@ -3,7 +3,7 @@
     <div class="card-header">
       <span class="h4 romana text-grey"><i class="bi bi-person-fill"></i> Peserta Didik</span>
       <span class="float-end">
-        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/peserta/import" class="btn btn-success btn-sm">Impor dari .csv</nuxt-link>
+        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/peserta/import" class="btn btn-success btn-sm"><i class="bi bi-download"></i> Impor dari .csv</nuxt-link>
       </span>
     </div>
     <div class="card-body">
@@ -47,7 +47,7 @@
             <tr v-for="(student,i) in students" :key="student.id">
               <td>{{ i+1 }}. </td>
               <td>
-                <nuxt-link :to="`/peserta/${student.id}`" class="link me-2">{{ student.nama }}</nuxt-link>
+                <nuxt-link :to="`/peserta/${student.id}`" class="link">{{ student.nama }}</nuxt-link>
               </td>
               <td>{{ student.kelas }}</td>
               <td>

@@ -20,7 +20,7 @@
             <div class="strong">Berhasil tersimpan!</div>
           </div>
           <!-- <button @click="()=>isLoading=!isLoading">tes</button> -->
-          <nuxt-link to="/peserta" class="btn btn-dark btn-sm mb-3">Kembali</nuxt-link>
+          <nuxt-link to="/peserta" class="btn btn-light btn-sm mb-3">Kembali</nuxt-link>
         </div>
         <div class="col">
           <div class="alert alert-warning border-5 border-dark shadow-lg">

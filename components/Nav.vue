@@ -4,15 +4,15 @@
       <div class="card-body p-0">
         <div v-if="user" class="romana text-center text-muted py-2">Halo, <span class="border-3 border-bottom">{{ prokel }}</span>! 😃</div>
         <nav>
-          <ol class="list-group list-group-flush small">
+          <ol class="list-group list-group-flush">
             <nuxt-link to="/">
               <li class="list-group-item"><i class="bi bi-pie-chart-fill"></i> Statistik</li>
             </nuxt-link>
             <nuxt-link to="/peserta">
               <li class="list-group-item"><i class="bi bi-person-fill"></i> Peserta Didik</li>
             </nuxt-link>
-            <nuxt-link to="/dudi">
-              <li class="list-group-item"><i class="bi bi-buildings-fill"></i> DU/DI</li>
+            <nuxt-link to="/iduka">
+              <li class="list-group-item"><i class="bi bi-buildings-fill"></i> IDUKA</li>
             </nuxt-link>
             <nuxt-link to="/pemetaan">
               <li class="list-group-item"><i class="bi bi-diagram-3-fill"></i> Pemetaan</li>
@@ -25,9 +25,6 @@
             </nuxt-link>
             <nuxt-link to="/analitik">
               <li class="list-group-item"><i class="bi bi-bar-chart-fill"></i> Analitik</li>
-            </nuxt-link>
-            <nuxt-link to="/users" v-if="role === 'admin'">
-              <li class="list-group-item"><i class="bi bi-person-square"></i> Profil</li>
             </nuxt-link>
             <nuxt-link to="/users" v-if="role === 'admin'">
               <li class="list-group-item"><i class="bi bi-people-fill"></i> Users</li>

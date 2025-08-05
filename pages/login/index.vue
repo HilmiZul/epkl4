@@ -5,7 +5,7 @@
         <div class="card-body">
           <form @submit.prevent="handleLogin">
             <div v-if="isError" class="mb-3">
-              <div class="alert alert-danger text-danger rounded-0 border-3 border-danger">Kombinasi salah! coba lagi besok!</div>
+              <div class="alert alert-danger text-danger small rounded-0 border-3 border-danger">Kombinasi salah! Coba lagi besok!</div>
             </div>
             <div class="mb-3">
               <input v-model="email" type="text" class="form form-control" name="username" id="email" placeholder="username" required autofocus>

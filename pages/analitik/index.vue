@@ -1,12 +1,12 @@
 <template>
   <div class="card shadow-lg">
     <div class="card-header">
-      <span class="h4 romana text-grey"><i class="bi bi-bar-chart-fill"></i> Analitik Kesesuaian DU/DI</span>
+      <span class="h4 romana text-grey"><i class="bi bi-bar-chart-fill"></i> Analitik Kesesuaian IDUKA</span>
     </div>
-    <div class="card-body">
-      <li>Data statistik DU/DI per Program Keahlian</li>
-      <li>Data statistik Rankink</li>
-      <li>Prosentase Kesesuaian dari jumlah DU/DI per Program Keahlian</li>
+    <div class="card-body small">
+      <li>Data statistik IDUKA per Program Keahlian</li>
+      <li>Data statistik Ranking</li>
+      <li>Prosentase Kesesuaian dari jumlah IDUKA per Program Keahlian</li>
     </div>
   </div>
 </template>

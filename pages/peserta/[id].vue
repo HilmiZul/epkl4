@@ -27,8 +27,8 @@
                 Diterima tempat PKL?
               </label>
             </div>
-            <button :disabled="isLoadingSave || isLoading" class="btn btn-dark mb-2 me-2">Simpan</button>
-            <nuxt-link to="/peserta" class="btn btn-light me-2 mb-2">Kembali</nuxt-link>
+            <button :disabled="isLoadingSave || isLoading" class="btn btn-dark btn-sm mb-2 me-2">Simpan</button>
+            <nuxt-link to="/peserta" class="btn btn-light btn-sm me-2 mb-2">Kembali</nuxt-link>
             <div class="my-3">
               <em v-if="isSaved" class="text-muted">Berhasil tersimpan!</em>
               <em v-if="isLoadingSave" class="text-muted">Bentar lagi menyimpan...</em>
@@ -43,21 +43,21 @@
               <li>Telah menuntaskan nilai rapor Semester 1 s.d 5</li>
               <li>Status <strong>Pemetaan PKL</strong> diubah oleh sistem ketika siswa di petakan</li>
               <li>Jika ada nilai rapor yang belum tuntas, silahkan ubah status ketuntasan rapor</li>
-              <li v-if="form.status_pemetaan_pkl" class="text-success">Mengubah status penerimaan PKL, apabila siswa sudah terpetakan dan diterima di DU/DI tersebut</li>
+              <li v-if="form.status_pemetaan_pkl" class="text-success">Mengubah status penerimaan PKL, apabila siswa sudah terpetakan dan diterima di IDUKA tersebut</li>
             </ul>
           </div>
         </div>
       </div>
-      <hr class="my-5">
+      <hr class="my-4">
       <div class="row">
-        <div class="col-2 align-content-center">
+        <!-- <div class="col-2 align-content-center">
           <div class="emoji text-center">🙅🏻‍♂️</div>
-        </div>
+        </div> -->
         <div class="col">
           <div class="alert text-danger border-danger">
             <h5 class="romana">Danger Zone!</h5>
             <p class="small">Apabila Siswa yang bernama <span class="border-2 border-bottom border-danger pb-1">{{ form.nama }}</span> telah pindah/mengundurkan diri, silahkan hapus!</p>
-            <button class="btn btn-danger border-danger" data-bs-toggle="modal" :data-bs-target="`#siswa-${form.id}`">Hapus</button>
+            <button class="btn btn-danger btn-sm border-danger" data-bs-toggle="modal" :data-bs-target="`#siswa-${form.id}`">Hapus</button>
             <div class="modal" :id="`siswa-${form.id}`">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content rounded-0 border-3 border-dark shadow-lg">
