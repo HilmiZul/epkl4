@@ -78,6 +78,13 @@ button.btn-grey:hover {
 table {
   font-size: small;
 }
+table thead {
+  font-size: medium;
+}
+table th {
+  background-color: #000 !important;
+  color: #fff;
+}
 .table-responsive {
   height: 400px;
   overflow-x: auto;
