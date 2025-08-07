@@ -18,8 +18,9 @@
 
 <script setup>
 definePageMeta({
-  middleware: 'auth'
+  middleware: 'auth',
 })
+useHead({ title: "e-PKL / SMKN 4 Tasikmalaya." })
 let user = usePocketBaseUser()
 let role = user?.user.value.role
 </script>

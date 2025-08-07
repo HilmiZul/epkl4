@@ -4,7 +4,7 @@
       <div class="card-header">
         <span class="h4 romana text-grey"><i class="bi bi-buildings-fill"></i> IDUKA</span>
         <span class="float-end">
-          <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/iduka/tambah" class="btn btn-light btn-sm me-2"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
+          <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/iduka/tambah" class="btn btn-dark btn-sm me-2"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
           <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/iduka/import" class="btn btn-success btn-sm"><i class="bi bi-download"></i> Impor dari .csv</nuxt-link>
         </span>
       </div>
@@ -27,15 +27,20 @@
             </div>
           </div>
         </div>
+        <div class="row">
+          <div class="col">
+            <div class="mb-4 fs-6 text-center text-muted">— {{ companies.length }} IDUKA —</div>
+          </div>
+        </div>
         <div v-if="isLoading"><Loading /></div>
         <div v-else class="table-responsive">
           <table class="table table-hover table-striped">
             <thead>
               <tr>
-                <th width="2%">#</th>
-                <th width="20%">Nama</th>
-                <th width="50%">Alamat</th>
-                <th width="3%">Kuota</th>
+                <th width="1%">#</th>
+                <th width="30%">Nama</th>
+                <th width="10%">Wilayah</th>
+                <th width="3%">Terisi</th>
               </tr>
             </thead>
             <tbody>
@@ -45,8 +50,11 @@
               <tr v-for="(company, i) in companies" :key="i">
                 <td>{{ i + 1 }}.</td>
                 <td><nuxt-link :to="`/iduka/${company.id}`" class="link">{{ company.nama }}</nuxt-link></td>
-                <td>{{ company.alamat }} </td>
-                <td class="text-center">{{ company.jumlah_kuota }} </td>
+                <td>{{ company.wilayah.charAt(0).toUpperCase() + company.wilayah.slice(1) }} kota </td>
+                <td>
+                  <span v-if="company.terisi < company.jumlah_kuota">{{ company.terisi }} dari {{ company.jumlah_kuota }}</span>
+                  <span v-else class="badge bg-danger">Penuh</span>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -60,6 +68,7 @@
 definePageMeta({
   middleware: 'auth'
 })
+useHead({ title: "IDUKA — e-PKL / SMKN 4 Tasikmalaya." })
 let client = usePocketBaseClient()
 let user = usePocketBaseUser()
 let role = user?.user.value.role
@@ -97,7 +106,7 @@ async function getCompanies() {
     client.autoCancellation(false)
     let response = await client.collection('iduka').getFullList({
       filter: 'program_keahlian = "' + user.user.value.program_keahlian + '"',
-      sort: '-wilayah'
+      sort: 'terisi, -wilayah'
     })
     if (response) {
       companies.value = response

@@ -10,7 +10,6 @@
 </template>
 
 <script setup>
-definePageMeta({
-  middleware: 'admin-auth'
-})
+definePageMeta({ middleware: 'admin-auth' })
+useHead({ title: "Users management — e-PKL / SMKN 4 Tasikmalaya." })
 </script>

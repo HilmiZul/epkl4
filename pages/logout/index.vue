@@ -9,9 +9,8 @@
 </template>
 
 <script setup>
-definePageMeta({
-  middleware: 'auth',
-})
+definePageMeta({ middleware: 'auth' })
+useHead({ title: "Logging out — e-PKL / SMKN 4 Tasikmalaya." })
 
 let client = usePocketBaseClient()
 

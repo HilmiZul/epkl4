@@ -43,6 +43,7 @@
 definePageMeta({
   middleware: 'auth'
 })
+useHead({ title: "Impor IDUKA — e-PKL / SMKN 4 Tasikmalaya." })
 let client = usePocketBaseClient()
 let idukaTemp = ref([])
 let isLoading = ref(false)

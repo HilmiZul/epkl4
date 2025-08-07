@@ -3,7 +3,7 @@
     <div class="card-header">
       <span class="h4 romana text-grey">IDUKA / <span class="text-muted">Tambah baru</span></span>
     </div>
-    <div class="card-body small">
+    <div class="card-body">
       <div class="row">
         <div class="col-md-5">
           <div v-if="isSaved" class="alert alert-success border-2 border-success">Berhasil tersimpan!</div>
@@ -80,6 +80,8 @@
 </template>
 
 <script setup>
+definePageMeta({ middleware: 'auth' })
+useHead({ title: "Tambah IDUKA — e-PKL / SMKN 4 Tasikmalaya." })
 let client = usePocketBaseClient()
 let user = usePocketBaseUser()
 let prokel = user?.user.value.program_keahlian

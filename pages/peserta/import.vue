@@ -44,6 +44,7 @@
 definePageMeta({
   middleware: 'auth'
 })
+useHead({ title: "Impor Peserta — e-PKL / SMKN 4 Tasikmalaya." })
 let client = usePocketBaseClient()
 let studentTemp = ref([])
 let isLoading = ref(false)

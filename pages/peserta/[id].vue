@@ -84,6 +84,7 @@
 definePageMeta({
   middleware: ['auth']
 })
+useHead({ title: "Update Peserta — e-PKL / SMKN 4 Tasikmalaya." })
 let client = usePocketBaseClient()
 let user = usePocketBaseUser()
 let route = useRoute()

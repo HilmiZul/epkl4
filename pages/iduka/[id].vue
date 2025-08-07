@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h5 romana text-grey">IDUKA / {{ form.nama }}</span>
+      <span class="h4 romana text-grey">IDUKA / {{ form.nama }}</span>
     </div>
     <div class="card-body">
       <div class="row">
@@ -82,6 +82,10 @@
 </template>
 
 <script setup>
+definePageMeta({
+  middleware: ['auth']
+})
+useHead({ title: "Update IDUKA — e-PKL / SMKN 4 Tasikmalaya." })
 let client = usePocketBaseClient()
 let user = usePocketBaseUser()
 let route = useRoute()

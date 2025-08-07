@@ -27,6 +27,11 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col">
+          <div class="mb-4 fs-6 text-center text-muted">— {{ students.length }} peserta —</div>
+        </div>
+      </div>
       <div v-if="isLoading"><Loading /></div>
       <div v-else class="table-responsive">
         <table class="table table-hover table-striped">
@@ -35,8 +40,8 @@
               <th width="2%">#</th>
               <th>Nama</th>
               <th>Kelas</th>
-              <th>Ketuntasan Rapor</th>
-              <th>Pemetaan PKL</th>
+              <th>Rapor</th>
+              <th>Pemetaan</th>
               <th>Acc. PKL</th>
             </tr>
           </thead>
@@ -55,7 +60,7 @@
                 <span v-else class="badge bg-danger">Belum tuntas</span>
               </td>
               <td>
-                <span v-if="student.status_pemetaan_pkl" class="badge bg-success">Terpetakan</span>
+                <span v-if="student.status_pemetaan_pkl" class="badge bg-success">Sudah</span>
                 <span v-else class="badge bg-danger">Belum</span>
               </td>
               <td>
@@ -76,6 +81,7 @@
 definePageMeta({
   middleware: 'auth'
 })
+useHead({ title: "Peserta — e-PKL / SMKN 4 Tasikmalaya." })
 let client = usePocketBaseClient()
 let user = usePocketBaseUser()
 let students = ref([])

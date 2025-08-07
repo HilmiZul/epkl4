@@ -12,7 +12,6 @@
 </template>
 
 <script setup>
-definePageMeta({
-  middleware: 'auth'
-})
+definePageMeta({ middleware: 'auth' })
+useHead({ title: "Analitik — e-PKL / SMKN 4 Tasikmalaya." })
 </script>

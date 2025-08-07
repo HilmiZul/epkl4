@@ -29,6 +29,7 @@ definePageMeta({
   layout: 'login',
   middleware: 'check-auth'
 })
+useHead({ title: "Login — e-PKL / SMKN 4 Tasikmalaya." })
 
 let client = usePocketBaseClient()
 let user = usePocketBaseUser()
