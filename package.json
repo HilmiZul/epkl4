@@ -7,6 +7,7 @@
     "bootstrap-icons": "^1.13.1",
     "chart.js": "^4.5.0",
     "nuxt": "3.18",
+    "nuxt3-select2": "^0.1.29",
     "pocketbase": "^0.21.5"
   },
   "description": "Pemetaan PKL",
@@ -15,5 +16,8 @@
     "dev": "nuxt dev",
     "build": "nuxt build",
     "preview": "nuxt preview"
+  },
+  "devDependencies": {
+    "vue-multiselect": "^3.3.1"
   }
 }
