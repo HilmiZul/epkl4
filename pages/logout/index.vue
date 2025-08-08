@@ -16,6 +16,7 @@ let client = usePocketBaseClient()
 
 function logout() {
   client.authStore.clear()
+  client.realtime.unsubscribe()
   navigateTo('/login')
 }
 onMounted(() => logout())

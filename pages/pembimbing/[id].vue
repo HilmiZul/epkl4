@@ -76,5 +76,10 @@ async function getPembimbingById() {
   }
 }
 
-onMounted(() => getPembimbingById())
+onMounted(() => {
+  getPembimbingById()
+  client.collection('pembimbing').subscribe(route.params.id, function (e) {
+    if(e.action == 'update') getPembimbingById()
+  }, {});
+})
 </script>

@@ -2,7 +2,7 @@
   <div class="card shadow-lg">
     <div class="card-header">
       <span class="h4 romana text-grey"><i class="bi bi-diagram-3-fill"></i> Pemetaan</span>
-      <div class="float-end">
+      <div v-if="isIdukaAvailable.length > 0" class="float-end">
         <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/pemetaan/tambah" class="btn btn-dark btn-sm"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
       </div>
     </div>
@@ -75,6 +75,7 @@ let newMapping = ref([])
 let isLoading = ref(true)
 let opsiWilayah = ref('')
 let keyword = ref('')
+let isIdukaAvailable = ref([])
 
 async function getPemetaan() {
   isLoading.value = true
@@ -233,8 +234,20 @@ const mappingFiltered = computed(() => {
   })
 })
 
+async function getIdukaIsAvailable() {
+  isLoading.value = true
+  let data = await client.collection('iduka').getFullList({
+    filter: "program_keahlian='"+prokel+"'"
+  })
+  if(data) {
+    isLoading.value = false
+    isIdukaAvailable.value = data
+  }
+}
+
 onMounted(() => {
   getPemetaan()
+  getIdukaIsAvailable()
 })
 </script>
 

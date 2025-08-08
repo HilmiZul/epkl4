@@ -4,11 +4,11 @@
 
     <slot />
 
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-3">
         <Footer />
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 

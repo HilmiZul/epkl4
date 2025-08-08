@@ -62,8 +62,7 @@
         <div class="col">
           <div class="alert text-danger border-danger">
             <h5 class="romana">Danger Zone!</h5>
-            <p class="small">Apabila Siswa yang bernama <span class="border-2 border-bottom border-danger pb-1">{{ pemetaan.expand.siswa.nama }}</span>
-              dihapus, maka harus buat pemetaan ulang!</p>
+            <p class="small">Apabila Pemetaan ini dihapus, maka harus buat pemetaan ulang!</p>
             <button class="btn btn-danger btn-sm border-danger" data-bs-toggle="modal" :data-bs-target="`#pemetaan-${route.params.id}`">Hapus</button>
             <div class="modal" :id="`pemetaan-${route.params.id}`">
               <div class="modal-dialog modal-dialog-centered">
@@ -108,7 +107,7 @@ let form = ref({
 let wilayah = ref(['dalam', 'luar'])
 
 async function hapusData(id) {
-  let curr_terisi = pemetaan.value.expand.iduka.terisi
+  // let curr_terisi = pemetaan.value.expand.iduka.terisi
   let new_terisi = pemetaan.value.expand.iduka.terisi - 1
   await client.collection('siswa').update(pemetaan.value.siswa, {
     status_pemetaan_pkl: false,
@@ -180,8 +179,11 @@ async function getCompanies() {
 onMounted(() => {
   getSingleMapping()
   getCompanies()
-  client.collection('pemetaan').subscribe('update', function (e) {
-    if(e.action == 'update') getSingleMapping()
+  client.collection('pemetaan').subscribe(route.params.id, function (e) {
+    if(e.action == 'update') {
+      getSingleMapping()
+      getCompanies()
+    }
   }, {});
 })
 </script>

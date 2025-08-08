@@ -167,7 +167,7 @@ onMounted(() => {
   getCompanies()
   client.collection('iduka').subscribe('*', function(e) {
     if(e.action == 'delete') getCompanies()
-  })
+  },{})
 })
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-3">
+    <div class="col-lg-3">
       <div class="card shadow-lg">
         <div class="card-body">
           <form @submit.prevent="handleLogin">
@@ -20,6 +20,7 @@
           </form>
         </div>
       </div>
+      <Footer />
     </div>
   </div>
 </template>

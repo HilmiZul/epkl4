@@ -168,5 +168,11 @@ onMounted(() => {
   // TempgetPembimbing()
   getPembimbingSekolah()
   getCompanyById()
+  client.collection('iduka').subscribe(route.params.id, function(e) {
+    if(e.action == 'update') {
+      getCompanyById()
+      getPembimbingSekolah()
+    }
+  },{})
 })
 </script>

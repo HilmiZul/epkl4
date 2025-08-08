@@ -117,6 +117,7 @@ async function buatPemetaan() {
   if(data) {
     isSending.value = false
     isSaved.value = true
+    navigateTo("/pemetaan")
   }
 }
 
@@ -130,6 +131,7 @@ async function getCompanies() {
   if(data) {
     isLoadingCompanies.value = false
     companies.value = data
+    if(companies.value.length < 1) navigateTo("/pemetaan")
   }
 }
 
@@ -149,7 +151,7 @@ async function getStudents() {
 onMounted(() => {
   getStudents()
   getCompanies()
-  client.collection('pemetaan').subscribe('create', function(e) {
+  client.collection('pemetaan').subscribe('*', function (e) {
     if(e.action == 'create') {
       getStudents()
       getCompanies()
