@@ -27,7 +27,7 @@
                 </template>
               </multiselect>
             </div>
-            <button class="btn btn-dark btn-sm me-2">Simpan</button>
+            <button class="btn btn-success btn-sm me-2">Simpan</button>
             <nuxt-link to="/pemetaan" class="btn btn-light btn-sm">Kembali</nuxt-link>
           </form>
         </div> -->

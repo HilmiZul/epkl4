@@ -1,13 +1,13 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 romana text-grey">Pemetaan / <span class="text-muted">Tambah baru</span></span>
+      <span class="h4 romana text-muted">Pemetaan / <span class="text-grey">Tambah baru</span></span>
     </div>
     <div class="card-body">
       <div class="row">
         <div class="col">
           <div class="alert alert-warning border-5 border-dark shadow-lg">
-            <div class="h5 romana">Perhatikan!</div>
+            <div class="h5 romana">Perhatiin!</div>
             <ul class="small">
               <li>IDUKA yang ditambahkan sesuai dengan Program Keahlian</li>
               <li>Setiap IDUKA dapat diatur berapa banyaknya kuota peserta (sesuai Program Keahlian)</li>
@@ -65,7 +65,7 @@
                 <template v-slot:singleLabel="{ option }"><strong>{{ option.nama }} — {{ option.kelas }}</strong></template>
               </multiselect>
             </div>
-            <button :disabled="isSending" class="btn btn-dark btn-sm me-2">
+            <button :disabled="isSending" class="btn btn-success btn-sm me-2">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>

@@ -3,7 +3,7 @@
     <div class="card-header">
       <span class="h4 romana text-grey"><i class="bi bi-diagram-3-fill"></i> Pemetaan</span>
       <div v-if="isIdukaAvailable.length > 0" class="float-end">
-        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/pemetaan/tambah" class="btn btn-dark btn-sm"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
+        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/pemetaan/tambah" class="btn btn-info btn-sm"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
       </div>
     </div>
     <div class="card-body small">

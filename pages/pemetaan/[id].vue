@@ -1,13 +1,15 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span v-if="!isLoading" class="h4 romana text-grey">{{ pemetaan.expand.siswa.nama }} > {{ pemetaan.expand.iduka.nama }}</span>
+      <span v-if="!isLoading" class="h4 romana text-muted">
+        {{ pemetaan.expand.siswa.nama }} > <span class="text-grey">{{ pemetaan.expand.iduka.nama }}</span>
+      </span>
     </div>
     <div class="card-body">
       <div class="row">
         <div class="col">
           <div class="alert alert-warning border-5 border-dark shadow-lg">
-            <div class="h5 romana">Perhatikan!</div>
+            <div class="h5 romana">Perhatiin!</div>
             <ul class="small">
               <li>Tentukan wilayah untuk mengubah IDUKA</li>
               <li>IDUKA yang muncul hanya yang masih kosong</li>
@@ -48,7 +50,7 @@
                 <template v-slot:singleLabel="{ option }"><strong>{{ option.nama }} / {{ option.terisi }} dari {{ option.jumlah_kuota }}</strong></template>
               </multiselect>
             </div>
-            <button :disabled="isSending || form.iduka.length < 1" class="btn btn-dark btn-sm me-2">
+            <button :disabled="isSending || form.iduka.length < 1" class="btn btn-success btn-sm me-2">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>
@@ -63,11 +65,11 @@
           <div class="alert text-danger border-danger">
             <h5 class="romana">Danger Zone!</h5>
             <p class="small">Apabila Pemetaan ini dihapus, maka harus buat pemetaan ulang!</p>
-            <button class="btn btn-danger btn-sm border-danger" data-bs-toggle="modal" :data-bs-target="`#pemetaan-${route.params.id}`">Hapus</button>
+            <button class="btn btn-danger btn-sm border-dark" data-bs-toggle="modal" :data-bs-target="`#pemetaan-${route.params.id}`">Hapus</button>
             <div class="modal" :id="`pemetaan-${route.params.id}`">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content rounded-0 border-3 border-dark shadow-lg">
-                  <div class="modal-header rounded-0 h4 bg-danger text-white">
+                  <div class="modal-header rounded-0 h4 bg-danger text-white romana">
                     Peringatan!
                   </div>
                   <div class="modal-body text-dark small">

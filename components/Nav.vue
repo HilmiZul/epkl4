@@ -2,9 +2,9 @@
   <div class="col-sm-3 side-nav">
     <div class="card shadow-lg">
       <div class="card-body p-0">
-        <div v-if="user" class="romana text-center text-muted py-2">Halo, <span class="border-3 border-bottom">{{ prokel }}</span>! 😃</div>
+        <div v-if="user" class="lexend-mega text-center text-muted py-2">Halo, <span class="border-3 border-bottom">{{ prokel }}</span>! 😃</div>
         <nav>
-          <ol class="list-group list-group-flush">
+          <ol class="list-group list-group-flush public-sans">
             <nuxt-link to="/">
               <li class="list-group-item"><i class="bi bi-pie-chart-fill"></i> Statistik</li>
             </nuxt-link>
@@ -43,7 +43,7 @@
                     keluar dari app?
                   </div>
                   <div class="modal-footer">
-                    <nuxt-link to="/logout" class="btn btn-dark">keluar</nuxt-link>
+                    <nuxt-link to="/logout" class="btn btn-success">keluar</nuxt-link>
                     <button class="btn btn-light" data-bs-dismiss="modal">tidak</button>
                   </div>
                 </div>

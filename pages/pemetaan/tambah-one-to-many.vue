@@ -50,7 +50,7 @@
                 </template>
               </multiselect>
             </div>
-            <button :disabled="isSending" class="btn btn-dark btn-sm me-2">
+            <button :disabled="isSending" class="btn btn-success btn-sm me-2">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>

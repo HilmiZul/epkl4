@@ -1,9 +1,7 @@
 <template>
   <div class="row">
-    <div class="col-12">
-      <h1 class="text-center">
-        <em>Signing out...</em>
-      </h1>
+    <div class="col-12 text-center fst-italic lexend-mega">
+      <h1>Logging out...</h1>
     </div>
   </div>
 </template>

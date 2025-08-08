@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg bg-body-tertiary mb-3">
     <div class="container-fluid">
-      <nuxt-link v-if="user" class="navbar-brand romana text-muted" to="/">Halo, <span class="border-3 border-bottom">{{ prokel }}</span>! 😃</nuxt-link>
+      <nuxt-link v-if="user" class="navbar-brand lexend-mega text-muted" to="/">Halo, <span class="border-3 border-bottom">{{ prokel }}</span>! 😃</nuxt-link>
       <button class="navbar-toggler rounded-0 border-2 border-dark shadow-lg" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <i class="bi-list fs-1 text-dark"></i>

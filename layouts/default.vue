@@ -12,6 +12,9 @@
 </template>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Mega:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
 @font-face {
   font-family: 'Romana BT';
   src: url('~/assets/font/RomanaB.ttf');
@@ -24,7 +27,19 @@ html, body {
   background: #f5fff2 url('~/assets/img/bg-cloud.png') no-repeat center bottom fixed;
   background-size: cover;
   /*background-color: #a0a0a0;*/
-  font-family: 'Metropolis';
+  font-family: "Public Sans", sans-serif;
+}
+.public-sans {
+  font-family: "Public Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+.lexend-mega {
+  font-family: "Lexend Mega", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
 }
 .metropolis {
   font-family: 'Metropolis';
@@ -33,12 +48,12 @@ html, body {
   font-family: 'Romana BT';
 }
 .shadow-lg {
-  box-shadow: 0.5rem 0.5rem 0 #000000 !important;
+  box-shadow: 0.4rem 0.4rem 0 #000000 !important;
 }
 .card {
   border-radius: 0 !important;
-  border: 1.9px solid #000000;
-  box-shadow: 0.5rem 0.5rem 0 #000000 !important;
+  border: 2px solid #000000;
+  box-shadow: 0.4rem 0.4rem 0 #000000 !important;
 }
 .alert {
   border-radius: 0 !important;
@@ -76,6 +91,35 @@ button.btn-grey:hover {
   color: #f5fff2;
   background-color: #212c30;
 }
+.btn-success, .btn-success:hover,
+.bg-success, .alert-success {
+  background-color: #b5d2ad !important;
+  color: #000;
+}
+.btn-success:disabled {
+  color: #000
+}
+.btn-danger, .btn-danger:hover,
+.bg-danger, .alert-danger {
+  background-color: #ff6b6b !important;
+  color: #000 !important;
+}
+.btn-warning, .btn-warning:hover,
+.bg-warning, .alert-warning {
+  background-color: #fafa96 !important;
+  color: #000;
+}
+.btn-info, .btn-info:hover,
+.bg-info, .alert-info {
+  background-color: #87ceeb !important;
+  color: #000;
+}
+.border-danger {
+  border-color: #ff6b6b !important;
+}
+.text-danger {
+  color: #ff6b6b !important;
+}
 table {
   font-size: small;
 }
@@ -111,7 +155,8 @@ a.link:hover {
 }
 input[type="checkbox"]:checked {
   transform: scale(1.3);
-  border-color: #23b05b !important;
+  height: 1.2em;
+  border: 2px solid #000 !important;
   background-color: #23b05b !important;
   color: #23b05b !important;
   margin-right: .8em;
@@ -120,14 +165,19 @@ input[type="checkbox"]:checked {
 input[type="checkbox"]:focus {
   color:#23b05b;
   box-shadow: none;
+  height: 1.2em;
 }
 input[type="checkbox"]:not(:checked) {
   transform: scale(1.3);
-  border-color: #bababa !important;
+  height: 1.2em;
+  border: 2px solid #bababa !important;
   margin-right: .8em;
   box-shadow: none;
 }
 .text-grey {
   color: #4f4f4f;
+}
+.badge {
+  font-size: small;
 }
 </style>

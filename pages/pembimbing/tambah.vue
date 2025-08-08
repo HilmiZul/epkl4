@@ -1,13 +1,13 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 romana text-grey">Pembimbing / <span class="text-muted">Tambah baru</span></span>
+      <span class="h4 romana text-muted">Pembimbing / <span class="text-grey">Tambah baru</span></span>
     </div>
     <div class="card-body">
       <div class="row">
         <div class="col">
           <div class="alert alert-warning border-5 border-dark shadow-lg">
-            <div class="h5 romana">Perhatikan!</div>
+            <div class="h5 romana">Perhatiin!</div>
             <ul class="small">
               <li>Guru pembimbing adalah Guru yang mengajar pada tingkat XII</li>
               <li>Guru pembimbing termasuk Guru kejuruan</li>
@@ -26,9 +26,9 @@
             </div>
             <div class="mb-3">
               <label for="nama">Nama</label>
-              <input v-model="form.nama" type="text" id="nip" class="form form-control" placeholder="masukkan nama Guru Pembimbing" required>
+              <input v-model="form.nama" :disabled="form.nip.length < 1" type="text" id="nip" class="form form-control" placeholder="masukkan nama Guru Pembimbing" required>
             </div>
-            <button :disabled="isSending" class="btn btn-dark btn-sm me-2">
+            <button :disabled="isSending || form.nip.length < 1 || form.nama.length < 4" class="btn btn-success btn-sm me-2">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>

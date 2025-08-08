@@ -13,6 +13,9 @@
 </template>
 
 <style >
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Mega:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
 @font-face {
   font-family: 'Romana BT';
   src: url('~/assets/font/RomanaB.ttf');
@@ -24,7 +27,19 @@
 html, body {
   background: #f5fff2 url('~/assets/img/bg-cloud.png') no-repeat center bottom fixed;
   background-size: cover;
-  font-family: 'Metropolis';
+  font-family: "Public Sans", sans-serif;
+}
+.public-sans {
+  font-family: "Public Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+.lexend-mega {
+  font-family: "Lexend Mega", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
 }
 .metropolis {
   font-family: 'Metropolis';
@@ -71,5 +86,23 @@ button.btn-grey {
 button.btn-grey:hover {
   color: #f5fff2;
   background-color: #212c30;
+}
+.btn-success, .btn-success:hover,
+.bg-success, .alert-success {
+  background-color: #b5d2ad !important;
+  color: #000;
+}
+.btn-success:disabled {
+  color: #000
+}
+.btn-danger, .btn-danger:hover,
+.bg-danger, .alert-danger {
+  background-color: #ff7a5c !important;
+  color: #000;
+}
+.btn-warning, .btn-warning:hover,
+.bg-warning, .alert-warning {
+  background-color: #fafa96 !important;
+  color: #000;
 }
 </style>

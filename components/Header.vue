@@ -1,8 +1,8 @@
 <template>
   <div class="row">
-    <div class="col-sm-3">
-      <div class="card my-3 border border-2 border-dark">
-        <div class="fs-1 text-center romana">
+    <div class="col-lg-3">
+      <div class="card my-3 border border-2 border-dark bg-success">
+        <div class="fs-1 text-center lexend-mega">
           <span class="">e-PKL.</span>
         </div>
       </div>

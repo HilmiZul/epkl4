@@ -1,13 +1,13 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 romana text-grey">IDUKA / <span class="text-muted">Tambah baru</span></span>
+      <span class="h4 romana text-muted">IDUKA / <span class="text-grey">Tambah baru</span></span>
     </div>
     <div class="card-body">
       <div class="row">
         <div class="col">
           <div class="alert alert-warning border-5 border-dark shadow-lg">
-            <div class="h5 romana">Perhatikan!</div>
+            <div class="h5 romana">Perhatiin!</div>
             <ul class="small">
               <li>IDUKA yang ditambahkan sesuai dengan Program Keahlian</li>
               <li>Setiap IDUKA dapat diatur berapa banyaknya kuota peserta (sesuai Program Keahlian)</li>
@@ -68,7 +68,7 @@
               <label for="catatan">Catatan</label>
               <input v-model="form.catatan" type="text" id="catatan" class="form form-control ">
             </div>
-            <button :disabled="isSending" class="btn btn-dark btn-sm me-2 mb-3">
+            <button :disabled="isSending" class="btn btn-success btn-sm me-2 mb-3">
               <span v-if="isSending">Sedang menyimpan</span>
               <span v-else>Simpan</span>
             </button>
