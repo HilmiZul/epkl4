@@ -10,41 +10,36 @@
       </div>
       <div class="card-body small">
         <div class="row">
-          <div class="col-3">
-            <select @change="filterByWilayah" v-model="opsiWilayah" class="form form-control form-select">
-              <option disabled value="">🌏 Wilayah</option>
-              <option value="">Semua</option>
-              <option value="dalam">Dalam kota</option>
-              <option value="luar">Luar kota</option>
-            </select>
-          </div>
-          <div class="col">
+          <div class="col-lg-6">
             <div class="mb-4">
-              <input type="search" @input="searchByKeyword" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan nama..." />
+              <input type="search" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan nama IDUKA / wilayah..." />
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col">
-            <div class="mb-4 text-muted">{{ companies.length }} IDUKA</div>
+            <div class="mb-4 text-muted">{{ idukaFiltered.length }} IDUKA</div>
           </div>
         </div>
-        <!-- <div v-if="isLoading"><Loading /></div> -->
         <div class="table-responsive">
           <table class="table table-hover table-striped table-bordered">
             <thead>
               <tr>
-                <th width="1%">#</th>
-                <th width="30%">Nama</th>
-                <th width="10%">Wilayah</th>
-                <th width="3%">Terisi</th>
+                <th width="2%">#</th>
+                <th>Nama</th>
+                <th>Wilayah</th>
+                <th>Terisi</th>
+                <th>Hapus</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-if="companies.length < 1" class="text-center my-5">
-                <td colspan="4">Data tidak ditemukan</td>
+              <tr v-if="isLoading" class="text-center my-5">
+                <td colspan="5"><Loading /></td>
               </tr>
-              <tr v-for="(company, i) in companies" :key="i">
+              <tr v-else-if="idukaFiltered.length < 1" class="text-center my-5">
+                <td colspan="5">Data tidak ditemukan</td>
+              </tr>
+              <tr v-for="(company, i) in idukaFiltered" :key="i">
                 <td>{{ i + 1 }}.</td>
                 <td><nuxt-link :to="`/iduka/${company.id}`" class="link">{{ company.nama }}</nuxt-link></td>
                 <td>{{ company.wilayah.charAt(0).toUpperCase() + company.wilayah.slice(1) }} kota </td>
@@ -52,9 +47,34 @@
                   <span v-if="company.terisi < company.jumlah_kuota">{{ company.terisi }} dari {{ company.jumlah_kuota }}</span>
                   <span v-else class="badge bg-danger">Penuh</span>
                 </td>
+                <td><button class="btn btn-danger btn-sm" data-bs-toggle="modal" :data-bs-target="`#iduka-${company.id}`">hapus</button></td>
               </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+    </div>
+    <div v-if="idukaFiltered.length > 0">
+      <div v-for="company in idukaFiltered" :key="company.id">
+        <div class="modal" :id="`iduka-${company.id}`">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-0 border-3 border-dark shadow-lg">
+              <div class="modal-header rounded-0 h4 bg-danger text-white">
+                Peringatan!
+              </div>
+              <div class="modal-body text-dark small">
+                Yakin nih mau hapus <span class="romana">{{ company.nama }}</span> dari daftar IDUKA?
+              </div>
+              <div class="modal-footer">
+                <button v-if="!isDeleted" class="btn btn-danger btn-sm" data-bs-dismiss="modal" @click="hapusData(company.id)" :disabled="isSending">
+                  <span v-if="isSending">Sedang menghapus</span>
+                  <span v-else>Hapus</span>
+                </button>
+                <span v-else class="me-2"><em>Berhasil dihapus!</em></span>
+                <button @click="() => { isDeleted = false; isSending = flase }" class="btn btn-light btn-sm" data-bs-dismiss="modal">Gajadi</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -71,13 +91,15 @@ let user = usePocketBaseUser()
 let role = user?.user.value.role
 let companies = ref([])
 let isLoading = ref(true)
+let isSending = ref(false)
+let isDeleted = ref(false)
 let keyword = ref('')
 let prokel = user.user.value.program_keahlian
 let opsiWilayah = ref('')
 
-onMounted(() => {
-  getCompanies()
-})
+async function hapusData(id) {
+  await client.collection('iduka').delete(id)
+}
 
 async function searchByKeyword() {
   isLoading.value = true
@@ -86,7 +108,8 @@ async function searchByKeyword() {
     let data = await client
       .collection('iduka')
       .getFullList({
-        filter: "nama~'"+keyword.value+"' && program_keahlian='"+prokel+"'"
+        filter: "nama~'"+keyword.value+"' && program_keahlian='"+prokel+"'",
+        expand: "pembimbing_sekolah",
       })
     if(data) {
       isLoading.value = false
@@ -99,18 +122,15 @@ async function searchByKeyword() {
 
 async function getCompanies() {
   isLoading.value = true
-  try {
-    client.autoCancellation(false)
-    let response = await client.collection('iduka').getFullList({
-      filter: 'program_keahlian = "' + user.user.value.program_keahlian + '"',
-      sort: 'terisi, -wilayah'
-    })
-    if (response) {
-      companies.value = response
-    }
+  let data = await client.collection('iduka').getFullList({
+    filter: 'program_keahlian = "' + user.user.value.program_keahlian + '"',
+    expand: "program_keahlian, pembimbing_sekolah",
+    sort: 'terisi, -wilayah'
+  })
+  if (data) {
     isLoading.value = false
-  } catch (error) {
-
+    companies.value = data
+    // console.log(companies.value[0].expand.pembimbing_sekolah.nama)
   }
 }
 
@@ -122,6 +142,7 @@ async function filterByWilayah() {
       .collection('iduka')
       .getFullList({
         filter: "wilayah='"+opsiWilayah.value+"' && program_keahlian='"+prokel+"'",
+        expand: "pembimbing_sekolah",
         sort: 'nama',
       })
     if(data) {
@@ -132,6 +153,22 @@ async function filterByWilayah() {
     getCompanies()
   }
 }
+
+const idukaFiltered = computed(() => {
+  return companies.value.filter((i) => {
+    return (
+      i.nama.toLowerCase().includes(keyword.value.toLowerCase()) ||
+      i.wilayah.toLowerCase().includes(keyword.value.toLowerCase())
+    )
+  })
+})
+
+onMounted(() => {
+  getCompanies()
+  client.collection('iduka').subscribe('*', function(e) {
+    if(e.action == 'delete') getCompanies()
+  })
+})
 </script>
 
 <style scoped>

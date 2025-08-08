@@ -10,13 +10,14 @@
       <div class="row">
         <div class="col-lg-6">
           <div class="mb-4">
-            <input type="search" @input="searchByKeyword" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan nama atau NIP..." />
+            <!-- <input type="search" @input="searchByKeyword" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan nama atau NIP..." /> -->
+            <input type="search" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan nama atau NIP..." />
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <div class="mb-4 text-muted">{{ teachers.length }} pembimbing</div>
+          <div class="mb-4 text-muted">{{ itemFiltered.length }} pembimbing</div>
         </div>
       </div>
       <!-- <div v-if="isLoading"><Loading /></div> -->
@@ -25,21 +26,50 @@
           <thead>
             <tr>
               <th width="2%">#</th>
-              <th width="40%">NIP</th>
+              <th>NIP</th>
               <th>Nama</th>
+              <th>Hapus</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-if="teachers.length < 1" class="text-center my-5">
-              <td colspan="6">Data tidak ditemukan.</td>
+            <tr v-if="isLoading" class="text-center my-5">
+              <td colspan="4"><Loading /></td>
             </tr>
-            <tr v-else v-for="(pembimbing,i) in teachers" :key="pembimbing.id">
+            <tr v-else-if="itemFiltered.length < 1" class="text-center my-5">
+              <td colspan="4">Data tidak ditemukan.</td>
+            </tr>
+            <tr v-else v-for="(pembimbing,i) in itemFiltered" :key="pembimbing.id">
               <td>{{ i+1 }}.</td>
               <td>{{ pembimbing.nip }}</td>
               <td><nuxt-link :to="`/pembimbing/${pembimbing.id}`" class="link">{{ pembimbing.nama }}</nuxt-link></td>
+              <td><button class="btn btn-danger btn-sm" data-bs-toggle="modal" :data-bs-target="`#pem-${pembimbing.id}`">hapus</button></td>
             </tr>
           </tbody>
         </table>
+      </div>
+    </div>
+    <div v-if="itemFiltered.length > 0">
+      <div v-for="pembimbing in itemFiltered" :key="pembimbing.id">
+        <div class="modal" :id="`pem-${pembimbing.id}`">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-0 border-3 border-dark shadow-lg">
+              <div class="modal-header rounded-0 h4 bg-danger text-white">
+                Peringatan!
+              </div>
+              <div class="modal-body text-dark small">
+                Yakin nih mau hapus <span class="romana">{{ pembimbing.nama }}</span> dari Pembimbing?
+              </div>
+              <div class="modal-footer">
+                <button v-if="!isDeleted" class="btn btn-danger btn-sm" data-bs-dismiss="modal" @click="hapusData(pembimbing.id)" :disabled="isSending">
+                  <span v-if="isSending">Sedang menghapus</span>
+                  <span v-else>Hapus</span>
+                </button>
+                <span v-else class="me-2"><em>Berhasil dihapus!</em></span>
+                <button @click="() => { isDeleted = false; isSending = flase }" class="btn btn-light btn-sm" data-bs-dismiss="modal">Gajadi</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -52,9 +82,15 @@ let user = usePocketBaseUser()
 let client = usePocketBaseClient()
 let teachers = ref([])
 let isLoading = ref(true)
+let isSending = ref(false)
+let isDeleted = ref(false)
 let role = user.user.value.role
 let prokel = user.user.value.program_keahlian
 let keyword = ref('')
+
+async function hapusData(id) {
+  await client.collection('pembimbing').delete(id)
+}
 
 async function getPembimbingByProkel() {
   isLoading.value = true
@@ -84,7 +120,19 @@ async function searchByKeyword() {
   }
 }
 
+const itemFiltered = computed(() => {
+  return teachers.value.filter((i) => {
+    return (
+      i.nip.toLowerCase().includes(keyword.value.toLowerCase()) ||
+      i.nama.toLowerCase().includes(keyword.value.toLowerCase())
+    )
+  })
+})
+
 onMounted(() => {
   getPembimbingByProkel()
+  client.collection('pembimbing').subscribe('*', function(e) {
+    if(e.action == "delete") getPembimbingByProkel()
+  }, {})
 })
 </script>
