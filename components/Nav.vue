@@ -20,7 +20,7 @@
             <nuxt-link to="/pemetaan">
               <li class="list-group-item"><i class="bi bi-diagram-3-fill"></i> Pemetaan</li>
             </nuxt-link>
-            <nuxt-link to="/jurnal">
+            <!-- <nuxt-link to="/jurnal">
               <li class="list-group-item"><i class="bi bi-journals"></i> Jurnal Peserta</li>
             </nuxt-link>
             <nuxt-link to="/verifikasi">
@@ -28,7 +28,7 @@
             </nuxt-link>
             <nuxt-link to="/analitik">
               <li class="list-group-item"><i class="bi bi-bar-chart-fill"></i> Analitik</li>
-            </nuxt-link>
+            </nuxt-link> -->
             <nuxt-link to="/users" v-if="role === 'admin'">
               <li class="list-group-item"><i class="bi bi-people-fill"></i> Users</li>
             </nuxt-link>
