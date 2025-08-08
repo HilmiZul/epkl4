@@ -5,9 +5,22 @@
     </div>
     <div class="card-body">
       <div class="row">
+        <div class="col">
+          <div class="alert alert-warning border-5 border-dark shadow-lg">
+            <div class="h5 romana">Perhatian!</div>
+            <ul class="small">
+              <li>IDUKA yang ditambahkan sesuai dengan Program Keahlian</li>
+              <li>Setiap IDUKA dapat diatur berapa banyaknya kuota peserta (sesuai Program Keahlian)</li>
+              <li>Setiap IDUKA dapat diatur berdasarkan jenis kelamin, L/P atau keduanya</li>
+              <li>Jika tidak ada, isi form dengan tanda —</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-md-6">
           <form @submit.prevent="buatPemetaan">
-            <div class="mb-3">
+            <div class="my-3">
               <label for="wilayah">Wilayah (dalam/luar kota)</label>
               <!-- <multiselect
                 v-model="selectWilayah"
@@ -59,17 +72,6 @@
             <nuxt-link to="/pemetaan" class="btn btn-light btn-sm me-2">Kembali</nuxt-link>
             <em v-if="isSaved" class="text-muted">Berhasil terpetakan!</em>
           </form>
-        </div>
-        <div class="col">
-          <div class="alert alert-warning border-5 border-dark shadow-lg">
-            <div class="h5 romana">Perhatian!</div>
-            <ul class="small">
-              <li>IDUKA yang ditambahkan sesuai dengan Program Keahlian</li>
-              <li>Setiap IDUKA dapat diatur berapa banyaknya kuota peserta (sesuai Program Keahlian)</li>
-              <li>Setiap IDUKA dapat diatur berdasarkan jenis kelamin, L/P atau keduanya</li>
-              <li>Jika tidak ada, isi form dengan tanda —</li>
-            </ul>
-          </div>
         </div>
       </div>
     </div>

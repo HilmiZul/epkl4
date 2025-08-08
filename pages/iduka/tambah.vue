@@ -5,10 +5,23 @@
     </div>
     <div class="card-body">
       <div class="row">
-        <div class="col-md-5">
+        <div class="col">
+          <div class="alert alert-warning border-5 border-dark shadow-lg">
+            <div class="h5 romana">Perhatian!</div>
+            <ul class="small">
+              <li>IDUKA yang ditambahkan sesuai dengan Program Keahlian</li>
+              <li>Setiap IDUKA dapat diatur berapa banyaknya kuota peserta (sesuai Program Keahlian)</li>
+              <li>Setiap IDUKA dapat diatur berdasarkan jenis kelamin, L/P atau keduanya</li>
+              <li>Jika tidak ada, isi form dengan tanda —</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
           <div v-if="isSaved" class="alert alert-success border-2 border-success">Berhasil tersimpan!</div>
           <form @submit.prevent="buatIdukaBaru">
-            <div class="mb-3">
+            <div class="my-3">
               <label for="nama">Nama IDUKA</label>
               <input v-model="form.nama" type="text" id="nama" class="form form-control " required autofocus>
             </div>
@@ -62,17 +75,6 @@
             <nuxt-link class="btn btn-light btn-sm mb-3" to="/iduka">Kembali</nuxt-link>
             <span v-if="isSaved" class="ms-2 mb-3"><em>Berhasil tersimpan!</em></span>
           </form>
-        </div>
-        <div class="col">
-          <div class="alert alert-warning border-5 border-dark shadow-lg">
-            <div class="h5 romana">Perhatian!</div>
-            <ul class="small">
-              <li>IDUKA yang ditambahkan sesuai dengan Program Keahlian</li>
-              <li>Setiap IDUKA dapat diatur berapa banyaknya kuota peserta (sesuai Program Keahlian)</li>
-              <li>Setiap IDUKA dapat diatur berdasarkan jenis kelamin, L/P atau keduanya</li>
-              <li>Jika tidak ada, isi form dengan tanda —</li>
-            </ul>
-          </div>
         </div>
       </div>
     </div>

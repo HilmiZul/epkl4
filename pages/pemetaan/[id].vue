@@ -5,9 +5,20 @@
     </div>
     <div class="card-body">
       <div class="row">
+        <div class="col">
+          <div class="alert alert-warning border-5 border-dark shadow-lg">
+            <div class="h5 romana">Perhatian!</div>
+            <ul class="small">
+              <li>Tentukan wilayah untuk mengubah IDUKA</li>
+              <li>IDUKA yang muncul hanya yang masih kosong</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-md-6">
           <form @submit.prevent="updatePemetaan">
-            <div class="mb-3">
+            <div class="my-3">
               <label for="wilayah">Wilayah (dalam/luar kota)</label>
               <!-- <multiselect
                 v-model="selectWilayah"
@@ -44,15 +55,6 @@
             <nuxt-link to="/pemetaan" class="btn btn-light btn-sm me-2">Kembali</nuxt-link>
             <em v-if="isSaved" class="text-muted">Berhasil terpetakan!</em>
           </form>
-        </div>
-        <div class="col">
-          <div class="alert alert-warning border-5 border-dark shadow-lg">
-            <div class="h5 romana">Perhatian!</div>
-            <ul class="small">
-              <li>Tentukan wilayah untuk mengubah IDUKA</li>
-              <li>IDUKA yang muncul hanya yang masih kosong</li>
-            </ul>
-          </div>
         </div>
       </div>
     </div>

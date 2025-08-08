@@ -6,35 +6,32 @@
         <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/peserta/import" class="btn btn-success btn-sm"><i class="bi bi-download"></i> Impor dari .csv</nuxt-link>
       </span>
     </div>
-    <div class="card-body">
+    <div class="card-body small">
       <div class="row">
         <div class="col-3">
-          <div class="my-2">
-            <select @change="filterByKelas" v-model="opsiKelas" class="form form-control form-select">
-              <option disabled value="">🗂 Kelas</option>
-              <option value="">Semua</option>
-              <option value="PPLG-1">PPLG-1</option>
-              <option value="PPLG-2">PPLG-2</option>
-              <option value="PPLG-3">PPLG-3</option>
-              <option value="PPLG-4">PPLG-4</option>
-            </select>
-            <!-- <button v-if="opsiKelas" class="btn btn-light btn-sm ms-2" @click="()=>{getStudents(); opsiKelas=''}">reset</button> -->
-          </div>
+          <select @change="filterByKelas" v-model="opsiKelas" class="form form-control form-select">
+            <option disabled value="">🗂 Kelas</option>
+            <option value="">Semua</option>
+            <option value="PPLG-1">PPLG-1</option>
+            <option value="PPLG-2">PPLG-2</option>
+            <option value="PPLG-3">PPLG-3</option>
+            <option value="PPLG-4">PPLG-4</option>
+          </select>
         </div>
         <div class="col">
-          <div class="mt-2 mb-4">
+          <div class="mb-4">
             <input type="search" @input="searchByKeyword" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan nama..." />
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <div class="mb-4 fs-6 text-center text-muted">— {{ students.length }} peserta —</div>
+          <div class="mb-4 text-muted">{{ students.length }} peserta</div>
         </div>
       </div>
-      <div v-if="isLoading"><Loading /></div>
-      <div v-else class="table-responsive">
-        <table class="table table-hover table-striped">
+      <!-- <div v-if="isLoading"><Loading /></div> -->
+      <div class="table-responsive">
+        <table class="table table-hover table-striped table-bordered">
           <thead>
             <tr>
               <th width="2%">#</th>

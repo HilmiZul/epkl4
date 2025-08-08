@@ -9,29 +9,26 @@
     <div class="card-body small">
       <div class="row">
         <div class="col-3">
-          <div class="my-2">
-            <select @change="filterByWilayah" v-model="opsiWilayah" class="form form-control form-select">
-              <option disabled value="">🌏 Wilayah</option>
-              <option value="">Semua</option>
-              <option value="dalam">Dalam kota</option>
-              <option value="luar">Luar kota</option>
-            </select>
-            <!-- <button v-if="opsiWilayah" class="btn btn-light btn-sm ms-2" @click="()=>{getCompanies(); opsiWilayah=''}">reset</button> -->
-          </div>
+          <select @change="filterByWilayah" v-model="opsiWilayah" class="form form-control form-select">
+            <option disabled value="">🌏 Wilayah</option>
+            <option value="">Semua</option>
+            <option value="dalam">Dalam kota</option>
+            <option value="luar">Luar kota</option>
+          </select>
         </div>
         <div class="col">
-          <div class="my-2 mb-4">
-            <input @input="searchByKeyword" v-model="keyword" type="search" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan nama..." />
+          <div class="mb-4">
+            <input @input="searchByKeyword" v-model="keyword" type="search" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan peserta atau IDUKA..." />
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <div class="mb-4 fs-6 text-center text-muted">— {{ mapping.length }} pemetaan —</div>
+          <div class="mb-4 text-muted">{{ mapping.length }} peserta terpetakan</div>
         </div>
       </div>
-      <div v-if="isLoading"><Loading /></div>
-      <div v-else class="row">
+      <!-- <div v-if="isLoading"><Loading /></div> -->
+      <div class="row">
         <div class="col-md-12">
           <div class="table-responsive">
             <table class="table table-bordered">
@@ -40,11 +37,12 @@
                   <th width="2%">#</th>
                   <th width="45%">Peserta</th>
                   <th>IDUKA</th>
+                  <th width="20%">Cetak</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-if="mapping.length < 1" class="text-center my-5">
-                  <td colspan="3">Data tidak ditemukan</td>
+                  <td colspan="4">Data tidak ditemukan</td>
                 </tr>
                 <tr v-for="(pemetaan,i) in mapping" :key="pemetaan.id">
                   <td >{{ i+1 }}.</td>
@@ -56,6 +54,9 @@
                   <td v-if="pemetaan.showIduka" :rowspan="pemetaan.idukaRowspan">
                     {{ pemetaan.expand.iduka.nama }}
                     <div class="fst-italic text-muted">{{ pemetaan.expand.iduka.wilayah.charAt(0).toUpperCase() + pemetaan.expand.iduka.wilayah.slice(1) }} kota</div>
+                  </td>
+                  <td v-if="pemetaan.showIduka" :rowspan="pemetaan.idukaRowspan">
+                    <nuxt-link to="/" class="link">Surat permohonan <i class="bi bi-box-arrow-up-right"></i></nuxt-link>
                   </td>
                 </tr>
               </tbody>

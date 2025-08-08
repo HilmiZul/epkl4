@@ -8,8 +8,22 @@
     <div class="card-body">
       <div class="row">
         <div class="col">
+          <div class="alert alert-warning shadow-lg border-2 border-dark">
+            <h5 class="romana">Perhatian!</h5>
+            <ul class="small">
+              <li>Peserta PKL adalah siswa Semester 6</li>
+              <li>Telah menuntaskan nilai rapor Semester 1 s.d 5</li>
+              <li>Status <strong>Pemetaan PKL</strong> diubah oleh sistem ketika siswa di petakan</li>
+              <li>Jika ada nilai rapor yang belum tuntas, silahkan ubah status ketuntasan rapor</li>
+              <li v-if="form.status_pemetaan_pkl" class="text-success">Mengubah status penerimaan PKL, apabila siswa sudah terpetakan dan diterima di IDUKA tersebut</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
           <form @submit.prevent="simpanPerubahan">
-            <div class="mb-3 form-check form-switch">
+            <div class="my-3 form-check form-switch">
               <input v-model="form.status_rapot" :checked="form.status_rapot" class="form-check-input" type="checkbox" id="checkRapor" switch>
               <label class="form-check-label" for="checkRapor">
                 Ketuntasan Rapor
@@ -34,18 +48,6 @@
               <em v-if="isLoadingSave" class="text-muted">Bentar lagi menyimpan...</em>
             </div>
           </form>
-        </div>
-        <div class="col-sm">
-          <div class="alert alert-warning shadow-lg border-2 border-dark">
-            <h5 class="romana">Perhatian!</h5>
-            <ul class="small">
-              <li>Peserta PKL adalah siswa Semester 6</li>
-              <li>Telah menuntaskan nilai rapor Semester 1 s.d 5</li>
-              <li>Status <strong>Pemetaan PKL</strong> diubah oleh sistem ketika siswa di petakan</li>
-              <li>Jika ada nilai rapor yang belum tuntas, silahkan ubah status ketuntasan rapor</li>
-              <li v-if="form.status_pemetaan_pkl" class="text-success">Mengubah status penerimaan PKL, apabila siswa sudah terpetakan dan diterima di IDUKA tersebut</li>
-            </ul>
-          </div>
         </div>
       </div>
       <hr class="my-4">

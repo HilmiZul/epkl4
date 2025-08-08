@@ -5,8 +5,23 @@
     </div>
     <div class="card-body">
       <div class="row">
+        <div class="col">
+          <div class="alert alert-warning border-5 border-dark shadow-lg">
+            <div class="h5 romana">Perhatian!</div>
+            <ul class="small">
+              <li>Tidak perlu impor apabila data peserta didik sudah lengkap</li>
+              <li>Sebelum impor, pastikan sesuai dengan format <nuxt-link to="https://docs.google.com/spreadsheets/d/1Q5mfr7UTqWlmkGLVMe8NdYgQfczttdKiYtHJj9GX2gA/edit?usp=sharing" target="_blank" class="link">disini</nuxt-link></li>
+              <li>Sistem hanya membaca file <code>.CSV</code></li>
+              <li>Jika ingin mengubah isi tabel, silahkan salin dan hanya ubah pada kolom <code>nis</code>, <code>nama</code> dan <code>jk</code></li>
+              <li>Proses impor akan menambahkan ke data saat ini, tidak menimpa data lama</li>
+              <li>Selama proses berlangsung, mohon tunggu sampai muncul pesan <strong>Berhasil tersimpan</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-md-4">
-          <div class="mb-3">
+          <div class="my-3">
             <label for="file" class="border border-2 border-grey p-2 cursor-pointer"><i class="bi-filetype-csv"></i> Pilih berkas</label>
             <input @change="getFile" id="file" type="file" accept=".csv" class="form form-control-file">
           </div>
@@ -21,19 +36,6 @@
           </div>
           <!-- <button @click="()=>isLoading=!isLoading">tes</button> -->
           <nuxt-link to="/peserta" class="btn btn-light btn-sm mb-3">Kembali</nuxt-link>
-        </div>
-        <div class="col">
-          <div class="alert alert-warning border-5 border-dark shadow-lg">
-            <div class="h5 romana">Perhatian!</div>
-            <ul class="small">
-              <li>Tidak perlu impor apabila data peserta didik sudah lengkap</li>
-              <li>Sebelum impor, pastikan sesuai dengan format <nuxt-link to="https://docs.google.com/spreadsheets/d/1Q5mfr7UTqWlmkGLVMe8NdYgQfczttdKiYtHJj9GX2gA/edit?usp=sharing" target="_blank" class="link">disini</nuxt-link></li>
-              <li>Sistem hanya membaca file <code>.CSV</code></li>
-              <li>Jika ingin mengubah isi tabel, silahkan salin dan hanya ubah pada kolom <code>nis</code>, <code>nama</code> dan <code>jk</code></li>
-              <li>Proses impor akan menambahkan ke data saat ini, tidak menimpa data lama</li>
-              <li>Selama proses berlangsung, mohon tunggu sampai muncul pesan <strong>Berhasil tersimpan</strong></li>
-            </ul>
-          </div>
         </div>
       </div>
     </div>

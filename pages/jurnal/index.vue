@@ -11,8 +11,8 @@
         <li>search by keyword (what)...?</li>
         <li>2 columns:
           <ul>
-            <li>right: ...?</li>
-            <li>left: timeline</li>
+            <li>left: search keyword, filter by date, filter by kelas</li>
+            <li>right: timeline</li>
           </ul>
         </li>
         <li>timeline show:
