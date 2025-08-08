@@ -9,16 +9,19 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav small">
           <li class="nav-item">
-            <nuxt-link class="nav-link" to="/"><i class="bi bi-bar-chart-fill"></i> Statistik</nuxt-link>
+            <nuxt-link class="nav-link" to="/"><i class="bi bi-pie-chart-fill"></i> Statistik</nuxt-link>
           </li>
           <li class="nav-item">
-            <nuxt-link class="nav-link" to="/peserta"><i class="bi bi-people-fill"></i> Peserta Didik</nuxt-link>
+            <nuxt-link class="nav-link" to="/pembimbing"><i class="bi bi-emoji-smile"></i> Pembimbing</nuxt-link>
+          </li>
+          <li class="nav-item">
+            <nuxt-link class="nav-link" to="/peserta"><i class="bi bi-person-fill"></i> Peserta Didik</nuxt-link>
           </li>
           <li class="nav-item">
             <nuxt-link class="nav-link" to="/iduka"><i class="bi bi-buildings-fill"></i> IDUKA</nuxt-link>
           </li>
           <li class="nav-item">
-            <nuxt-link class="nav-link" to="/pemetaan"><i class="bi bi-git"></i> Pemetaan</nuxt-link>
+            <nuxt-link class="nav-link" to="/pemetaan"><i class="bi bi-diagram-3-fill"></i> Pemetaan</nuxt-link>
           </li>
           <li class="nav-item">
             <nuxt-link class="nav-link" to="/jurnal"><i class="bi bi-journals"></i> Jurnal Peserta</nuxt-link>
@@ -30,7 +33,7 @@
             <nuxt-link class="nav-link" to="/analitik"><i class="bi bi-bar-chart-fill"></i> Analitik</nuxt-link>
           </li>
           <li v-if="role === 'admin'" class="nav-item">
-            <nuxt-link class="nav-link" to="/users"><i class="bi bi-person-fill"></i> Users</nuxt-link>
+            <nuxt-link class="nav-link" to="/users"><i class="bi bi-people-fill"></i> Users</nuxt-link>
           </li>
           <li class="nav-item">
             <nuxt-link class="nav-link text-danger" to="/logout"><i class="bi bi-box-arrow-right"></i> Keluar</nuxt-link>

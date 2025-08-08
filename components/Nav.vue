@@ -8,6 +8,9 @@
             <nuxt-link to="/">
               <li class="list-group-item"><i class="bi bi-pie-chart-fill"></i> Statistik</li>
             </nuxt-link>
+            <nuxt-link to="/pembimbing">
+              <li class="list-group-item"><i class="bi bi-emoji-smile"></i> Pembimbing</li>
+            </nuxt-link>
             <nuxt-link to="/peserta">
               <li class="list-group-item"><i class="bi bi-person-fill"></i> Peserta Didik</li>
             </nuxt-link>

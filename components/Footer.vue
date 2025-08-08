@@ -3,7 +3,7 @@
     <div class="col">
       <footer class="my-4 text-muted text-center smallest metropolis">
         v4.0.0 <br>
-        &copy;{{ year }}. All rights reserved. <br>
+        &copy;2018 - {{ year }}. All rights reserved. <br>
         <span class="">PPLG SMKN 4 Tasikmalaya.</span>
       </footer>
     </div>

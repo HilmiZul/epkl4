@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-sm-3">
-      <div class="card my-4 border border-2 border-dark">
+      <div class="card my-3 border border-2 border-dark">
         <div class="fs-1 text-center romana">
           <span class="">e-PKL.</span>
         </div>
