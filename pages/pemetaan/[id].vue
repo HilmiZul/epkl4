@@ -7,7 +7,7 @@
       <div class="row">
         <div class="col">
           <div class="alert alert-warning border-5 border-dark shadow-lg">
-            <div class="h5 romana">Perhatian!</div>
+            <div class="h5 romana">Perhatikan!</div>
             <ul class="small">
               <li>Tentukan wilayah untuk mengubah IDUKA</li>
               <li>IDUKA yang muncul hanya yang masih kosong</li>
@@ -57,6 +57,33 @@
           </form>
         </div>
       </div>
+      <hr class="my-4">
+      <div v-if="!isLoading" class="row">
+        <div class="col">
+          <div class="alert text-danger border-danger">
+            <h5 class="romana">Danger Zone!</h5>
+            <p class="small">Apabila Siswa yang bernama <span class="border-2 border-bottom border-danger pb-1">{{ pemetaan.expand.siswa.nama }}</span>
+              dihapus, maka harus buat pemetaan ulang!</p>
+            <button class="btn btn-danger btn-sm border-danger" data-bs-toggle="modal" :data-bs-target="`#pemetaan-${route.params.id}`">Hapus</button>
+            <div class="modal" :id="`pemetaan-${route.params.id}`">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content rounded-0 border-3 border-dark shadow-lg">
+                  <div class="modal-header rounded-0 h4 bg-danger text-white">
+                    Peringatan!
+                  </div>
+                  <div class="modal-body text-dark small">
+                    Yakin nih mau hapus <span class="romana">{{ pemetaan?.expand.siswa.nama }}</span> dari Pemetaan?
+                  </div>
+                  <div class="modal-footer">
+                    <button @click="hapusData(pemetaan.id)" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Hapus</button>
+                    <button class="btn btn-light btn-sm" data-bs-dismiss="modal">Gajadi</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -79,6 +106,22 @@ let form = ref({
   iduka: '',
 })
 let wilayah = ref(['dalam', 'luar'])
+
+async function hapusData(id) {
+  let curr_terisi = pemetaan.value.expand.iduka.terisi
+  let new_terisi = pemetaan.value.expand.iduka.terisi - 1
+  await client.collection('siswa').update(pemetaan.value.siswa, {
+    status_pemetaan_pkl: false,
+    status_acc_pkl: false
+  })
+  await client.collection('iduka').update(pemetaan.value.iduka, { terisi: new_terisi })
+  await client.collection('pemetaan').delete(id)
+  navigateTo("/pemetaan")
+  // console.log("Terisi saat ini: "+curr_terisi)
+  // console.log("Terisi terbaru: "+new_terisi)
+  // console.log("ID peserta: "+pemetaan.value.siswa)
+  // console.log("ID pemetaan: "+id)
+}
 
 async function updatePemetaan() {
   isSending.value = true
@@ -137,7 +180,7 @@ async function getCompanies() {
 onMounted(() => {
   getSingleMapping()
   getCompanies()
-  client.collection('pemetaan').subscribe(route.params.id, function (e) {
+  client.collection('pemetaan').subscribe('update', function (e) {
     if(e.action == 'update') getSingleMapping()
   }, {});
 })
