@@ -7,7 +7,7 @@
       <div class="row">
         <div class="col">
           <div class="alert alert-warning border-5 border-dark shadow-lg">
-            <div class="h5 romana">Perhatian!</div>
+            <div class="h5 romana">Perhatikan!</div>
             <ul class="small">
               <li>IDUKA yang ditambahkan sesuai dengan Program Keahlian</li>
               <li>Setiap IDUKA dapat diatur berapa banyaknya kuota peserta (sesuai Program Keahlian)</li>
@@ -96,6 +96,7 @@ let isSaved = ref(false)
 let isSending = ref(false)
 let isLoading = ref(true)
 let teachers = ref([])
+// let teacher_users = ref([])
 let form = ref({
   nama: "loading",
   alamat: "loading",
@@ -109,6 +110,7 @@ let form = ref({
   wilayah: "dalam",
   terisi: 0,
   catatan: "",
+  pembimbing: ""
 })
 
 async function updateIduka() {
@@ -149,7 +151,21 @@ async function getPembimbingSekolah() {
   }
 }
 
+// async function TempgetPembimbing() {
+//   isLoading.value = true
+//   let data = await client
+//     .collection("teacher_users")
+//     .getFullList({
+//       filter: "program_keahlian='"+prokel+"'"
+//     })
+//   if(data) {
+//     isLoading.value = false
+//     teacher_users.value = data
+//   }
+// }
+
 onMounted(() => {
+  // TempgetPembimbing()
   getPembimbingSekolah()
   getCompanyById()
 })

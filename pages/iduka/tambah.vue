@@ -7,7 +7,7 @@
       <div class="row">
         <div class="col">
           <div class="alert alert-warning border-5 border-dark shadow-lg">
-            <div class="h5 romana">Perhatian!</div>
+            <div class="h5 romana">Perhatikan!</div>
             <ul class="small">
               <li>IDUKA yang ditambahkan sesuai dengan Program Keahlian</li>
               <li>Setiap IDUKA dapat diatur berapa banyaknya kuota peserta (sesuai Program Keahlian)</li>

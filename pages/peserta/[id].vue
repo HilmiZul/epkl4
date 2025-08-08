@@ -9,7 +9,7 @@
       <div class="row">
         <div class="col">
           <div class="alert alert-warning shadow-lg border-2 border-dark">
-            <h5 class="romana">Perhatian!</h5>
+            <h5 class="romana">Perhatikan!</h5>
             <ul class="small">
               <li>Peserta PKL adalah siswa Semester 6</li>
               <li>Telah menuntaskan nilai rapor Semester 1 s.d 5</li>

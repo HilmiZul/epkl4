@@ -8,8 +8,8 @@
     </div>
     <div class="card-body small">
       <div class="row">
-        <div class="col-3">
-          <select @change="filterByKelas" v-model="opsiKelas" class="form form-control form-select">
+        <!-- <div class="col-3">
+          <select v-model="keyword" class="form form-control form-select">
             <option disabled value="">🗂 Kelas</option>
             <option value="">Semua</option>
             <option value="PPLG-1">PPLG-1</option>
@@ -17,16 +17,16 @@
             <option value="PPLG-3">PPLG-3</option>
             <option value="PPLG-4">PPLG-4</option>
           </select>
-        </div>
-        <div class="col">
+        </div> -->
+        <div class="col-lg-6">
           <div class="mb-4">
-            <input type="search" @input="searchByKeyword" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan nama..." />
+            <input type="search" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan nama / kelas..." />
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <div class="mb-4 text-muted">{{ students.length }} peserta</div>
+          <div class="mb-4 text-muted">{{ studentsFiltered.length }} peserta</div>
         </div>
       </div>
       <!-- <div v-if="isLoading"><Loading /></div> -->
@@ -43,10 +43,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-if="students.length < 1" class="text-center my-5">
+            <tr v-if="isLoading" class="text-center my-5">
+              <td colspan="6"><Loading /></td>
+            </tr>
+            <tr v-else-if="studentsFiltered.length < 1" class="text-center my-5">
               <td colspan="6">Data tidak ditemukan.</td>
             </tr>
-            <tr v-for="(student,i) in students" :key="student.id">
+            <tr v-for="(student,i) in studentsFiltered" :key="student.id">
               <td>{{ i+1 }}. </td>
               <td>
                 <nuxt-link :to="`/peserta/${student.id}`" class="link">{{ student.nama }}</nuxt-link>
@@ -137,5 +140,14 @@ const searchByKeyword = async () => {
     students.value = data
   }
 }
+
+const studentsFiltered = computed(() => {
+  return students.value.filter((i) => {
+    return (
+      i.nama.toLowerCase().includes(keyword.value.toLowerCase()) ||
+      i.kelas.toLowerCase().includes(keyword.value.toLowerCase())
+    )
+  })
+})
 </script>
 
