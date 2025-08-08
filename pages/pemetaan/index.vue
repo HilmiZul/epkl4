@@ -8,23 +8,15 @@
     </div>
     <div class="card-body small">
       <div class="row">
-        <div class="col-3">
-          <select @change="filterByWilayah" v-model="opsiWilayah" class="form form-control form-select">
-            <option disabled value="">🌏 Wilayah</option>
-            <option value="">Semua</option>
-            <option value="dalam">Dalam kota</option>
-            <option value="luar">Luar kota</option>
-          </select>
-        </div>
-        <div class="col">
+        <div class="col-lg-6">
           <div class="mb-4">
-            <input @input="searchByKeyword" v-model="keyword" type="search" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan peserta atau IDUKA..." />
+            <input v-model="keyword" type="search" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan peserta atau IDUKA..." />
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <div class="mb-4 text-muted">{{ mapping.length }} peserta terpetakan</div>
+          <div class="mb-4 text-muted">{{ mappingFiltered.length }} peserta terpetakan</div>
         </div>
       </div>
       <!-- <div v-if="isLoading"><Loading /></div> -->
@@ -41,10 +33,13 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-if="mapping.length < 1" class="text-center my-5">
+                <tr v-if="isLoading" class="text-center my-5">
+                  <td colspan="4"><Loading /></td>
+                </tr>
+                <tr v-else-if="mappingFiltered.length < 1" class="text-center my-5">
                   <td colspan="4">Data tidak ditemukan</td>
                 </tr>
-                <tr v-for="(pemetaan,i) in mapping" :key="pemetaan.id">
+                <tr v-for="(pemetaan,i) in mappingFiltered" :key="pemetaan.id">
                   <td >{{ i+1 }}.</td>
                   <td>
                     <nuxt-link :to="`/pemetaan/${pemetaan.id}`" class="link">
@@ -142,35 +137,35 @@ async function filterByWilayah() {
       mapping.value = data
 
       // grouping untuk rowspan
-    const tempMapping = []
-    let prevIduka = null
-    let rowspanCount = 0
-    mapping.value.forEach((item, index) => {
-      if(item.iduka !== prevIduka) {
-        rowspanCount = 1
-        // cari banyaknya baris dari banyaknya iduka yang sama
-        for(let i=index+1; i<mapping.value.length; i++) {
-          if(mapping.value[i].iduka === item.iduka) {
-            rowspanCount++
-          } else {
-            break
+      const tempMapping = []
+      let prevIduka = null
+      let rowspanCount = 0
+      mapping.value.forEach((item, index) => {
+        if(item.iduka !== prevIduka) {
+          rowspanCount = 1
+          // cari banyaknya baris dari banyaknya iduka yang sama
+          for(let i=index+1; i<mapping.value.length; i++) {
+            if(mapping.value[i].iduka === item.iduka) {
+              rowspanCount++
+            } else {
+              break
+            }
           }
+          tempMapping.push({
+            ...item,
+            showIduka: true,
+            idukaRowspan: rowspanCount
+          })
+        } else {
+          tempMapping.push({
+            ...item,
+            showIduka: false,
+            idukaRowspan: 1
+          })
         }
-        tempMapping.push({
-          ...item,
-          showIduka: true,
-          idukaRowspan: rowspanCount
-        })
-      } else {
-        tempMapping.push({
-          ...item,
-          showIduka: false,
-          idukaRowspan: 1
-        })
-      }
-      prevIduka = item.iduka
-    })
-    mapping.value = tempMapping
+        prevIduka = item.iduka
+      })
+      mapping.value = tempMapping
     }
   } else {
     getPemetaan()
@@ -193,40 +188,50 @@ async function searchByKeyword() {
       mapping.value = data
 
       // grouping untuk rowspan
-    const tempMapping = []
-    let prevIduka = null
-    let rowspanCount = 0
-    mapping.value.forEach((item, index) => {
-      if(item.iduka !== prevIduka) {
-        rowspanCount = 1
-        // cari banyaknya baris dari banyaknya iduka yang sama
-        for(let i=index+1; i<mapping.value.length; i++) {
-          if(mapping.value[i].iduka === item.iduka) {
-            rowspanCount++
-          } else {
-            break
+      const tempMapping = []
+      let prevIduka = null
+      let rowspanCount = 0
+      mapping.value.forEach((item, index) => {
+        if(item.iduka !== prevIduka) {
+          rowspanCount = 1
+          // cari banyaknya baris dari banyaknya iduka yang sama
+          for(let i=index+1; i<mapping.value.length; i++) {
+            if(mapping.value[i].iduka === item.iduka) {
+              rowspanCount++
+            } else {
+              break
+            }
           }
+          tempMapping.push({
+            ...item,
+            showIduka: true,
+            idukaRowspan: rowspanCount
+          })
+        } else {
+          tempMapping.push({
+            ...item,
+            showIduka: false,
+            idukaRowspan: 1
+          })
         }
-        tempMapping.push({
-          ...item,
-          showIduka: true,
-          idukaRowspan: rowspanCount
-        })
-      } else {
-        tempMapping.push({
-          ...item,
-          showIduka: false,
-          idukaRowspan: 1
-        })
-      }
-      prevIduka = item.iduka
-    })
-    mapping.value = tempMapping
+        prevIduka = item.iduka
+      })
+      mapping.value = tempMapping
     }
   } else {
     getPemetaan()
   }
 }
+
+const mappingFiltered = computed(() => {
+  return mapping.value.filter((i) => {
+    return (
+      i.expand.iduka.nama.toLowerCase().includes(keyword.value.toLowerCase()) ||
+      i.expand.iduka.wilayah.toLowerCase().includes(keyword.value.toLowerCase()) ||
+      i.expand.siswa.nama.toLowerCase().includes(keyword.value.toLowerCase())
+    )
+  })
+})
 
 onMounted(() => {
   getPemetaan()
