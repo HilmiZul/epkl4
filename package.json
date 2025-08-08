@@ -3,6 +3,7 @@
   "version": "4.0.0",
   "author": "Zul Hilmi",
   "dependencies": {
+    "@neoconfetti/vue": "^2.2.1",
     "bootstrap": "5.2",
     "bootstrap-icons": "^1.13.1",
     "chart.js": "^4.5.0",

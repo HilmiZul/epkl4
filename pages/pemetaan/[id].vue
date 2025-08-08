@@ -1,13 +1,15 @@
 <template>
   <div class="card">
+    <div v-if="pemetaan?.status_acc_pkl" v-confetti="{duration: 5000}" class="posiiton-absolute top-0 start-50 translate-middle-x"></div>
     <div class="card-header">
       <span v-if="!isLoading" class="h4 romana text-muted">
         {{ pemetaan.expand.siswa.nama }} > <span class="text-grey">{{ pemetaan.expand.iduka.nama }}</span>
       </span>
     </div>
     <div class="card-body">
-      <div class="row">
-        <div class="col">
+      <div v-if="isLoading"><Loading /></div>
+      <div v-else class="row">
+        <div v-if="!pemetaan.status_acc_pkl" class="col">
           <div class="alert alert-warning border-5 border-dark shadow-lg">
             <div class="h5 romana">Perhatiin!</div>
             <ul class="small">
@@ -17,8 +19,10 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-6">
+      <div v-if="isLoading"><Loading /></div>
+      <div v-else class="row">
+        <div v-if="pemetaan.status_acc_pkl" class="col-md-12 romana">Peserta sudah diterima PKL di {{ pemetaan.expand.iduka.nama }}!</div>
+        <div v-else class="col-md-6">
           <form @submit.prevent="updatePemetaan">
             <div class="my-3">
               <label for="wilayah">Wilayah (dalam/luar kota)</label>
@@ -58,6 +62,9 @@
             <em v-if="isSaved" class="text-muted">Berhasil terpetakan!</em>
           </form>
         </div>
+        <div v-if="pemetaan?.status_acc_pkl" class="col-md-3 my-3">
+          <nuxt-link to="/pemetaan" class="btn btn-light btn-sm me-2">Kembali</nuxt-link>
+        </div>
       </div>
       <hr class="my-4">
       <div v-if="!isLoading" class="row">
@@ -90,6 +97,7 @@
 </template>
 
 <script setup>
+import { vConfetti } from '@neoconfetti/vue'
 definePageMeta({ middleware: 'auth' })
 useHead({ title: "Update Pemetaan — e-PKL / SMKN 4 Tasikmalaya." })
 let user = usePocketBaseUser()

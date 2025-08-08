@@ -95,7 +95,8 @@ let students = ref([])
 let form = ref({
   iduka: '',
   siswa: '',
-  program_keahlian: ''
+  program_keahlian: '',
+  status_acc_pkl: false
 })
 let wilayah = ref(['dalam', 'luar'])
 

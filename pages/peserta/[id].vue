@@ -15,7 +15,6 @@
               <li>Telah menuntaskan nilai rapor Semester 1 s.d 5</li>
               <li>Status <strong>Pemetaan PKL</strong> diubah oleh sistem ketika siswa di petakan</li>
               <li>Jika ada nilai rapor yang belum tuntas, silahkan ubah status ketuntasan rapor</li>
-              <li v-if="form.status_pemetaan_pkl" class="text-success">Mengubah status penerimaan PKL, apabila siswa sudah terpetakan dan diterima di IDUKA tersebut</li>
             </ul>
           </div>
         </div>
@@ -35,12 +34,12 @@
                 Pemetaan PKL
               </label>
             </div>
-            <div v-if="form.status_pemetaan_pkl" class="mb-3 form-check form-switch">
+            <!-- <div v-if="form.status_pemetaan_pkl" class="mb-3 form-check form-switch">
               <input v-model="form.status_acc_pkl" :checked="form.status_acc_pkl" class="form-check-input" type="checkbox" id="checkAcc" switch>
               <label class="form-check-label" for="checkAcc">
                 Diterima tempat PKL?
               </label>
-            </div>
+            </div> -->
             <button :disabled="isLoadingSave || isLoading" class="btn btn-success btn-sm mb-2 me-2">Simpan</button>
             <nuxt-link to="/peserta" class="btn btn-light btn-sm me-2 mb-2">Kembali</nuxt-link>
             <div class="my-3">
@@ -100,7 +99,6 @@ let form = ref({
   kelas: '⏳',
   status_rapot: false,
   status_pemetaan_pkl: false,
-  status_acc_pkl: false,
 })
 
 async function simpanPerubahan() {
@@ -111,7 +109,6 @@ async function simpanPerubahan() {
     .collection('siswa')
     .update(route.params.id, {
       status_rapot: form.value.status_rapot,
-      status_acc_pkl: form.value.status_acc_pkl
     })
   if(data) {
     isLoading.value = false
@@ -136,7 +133,7 @@ async function getStudentById() {
 
 onMounted(() => {
   getStudentById()
-  client.collection('siswa').subscribe(route.params.id, function (e) {
+  client.collection('siswa').subscribe('update', function (e) {
     if(e.action == 'update') getStudentById()
   }, {});
 })

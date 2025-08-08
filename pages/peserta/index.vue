@@ -39,15 +39,14 @@
               <th>Kelas</th>
               <th>Rapor</th>
               <th>Pemetaan</th>
-              <th>Acc. PKL</th>
             </tr>
           </thead>
           <tbody>
             <tr v-if="isLoading" class="text-center my-5">
-              <td colspan="6"><Loading /></td>
+              <td colspan="5"><Loading /></td>
             </tr>
             <tr v-else-if="studentsFiltered.length < 1" class="text-center my-5">
-              <td colspan="6">Data tidak ditemukan.</td>
+              <td colspan="5">Data tidak ditemukan.</td>
             </tr>
             <tr v-for="(student,i) in studentsFiltered" :key="student.id">
               <td>{{ i+1 }}. </td>
@@ -62,12 +61,6 @@
               <td>
                 <span v-if="student.status_pemetaan_pkl" class="badge bg-success">Sudah</span>
                 <span v-else class="badge bg-danger">Belum</span>
-              </td>
-              <td>
-                <span v-if="student.status_acc_pkl" class="badge bg-success">
-                  <nuxt-link to="#" target="_blank" class="text-white">Diterima <i class="bi-box-arrow-up-right"></i></nuxt-link>
-                </span>
-                <span v-else class="badge bg-danger">Belum/Tidak diterima</span>
               </td>
             </tr>
           </tbody>
@@ -100,7 +93,7 @@ const getStudents = async () => {
     .collection('siswa')
     .getFullList({
       filter: 'program_keahlian = "'+user.user.value.program_keahlian+'"',
-      sort: 'kelas, status_rapot, status_pemetaan_pkl, -status_acc_pkl',
+      sort: 'kelas, status_rapot, status_pemetaan_pkl',
     })
   if(data) {
     isLoading.value = false

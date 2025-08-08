@@ -1,8 +1,11 @@
 <template>
   <div class="col-sm-3 side-nav">
     <div class="card shadow-lg">
+      <div v-confetti v-if="isConfetti" class="posiiton-absolute top-0 start-50 translate-middle-x"></div>
       <div class="card-body p-0">
-        <div v-if="user" class="lexend-mega text-center text-muted py-2">Halo, <span class="border-3 border-bottom">{{ prokel }}</span>! 😃</div>
+        <div v-if="user" class="lexend-mega text-center text-muted py-2">Halo, <span class="border-3 border-bottom">{{ prokel }}</span>!
+          <span @click="moreConfetti">😃</span>
+        </div>
         <nav>
           <ol class="list-group list-group-flush public-sans">
             <nuxt-link to="/">
@@ -58,11 +61,20 @@
 </template>
 
 <script setup>
+import { vConfetti } from '@neoconfetti/vue'
+
 let user = usePocketBaseUser()
 let client = usePocketBaseClient()
 let prokel = ref()
 let nama = user?.user.value.nama
 let role = user?.user.value.role
+let isConfetti = ref(false)
+
+const moreConfetti = async () => {
+  isConfetti.value = false
+  await Promise.resolve()
+  isConfetti.value = true
+}
 
 const getProkel = async () => {
   client.autoCancellation(false)

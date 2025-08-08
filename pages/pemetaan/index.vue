@@ -47,8 +47,12 @@
                     </nuxt-link>
                   </td>
                   <td v-if="pemetaan.showIduka" :rowspan="pemetaan.idukaRowspan">
-                    {{ pemetaan.expand.iduka.nama }}
+                    <span class="fs-6 romana">{{ pemetaan.expand.iduka.nama }}</span>
                     <div class="fst-italic text-muted">{{ pemetaan.expand.iduka.wilayah.charAt(0).toUpperCase() + pemetaan.expand.iduka.wilayah.slice(1) }} kota</div>
+                    <div v-if="pemetaan.expand.iduka.terisi < pemetaan.expand.iduka.jumlah_kuota" class="fst-italic text-muted">Terisi: {{ pemetaan.expand.iduka.terisi }} dari {{ pemetaan.expand.iduka.jumlah_kuota }}</div>
+                    <div v-else class="fst-bold">Terisi: Penuh</div>
+                    <div v-if="pemetaan.status_acc_pkl" class="badge bg-success">Diterima</div>
+                    <div v-else class="badge bg-warning hand-cursor" data-bs-toggle="modal" :data-bs-target="`#status-${pemetaan.id}`">Diterima?</div>
                   </td>
                   <td v-if="pemetaan.showIduka" :rowspan="pemetaan.idukaRowspan">
                     <nuxt-link :to="`/pemetaan/surat/cetak/${pemetaan.iduka}`" target="_blank" class="link">Surat permohonan <i class="bi bi-box-arrow-up-right"></i></nuxt-link>
@@ -56,6 +60,26 @@
                 </tr>
               </tbody>
             </table>
+          </div>
+          <div>
+            <div v-for="(pemetaan) in mapping" :key="pemetaan.id">
+              <div class="modal" :id="`status-${pemetaan.id}`">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
+                    <div class="modal-header rounded-0 h4 bg-warning romana">
+                      ACC PKL!
+                    </div>
+                    <div class="modal-body text-dark">
+                      Apakah IDUKA <span class="romana">{{ pemetaan.expand.iduka.nama }}</span> sudah menerima Peserta didik?
+                    </div>
+                    <div class="modal-footer">
+                      <button @click="handleAccPkl(pemetaan.id)" class="btn btn-success btn-sm" data-bs-dismiss="modal">Udah dong!</button>
+                      <button class="btn btn-light btn-sm" data-bs-dismiss="modal">eh belum</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -77,13 +101,17 @@ let opsiWilayah = ref('')
 let keyword = ref('')
 let isIdukaAvailable = ref([])
 
+async function handleAccPkl(id) {
+  await client.collection('pemetaan').update(id, { status_acc_pkl: true })
+}
+
 async function getPemetaan() {
   isLoading.value = true
   client.autoCancellation(false)
   let data = await client.collection("pemetaan").getFullList({
     filter: "program_keahlian='"+prokel+"'",
     expand: "iduka, siswa, program_keahlian",
-    sort: "iduka.wilayah, iduka.nama",
+    sort: "status_acc_pkl, iduka.wilayah, iduka.nama",
   })
   if(data) {
     isLoading.value = false
@@ -248,6 +276,12 @@ async function getIdukaIsAvailable() {
 onMounted(() => {
   getPemetaan()
   getIdukaIsAvailable()
+  client.collection('pemetaan').subscribe('*', function(e) {
+    if(e.action == 'update') {
+      getPemetaan()
+      getIdukaIsAvailable()
+    }
+  },{})
 })
 </script>
 
