@@ -51,7 +51,7 @@
                     <div class="fst-italic text-muted">{{ pemetaan.expand.iduka.wilayah.charAt(0).toUpperCase() + pemetaan.expand.iduka.wilayah.slice(1) }} kota</div>
                   </td>
                   <td v-if="pemetaan.showIduka" :rowspan="pemetaan.idukaRowspan">
-                    <nuxt-link to="/" class="link">Surat permohonan <i class="bi bi-box-arrow-up-right"></i></nuxt-link>
+                    <nuxt-link :to="`/pemetaan/surat/cetak/${pemetaan.iduka}`" target="_blank" class="link">Surat permohonan <i class="bi bi-box-arrow-up-right"></i></nuxt-link>
                   </td>
                 </tr>
               </tbody>
