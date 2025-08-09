@@ -12,6 +12,10 @@
   </div>
 </template>
 
+<script setup>
+let user = usePocketBaseUser()
+</script>
+
 <style >
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Mega:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap');
@@ -56,19 +60,20 @@ html, body {
   box-shadow: 0.5rem 0.5rem 0 #000000 !important;
 }
 .btn {
-  transition: all 0.2s ease-in-out;
+  transition: all 0.1s ease-in-out;
   border: 1.9px solid #000000;
   border-radius: 0 !important;
   box-shadow: 0.2rem 0.2rem 0 #000000 !important;
 }
 .btn:hover {
-  transform: scale(0.97);
+  transform: translate(2px,2px);
   border: 1.9px solid #000000;
-  box-shadow: 0.1rem 0.1rem 0 #000000 !important;
+  box-shadow: none !important;
 }
 .btn:disabled {
   border: 1.9px solid #000000;
   box-shadow: none !important;
+  color: #bababa;
 }
 .form {
   border: 1.9px solid #000000;
@@ -93,7 +98,8 @@ button.btn-grey:hover {
   color: #000;
 }
 .btn-success:disabled {
-  color: #000
+  color: #000;
+  background-color: #bababa !important;
 }
 .btn-danger, .btn-danger:hover,
 .bg-danger, .alert-danger {

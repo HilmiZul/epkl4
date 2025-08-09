@@ -26,7 +26,7 @@
             </div>
             <div class="mb-3">
               <label for="nama">Nama</label>
-              <input v-model="form.nama" :disabled="form.nip.length < 1" type="text" id="nip" class="form form-control" placeholder="masukkan nama Guru Pembimbing" required>
+              <input v-model="form.nama" :disabled="form.nip.length < 1" type="text" id="nama" class="form form-control" placeholder="masukkan nama Guru Pembimbing" required>
             </div>
             <button :disabled="isSending || form.nip.length < 1 || form.nama.length < 4" class="btn btn-success btn-sm me-2">
               <span v-if="!isSending">Simpan</span>

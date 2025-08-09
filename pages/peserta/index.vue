@@ -19,14 +19,12 @@
           </select>
         </div> -->
         <div class="col-lg-6">
-          <div class="mb-4">
+          <div class="my-3 mt-0">
             <input type="search" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan nama / kelas..." />
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <div class="mb-4 text-muted">{{ studentsFiltered.length }} peserta</div>
+        <div class="col align-content-center">
+          <div class="mb-3 text-grey float-end">{{ studentsFiltered.length }} peserta</div>
         </div>
       </div>
       <!-- <div v-if="isLoading"><Loading /></div> -->

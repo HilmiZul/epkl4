@@ -61,8 +61,8 @@
             <button class="btn btn-danger btn-sm border-dark" data-bs-toggle="modal" :data-bs-target="`#siswa-${form.id}`">Hapus</button>
             <div class="modal" :id="`siswa-${form.id}`">
               <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content rounded-0 border-3 border-dark shadow-lg">
-                  <div class="modal-header rounded-0 h4 bg-danger text-white">
+                <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
+                  <div class="modal-header rounded-0 h4 bg-danger text-white romana">
                     Peringatan!
                   </div>
                   <div class="modal-body text-dark">

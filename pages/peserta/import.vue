@@ -22,7 +22,7 @@
       <div class="row">
         <div class="col-md-4">
           <div class="my-3">
-            <label for="file" class="border border-2 border-grey p-2 cursor-pointer"><i class="bi-filetype-csv"></i> Pilih berkas</label>
+            <label for="file" class="label-berkas p-2 hand-cursor"><i class="bi-filetype-csv"></i> Pilih berkas</label>
             <input @change="getFile" id="file" type="file" accept=".csv" class="form form-control-file">
           </div>
           <!-- <label for="customFileInput" class="custom-file-upload">
@@ -35,7 +35,7 @@
             <div class="strong">Berhasil tersimpan!</div>
           </div>
           <!-- <button @click="()=>isLoading=!isLoading">tes</button> -->
-          <nuxt-link to="/peserta" class="btn btn-light btn-sm mb-3">Kembali</nuxt-link>
+          <nuxt-link to="/peserta" class="btn btn-light btn-sm mb-3"><i class="bi bi-arrow-left"></i> Kembali</nuxt-link>
         </div>
       </div>
     </div>

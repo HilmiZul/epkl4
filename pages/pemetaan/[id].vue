@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <div v-if="pemetaan?.status_acc_pkl" v-confetti="{duration: 5000}" class="posiiton-absolute top-0 start-50 translate-middle-x"></div>
+    <div v-if="pemetaan?.status_acc_pkl" v-confetti class="posiiton-absolute top-0 start-50 translate-middle-x"></div>
     <div class="card-header">
       <span v-if="!isLoading" class="h4 romana text-muted">
         {{ pemetaan.expand.siswa.nama }} > <span class="text-grey">{{ pemetaan.expand.iduka.nama }}</span>
@@ -21,7 +21,14 @@
       </div>
       <div v-if="isLoading"><Loading /></div>
       <div v-else class="row">
-        <div v-if="pemetaan.status_acc_pkl" class="col-md-12 romana">Peserta sudah diterima PKL di {{ pemetaan.expand.iduka.nama }}!</div>
+        <div v-if="pemetaan.status_acc_pkl" class="col-md-12">
+          <div class="alert alert-success border border-2 border-dark romana">
+            Peserta diterima PKL di {{ pemetaan.expand.iduka.nama }}!
+          </div>
+          <div v-if="pemetaan?.status_acc_pkl" class="my-3">
+            <nuxt-link to="/pemetaan" class="btn btn-light btn-sm"><i class="bi bi-arrow-left"></i> kembali</nuxt-link>
+          </div>
+        </div>
         <div v-else class="col-md-6">
           <form @submit.prevent="updatePemetaan">
             <div class="my-3">
@@ -62,9 +69,6 @@
             <em v-if="isSaved" class="text-muted">Berhasil terpetakan!</em>
           </form>
         </div>
-        <div v-if="pemetaan?.status_acc_pkl" class="col-md-3 my-3">
-          <nuxt-link to="/pemetaan" class="btn btn-light btn-sm me-2">Kembali</nuxt-link>
-        </div>
       </div>
       <hr class="my-4">
       <div v-if="!isLoading" class="row">
@@ -75,7 +79,7 @@
             <button class="btn btn-danger btn-sm border-dark" data-bs-toggle="modal" :data-bs-target="`#pemetaan-${route.params.id}`">Hapus</button>
             <div class="modal" :id="`pemetaan-${route.params.id}`">
               <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content rounded-0 border-3 border-dark shadow-lg">
+                <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
                   <div class="modal-header rounded-0 h4 bg-danger text-white romana">
                     Peringatan!
                   </div>

@@ -65,21 +65,25 @@ html, body {
 .alert {
   border-radius: 0 !important;
   border-width: 2px;
+  border: 2px solid #000 !important;
+  box-shadow: 0.2rem 0.2rem 0 #000 !important;
 }
 .btn {
-  transition: all 0.2s ease-in-out;
+  transition: all 0.1s ease-in-out;
   border: 1.9px solid #000000;
   border-radius: 0 !important;
   box-shadow: 0.2rem 0.2rem 0 #000000 !important;
 }
 .btn:hover {
-  transform: scale(0.97);
+  transform: translate(2px,2px);
   border: 1.9px solid #000000;
-  box-shadow: 0.1rem 0.1rem 0 #000000 !important;
+  box-shadow: none !important;
 }
 .btn:disabled {
   border: 1.9px solid #000000;
   box-shadow: none !important;
+  color: #000;
+  background-color: #bababa !important;
 }
 .form {
   border: 1.9px solid #000000;
@@ -88,6 +92,10 @@ html, body {
 }
 .form:focus {
   border-color: #000000;
+}
+label {
+
+  font-weight: 700;
 }
 button.btn-grey {
   background-color: #c1ccd5;
@@ -104,7 +112,8 @@ button.btn-grey:hover {
   color: #000;
 }
 .btn-success:disabled {
-  color: #000
+  color: #000;
+  background-color: #bababa !important;
 }
 .btn-danger, .btn-danger:hover,
 .bg-danger, .alert-danger {
@@ -189,5 +198,8 @@ input[type="checkbox"]:not(:checked) {
 }
 .hand-cursor {
   cursor: pointer;
+}
+.label-berkas {
+  border: 2px dashed #000 !important;
 }
 </style>

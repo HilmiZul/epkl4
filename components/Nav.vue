@@ -3,7 +3,7 @@
     <div class="card shadow-lg">
       <div v-confetti v-if="isConfetti" class="posiiton-absolute top-0 start-50 translate-middle-x"></div>
       <div class="card-body p-0">
-        <div v-if="user" class="lexend-mega text-center text-muted py-2">Halo, <span class="border-3 border-bottom">{{ prokel }}</span>!
+        <div v-if="user" class="lexend-mega text-center py-2 border-2 border-bottom border-dark">Halo, <span class="border-2 border-bottom border-dark">{{ prokel }}</span>!
           <span @click="moreConfetti">😃</span>
         </div>
         <nav>
@@ -38,7 +38,7 @@
             <nuxt-link to="/logout">
               <li class="list-group-item text-danger"><i class="bi bi-box-arrow-right"></i> Keluar</li>
             </nuxt-link>
-            <div class="modal fade" id="logout">
+            <div class="modal" id="logout">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header"><h3>Logout</h3></div>
@@ -47,7 +47,6 @@
                   </div>
                   <div class="modal-footer">
                     <nuxt-link to="/logout" class="btn btn-success">keluar</nuxt-link>
-                    <button class="btn btn-light" data-bs-dismiss="modal">tidak</button>
                   </div>
                 </div>
               </div>
@@ -100,7 +99,10 @@ a:hover > li {
 }
 .list-group-item {
   border: none !important;
-  border-bottom: 1px solid #dfdfdf !important;
+  border-bottom: 2px solid #000 !important;
+}
+.list-group-item:hover {
+  background-color: #b5d2ad;
 }
 @media screen and (max-width: 992px) {
   .side-nav {

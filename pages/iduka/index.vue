@@ -11,14 +11,12 @@
       <div class="card-body small">
         <div class="row">
           <div class="col-lg-6">
-            <div class="mb-4">
+            <div class="my-3 mt-0">
               <input type="search" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan nama IDUKA / wilayah..." />
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <div class="mb-4 text-muted">{{ idukaFiltered.length }} IDUKA</div>
+          <div class="col align-content-center">
+            <div class="mb-3 text-grey float-end">{{ idukaFiltered.length }} IDUKA</div>
           </div>
         </div>
         <div class="table-responsive">
@@ -61,7 +59,7 @@
       <div v-for="company in idukaFiltered" :key="company.id">
         <div class="modal" :id="`iduka-${company.id}`">
           <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content rounded-0 border-3 border-dark shadow-lg">
+            <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
               <div class="modal-header rounded-0 h4 bg-danger text-white romana">
                 Peringatan!
               </div>

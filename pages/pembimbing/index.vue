@@ -9,15 +9,13 @@
     <div class="card-body small">
       <div class="row">
         <div class="col-lg-6">
-          <div class="mb-4">
+          <div class="my-3 mt-0">
             <!-- <input type="search" @input="searchByKeyword" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan nama atau NIP..." /> -->
             <input type="search" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan nama atau NIP..." />
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <div class="mb-4 text-muted">{{ itemFiltered.length }} pembimbing</div>
+        <div class="col align-content-center">
+          <div class="mb-3 text-grey float-end">{{ itemFiltered.length }} pembimbing</div>
         </div>
       </div>
       <!-- <div v-if="isLoading"><Loading /></div> -->

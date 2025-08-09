@@ -9,14 +9,12 @@
     <div class="card-body small">
       <div class="row">
         <div class="col-lg-6">
-          <div class="mb-4">
+          <div class="my-3 mt-0">
             <input v-model="keyword" type="search" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan peserta atau IDUKA..." />
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <div class="mb-4 text-muted">{{ mappingFiltered.length }} peserta terpetakan</div>
+        <div class="col align-content-center">
+          <div class="mb-3 text-grey float-end">{{ mappingFiltered.length }} peserta terpetakan</div>
         </div>
       </div>
       <!-- <div v-if="isLoading"><Loading /></div> -->
@@ -67,10 +65,10 @@
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
                     <div class="modal-header rounded-0 h4 bg-warning romana">
-                      ACC PKL!
+                      ACC PKL
                     </div>
                     <div class="modal-body text-dark">
-                      Apakah IDUKA <span class="romana">{{ pemetaan.expand.iduka.nama }}</span> sudah menerima Peserta didik?
+                      Apakah <span class="romana">{{ pemetaan.expand.iduka.nama }}</span> sudah konfirmasi menerima Peserta PKL?
                     </div>
                     <div class="modal-footer">
                       <button @click="handleAccPkl(pemetaan.id)" class="btn btn-success btn-sm" data-bs-dismiss="modal">Udah dong!</button>
