@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-header">
       <span v-if="isLoading">Loading</span>
-      <span v-else class="h4 romana text-grey">Update Pemetaan / {{ mappings?.expand.iduka.nama }}</span>
+      <span v-else class="h4 public-sans text-grey">Update Pemetaan / {{ mappings?.expand.iduka.nama }}</span>
     </div>
     <div class="card-body">
       <div class="row">
@@ -33,7 +33,7 @@
         </div> -->
         <div class="col">
           <div class="alert alert-warning border-5 border-dark shadow-lg">
-            <div class="h5 romana">Peserta didik yang terpetakan</div>
+            <div class="h5 public-sans">Peserta didik yang terpetakan</div>
             <div v-if="isLoading"><Loading /></div>
             <ul v-else class="small">
               <li v-for="studentMap in mappings.expand.siswa" :key="studentMap.id">{{ studentMap }}</li>

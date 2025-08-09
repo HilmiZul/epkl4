@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 romana text-muted">
+      <span class="h4 public-sans text-muted">
         {{ form.nama }} / <span class="text-grey">{{ form.kelas }}</span>
       </span>
     </div>
@@ -9,7 +9,7 @@
       <div class="row">
         <div class="col">
           <div class="alert alert-warning shadow-lg border-2 border-dark">
-            <h5 class="romana">Perhatiin!</h5>
+            <h5 class="">Perhatiin!</h5>
             <ul class="small">
               <li>Peserta PKL adalah siswa Semester 6</li>
               <li>Telah menuntaskan nilai rapor Semester 1 s.d 5</li>
@@ -40,12 +40,12 @@
                 Diterima tempat PKL?
               </label>
             </div> -->
-            <button :disabled="isLoadingSave || isLoading" class="btn btn-success btn-sm mb-2 me-2">Simpan</button>
+            <button :disabled="isLoadingSave || isLoading" class="btn btn-success btn-sm mb-2 me-2">
+              <span v-if="isLoadingSave">Sedang menyimpan</span>
+              <span v-else>Simpan</span>
+            </button>
             <nuxt-link to="/peserta" class="btn btn-light btn-sm me-2 mb-2">Kembali</nuxt-link>
-            <div class="my-3">
-              <em v-if="isSaved" class="text-muted">Berhasil tersimpan!</em>
-              <em v-if="isLoadingSave" class="text-muted">Bentar lagi menyimpan...</em>
-            </div>
+            <em v-if="isSaved" class="text-grey">Berhasil tersimpan!</em>
           </form>
         </div>
       </div>
@@ -62,7 +62,7 @@
             <div class="modal" :id="`siswa-${form.id}`">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
-                  <div class="modal-header rounded-0 h4 bg-danger text-white romana">
+                  <div class="modal-header rounded-0 h4 bg-danger text-white public-sans">
                     Peringatan!
                   </div>
                   <div class="modal-body text-dark">

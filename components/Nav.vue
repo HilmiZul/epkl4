@@ -9,7 +9,7 @@
         <nav>
           <ol class="list-group list-group-flush public-sans">
             <nuxt-link to="/">
-              <li class="list-group-item"><i class="bi bi-pie-chart-fill"></i> Statistik</li>
+              <li class="list-group-item"><i class="bi bi-pie-chart-fill"></i> Ringkasan</li>
             </nuxt-link>
             <nuxt-link to="/pembimbing">
               <li class="list-group-item"><i class="bi bi-emoji-smile"></i> Pembimbing</li>

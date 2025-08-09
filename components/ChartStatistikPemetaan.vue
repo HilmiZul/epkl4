@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="col-md-6 mb-5">
     <canvas id="myChart"></canvas>
   </div>
 </template>

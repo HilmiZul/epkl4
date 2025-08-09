@@ -1,7 +1,7 @@
 <template>
   <div class="card shadow-lg">
     <div class="card-header">
-      <span class="h4 romana text-grey"><i class="bi bi-diagram-3-fill"></i> Pemetaan</span>
+      <span class="h4 public-sans text-grey"><i class="bi bi-diagram-3-fill"></i> Pemetaan</span>
       <div v-if="isIdukaAvailable.length > 0" class="float-end">
         <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/pemetaan/tambah" class="btn btn-info btn-sm"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
       </div>
@@ -45,7 +45,7 @@
                     </nuxt-link>
                   </td>
                   <td v-if="pemetaan.showIduka" :rowspan="pemetaan.idukaRowspan">
-                    <span class="fs-6 romana">{{ pemetaan.expand.iduka.nama }}</span>
+                    <span class="fs-6 public-sans">{{ pemetaan.expand.iduka.nama }}</span>
                     <div class="fst-italic text-muted">{{ pemetaan.expand.iduka.wilayah.charAt(0).toUpperCase() + pemetaan.expand.iduka.wilayah.slice(1) }} kota</div>
                     <div v-if="pemetaan.expand.iduka.terisi < pemetaan.expand.iduka.jumlah_kuota" class="fst-italic text-muted">Terisi: {{ pemetaan.expand.iduka.terisi }} dari {{ pemetaan.expand.iduka.jumlah_kuota }}</div>
                     <div v-else class="fst-bold">Terisi: Penuh</div>
@@ -53,7 +53,8 @@
                     <div v-else class="badge bg-warning hand-cursor" data-bs-toggle="modal" :data-bs-target="`#status-${pemetaan.id}`">Diterima?</div>
                   </td>
                   <td v-if="pemetaan.showIduka" :rowspan="pemetaan.idukaRowspan">
-                    <nuxt-link :to="`/pemetaan/surat/cetak/${pemetaan.iduka}`" target="_blank" class="link">Surat permohonan <i class="bi bi-box-arrow-up-right"></i></nuxt-link>
+                    <nuxt-link v-if="!pemetaan.status_acc_pkl" :to="`/pemetaan/surat/cetak/${pemetaan.iduka}`" target="_blank" class="link">Surat permohonan <i class="bi bi-box-arrow-up-right"></i></nuxt-link>
+                    <span v-else>—</span>
                   </td>
                 </tr>
               </tbody>
@@ -61,17 +62,17 @@
           </div>
           <div>
             <div v-for="(pemetaan) in mapping" :key="pemetaan.id">
-              <div class="modal" :id="`status-${pemetaan.id}`">
+              <div class="modal" :id="`status-${pemetaan.id}`" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
-                    <div class="modal-header rounded-0 h4 bg-warning romana">
+                    <div class="modal-header rounded-0 h4 bg-warning public-sans">
                       ACC PKL
                     </div>
                     <div class="modal-body text-dark">
                       Apakah <span class="romana">{{ pemetaan.expand.iduka.nama }}</span> sudah konfirmasi menerima Peserta PKL?
                     </div>
                     <div class="modal-footer">
-                      <button @click="handleAccPkl(pemetaan.id)" class="btn btn-success btn-sm" data-bs-dismiss="modal">Udah dong!</button>
+                      <button @click="handleAccPkl(pemetaan.iduka)" class="btn btn-success btn-sm" data-bs-dismiss="modal">Udah dong!</button>
                       <button class="btn btn-light btn-sm" data-bs-dismiss="modal">eh belum</button>
                     </div>
                   </div>
@@ -99,8 +100,19 @@ let opsiWilayah = ref('')
 let keyword = ref('')
 let isIdukaAvailable = ref([])
 
-async function handleAccPkl(id) {
-  await client.collection('pemetaan').update(id, { status_acc_pkl: true })
+async function handleAccPkl(iduka) {
+  // kumpulkan peserta yang iduka-nya sama. ubah status Acc. PKL dengan looping
+  let idukaById = await client.collection('pemetaan').getFullList({
+    filter: "program_keahlian='"+prokel+"' && iduka='"+iduka+"'"
+  })
+  if(idukaById) {
+    for(let i=0; i<idukaById.length; i++) {
+      // console.log(count_dudi[i].id)
+      // console.log('ubah ke true')
+      // console.log('--------------------')
+      await client.collection('pemetaan').update(idukaById[i].id, { status_acc_pkl: true })
+    }
+  }
 }
 
 async function getPemetaan() {
@@ -261,6 +273,8 @@ const mappingFiltered = computed(() => {
 })
 
 async function getIdukaIsAvailable() {
+  // memeriksa apakah Prokel tersebut sudah memiliki daftar IDUKA?
+  // apabila belum, maka proses pemetaan belum diizinkan. :D
   isLoading.value = true
   let data = await client.collection('iduka').getFullList({
     filter: "program_keahlian='"+prokel+"'"

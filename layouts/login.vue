@@ -101,6 +101,10 @@ button.btn-grey:hover {
   color: #000;
   background-color: #bababa !important;
 }
+.btn-warning:disabled {
+  color: #000;
+  background-color: #bababa !important;
+}
 .btn-danger, .btn-danger:hover,
 .bg-danger, .alert-danger {
   background-color: #ff7a5c !important;

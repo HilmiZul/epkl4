@@ -2,7 +2,7 @@
   <div>
     <div class="card">
       <div class="card-header">
-        <span class="h4 romana text-grey"><i class="bi bi-buildings-fill"></i> IDUKA</span>
+        <span class="h4 public-sans text-grey"><i class="bi bi-buildings-fill"></i> IDUKA</span>
         <span class="float-end">
           <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/iduka/tambah" class="btn btn-info btn-sm me-2"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
           <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/iduka/import" class="btn btn-success btn-sm"><i class="bi bi-download"></i> Impor dari .csv</nuxt-link>
@@ -60,7 +60,7 @@
         <div class="modal" :id="`iduka-${company.id}`">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
-              <div class="modal-header rounded-0 h4 bg-danger text-white romana">
+              <div class="modal-header rounded-0 h4 bg-danger text-white public-sans">
                 Peringatan!
               </div>
               <div class="modal-body text-dark small">

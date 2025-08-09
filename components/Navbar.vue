@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg bg-body-tertiary mb-3">
     <div class="container-fluid">
-      <nuxt-link v-if="user" class="navbar-brand lexend-mega text-muted" to="/">Halo, <span class="border-3 border-bottom">{{ prokel }}</span>! 😃</nuxt-link>
+      <nuxt-link v-if="user" class="navbar-brand lexend-mega text-grey" to="/">Halo, <span class="border-3 border-bottom">{{ prokel }}</span>! 😃</nuxt-link>
       <button class="navbar-toggler rounded-0 border-2 border-dark shadow-lg" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <i class="bi-list fs-1 text-dark"></i>
@@ -9,7 +9,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav small">
           <li class="nav-item">
-            <nuxt-link class="nav-link" to="/"><i class="bi bi-pie-chart-fill"></i> Statistik</nuxt-link>
+            <nuxt-link class="nav-link" to="/"><i class="bi bi-pie-chart-fill"></i> Ringkasan</nuxt-link>
           </li>
           <li class="nav-item">
             <nuxt-link class="nav-link" to="/pembimbing"><i class="bi bi-emoji-smile"></i> Pembimbing</nuxt-link>

@@ -66,7 +66,6 @@ html, body {
   border-radius: 0 !important;
   border-width: 2px;
   border: 2px solid #000 !important;
-  box-shadow: 0.2rem 0.2rem 0 #000 !important;
 }
 .btn {
   transition: all 0.1s ease-in-out;
@@ -82,7 +81,7 @@ html, body {
 .btn:disabled {
   border: 1.9px solid #000000;
   box-shadow: none !important;
-  color: #000;
+  color: #000 !important;
   background-color: #bababa !important;
 }
 .form {
@@ -192,6 +191,9 @@ input[type="checkbox"]:not(:checked) {
 }
 .text-grey {
   color: #4f4f4f;
+}
+.bg-grey {
+  background-color: #bababa;
 }
 .badge {
   font-size: small;

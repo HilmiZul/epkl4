@@ -2,14 +2,13 @@
   <div>
     <div class="card">
       <div class="card-header">
-        <span class="h4 romana text-grey"><i class="bi bi-pie-chart-fill"></i> Statistik</span>
+        <span class="h4 public-sans text-grey"><i class="bi bi-pie-chart-fill"></i> Ringkasan</span>
       </div>
       <div class="card-body">
-        <div class="row">
-          <div class="col-md-5">
-            <chart-statistik-pemetaan />
-          </div>
-          <DetailStatistik v-if="role === 'admin'" />
+        <overview-card v-if="role === 'admin' || role === 'jurusan'" />
+        <div class="row mt-4 justify-content-center">
+          <chart-statistik-pemetaan />
+          <DetailStatistik v-if="role === 'admin' || role === 'jurusan'" />
         </div>
       </div>
     </div>
@@ -23,4 +22,5 @@ definePageMeta({
 useHead({ title: "e-PKL / SMKN 4 Tasikmalaya." })
 let user = usePocketBaseUser()
 let role = user?.user.value.role
+
 </script>
