@@ -1,7 +1,8 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 public-sans text-muted">Pembimbing / <span class="text-grey">{{ form.nama }}</span></span>
+      <span class="h4 public-sans text-muted">Pembimbing /
+      <span v-if="!isLoading" class="text-grey">{{ form.nama }}</span></span>
     </div>
     <div class="card-body">
       <div class="row">
@@ -17,18 +18,27 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <Loading v-if="isLoading" />
+      <div v-else class="row">
         <div class="col-md-5">
           <form @submit.prevent="updatePembimbingBaru">
             <div class="my-3">
-              <label for="nip">NIP</label>
-              <input v-model="form.nip" type="text" id="nip" class="form form-control" placeholder="masukkan NIP" required autofocus>
+              <label for="username">Username</label>
+              <input v-model="form.username" :disabled="isLoading" type="text" id="username" class="form form-control" placeholder="masukkan username" required autofocus>
             </div>
             <div class="mb-3">
               <label for="nama">Nama</label>
-              <input v-model="form.nama" :disabled="form.nip.length < 1" type="text" id="nama" class="form form-control" placeholder="masukkan nama Guru Pembimbing" required>
+              <input v-model="form.nama" :disabled="isLoading" type="text" id="nama" class="form form-control" placeholder="masukkan nama Guru Pembimbing" required>
             </div>
-            <button :disabled="isSending || form.nip.length < 1 || form.nama.length < 4" class="btn btn-success btn-sm me-2">
+            <div class="mb-3">
+              <label for="role">Role</label>
+              <select v-model="form.role" :disabled="isLoading" id="role" class="form form-control form-select" required>
+                <option disabled value="">—</option>
+                <option value="jurusan">Guru Kejuruan</option>
+                <option value="guru">Guru Umum</option>
+              </select>
+            </div>
+            <button :disabled="isSending || form.username == '' || form.email == '' || form.password == '' || form.nama == '' || form.role == ''" class="btn btn-success btn-sm me-2">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>
@@ -52,15 +62,16 @@ let isSaved = ref(false)
 let isSending = ref(false)
 let isLoading = ref(true)
 let form = ref({
-  nip: 'loading',
-  nama: 'loading',
+  username: '',
+  nama: '',
+  role: '',
 })
 
 async function updatePembimbingBaru() {
   isSending.value = true
   isSaved.value = false
-  form.value.program_keahlian = prokel
-  let data = await client.collection('pembimbing').update(route.params.id, form.value)
+  form.value.username = form.value.username.toLowerCase()
+  let data = await client.collection('teacher_users').update(route.params.id, form.value)
   if(data) {
     isSending.value = false
     isSaved.value = true
@@ -69,7 +80,7 @@ async function updatePembimbingBaru() {
 
 async function getPembimbingById() {
   isLoading.value = true
-  let data = await client.collection('pembimbing').getOne(route.params.id)
+  let data = await client.collection('teacher_users').getOne(route.params.id)
   if(data) {
     isLoading.value = false
     form.value = data
@@ -78,7 +89,7 @@ async function getPembimbingById() {
 
 onMounted(() => {
   getPembimbingById()
-  client.collection('pembimbing').subscribe(route.params.id, function (e) {
+  client.collection('teacher_users').subscribe(route.params.id, function (e) {
     if(e.action == 'update') getPembimbingById()
   }, {});
 })

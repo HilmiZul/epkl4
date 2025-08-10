@@ -18,17 +18,33 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-6">
           <form @submit.prevent="buatPembimbingBaru">
             <div class="my-3">
-              <label for="nip">NIP</label>
-              <input v-model="form.nip" type="text" id="nip" class="form form-control" placeholder="masukkan NIP" required autofocus>
+              <label for="username">Username</label>
+              <input v-model="form.username" type="text" id="username" class="form form-control" placeholder="masukkan username" required autofocus>
+            </div>
+            <div class="my-3">
+              <label for="email">Email</label>
+              <input v-model="form.email" :disabled="form.username.length < 3" type="email" id="email" class="form form-control" placeholder="masukkan email (sekolah)" required>
+            </div>
+            <div class="my-3">
+              <label for="password">Password</label>
+              <input v-model="form.password" :disabled="form.email.length < 10" type="password" id="password" class="form form-control" placeholder="masukkan password min.8 karakter" required>
             </div>
             <div class="mb-3">
               <label for="nama">Nama</label>
-              <input v-model="form.nama" :disabled="form.nip.length < 1" type="text" id="nip" class="form form-control" placeholder="masukkan nama Guru Pembimbing" required>
+              <input v-model="form.nama" :disabled="form.password.length < 8" type="text" id="nama" class="form form-control" placeholder="masukkan nama Guru Pembimbing" required>
             </div>
-            <button :disabled="isSending || form.nip.length < 1 || form.nama.length < 4" class="btn btn-success btn-sm me-2">
+            <div class="mb-3">
+              <label for="role">Role</label>
+              <select v-model="form.role" :disabled="form.nama.length < 4" id="role" class="form form-control form-select" required>
+                <option disabled value="">—</option>
+                <option value="jurusan">Guru Kejuruan</option>
+                <option value="guru">Guru Umum</option>
+              </select>
+            </div>
+            <button :disabled="isSending || form.username.length < 3 || form.email.length < 10 || form.password.length < 8 || form.nama.length < 4 || form.role.length < 7" class="btn btn-success btn-sm me-2">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>
@@ -51,16 +67,24 @@ let isSaved = ref(false)
 let isSending = ref(false)
 let isLoading = ref(true)
 let form = ref({
-  nip: '',
+  username: '',
+  email: '',
+  emailVisibility: true,
+  password: '',
+  passwordConfirm: '',
   nama: '',
-  program_keahlian: ''
+  role: '',
+  program_keahlian: '',
 })
 
 async function buatPembimbingBaru() {
   isSending.value = true
   isSaved.value = false
   form.value.program_keahlian = prokel
-  let data = await client.collection('pembimbing').create(form.value)
+  form.value.username = form.value.username.toLowerCase()
+  form.value.passwordConfirm = form.value.password
+  console.log(form.value)
+  let data = await client.collection('teacher_users').create(form.value)
   if(data) {
     isSending.value = false
     isSaved.value = true

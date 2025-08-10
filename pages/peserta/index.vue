@@ -34,6 +34,7 @@
             <tr>
               <th width="2%">#</th>
               <th>Nama</th>
+              <!-- <th>Pembimbing</th> -->
               <th>Kelas</th>
               <th>Rapor</th>
               <th>Pemetaan</th>
@@ -51,6 +52,7 @@
               <td>
                 <nuxt-link :to="`/peserta/${student.id}`" class="link">{{ student.nama }}</nuxt-link>
               </td>
+              <!-- <td>{{ student.pembimbing }}</td> -->
               <td>{{ student.kelas }}</td>
               <td>
                 <span v-if="student.status_rapot" class="badge bg-success">Tuntas</span>
@@ -91,6 +93,7 @@ const getStudents = async () => {
     .collection('siswa')
     .getFullList({
       filter: 'program_keahlian = "'+user.user.value.program_keahlian+'"',
+      expand: 'pembimbing',
       sort: 'kelas, status_rapot, status_pemetaan_pkl',
     })
   if(data) {

@@ -21,6 +21,10 @@
       </div>
       <div class="row">
         <div class="col">
+          <div v-if="!isLoading" class="my-3 fw-bold"> Pembimbing saat ini:
+            <div v-if="form.pembimbing != ''" class="badge bg-success">{{ form.expand.pembimbing.nama }}</div>
+            <div v-else class="badge bg-danger">Belum ada pembimbing</div>
+          </div>
           <form @submit.prevent="simpanPerubahan">
             <div class="my-3 form-check form-switch">
               <input v-model="form.status_rapot" :checked="form.status_rapot" class="form-check-input" type="checkbox" id="checkRapor" switch>
@@ -33,6 +37,23 @@
               <label class="form-check-label" for="checkPemetaan">
                 Pemetaan PKL
               </label>
+            </div>
+            <div class="mb-3">
+              <label for="pembimbing">Pembimbing</label>
+              <multiselect
+                v-model="form.pembimbing"
+                :options="teachers"
+                :modelValue="integer"
+                track-by="nama"
+                label="nama"
+                id="pembimbing"
+                placeholder="Pilih satu"
+                required>
+                <template v-slot:singleLabel="{ option }"><strong>{{ option.nama }}</strong></template>
+              </multiselect>
+              <!-- <select id="pembimbing">
+                <option value=""></option>
+              </select> -->
             </div>
             <!-- <div v-if="form.status_pemetaan_pkl" class="mb-3 form-check form-switch">
               <input v-model="form.status_acc_pkl" :checked="form.status_acc_pkl" class="form-check-input" type="checkbox" id="checkAcc" switch>
@@ -88,27 +109,32 @@ definePageMeta({
 useHead({ title: "Update Peserta — e-PKL / SMKN 4 Tasikmalaya." })
 let client = usePocketBaseClient()
 let user = usePocketBaseUser()
+let prokel = user.user.value.program_keahlian
+let role = user.user.value.role
 let route = useRoute()
 let isLoading = ref(true)
 let isLoadingSave = ref(false)
 let isSaved = ref(false)
 let student = ref()
+let teachers = ref([])
+let pembimbing = ref({})
 let form = ref({
   id: '',
   nama: '⏳',
   kelas: '⏳',
+  pembimbing: '',
   status_rapot: false,
   status_pemetaan_pkl: false,
 })
 
 async function simpanPerubahan() {
+  // console.log(form.value.pembimbing.id)
   isLoadingSave.value = true
   isSaved.value = false
   client.autoCancellation(false)
-  let data = await client
-    .collection('siswa')
-    .update(route.params.id, {
+  let data = await client.collection('siswa').update(route.params.id, {
       status_rapot: form.value.status_rapot,
+      pembimbing: form.value.pembimbing.id
     })
   if(data) {
     isLoading.value = false
@@ -117,13 +143,22 @@ async function simpanPerubahan() {
   }
 }
 
+async function getTeachersByProkelNotAdmin() {
+  isLoading.value = true
+  let data = await client.collection('teacher_users').getFullList({
+    filter: "program_keahlian='"+prokel+"' && role!='admin'"
+  })
+  if(data) {
+    isLoading.value = false
+    teachers.value = data
+  }
+}
+
 async function getStudentById() {
   isLoading.value = true
   client.autoCancellation(false)
-  let data = await client
-    .collection('siswa')
-    .getOne(route.params.id, {
-      expand: 'program_keahlian'
+  let data = await client.collection('siswa').getOne(route.params.id, {
+      expand: 'program_keahlian, pembimbing'
     })
   if(data) {
     isLoading.value = false
@@ -133,8 +168,12 @@ async function getStudentById() {
 
 onMounted(() => {
   getStudentById()
+  getTeachersByProkelNotAdmin()
   client.collection('siswa').subscribe('update', function (e) {
-    if(e.action == 'update') getStudentById()
+    if(e.action == 'update') {
+      getStudentById()
+      getTeachersByProkelNotAdmin()
+    }
   }, {});
 })
 </script>

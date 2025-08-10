@@ -75,8 +75,8 @@ async function count() {
   let res_peserta = await client.collection('siswa').getFullList({
     filter: "program_keahlian='"+prokel+"'"
   })
-  let res_pembimbing = await client.collection('pembimbing').getFullList({
-    filter: "program_keahlian='"+prokel+"'"
+  let res_pembimbing = await client.collection('teacher_users').getFullList({
+    filter: "program_keahlian='"+prokel+"' && role!='admin'"
   })
   let res_iduka = await client.collection('iduka').getFullList({
     filter: "program_keahlian='"+prokel+"'"

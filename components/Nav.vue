@@ -33,7 +33,7 @@
             <nuxt-link to="/analitik">
               <li class="list-group-item"><i class="bi bi-bar-chart-fill"></i> Analitik</li>
             </nuxt-link> -->
-            <nuxt-link to="/users" v-if="role === 'admin'">
+            <nuxt-link to="/users" v-if="role === 'admin' || role === 'jurusan'">
               <li class="list-group-item"><i class="bi bi-people-fill"></i> Users</li>
             </nuxt-link>
             <nuxt-link to="/logout">

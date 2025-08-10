@@ -24,23 +24,23 @@
           <thead>
             <tr>
               <th width="2%">#</th>
-              <th>NIP</th>
               <th>Nama</th>
-              <th>Hapus</th>
+              <th>Role</th>
+              <th v-if="role == 'admin'" width="15%">Hapus</th>
             </tr>
           </thead>
           <tbody>
             <tr v-if="isLoading" class="text-center my-5">
-              <td colspan="4"><Loading /></td>
+              <td colspan="5"><Loading /></td>
             </tr>
             <tr v-else-if="itemFiltered.length < 1" class="text-center my-5">
-              <td colspan="4">Data tidak ditemukan.</td>
+              <td colspan="5">Data tidak ditemukan.</td>
             </tr>
             <tr v-else v-for="(pembimbing,i) in itemFiltered" :key="pembimbing.id">
               <td>{{ i+1 }}.</td>
-              <td>{{ pembimbing.nip }}</td>
               <td><nuxt-link :to="`/pembimbing/${pembimbing.id}`" class="link">{{ pembimbing.nama }}</nuxt-link></td>
-              <td><button class="btn btn-danger btn-sm" data-bs-toggle="modal" :data-bs-target="`#pem-${pembimbing.id}`">hapus</button></td>
+              <td>{{ pembimbing.role.charAt(0).toUpperCase() + pembimbing.role.slice(1) }}</td>
+              <td v-if="role == 'admin'"><button class="btn btn-danger btn-sm" data-bs-toggle="modal" :data-bs-target="`#pem-${pembimbing.id}`">hapus</button></td>
             </tr>
           </tbody>
         </table>
@@ -87,14 +87,15 @@ let prokel = user.user.value.program_keahlian
 let keyword = ref('')
 
 async function hapusData(id) {
-  await client.collection('pembimbing').delete(id)
+  console.log('belum dilakukan! karena terikat tabel lain.')
+  // await client.collection('teacher_users').delete(id)
 }
 
 async function getPembimbingByProkel() {
   isLoading.value = true
   client.autoCancellation(false)
-  let data = await client.collection('pembimbing').getFullList({
-    filter: "program_keahlian='"+prokel+"'",
+  let data = await client.collection('teacher_users').getFullList({
+    filter: "program_keahlian='"+prokel+"' && role!='admin'",
     expand: "program_keahlian",
     sort: 'nama'
   })
@@ -107,8 +108,8 @@ async function getPembimbingByProkel() {
 async function searchByKeyword() {
   isLoading.value = true
   client.autoCancellation(false)
-  let data = await client.collection('pembimbing').getFullList({
-    filter: "nama~'"+keyword.value+"' || nip~'"+keyword.value+"' && program_keahlian='"+prokel+"'",
+  let data = await client.collection('teacher_users').getFullList({
+    filter: "nama~'"+keyword.value+"' || username~'"+keyword.value+"' || role~'"+keyword.value+"' && program_keahlian='"+prokel+"'",
     expand: "program_keahlian",
     sort: 'nama'
   })
@@ -121,15 +122,16 @@ async function searchByKeyword() {
 const itemFiltered = computed(() => {
   return teachers.value.filter((i) => {
     return (
-      i.nip.toLowerCase().includes(keyword.value.toLowerCase()) ||
-      i.nama.toLowerCase().includes(keyword.value.toLowerCase())
+      i.username.toLowerCase().includes(keyword.value.toLowerCase()) ||
+      i.nama.toLowerCase().includes(keyword.value.toLowerCase()) ||
+      i.role.toLowerCase().includes(keyword.value.toLowerCase())
     )
   })
 })
 
 onMounted(() => {
   getPembimbingByProkel()
-  client.collection('pembimbing').subscribe('*', function(e) {
+  client.collection('teacher_users').subscribe('*', function(e) {
     if(e.action == "delete") getPembimbingByProkel()
   }, {})
 })

@@ -13,10 +13,10 @@
             <li>Belum diterima = Peserta yang sudah dipetakan menunggu respon/balasan IDUKA</li>
           </ul>
         </div>
-        <ringkasan-card v-if="role === 'admin' || role === 'jurusan'" />
+        <ringkasan-card v-if="role === 'admin' || role === 'jurusan' || role === 'tu'" />
         <div class="row mt-4 justify-content-center">
           <ringkasan-chart />
-          <ringkasan-detail-statistik v-if="role === 'admin' || role === 'jurusan'" />
+          <ringkasan-detail-statistik v-if="role === 'admin' || role === 'jurusan' || role === 'tu'" />
         </div>
       </div>
     </div>
