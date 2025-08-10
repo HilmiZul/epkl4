@@ -1,5 +1,6 @@
 <template>
-  <div class="col-sm-3 side-nav">
+  <div class="col-lg-3 side-nav">
+    <Header />
     <div class="card shadow-lg">
       <div v-confetti v-if="isConfetti" class="posiiton-absolute top-0 start-50 translate-middle-x"></div>
       <div class="card-body p-0">

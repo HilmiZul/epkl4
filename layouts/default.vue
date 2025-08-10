@@ -1,7 +1,7 @@
 <template>
-  <div class="container pb-5">
-    <Header />
-    <div class="row">
+  <div class="container mb-5">
+    <div class="row mt-5">
+      <!-- <Header /> -->
       <Navbar />
       <Nav />
       <div class="col">
@@ -93,7 +93,6 @@ html, body {
   border-color: #000000;
 }
 label {
-
   font-weight: 700;
 }
 button.btn-grey {

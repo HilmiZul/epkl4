@@ -3,7 +3,7 @@
   <div v-else class="col-md-6">
     <div class="card mb-4">
       <div class="card-body">
-        <h4>{{ jurusan?.nama }}</h4>
+        <h4>Berdasarkan wilayah</h4>
         <table class="table fs-6 fw-semibold border-0">
           <tbody>
             <!-- <tr class="text-success">
@@ -15,20 +15,20 @@
               <td>: {{ count_terpetakan_semua }} dari {{ count_peserta }}</td>
             </tr> -->
             <tr>
+              <td>Jumlah IDUKA dalam kota</td>
+              <td>: {{ count_iduka_dalam }}</td>
+            </tr>
+            <tr>
+              <td>Jumlah IDUKA luar kota</td>
+              <td>: {{ count_iduka_luar }}</td>
+            </tr>
+            <tr>
               <td>Terserap di dalam kota</td>
               <td>: {{ count_terserap_dalam }} dari {{ count_peserta }}</td>
             </tr>
             <tr>
               <td>Terserap di luar kota</td>
               <td>: {{ count_terserap_luar }} dari {{ count_peserta }}</td>
-            </tr>
-            <tr>
-              <td>IDUKA dalam kota</td>
-              <td>: {{ count_iduka_dalam }}</td>
-            </tr>
-            <tr>
-              <td>IDUKA luar kota</td>
-              <td>: {{ count_iduka_luar }}</td>
             </tr>
           </tbody>
         </table>

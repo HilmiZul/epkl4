@@ -1,9 +1,11 @@
 <template>
   <div class="container">
-    <Header />
-
-    <slot />
-
+    <div class="row justify-content-center mt-5">
+      <div class="col-lg-4">
+        <Header />
+        <slot />
+      </div>
+    </div>
     <!-- <div class="row">
       <div class="col-3">
         <Footer />
@@ -114,5 +116,8 @@ button.btn-grey:hover {
 .bg-warning, .alert-warning {
   background-color: #fafa96 !important;
   color: #000;
+}
+label {
+  font-weight: 700;
 }
 </style>
