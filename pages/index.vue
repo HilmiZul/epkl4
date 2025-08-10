@@ -5,10 +5,18 @@
         <span class="h4 public-sans text-grey"><i class="bi bi-pie-chart-fill"></i> Ringkasan</span>
       </div>
       <div class="card-body">
-        <overview-card v-if="role === 'admin' || role === 'jurusan'" />
+        <div class="alert alert-warning shadow-lg">
+          <span class="h4"><i class="bi bi-lightbulb"></i> FYI</span>
+          <ul>
+            <li>Terserap = Peserta yang sudah diterima IDUKA</li>
+            <li>Terpetakan = Peserta yang baru ditempatkan saja</li>
+            <li>Belum diterima = Peserta yang sudah dipetakan menunggu respon/balasan IDUKA</li>
+          </ul>
+        </div>
+        <ringkasan-card v-if="role === 'admin' || role === 'jurusan'" />
         <div class="row mt-4 justify-content-center">
-          <chart-statistik-pemetaan />
-          <DetailStatistik v-if="role === 'admin' || role === 'jurusan'" />
+          <ringkasan-chart />
+          <ringkasan-detail-statistik v-if="role === 'admin' || role === 'jurusan'" />
         </div>
       </div>
     </div>

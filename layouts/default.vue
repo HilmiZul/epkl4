@@ -135,6 +135,9 @@ button.btn-grey:hover {
 .text-danger {
   color: #ff6b6b !important;
 }
+.text-info {
+  color: rgb(54, 162, 235) !important;
+}
 table {
   font-size: small;
 }

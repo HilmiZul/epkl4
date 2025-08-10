@@ -3,7 +3,7 @@
     <div :class="classNameCol">
       <div class="card mb-5 border border-2 border-dark bg-success">
         <div class="fs-1 text-center lexend-mega">
-          <span class="">e-PKL.</span>
+          <span class="text-shadow">e-PKL.</span>
         </div>
       </div>
       <!-- <div class="mb-4 public-sans text-muted">Pemetaan siswa Praktik Kerja Lapangan (PKL)</div> -->
@@ -28,5 +28,8 @@ if(user.user.value == null) {
 <style scoped>
 .card {
   background-color: transparent;
+}
+.text-shadow {
+  text-shadow: 3px -2px #fff;
 }
 </style>
