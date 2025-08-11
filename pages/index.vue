@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card">
+    <div v-if="role != 'tu'" class="card">
       <div class="card-header">
         <span class="h4 public-sans text-grey"><i class="bi bi-pie-chart-fill"></i> Ringkasan</span>
       </div>
@@ -13,10 +13,33 @@
             <li>Belum diterima = Peserta yang sudah dipetakan menunggu respon/balasan IDUKA</li>
           </ul>
         </div>
-        <ringkasan-card v-if="role === 'admin' || role === 'jurusan' || role === 'tu'" />
+        <ringkasan-card v-if="role == 'admin' || role == 'jurusan'" />
         <div class="row mt-4 justify-content-center">
-          <ringkasan-chart />
-          <ringkasan-detail-statistik v-if="role === 'admin' || role === 'jurusan' || role === 'tu'" />
+          <ringkasan-chart v-if="role == 'admin' || role == 'jurusan'" />
+          <ringkasan-detail-statistik v-if="role == 'admin' || role == 'jurusan'" />
+        </div>
+      </div>
+    </div>
+    <div v-else class="card">
+      <div class="card-header">
+        <span class="h4 public-sans text-grey"><i class="bi bi-pie-chart-fill"></i> Ringkasan</span>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body bg-info">
+                <span class="medium">Semua Pemetaan</span>
+                <h4 v-if="!isLoading">{{ jumlah_pemetaan.length }}</h4>
+                <h4 v-else>
+                  <p class="placeholder-glow">
+                    <span class="placeholder col-6"></span>
+                  </p>
+                </h4>
+                <div class="mt-3 small"><nuxt-link to="/pemetaan" class="link border-0">intip <i class="bi bi-arrow-up-right-square"></i></nuxt-link></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -29,6 +52,22 @@ definePageMeta({
 })
 useHead({ title: "e-PKL / SMKN 4 Tasikmalaya." })
 let user = usePocketBaseUser()
+let client = usePocketBaseClient()
 let role = user?.user.value.role
+let isLoading = ref(true)
+let jumlah_pemetaan = ref(0)
 
+async function getCountPemetaan() {
+  isLoading.value = true
+  client.autoCancellation(false)
+  let res_pemetaan = await client.collection('pemetaan').getFullList()
+  if(res_pemetaan) {
+    isLoading.value = false
+    jumlah_pemetaan.value = res_pemetaan
+  }
+}
+
+onMounted(() => {
+  getCountPemetaan()
+})
 </script>

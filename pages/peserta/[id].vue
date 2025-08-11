@@ -21,10 +21,6 @@
       </div>
       <div class="row">
         <div class="col">
-          <div v-if="!isLoading" class="my-3 fw-bold"> Pembimbing saat ini:
-            <div v-if="form.pembimbing != ''" class="badge bg-success">{{ form.expand.pembimbing.nama }}</div>
-            <div v-else class="badge bg-danger">Belum ada pembimbing</div>
-          </div>
           <form @submit.prevent="simpanPerubahan">
             <div class="my-3 form-check form-switch">
               <input v-model="form.status_rapot" :checked="form.status_rapot" class="form-check-input" type="checkbox" id="checkRapor" switch>
@@ -38,8 +34,12 @@
                 Pemetaan PKL
               </label>
             </div>
+            <div v-if="!isLoading" class="mb-3 fw-bold"> Pembimbing saat ini:
+              <div v-if="form.pembimbing != ''" class="badge bg-success">{{ form.expand.pembimbing.nama }}</div>
+              <div v-else class="badge bg-danger">{{ form.pembimbing }}</div>
+            </div>
             <div class="mb-3">
-              <label for="pembimbing">Pembimbing</label>
+              <label for="pembimbing">Ganti Pembimbing</label>
               <multiselect
                 v-model="form.pembimbing"
                 :options="teachers"
@@ -158,13 +158,20 @@ async function getStudentById() {
   isLoading.value = true
   client.autoCancellation(false)
   let data = await client.collection('siswa').getOne(route.params.id, {
-      expand: 'program_keahlian, pembimbing'
-    })
+    expand: 'program_keahlian, pembimbing'
+  })
   if(data) {
     isLoading.value = false
     form.value = data
+    if(form.value.pembimbing == '') {
+      form.value.pembimbing = "Belum punya pembimbing"
+    } else {
+      let res = await client.collection('teacher_users').getOne(form.value.pembimbing)
+      // console.log(res)
+    }
   }
 }
+
 
 onMounted(() => {
   getStudentById()

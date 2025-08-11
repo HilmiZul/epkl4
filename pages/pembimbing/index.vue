@@ -24,6 +24,7 @@
           <thead>
             <tr>
               <th width="2%">#</th>
+              <th>Username</th>
               <th>Nama</th>
               <th>Role</th>
               <th v-if="role == 'admin'" width="15%">Hapus</th>
@@ -38,6 +39,7 @@
             </tr>
             <tr v-else v-for="(pembimbing,i) in itemFiltered" :key="pembimbing.id">
               <td>{{ i+1 }}.</td>
+              <td>{{ pembimbing.username }}</td>
               <td><nuxt-link :to="`/pembimbing/${pembimbing.id}`" class="link">{{ pembimbing.nama }}</nuxt-link></td>
               <td>{{ pembimbing.role.charAt(0).toUpperCase() + pembimbing.role.slice(1) }}</td>
               <td v-if="role == 'admin'"><button class="btn btn-danger btn-sm" data-bs-toggle="modal" :data-bs-target="`#pem-${pembimbing.id}`">hapus</button></td>

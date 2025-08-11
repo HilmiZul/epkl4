@@ -30,7 +30,7 @@
     </div>
     <div class="col-md-3">
       <div class="card mb-3">
-        <div class="card-body bg-warning">
+        <div class="card-body bg-purple">
           <span class="medium">Pembimbing</span>
           <h4 v-if="!isLoading">{{ count_pembimbing.length }}</h4>
           <h4 v-else>
@@ -72,24 +72,45 @@ let prosentase_pemetaan = ref(0)
 
 async function count() {
   isLoading.value = true
-  let res_peserta = await client.collection('siswa').getFullList({
-    filter: "program_keahlian='"+prokel+"'"
-  })
-  let res_pembimbing = await client.collection('teacher_users').getFullList({
-    filter: "program_keahlian='"+prokel+"' && role!='admin'"
-  })
-  let res_iduka = await client.collection('iduka').getFullList({
-    filter: "program_keahlian='"+prokel+"'"
-  })
-  let res_pemetaan = await client.collection('pemetaan').getFullList({
-    filter: "program_keahlian='"+prokel+"' && status_acc_pkl=true",
-  })
-  if(res_peserta && res_pembimbing && res_iduka && res_pemetaan) {
-    isLoading.value = false
-    count_peserta.value = res_peserta
-    count_pembimbing.value = res_pembimbing
-    count_iduka.value = res_iduka
-    prosentase_pemetaan.value = (res_pemetaan.length / count_peserta.value.length) * 100
+  client.autoCancellation(false)
+  if(role == 'tu' || role == 'wakasek') {
+    let res_peserta = await client.collection('siswa').getFullList({
+    })
+    let res_pembimbing = await client.collection('teacher_users').getFullList({
+      filter: "role!='admin'"
+    })
+    let res_iduka = await client.collection('iduka').getFullList({
+    })
+    let res_pemetaan = await client.collection('pemetaan').getFullList({
+      filter: "status_acc_pkl=true",
+    })
+    if(res_peserta && res_pembimbing && res_iduka && res_pemetaan) {
+      isLoading.value = false
+      count_peserta.value = res_peserta
+      count_pembimbing.value = res_pembimbing
+      count_iduka.value = res_iduka
+      prosentase_pemetaan.value = (res_pemetaan.length / count_peserta.value.length) * 100
+    }
+  } else {
+    let res_peserta = await client.collection('siswa').getFullList({
+      filter: "program_keahlian='"+prokel+"'"
+    })
+    let res_pembimbing = await client.collection('teacher_users').getFullList({
+      filter: "program_keahlian='"+prokel+"' && role!='admin'"
+    })
+    let res_iduka = await client.collection('iduka').getFullList({
+      filter: "program_keahlian='"+prokel+"'"
+    })
+    let res_pemetaan = await client.collection('pemetaan').getFullList({
+      filter: "program_keahlian='"+prokel+"' && status_acc_pkl=true",
+    })
+    if(res_peserta && res_pembimbing && res_iduka && res_pemetaan) {
+      isLoading.value = false
+      count_peserta.value = res_peserta
+      count_pembimbing.value = res_pembimbing
+      count_iduka.value = res_iduka
+      prosentase_pemetaan.value = (res_pemetaan.length / count_peserta.value.length) * 100
+    }
   }
 }
 

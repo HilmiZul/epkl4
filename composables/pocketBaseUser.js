@@ -9,6 +9,7 @@ export const usePocketBaseUser = () => {
   if(isUserLoggedIn) {
     user.value = {
       id: client.authStore.model.id,
+      username: client.authStore.model.username,
       email: client.authStore.model.email,
       nama: client.authStore.model.nama,
       role: client.authStore.model.role,

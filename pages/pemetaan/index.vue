@@ -40,9 +40,10 @@
                 <tr v-for="(pemetaan,i) in mappingFiltered" :key="pemetaan.id">
                   <td >{{ i+1 }}.</td>
                   <td>
-                    <nuxt-link :to="`/pemetaan/${pemetaan.id}`" class="link">
+                    <nuxt-link v-if="role == 'admin' || role == 'jurusan'" :to="`/pemetaan/${pemetaan.id}`" class="link">
                       {{ pemetaan.expand.siswa.nama }}
                     </nuxt-link>
+                    <span v-else>{{ pemetaan.expand.siswa.nama }}</span>
                   </td>
                   <td v-if="pemetaan.showIduka" :rowspan="pemetaan.idukaRowspan">
                     <span class="fs-6 public-sans">{{ pemetaan.expand.iduka.nama }}</span>
@@ -50,7 +51,7 @@
                     <div v-if="pemetaan.expand.iduka.terisi < pemetaan.expand.iduka.jumlah_kuota" class="fst-italic text-muted">Terisi: {{ pemetaan.expand.iduka.terisi }} dari {{ pemetaan.expand.iduka.jumlah_kuota }}</div>
                     <div v-else class="fst-bold">Terisi: Penuh</div>
                     <div v-if="pemetaan.status_acc_pkl" class="badge bg-success">Diterima</div>
-                    <div v-else class="badge bg-warning hand-cursor" data-bs-toggle="modal" :data-bs-target="`#status-${pemetaan.id}`">Diterima?</div>
+                    <div v-else-if="pemetaan.status_acc_pkl || role == 'admin' || role == 'jurusan'" class="badge bg-warning hand-cursor" data-bs-toggle="modal" :data-bs-target="`#status-${pemetaan.id}`">Diterima?</div>
                   </td>
                   <td v-if="pemetaan.showIduka" :rowspan="pemetaan.idukaRowspan">
                     <nuxt-link v-if="!pemetaan.status_acc_pkl" :to="`/pemetaan/surat/cetak/${pemetaan.iduka}`" target="_blank" class="link">Surat permohonan <i class="bi bi-box-arrow-up-right"></i></nuxt-link>
@@ -117,9 +118,14 @@ async function handleAccPkl(iduka) {
 
 async function getPemetaan() {
   isLoading.value = true
+  // atur filter berdasarkan role: `tu` atau selain `tu`
+  let filterQuery = "program_keahlian='"+prokel+"'"
+  if(role == 'tu') filterQuery = ""
+  // else if(role == 'guru') filterQuery = "program_keahlian='"+prokel+"' && siswa.pembimbing='"+user.user.value.id+"'"
+
   client.autoCancellation(false)
   let data = await client.collection("pemetaan").getFullList({
-    filter: "program_keahlian='"+prokel+"'",
+    filter: filterQuery,
     expand: "iduka, siswa, program_keahlian",
     sort: "status_acc_pkl, iduka.wilayah, iduka.nama",
   })

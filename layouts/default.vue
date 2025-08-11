@@ -128,6 +128,11 @@ button.btn-grey:hover {
   background-color: #87ceeb !important;
   color: #000;
 }
+.bg-purple, .alert-purple, .btn-purple,
+.btn-purple:hover {
+  background-color: #a388ee !important;
+  color: #000;
+}
 .border-danger {
   border-color: #ff6b6b !important;
 }

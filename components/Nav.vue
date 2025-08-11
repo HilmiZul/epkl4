@@ -4,7 +4,7 @@
     <div class="card shadow-lg">
       <div v-confetti v-if="isConfetti" class="posiiton-absolute top-0 start-50 translate-middle-x"></div>
       <div class="card-body p-0">
-        <div v-if="user" class="lexend-mega text-center py-2 border-2 border-bottom border-dark">Halo, <span class="border-2 border-bottom border-dark">{{ prokel }}</span>!
+        <div v-if="user" class="lexend-mega text-center py-2 border-2 border-bottom border-dark">Halo, <span class="border-2 border-bottom border-dark">{{ username.charAt(0).toUpperCase() + username.slice(1) }}</span>!
           <span @click="moreConfetti">😃</span>
         </div>
         <nav>
@@ -12,13 +12,13 @@
             <nuxt-link to="/">
               <li class="list-group-item"><i class="bi bi-pie-chart-fill"></i> Ringkasan</li>
             </nuxt-link>
-            <nuxt-link to="/pembimbing">
+            <nuxt-link v-if="role === 'admin' || role === 'jurusan'" to="/pembimbing">
               <li class="list-group-item"><i class="bi bi-emoji-smile"></i> Pembimbing</li>
             </nuxt-link>
-            <nuxt-link to="/peserta">
+            <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" to="/peserta">
               <li class="list-group-item"><i class="bi bi-person-fill"></i> Peserta Didik</li>
             </nuxt-link>
-            <nuxt-link to="/iduka">
+            <nuxt-link v-if="role === 'admin' || role === 'jurusan'" to="/iduka">
               <li class="list-group-item"><i class="bi bi-buildings-fill"></i> IDUKA</li>
             </nuxt-link>
             <nuxt-link to="/pemetaan">
@@ -33,9 +33,6 @@
             <nuxt-link to="/analitik">
               <li class="list-group-item"><i class="bi bi-bar-chart-fill"></i> Analitik</li>
             </nuxt-link> -->
-            <nuxt-link to="/users" v-if="role === 'admin' || role === 'jurusan'">
-              <li class="list-group-item"><i class="bi bi-people-fill"></i> Users</li>
-            </nuxt-link>
             <nuxt-link to="/logout">
               <li class="list-group-item text-danger"><i class="bi bi-box-arrow-right"></i> Keluar</li>
             </nuxt-link>
@@ -65,9 +62,10 @@ import { vConfetti } from '@neoconfetti/vue'
 
 let user = usePocketBaseUser()
 let client = usePocketBaseClient()
-let prokel = ref()
+let prokel = ref({})
 let nama = user?.user.value.nama
 let role = user?.user.value.role
+let username = user?.user.value.username
 let isConfetti = ref(false)
 
 const moreConfetti = async () => {
@@ -76,18 +74,18 @@ const moreConfetti = async () => {
   isConfetti.value = true
 }
 
-const getProkel = async () => {
-  client.autoCancellation(false)
-  let data = await client
-    .collection('program_keahlian')
-    .getOne(user?.user.value.program_keahlian, {
-      expand: 'nama'
-    })
-  if(data) prokel.value = data.nama
-}
+// const getProkel = async () => {
+//   client.autoCancellation(false)
+//   let data = await client
+//     .collection('program_keahlian')
+//     .getOne(user?.user.value.program_keahlian, {
+//       expand: 'nama'
+//     })
+//   if(data) prokel.value = data.nama
+// }
 
 onMounted(() => {
-  getProkel()
+  // getProkel()
 })
 </script>
 

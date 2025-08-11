@@ -20,7 +20,7 @@
         </div> -->
         <div class="col-lg-6">
           <div class="my-3 mt-0">
-            <input type="search" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan nama / kelas..." />
+            <input type="search" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan nama / kelas" />
           </div>
         </div>
         <div class="col align-content-center">
@@ -34,18 +34,18 @@
             <tr>
               <th width="2%">#</th>
               <th>Nama</th>
-              <!-- <th>Pembimbing</th> -->
               <th>Kelas</th>
+              <th>Pembimbing</th>
               <th>Rapor</th>
               <th>Pemetaan</th>
             </tr>
           </thead>
           <tbody>
             <tr v-if="isLoading" class="text-center my-5">
-              <td colspan="5"><Loading /></td>
+              <td colspan="6"><Loading /></td>
             </tr>
             <tr v-else-if="studentsFiltered.length < 1" class="text-center my-5">
-              <td colspan="5">Data tidak ditemukan.</td>
+              <td colspan="6">Data tidak ditemukan.</td>
             </tr>
             <tr v-for="(student,i) in studentsFiltered" :key="student.id">
               <td>{{ i+1 }}. </td>
@@ -54,6 +54,7 @@
               </td>
               <!-- <td>{{ student.pembimbing }}</td> -->
               <td>{{ student.kelas }}</td>
+              <td>{{ student.expand.pembimbing.nama }}</td>
               <td>
                 <span v-if="student.status_rapot" class="badge bg-success">Tuntas</span>
                 <span v-else class="badge bg-danger">Belum tuntas</span>
@@ -88,11 +89,16 @@ onMounted(() => getStudents())
 
 const getStudents = async () => {
   isLoading.value = true
+  // filter data bedasarkan role
+  let filterQuery = "program_keahlian='"+prokel+"' && pembimbing='"+user.user.value.id+"'"
+  if(role == 'guru') filterQuery = "program_keahlian='"+prokel+"' && pembimbing='"+user.user.value.id+"'"
+  else filterQuery = "program_keahlian='"+prokel+"'"
+
   client.autoCancellation(false)
   const data = await client
     .collection('siswa')
     .getFullList({
-      filter: 'program_keahlian = "'+user.user.value.program_keahlian+'"',
+      filter: filterQuery,
       expand: 'pembimbing',
       sort: 'kelas, status_rapot, status_pemetaan_pkl',
     })
@@ -140,6 +146,7 @@ const studentsFiltered = computed(() => {
     return (
       i.nama.toLowerCase().includes(keyword.value.toLowerCase()) ||
       i.kelas.toLowerCase().includes(keyword.value.toLowerCase())
+      // i.expand.pembimbing.nama.toLowerCase().includes(keyword.value.toLowerCase())
     )
   })
 })
