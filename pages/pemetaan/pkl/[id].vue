@@ -77,7 +77,7 @@
             <h5 class="romana">Danger Zone!</h5>
             <p class="small">Apabila Pemetaan ini dihapus, maka harus buat pemetaan ulang!</p>
             <button class="btn btn-danger btn-sm border-dark" data-bs-toggle="modal" :data-bs-target="`#pemetaan-${route.params.id}`">Hapus</button>
-            <div class="modal" :id="`pemetaan-${route.params.id}`">
+            <div class="modal" :id="`pemetaan-${route.params.id}`" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
                   <div class="modal-header rounded-0 h4 bg-danger text-white public-sans">

@@ -39,7 +39,7 @@
             <nuxt-link to="/logout">
               <li class="list-group-item text-danger"><i class="bi bi-box-arrow-right"></i> Keluar</li>
             </nuxt-link>
-            <div class="modal" id="logout">
+            <div class="modal" id="logout" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header"><h3>Logout</h3></div>

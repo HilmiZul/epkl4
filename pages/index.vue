@@ -36,7 +36,7 @@
                     <span class="placeholder col-6"></span>
                   </p>
                 </h4>
-                <div class="mt-3 small"><nuxt-link to="/pemetaan" class="link border-0">intip <i class="bi bi-arrow-up-right-square"></i></nuxt-link></div>
+                <div class="mt-3 small"><nuxt-link to="/pemetaan/pkl" class="link border-0">intip <i class="bi bi-arrow-up-right-square"></i></nuxt-link></div>
               </div>
             </div>
           </div>

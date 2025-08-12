@@ -59,7 +59,7 @@
             <h5 class="romana">Danger Zone!</h5>
             <p class="small">Apabila Siswa yang bernama <span class="border-2 border-bottom border-danger pb-1">{{ form.nama }}</span> telah pindah/mengundurkan diri, silahkan hapus!</p>
             <button class="btn btn-danger btn-sm border-dark" data-bs-toggle="modal" :data-bs-target="`#siswa-${form.id}`">Hapus</button>
-            <div class="modal" :id="`siswa-${form.id}`">
+            <div class="modal" :id="`siswa-${form.id}`" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
                   <div class="modal-header rounded-0 h4 bg-danger text-white public-sans">

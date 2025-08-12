@@ -55,7 +55,7 @@
     </div>
     <div v-if="itemFiltered.length > 0">
       <div v-for="pembimbing in itemFiltered" :key="pembimbing.id">
-        <div class="modal" :id="`pem-${pembimbing.id}`">
+        <div class="modal" :id="`pem-${pembimbing.id}`" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
               <div class="modal-header rounded-0 h4 bg-danger text-white public-sans">

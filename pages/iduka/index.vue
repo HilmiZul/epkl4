@@ -57,7 +57,7 @@
     </div>
     <div v-if="idukaFiltered.length > 0">
       <div v-for="company in idukaFiltered" :key="company.id">
-        <div class="modal" :id="`iduka-${company.id}`">
+        <div class="modal" :id="`iduka-${company.id}`" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
               <div class="modal-header rounded-0 h4 bg-danger text-white public-sans">

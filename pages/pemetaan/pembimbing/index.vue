@@ -148,7 +148,7 @@ async function searchByKeyword() {
   client.autoCancellation(false)
   if(keyword.value.length > 0) {
     let data = await client.collection('pemetaan_pembimbing').getFullList({
-      filter: "pembimbing.nama~'"+keyword.value+"' || siswa.nama~'"+keyword.value+"'",
+      filter: "program_keahlian='"+prokel+"' && pembimbing.nama~'"+keyword.value+"'",
       expand: "pembimbing, siswa, program_keahlian",
       sort: "pembimbing.nama"
     })
