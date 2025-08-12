@@ -4,7 +4,7 @@
     <div class="card shadow-lg">
       <div v-confetti v-if="isConfetti" class="posiiton-absolute top-0 start-50 translate-middle-x"></div>
       <div class="card-body p-0">
-        <div v-if="user" class="lexend-mega text-center py-2 border-2 border-bottom border-dark">Halo, <span class="border-2 border-bottom border-dark">{{ username.charAt(0).toUpperCase() + username.slice(1) }}</span>!
+        <div v-if="user" class="lexend-mega text-center py-2 border-2 border-bottom border-dark">Halo, <span class="border-2 border-bottom border-dark">{{ username.toUpperCase() }}</span>!
           <span @click="moreConfetti">😃</span>
         </div>
         <nav>
@@ -21,8 +21,11 @@
             <nuxt-link v-if="role === 'admin' || role === 'jurusan'" to="/iduka">
               <li class="list-group-item"><i class="bi bi-buildings-fill"></i> IDUKA</li>
             </nuxt-link>
-            <nuxt-link to="/pemetaan">
-              <li class="list-group-item"><i class="bi bi-diagram-3-fill"></i> Pemetaan</li>
+            <nuxt-link to="/pemetaan/pembimbing">
+              <li class="list-group-item"><i class="bi bi-people-fill"></i> Pemetaan Pembimbing</li>
+            </nuxt-link>
+            <nuxt-link to="/pemetaan/pkl">
+              <li class="list-group-item"><i class="bi bi-diagram-3-fill"></i> Pemetaan PKL</li>
             </nuxt-link>
             <!-- <nuxt-link to="/jurnal">
               <li class="list-group-item"><i class="bi bi-journals"></i> Jurnal Peserta</li>

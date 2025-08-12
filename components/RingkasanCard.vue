@@ -1,19 +1,5 @@
 <template>
   <div class="row my-3">
-    <div class="col-md-3 mb-3">
-      <div class="card">
-        <div class="card-body bg-info">
-          <span class="medium">Terserap</span>
-          <h4 v-if="!isLoading">{{ prosentase_pemetaan.toFixed(0) }}%</h4>
-          <h4 v-else>
-            <p class="placeholder-glow">
-              <span class="placeholder col-6"></span>
-            </p>
-          </h4>
-          <div class="mt-3 small"><nuxt-link to="/pemetaan" class="link border-0">intip <i class="bi bi-arrow-up-right-square"></i></nuxt-link></div>
-        </div>
-      </div>
-    </div>
     <div class="col-md-3">
       <div class="card mb-3">
         <div class="card-body bg-danger">
@@ -53,6 +39,20 @@
             </p>
           </h4>
           <div class="mt-3 small"><nuxt-link to="/iduka" class="link border-0">intip <i class="bi bi-arrow-up-right-square"></i></nuxt-link></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <div class="card">
+        <div class="card-body bg-info">
+          <span class="medium">Terserap</span>
+          <h4 v-if="!isLoading">{{ prosentase_pemetaan.toFixed(0) }}%</h4>
+          <h4 v-else>
+            <p class="placeholder-glow">
+              <span class="placeholder col-6"></span>
+            </p>
+          </h4>
+          <div class="mt-3 small"><nuxt-link to="/pemetaan/pkl" class="link border-0">intip <i class="bi bi-arrow-up-right-square"></i></nuxt-link></div>
         </div>
       </div>
     </div>

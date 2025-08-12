@@ -11,7 +11,7 @@
         <div class="col-lg-6">
           <div class="my-3 mt-0">
             <!-- <input type="search" @input="searchByKeyword" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan nama atau NIP..." /> -->
-            <input type="search" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan nama atau NIP..." />
+            <input type="search" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan username / nama / role" />
           </div>
         </div>
         <div class="col align-content-center">
@@ -26,8 +26,9 @@
               <th width="2%">#</th>
               <th>Username</th>
               <th>Nama</th>
+              <th>Pemetaan</th>
               <th>Role</th>
-              <th v-if="role == 'admin'" width="15%">Hapus</th>
+              <!-- <th width="15%">Hapus</th> -->
             </tr>
           </thead>
           <tbody>
@@ -41,8 +42,12 @@
               <td>{{ i+1 }}.</td>
               <td>{{ pembimbing.username }}</td>
               <td><nuxt-link :to="`/pembimbing/${pembimbing.id}`" class="link">{{ pembimbing.nama }}</nuxt-link></td>
+              <td>
+                <span v-if="pembimbing.status_pemetaan" class="badge bg-success">Sudah</span>
+                <span v-else class="badge bg-danger">Belum</span>
+              </td>
               <td>{{ pembimbing.role.charAt(0).toUpperCase() + pembimbing.role.slice(1) }}</td>
-              <td v-if="role == 'admin'"><button class="btn btn-danger btn-sm" data-bs-toggle="modal" :data-bs-target="`#pem-${pembimbing.id}`">hapus</button></td>
+              <!-- <td><button class="btn btn-danger btn-sm" data-bs-toggle="modal" :data-bs-target="`#pem-${pembimbing.id}`">hapus</button></td> -->
             </tr>
           </tbody>
         </table>
@@ -88,10 +93,26 @@ let role = user.user.value.role
 let prokel = user.user.value.program_keahlian
 let keyword = ref('')
 
-async function hapusData(id) {
-  console.log('belum dilakukan! karena terikat tabel lain.')
+// async function hapusData(id) {
+  // isLoading.value = true
+  // let res = await client.collection('siswa').getFullList({
+  //   filter: "pembimbing='"+id+"'"
+  // })
+  // if(res) {
+  //   if(res.length > 0) {
+  //     for(let i=0; i<res.length; i++) {
+  //       console.log(`update siswa: ${res[i].id}`)
+  //       await client.collection('siswa').update(res[i].id, { pembimbing: '' })
+  //     }
+  //     await client.collection('teacher_users').delete(id)
+  //     isLoading.value = false
+  //   } else {
+  //     await client.collection('teacher_users').delete(id)
+  //     isLoading.value = false
+  //   }
+  // }
   // await client.collection('teacher_users').delete(id)
-}
+// }
 
 async function getPembimbingByProkel() {
   isLoading.value = true

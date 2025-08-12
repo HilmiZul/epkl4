@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 public-sans text-muted">Pemetaan / <span class="text-grey">Tambah baru</span></span>
+      <span class="h4 public-sans text-muted">Pemetaan PKL / <span class="text-grey">Tambah baru</span></span>
     </div>
     <div class="card-body">
       <div class="row">
@@ -69,7 +69,7 @@
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>
-            <nuxt-link to="/pemetaan" class="btn btn-light btn-sm me-2">Kembali</nuxt-link>
+            <nuxt-link to="/pemetaan/pkl" class="btn btn-light btn-sm me-2">Kembali</nuxt-link>
             <em v-if="isSaved" class="text-muted">Berhasil terpetakan!</em>
           </form>
         </div>
@@ -118,7 +118,7 @@ async function buatPemetaan() {
   if(data) {
     isSending.value = false
     isSaved.value = true
-    navigateTo("/pemetaan")
+    navigateTo("/pemetaan/pkl")
   }
 }
 
@@ -132,7 +132,7 @@ async function getCompanies() {
   if(data) {
     isLoadingCompanies.value = false
     companies.value = data
-    if(companies.value.length < 1) navigateTo("/pemetaan")
+    if(companies.value.length < 1) navigateTo("/pemetaan/pkl")
   }
 }
 

@@ -153,7 +153,7 @@ table th {
   color: #fff;
 }
 .table-responsive {
-  height: 400px;
+  height: 500px;
   overflow-x: auto;
   overflow-y: auto;
   border: 2px solid #000

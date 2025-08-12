@@ -44,7 +44,7 @@
                 <option value="guru">Guru Umum</option>
               </select>
             </div>
-            <button :disabled="isSending || form.username.length < 3 || form.email.length < 10 || form.password.length < 8 || form.nama.length < 4 || form.role.length < 7" class="btn btn-success btn-sm me-2">
+            <button :disabled="isSending || form.username.length < 3 || form.email.length < 10 || form.password.length < 8 || form.nama.length < 4 || form.role.length < 4" class="btn btn-success btn-sm me-2">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>
@@ -83,7 +83,6 @@ async function buatPembimbingBaru() {
   form.value.program_keahlian = prokel
   form.value.username = form.value.username.toLowerCase()
   form.value.passwordConfirm = form.value.password
-  console.log(form.value)
   let data = await client.collection('teacher_users').create(form.value)
   if(data) {
     isSending.value = false

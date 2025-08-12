@@ -20,7 +20,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col">
+        <div class="col-md-6">
           <form @submit.prevent="simpanPerubahan">
             <div class="my-3 form-check form-switch">
               <input v-model="form.status_rapot" :checked="form.status_rapot" class="form-check-input" type="checkbox" id="checkRapor" switch>
@@ -33,27 +33,6 @@
               <label class="form-check-label" for="checkPemetaan">
                 Pemetaan PKL
               </label>
-            </div>
-            <div v-if="!isLoading" class="mb-3 fw-bold"> Pembimbing saat ini:
-              <div v-if="form.pembimbing != ''" class="badge bg-success">{{ form.expand.pembimbing.nama }}</div>
-              <div v-else class="badge bg-danger">{{ form.pembimbing }}</div>
-            </div>
-            <div class="mb-3">
-              <label for="pembimbing">Ganti Pembimbing</label>
-              <multiselect
-                v-model="form.pembimbing"
-                :options="teachers"
-                :modelValue="integer"
-                track-by="nama"
-                label="nama"
-                id="pembimbing"
-                placeholder="Pilih satu"
-                required>
-                <template v-slot:singleLabel="{ option }"><strong>{{ option.nama }}</strong></template>
-              </multiselect>
-              <!-- <select id="pembimbing">
-                <option value=""></option>
-              </select> -->
             </div>
             <!-- <div v-if="form.status_pemetaan_pkl" class="mb-3 form-check form-switch">
               <input v-model="form.status_acc_pkl" :checked="form.status_acc_pkl" class="form-check-input" type="checkbox" id="checkAcc" switch>
@@ -117,25 +96,19 @@ let isLoadingSave = ref(false)
 let isSaved = ref(false)
 let student = ref()
 let teachers = ref([])
-let pembimbing = ref({})
 let form = ref({
   id: '',
   nama: '⏳',
   kelas: '⏳',
-  pembimbing: '',
   status_rapot: false,
   status_pemetaan_pkl: false,
 })
 
 async function simpanPerubahan() {
-  // console.log(form.value.pembimbing.id)
   isLoadingSave.value = true
   isSaved.value = false
   client.autoCancellation(false)
-  let data = await client.collection('siswa').update(route.params.id, {
-      status_rapot: form.value.status_rapot,
-      pembimbing: form.value.pembimbing.id
-    })
+  let data = await client.collection('siswa').update(route.params.id, { status_rapot: form.value.status_rapot })
   if(data) {
     isLoading.value = false
     isLoadingSave.value = false
@@ -158,17 +131,11 @@ async function getStudentById() {
   isLoading.value = true
   client.autoCancellation(false)
   let data = await client.collection('siswa').getOne(route.params.id, {
-    expand: 'program_keahlian, pembimbing'
+    expand: 'program_keahlian'
   })
   if(data) {
     isLoading.value = false
     form.value = data
-    if(form.value.pembimbing == '') {
-      form.value.pembimbing = "Belum punya pembimbing"
-    } else {
-      let res = await client.collection('teacher_users').getOne(form.value.pembimbing)
-      // console.log(res)
-    }
   }
 }
 

@@ -26,7 +26,7 @@
             Peserta diterima PKL di {{ pemetaan.expand.iduka.nama }}!
           </div>
           <div v-if="pemetaan?.status_acc_pkl" class="my-3">
-            <nuxt-link to="/pemetaan" class="btn btn-light btn-sm"><i class="bi bi-arrow-left"></i> kembali</nuxt-link>
+            <nuxt-link to="/pemetaan/pkl" class="btn btn-light btn-sm"><i class="bi bi-arrow-left"></i> kembali</nuxt-link>
           </div>
         </div>
         <div v-else class="col-md-6">
@@ -65,7 +65,7 @@
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>
-            <nuxt-link to="/pemetaan" class="btn btn-light btn-sm me-2">Kembali</nuxt-link>
+            <nuxt-link to="/pemetaan/pkl" class="btn btn-light btn-sm me-2">Kembali</nuxt-link>
             <em v-if="isSaved" class="text-grey">Berhasil dipetakan ulang!</em>
           </form>
         </div>
@@ -129,7 +129,7 @@ async function hapusData(id) {
   })
   await client.collection('iduka').update(pemetaan.value.iduka, { terisi: new_terisi })
   await client.collection('pemetaan').delete(id)
-  navigateTo("/pemetaan")
+  navigateTo("/pemetaan/pkl")
   // console.log("Terisi saat ini: "+curr_terisi)
   // console.log("Terisi terbaru: "+new_terisi)
   // console.log("ID peserta: "+pemetaan.value.siswa)

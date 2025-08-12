@@ -35,7 +35,6 @@
               <th width="2%">#</th>
               <th>Nama</th>
               <th>Kelas</th>
-              <th>Pembimbing</th>
               <th>Rapor</th>
               <th>Pemetaan</th>
             </tr>
@@ -54,7 +53,6 @@
               </td>
               <!-- <td>{{ student.pembimbing }}</td> -->
               <td>{{ student.kelas }}</td>
-              <td>{{ student.expand.pembimbing.nama }}</td>
               <td>
                 <span v-if="student.status_rapot" class="badge bg-success">Tuntas</span>
                 <span v-else class="badge bg-danger">Belum tuntas</span>
@@ -89,17 +87,11 @@ onMounted(() => getStudents())
 
 const getStudents = async () => {
   isLoading.value = true
-  // filter data bedasarkan role
-  let filterQuery = "program_keahlian='"+prokel+"' && pembimbing='"+user.user.value.id+"'"
-  if(role == 'guru') filterQuery = "program_keahlian='"+prokel+"' && pembimbing='"+user.user.value.id+"'"
-  else filterQuery = "program_keahlian='"+prokel+"'"
-
   client.autoCancellation(false)
   const data = await client
     .collection('siswa')
     .getFullList({
-      filter: filterQuery,
-      expand: 'pembimbing',
+      filter: "program_keahlian='"+prokel+"'",
       sort: 'kelas, status_rapot, status_pemetaan_pkl',
     })
   if(data) {

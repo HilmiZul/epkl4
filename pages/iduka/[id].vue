@@ -50,13 +50,13 @@
                 <input :disabled="isLoading" v-model="form.jumlah_kuota" type="number" min="1" max="10" id="kuota" class="form form-control" required>
               </div>
               <!-- <input v-model="form.program_keahlian" type="hidden" :value="prokel" disabled id="prokel" class="form form-control"> -->
-              <div class="mb-3">
+              <!-- <div class="mb-3">
                 <label for="pem_sekolah">Pembimbing Sekolah</label>
                 <select :disabled="isLoading" v-model="form.pembimbing_sekolah" id="pem_sekolah" class="form form-control form-select">
                   <option disabled value="" selected>&#8212;</option>
                   <option :disabled="isLoading" v-for="teacher in teachers" :key="teacher.id" :value="teacher.id">{{ teacher.nama }}</option>
                 </select>
-              </div>
+              </div> -->
               <div class="mb-3">
                 <label for="pem_iduka">Pembimbing IDUKA</label>
                 <input :disabled="isLoading" v-model="form.pembimbing_iduka" type="text" id="pem_iduka" class="form form-control" placeholder="Tulis — kalau belum tahu" required>
@@ -108,7 +108,6 @@ let form = ref({
   email: "email@gmail.com",
   jumlah_kuota: "",
   program_keahlian: "",
-  pembimbing_sekolah: "",
   pembimbing_iduka: "loading",
   wilayah: "dalam",
   terisi: 0,
@@ -133,7 +132,7 @@ async function getCompanyById() {
   let data = await client
     .collection("iduka")
     .getOne(route.params.id, {
-      expand: "program_keahlian, pembimbing_sekolah"
+      expand: "program_keahlian"
     })
   if(data) {
     isLoading.value = false

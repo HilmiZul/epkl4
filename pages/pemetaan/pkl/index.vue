@@ -1,16 +1,16 @@
 <template>
   <div class="card shadow-lg">
     <div class="card-header">
-      <span class="h4 public-sans text-grey"><i class="bi bi-diagram-3-fill"></i> Pemetaan</span>
+      <span class="h4 public-sans text-grey"><i class="bi bi-diagram-3-fill"></i> Pemetaan PKL</span>
       <div v-if="isIdukaAvailable.length > 0" class="float-end">
-        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/pemetaan/tambah" class="btn btn-info btn-sm"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
+        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/pemetaan/pkl/tambah" class="btn btn-info btn-sm"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
       </div>
     </div>
     <div class="card-body small">
       <div class="row">
         <div class="col-lg-6">
           <div class="my-3 mt-0">
-            <input v-model="keyword" type="search" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan peserta atau IDUKA..." />
+            <input v-model="keyword" type="search" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan IDUKA / wilayah" />
           </div>
         </div>
         <div class="col align-content-center">
@@ -40,7 +40,7 @@
                 <tr v-for="(pemetaan,i) in mappingFiltered" :key="pemetaan.id">
                   <td >{{ i+1 }}.</td>
                   <td>
-                    <nuxt-link v-if="role == 'admin' || role == 'jurusan'" :to="`/pemetaan/${pemetaan.id}`" class="link">
+                    <nuxt-link v-if="role == 'admin' || role == 'jurusan'" :to="`/pemetaan/pkl/${pemetaan.id}`" class="link">
                       {{ pemetaan.expand.siswa.nama }}
                     </nuxt-link>
                     <span v-else>{{ pemetaan.expand.siswa.nama }}</span>
@@ -61,6 +61,8 @@
               </tbody>
             </table>
           </div>
+
+          <!-- modal pertanyaan apakah diterima IDUKA PKL? -->
           <div>
             <div v-for="(pemetaan) in mapping" :key="pemetaan.id">
               <div class="modal" :id="`status-${pemetaan.id}`" aria-hidden="true">
@@ -89,7 +91,7 @@
 
 <script setup>
 definePageMeta({ middleware: 'auth' })
-useHead({ title: "Pemetaan — e-PKL / SMKN 4 Tasikmalaya." })
+useHead({ title: "Pemetaan PKL — e-PKL / SMKN 4 Tasikmalaya." })
 let client = usePocketBaseClient()
 let user = usePocketBaseUser()
 let role = user.user.value.role
@@ -272,8 +274,8 @@ const mappingFiltered = computed(() => {
   return mapping.value.filter((i) => {
     return (
       i.expand.iduka.nama.toLowerCase().includes(keyword.value.toLowerCase()) ||
-      i.expand.iduka.wilayah.toLowerCase().includes(keyword.value.toLowerCase()) ||
-      i.expand.siswa.nama.toLowerCase().includes(keyword.value.toLowerCase())
+      i.expand.iduka.wilayah.toLowerCase().includes(keyword.value.toLowerCase())
+      // i.expand.siswa.nama.toLowerCase().includes(keyword.value.toLowerCase())
     )
   })
 })

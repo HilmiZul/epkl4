@@ -21,7 +21,10 @@
             <nuxt-link class="nav-link" to="/iduka"><i class="bi bi-buildings-fill"></i> IDUKA</nuxt-link>
           </li>
           <li  class="nav-item">
-            <nuxt-link class="nav-link" to="/pemetaan"><i class="bi bi-diagram-3-fill"></i> Pemetaan</nuxt-link>
+            <nuxt-link class="nav-link" to="/pemetaan/pembimbing"><i class="bi bi-people-fill"></i> Pemetaan Pembimbing</nuxt-link>
+          </li>
+          <li  class="nav-item">
+            <nuxt-link class="nav-link" to="/pemetaan/pkl"><i class="bi bi-diagram-3-fill"></i> Pemetaan PKL</nuxt-link>
           </li>
           <!-- <li class="nav-item">
             <nuxt-link class="nav-link" to="/jurnal"><i class="bi bi-journals"></i> Jurnal Peserta</nuxt-link>
