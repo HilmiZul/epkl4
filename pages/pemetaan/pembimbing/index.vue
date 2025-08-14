@@ -173,7 +173,7 @@ const mappingFiltered = computed(() => {
 onMounted(() => {
   getPemetaanPembimbing()
   client.autoCancellation(false)
-  client.collection('siswa').subscribe('*', function(e) {
+  client.collection('pemetaan_pembimbing').subscribe('*', function(e) {
     if(e.action == 'update') getPemetaanPembimbing()
   },{ })
 })

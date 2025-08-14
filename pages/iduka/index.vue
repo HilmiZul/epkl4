@@ -26,16 +26,17 @@
                 <th width="2%">#</th>
                 <th>Nama</th>
                 <th>Wilayah</th>
-                <th>Terisi</th>
+                <th width="8%">Terisi</th>
+                <th>Pembimbing</th>
                 <th>Hapus</th>
               </tr>
             </thead>
             <tbody>
               <tr v-if="isLoading" class="text-center my-5">
-                <td colspan="5"><Loading /></td>
+                <td colspan="6"><Loading /></td>
               </tr>
               <tr v-else-if="idukaFiltered.length < 1" class="text-center my-5">
-                <td colspan="5">Data tidak ditemukan</td>
+                <td colspan="6">Data tidak ditemukan</td>
               </tr>
               <tr v-for="(company, i) in idukaFiltered" :key="i">
                 <td>{{ i + 1 }}.</td>
@@ -45,6 +46,7 @@
                   <span v-if="company.terisi < company.jumlah_kuota">{{ company.terisi }} dari {{ company.jumlah_kuota }}</span>
                   <span v-else class="badge bg-danger">Penuh</span>
                 </td>
+                <td>{{ company.expand.pembimbing_sekolah?.nama }} </td>
                 <td>
                   <button v-if="company.terisi < 1" class="btn btn-danger btn-sm" data-bs-toggle="modal" :data-bs-target="`#iduka-${company.id}`">hapus</button>
                   <button v-else class="btn btn-dark btn-sm" disabled>Hapus</button>
@@ -126,7 +128,7 @@ async function getCompanies() {
   let data = await client.collection('iduka').getFullList({
     filter: 'program_keahlian = "' + user.user.value.program_keahlian + '"',
     expand: "program_keahlian, pembimbing_sekolah",
-    sort: 'terisi, -wilayah'
+    sort: 'terisi, -wilayah, nama'
   })
   if (data) {
     isLoading.value = false

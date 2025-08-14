@@ -15,22 +15,25 @@
             <nuxt-link v-if="role === 'admin' || role === 'jurusan'" to="/pembimbing">
               <li class="list-group-item"><i class="bi bi-emoji-smile"></i> Pembimbing</li>
             </nuxt-link>
-            <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" to="/peserta">
+            <nuxt-link v-if="role === 'admin' || role === 'jurusan'" to="/cp">
+              <li class="list-group-item"><i class="bi bi-journal-bookmark-fill"></i> CP Mapel</li>
+            </nuxt-link>
+            <nuxt-link v-if="role === 'admin' || role === 'jurusan'" to="/peserta">
               <li class="list-group-item"><i class="bi bi-person-fill"></i> Peserta Didik</li>
             </nuxt-link>
             <nuxt-link v-if="role === 'admin' || role === 'jurusan'" to="/iduka">
               <li class="list-group-item"><i class="bi bi-buildings-fill"></i> IDUKA</li>
             </nuxt-link>
-            <nuxt-link to="/pemetaan/pembimbing">
-              <li class="list-group-item"><i class="bi bi-people-fill"></i> Pemetaan Pembimbing</li>
-            </nuxt-link>
             <nuxt-link to="/pemetaan/pkl">
               <li class="list-group-item"><i class="bi bi-diagram-3-fill"></i> Pemetaan PKL</li>
             </nuxt-link>
-            <!-- <nuxt-link to="/jurnal">
+            <!-- <nuxt-link to="/pemetaan/pembimbing">
+              <li class="list-group-item"><i class="bi bi-people-fill"></i> Pemetaan Pembimbing</li>
+            </nuxt-link> -->
+            <nuxt-link to="/jurnal">
               <li class="list-group-item"><i class="bi bi-journals"></i> Jurnal Peserta</li>
             </nuxt-link>
-            <nuxt-link to="/verifikasi">
+            <!-- <nuxt-link to="/verifikasi">
               <li class="list-group-item"><i class="bi bi-patch-check-fill"></i> Verifikasi</li>
             </nuxt-link>
             <nuxt-link to="/analitik">

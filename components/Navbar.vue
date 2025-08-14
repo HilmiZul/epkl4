@@ -12,31 +12,31 @@
             <nuxt-link  class="nav-link" to="/"><i class="bi bi-pie-chart-fill"></i> Ringkasan</nuxt-link>
           </li>
           <li v-if="role === 'admin' || role === 'jurusan'" class="nav-item">
+            <nuxt-link  class="nav-link" to="/cp"><i class="bi bi-journal-bookmark-fill"></i> CP Mapel</nuxt-link>
+          </li>
+          <li v-if="role === 'admin' || role === 'jurusan'" class="nav-item">
             <nuxt-link  class="nav-link" to="/pembimbing"><i class="bi bi-emoji-smile"></i> Pembimbing</nuxt-link>
           </li>
-          <li v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" class="nav-item">
+          <li v-if="role === 'admin' || role === 'jurusan'" class="nav-item">
             <nuxt-link class="nav-link" to="/peserta"><i class="bi bi-person-fill"></i> Peserta Didik</nuxt-link>
           </li>
           <li v-if="role === 'admin' || role === 'jurusan'" class="nav-item">
             <nuxt-link class="nav-link" to="/iduka"><i class="bi bi-buildings-fill"></i> IDUKA</nuxt-link>
           </li>
           <li  class="nav-item">
-            <nuxt-link class="nav-link" to="/pemetaan/pembimbing"><i class="bi bi-people-fill"></i> Pemetaan Pembimbing</nuxt-link>
-          </li>
-          <li  class="nav-item">
             <nuxt-link class="nav-link" to="/pemetaan/pkl"><i class="bi bi-diagram-3-fill"></i> Pemetaan PKL</nuxt-link>
           </li>
-          <!-- <li class="nav-item">
+          <!-- <li  class="nav-item">
+            <nuxt-link class="nav-link" to="/pemetaan/pembimbing"><i class="bi bi-people-fill"></i> Pemetaan Pembimbing</nuxt-link>
+          </li> -->
+          <li class="nav-item">
             <nuxt-link class="nav-link" to="/jurnal"><i class="bi bi-journals"></i> Jurnal Peserta</nuxt-link>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <nuxt-link class="nav-link" to="/verifikasi"><i class="bi bi-patch-check-fill"></i> Verifikasi</nuxt-link>
           </li>
           <li class="nav-item">
             <nuxt-link class="nav-link" to="/analitik"><i class="bi bi-bar-chart-fill"></i> Analitik</nuxt-link>
-          </li>
-          <li v-if="role === 'admin'" class="nav-item">
-            <nuxt-link class="nav-link" to="/users"><i class="bi bi-people-fill"></i> Users</nuxt-link>
           </li> -->
           <li class="nav-item">
             <nuxt-link class="nav-link text-danger" to="/logout"><i class="bi bi-box-arrow-right"></i> Keluar</nuxt-link>

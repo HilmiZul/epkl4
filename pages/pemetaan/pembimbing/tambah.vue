@@ -12,6 +12,7 @@
               <li>Jumlah siswa sesuai rasio....</li>
               <li>Jumlah siswa sesuai rasio....</li>
             </ul>
+            {{ form.siswa.length }}
           </div>
         </div>
       </div>

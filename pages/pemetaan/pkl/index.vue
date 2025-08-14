@@ -47,11 +47,15 @@
                   </td>
                   <td v-if="pemetaan.showIduka" :rowspan="pemetaan.idukaRowspan">
                     <span class="fs-6 public-sans">{{ pemetaan.expand.iduka.nama }}</span>
-                    <div class="fst-italic text-muted">{{ pemetaan.expand.iduka.wilayah.charAt(0).toUpperCase() + pemetaan.expand.iduka.wilayah.slice(1) }} kota</div>
-                    <div v-if="pemetaan.expand.iduka.terisi < pemetaan.expand.iduka.jumlah_kuota" class="fst-italic text-muted">Terisi: {{ pemetaan.expand.iduka.terisi }} dari {{ pemetaan.expand.iduka.jumlah_kuota }}</div>
+                    <div class="fst-italitc text-grey">Guru Pembimbing:
+                      <span v-if="pemetaan.expand.iduka.pembimbing_sekolah == '-' || pemetaan.expand.iduka.pembimbing_sekolah == ''">-</span>
+                      <span v-else>{{ pemetaan.expand.iduka?.expand.pembimbing_sekolah?.nama }}</span>
+                    </div>
+                    <div class="fst-italic text-grey">{{ pemetaan.expand.iduka.wilayah.charAt(0).toUpperCase() + pemetaan.expand.iduka.wilayah.slice(1) }} kota</div>
+                    <div v-if="pemetaan.expand.iduka.terisi < pemetaan.expand.iduka.jumlah_kuota" class="fst-italic text-grey">Terisi: {{ pemetaan.expand.iduka.terisi }} dari {{ pemetaan.expand.iduka.jumlah_kuota }}</div>
                     <div v-else class="fst-bold">Terisi: Penuh</div>
                     <div v-if="pemetaan.status_acc_pkl" class="badge bg-success">Diterima</div>
-                    <div v-else-if="pemetaan.status_acc_pkl || role == 'admin' || role == 'jurusan'" class="badge bg-warning hand-cursor" data-bs-toggle="modal" :data-bs-target="`#status-${pemetaan.id}`">Diterima?</div>
+                    <div v-else-if="pemetaan.status_acc_pkl || role == 'admin' || role == 'jurusan'" class="badge bg-warning hand-cursor" data-bs-toggle="modal" :data-bs-target="`#status-${pemetaan.id}`">Diterima? <i class="bi bi-hand-index-thumb"></i></div>
                   </td>
                   <td v-if="pemetaan.showIduka" :rowspan="pemetaan.idukaRowspan">
                     <nuxt-link v-if="!pemetaan.status_acc_pkl" :to="`/pemetaan/surat/cetak/${pemetaan.iduka}`" target="_blank" class="link">Surat permohonan <i class="bi bi-box-arrow-up-right"></i></nuxt-link>
@@ -128,7 +132,7 @@ async function getPemetaan() {
   client.autoCancellation(false)
   let data = await client.collection("pemetaan").getFullList({
     filter: filterQuery,
-    expand: "iduka, siswa, program_keahlian",
+    expand: "iduka, iduka.pembimbing_sekolah, siswa, program_keahlian",
     sort: "status_acc_pkl, iduka.wilayah, iduka.nama",
   })
   if(data) {
@@ -296,6 +300,7 @@ async function getIdukaIsAvailable() {
 onMounted(() => {
   getPemetaan()
   getIdukaIsAvailable()
+  client.autoCancellation(false)
   client.collection('pemetaan').subscribe('*', function(e) {
     if(e.action == 'update') {
       getPemetaan()

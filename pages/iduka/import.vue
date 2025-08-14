@@ -75,7 +75,6 @@ async function getFile(e) {
   }
   isLoading.value = false
   idukaTemp.value = result
-  console.log(result)
 }
 </script>
 

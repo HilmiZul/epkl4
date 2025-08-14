@@ -1,5 +1,5 @@
 <template>
-  <div class="container mb-5">
+  <div class="container-fluid mb-5">
     <div class="row mt-5">
       <!-- <Header /> -->
       <Navbar />
@@ -35,6 +35,11 @@ html, body {
   background-size: cover;
   /*background-color: #a0a0a0;*/
   font-family: "Public Sans", sans-serif;
+}
+@media (min-width: 1400px) {
+  .container-fluid {
+    max-width: 1500px; /* Your desired custom width */
+  }
 }
 .public-sans {
   font-family: "Public Sans", sans-serif;
