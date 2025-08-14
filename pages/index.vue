@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="role != 'tu'" class="card">
-      <div class="card-header bg-info">
+      <div class="card-header">
         <span class="h4 public-sans"><i class="bi bi-pie-chart-fill"></i> Ringkasan</span>
       </div>
       <div class="card-body">

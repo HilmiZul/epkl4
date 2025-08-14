@@ -3,7 +3,7 @@
     <div class="card-body">
       <form @submit.prevent="handleLogin">
         <div v-if="isError" class="mb-4">
-          <div class="alert alert-danger small rounded-0 border border-2 border-dark">Kombinasi salah! Coba lagi besok!</div>
+          <div class="alert alert-danger rounded-0 border border-2 border-dark">Kombinasi salah! Coba lagi besok!</div>
         </div>
         <div class="mb-4">
           <label for="username">Username</label>

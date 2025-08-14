@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <div class="card-header bg-danger">
+    <div class="card-header">
       <span class="h4 public-sans"><i class="bi bi-person-fill"></i> Peserta Didik</span>
       <span class="float-end">
         <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/peserta/import" class="btn btn-success btn-sm"><i class="bi bi-download"></i> Impor dari .csv</nuxt-link>

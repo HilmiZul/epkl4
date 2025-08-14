@@ -1,81 +1,79 @@
 <template>
-  <div>
-    <div class="card">
-      <div class="card-header bg-success">
-        <span class="h4 public-sans"><i class="bi bi-buildings-fill"></i> IDUKA</span>
-        <span class="float-end">
-          <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/iduka/tambah" class="btn btn-info btn-sm me-2"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
-          <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/iduka/import" class="btn btn-success btn-sm"><i class="bi bi-download"></i> Impor dari .csv</nuxt-link>
-        </span>
+  <div class="card">
+    <div class="card-header">
+      <span class="h4 public-sans"><i class="bi bi-buildings-fill"></i> IDUKA</span>
+      <span class="float-end">
+        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/iduka/tambah" class="btn btn-info btn-sm me-2"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
+        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/iduka/import" class="btn btn-success btn-sm"><i class="bi bi-download"></i> Impor dari .csv</nuxt-link>
+      </span>
+    </div>
+    <div class="card-body small">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="my-3 mt-0">
+            <input type="search" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan nama IDUKA / wilayah..." />
+          </div>
+        </div>
+        <div class="col align-content-center">
+          <div class="mb-3 text-grey float-end">{{ idukaFiltered.length }} IDUKA</div>
+        </div>
       </div>
-      <div class="card-body small">
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="my-3 mt-0">
-              <input type="search" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan nama IDUKA / wilayah..." />
-            </div>
-          </div>
-          <div class="col align-content-center">
-            <div class="mb-3 text-grey float-end">{{ idukaFiltered.length }} IDUKA</div>
-          </div>
-        </div>
-        <div class="table-responsive">
-          <table class="table table-hover table-striped table-bordered">
-            <thead>
-              <tr>
-                <th width="2%">#</th>
-                <th>Nama</th>
-                <th>Wilayah</th>
-                <th width="8%">Terisi</th>
-                <th>Pembimbing</th>
-                <th>Hapus</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-if="isLoading" class="text-center my-5">
-                <td colspan="6"><Loading /></td>
-              </tr>
-              <tr v-else-if="idukaFiltered.length < 1" class="text-center my-5">
-                <td colspan="6">Data tidak ditemukan</td>
-              </tr>
-              <tr v-for="(company, i) in idukaFiltered" :key="i">
-                <td>{{ i + 1 }}.</td>
-                <td><nuxt-link :to="`/iduka/${company.id}`" class="link">{{ company.nama }}</nuxt-link></td>
-                <td>{{ company.wilayah.charAt(0).toUpperCase() + company.wilayah.slice(1) }} kota </td>
-                <td>
-                  <span v-if="company.terisi < company.jumlah_kuota">{{ company.terisi }} dari {{ company.jumlah_kuota }}</span>
-                  <span v-else class="badge bg-danger">Penuh</span>
-                </td>
-                <td>{{ company.expand.pembimbing_sekolah?.nama }} </td>
-                <td>
-                  <button v-if="company.terisi < 1" class="btn btn-danger btn-sm" data-bs-toggle="modal" :data-bs-target="`#iduka-${company.id}`">hapus</button>
-                  <button v-else class="btn btn-dark btn-sm" disabled>Hapus</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <div class="table-responsive">
+        <table class="table table-hover table-striped table-bordered">
+          <thead>
+            <tr>
+              <th width="2%">#</th>
+              <th>Nama</th>
+              <th>Wilayah</th>
+              <th width="8%">Terisi</th>
+              <th>Pembimbing</th>
+              <th>Hapus</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-if="isLoading" class="text-center my-5">
+              <td colspan="6"><Loading /></td>
+            </tr>
+            <tr v-else-if="idukaFiltered.length < 1" class="text-center my-5">
+              <td colspan="6">Data tidak ditemukan</td>
+            </tr>
+            <tr v-for="(company, i) in idukaFiltered" :key="i">
+              <td>{{ i + 1 }}.</td>
+              <td><nuxt-link :to="`/iduka/${company.id}`" class="link">{{ company.nama }}</nuxt-link></td>
+              <td>{{ company.wilayah.charAt(0).toUpperCase() + company.wilayah.slice(1) }} kota </td>
+              <td>
+                <span v-if="company.terisi < company.jumlah_kuota">{{ company.terisi }} dari {{ company.jumlah_kuota }}</span>
+                <span v-else class="badge bg-danger">Penuh</span>
+              </td>
+              <td>{{ company.expand.pembimbing_sekolah?.nama }} </td>
+              <td>
+                <button v-if="company.terisi < 1" class="btn btn-danger btn-sm" data-bs-toggle="modal" :data-bs-target="`#iduka-${company.id}`">hapus</button>
+                <button v-else class="btn btn-dark btn-sm" disabled>Hapus</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-    <div v-if="idukaFiltered.length > 0">
-      <div v-for="company in idukaFiltered" :key="company.id">
-        <div class="modal" :id="`iduka-${company.id}`" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
-              <div class="modal-header rounded-0 h4 bg-danger text-white public-sans">
-                Peringatan!
-              </div>
-              <div class="modal-body text-dark small">
-                Yakin nih mau hapus <span class="romana">{{ company.nama }}</span> dari daftar IDUKA?
-              </div>
-              <div class="modal-footer">
-                <button v-if="!isDeleted" class="btn btn-danger" data-bs-dismiss="modal" @click="hapusData(company.id)" :disabled="isSending">
-                  <span v-if="isSending">Sedang menghapus</span>
-                  <span v-else>Hapus</span>
-                </button>
-                <span v-else class="me-2"><em>Berhasil dihapus!</em></span>
-                <button @click="() => { isDeleted = false; isSending = flase }" class="btn btn-light" data-bs-dismiss="modal">Gajadi</button>
-              </div>
+  </div>
+  <div v-if="idukaFiltered.length > 0">
+    <div v-for="company in idukaFiltered" :key="company.id">
+      <div class="modal" :id="`iduka-${company.id}`" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
+            <div class="modal-header rounded-0 h4 bg-danger text-white public-sans">
+              Peringatan!
+            </div>
+            <div class="modal-body text-dark small">
+              Yakin nih mau hapus <span class="romana">{{ company.nama }}</span> dari daftar IDUKA?
+            </div>
+            <div class="modal-footer">
+              <button v-if="!isDeleted" class="btn btn-danger" data-bs-dismiss="modal" @click="hapusData(company.id)" :disabled="isSending">
+                <span v-if="isSending">Sedang menghapus</span>
+                <span v-else>Hapus</span>
+              </button>
+              <span v-else class="me-2"><em>Berhasil dihapus!</em></span>
+              <button @click="() => { isDeleted = false; isSending = flase }" class="btn btn-light" data-bs-dismiss="modal">Gajadi</button>
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 <template>
   <div class="card shadow-lg">
-    <div class="card-header bg-info">
+    <div class="card-header">
       <span class="h4 public-sans"><i class="bi bi-diagram-3-fill"></i> Pemetaan PKL</span>
       <div v-if="isIdukaAvailable.length > 0" class="float-end">
         <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/pemetaan/pkl/tambah" class="btn btn-info btn-sm"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
