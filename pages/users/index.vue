@@ -3,7 +3,7 @@
     <div class="card-header">
       <span class="h4 public-sans text-grey"><i class="bi bi-people-fill"></i> Users</span>
       <span v-if="!isLoading && role == 'jurusan' || role == 'admin'" class="float-end">
-        <nuxt-link class="btn btn-info btn-sm"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
+        <nuxt-link class="btn btn-info"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
       </span>
     </div>
     <div class="card-body">

@@ -4,7 +4,7 @@
       <div :class="classNameCol"> -->
         <div class="card mb-5 border border-2 border-dark bg-success">
           <div class="fs-1 text-center lexend-mega py-1">
-            <span class="text-shadow">e-PKL.</span>
+            <span>e-PKL.</span>
           </div>
         </div>
         <!-- <div class="mb-4 public-sans text-muted">Pemetaan siswa Praktik Kerja Lapangan (PKL)</div> -->

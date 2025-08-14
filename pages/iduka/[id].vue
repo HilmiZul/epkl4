@@ -72,11 +72,11 @@
                 <label for="catatan">Catatan (opsional)</label>
                 <input :disabled="isLoading" v-model="form.catatan" type="text" id="catatan" class="form form-control" placeholder="Ada catatan untuk IDUKA ini?">
               </div>
-              <button :disabled="isSending" class="btn btn-success btn-sm me-2 mb-3">
+              <button :disabled="isSending" class="btn btn-success me-2 mb-3">
                 <span v-if="isSending">Sedang menyimpan</span>
                 <span v-else>Simpan</span>
               </button>
-              <nuxt-link class="btn btn-light btn-sm mb-3" to="/iduka">Kembali</nuxt-link>
+              <nuxt-link class="btn btn-light mb-3" to="/iduka">Kembali</nuxt-link>
               <span v-if="isSaved" class="ms-2 mb-3"><em>Berhasil tersimpan!</em></span>
             </div>
           </div>

@@ -36,11 +36,11 @@
                 required>
               </multiselect>
             </div>
-            <button :disabled="isSending || form.siswa.length < 1" class="btn btn-success btn-sm me-2">
+            <button :disabled="isSending || form.siswa.length < 1" class="btn btn-success me-2">
               <span v-if="isSending">Sedang memetakan</span>
               <span v-else>Simpan</span>
             </button>
-            <nuxt-link to="/pemetaan/pembimbing" class="btn btn-light btn-sm me-2">Kembali</nuxt-link>
+            <nuxt-link to="/pemetaan/pembimbing" class="btn btn-light me-2">Kembali</nuxt-link>
             <em v-if="isSaved" class="text-muted">Berhasil tersimpan!</em>
           </form>
         </div>

@@ -19,11 +19,11 @@
               <label for="tujuan">Tujuan</label>
               <textarea v-model="form.tujuan" id="tujuan" rows="4" class="form form-control" placeholder="Menerapkan softskills, menerapkan K3LH, ..." required></textarea>
             </div>
-            <button :disabled="isSending" class="btn btn-success btn-sm me-2">
+            <button :disabled="isSending" class="btn btn-success me-2">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>
-            <nuxt-link to="/cp" class="btn btn-light btn-sm">Kembali</nuxt-link>
+            <nuxt-link to="/cp" class="btn btn-light">Kembali</nuxt-link>
             <span v-if="isSaved" class="ms-2 mb-3 fst-italic">Berhasil tersimpan!</span>
           </form>
         </div>

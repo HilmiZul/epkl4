@@ -1,7 +1,7 @@
 <template>
   <div class="card">
-    <div class="card-header">
-      <span class="h4 public-sans text-grey"><i class="bi bi-emoji-smile"></i> Pembimbing</span>
+    <div class="card-header bg-purple">
+      <span class="h4 public-sans text-dark"><i class="bi bi-emoji-smile"></i> Pembimbing</span>
       <span class="float-end">
         <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/pembimbing/tambah" class="btn btn-info btn-sm"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
       </span>
@@ -26,28 +26,28 @@
               <th width="2%">#</th>
               <th>Username</th>
               <th>Nama</th>
-              <th>Pemetaan</th>
+              <!-- <th>Pemetaan</th> -->
               <th>Role</th>
               <!-- <th width="15%">Hapus</th> -->
             </tr>
           </thead>
           <tbody>
             <tr v-if="isLoading" class="text-center my-5">
-              <td colspan="5"><Loading /></td>
+              <td colspan="4"><Loading /></td>
             </tr>
             <tr v-else-if="itemFiltered.length < 1" class="text-center my-5">
-              <td colspan="5">Data tidak ditemukan.</td>
+              <td colspan="4">Data tidak ditemukan.</td>
             </tr>
             <tr v-else v-for="(pembimbing,i) in itemFiltered" :key="pembimbing.id">
               <td>{{ i+1 }}.</td>
               <td>{{ pembimbing.username }}</td>
               <td><nuxt-link :to="`/pembimbing/${pembimbing.id}`" class="link">{{ pembimbing.nama }}</nuxt-link></td>
-              <td>
+              <!-- <td>
                 <span v-if="pembimbing.status_pemetaan" class="badge bg-success">Sudah</span>
                 <span v-else class="badge bg-danger">Belum</span>
-              </td>
+              </td> -->
               <td>{{ pembimbing.role.charAt(0).toUpperCase() + pembimbing.role.slice(1) }}</td>
-              <!-- <td><button class="btn btn-danger btn-sm" data-bs-toggle="modal" :data-bs-target="`#pem-${pembimbing.id}`">hapus</button></td> -->
+              <!-- <td><button class="btn btn-danger" data-bs-toggle="modal" :data-bs-target="`#pem-${pembimbing.id}`">hapus</button></td> -->
             </tr>
           </tbody>
         </table>
@@ -65,12 +65,12 @@
                 Yakin nih mau hapus <span class="romana">{{ pembimbing.nama }}</span> dari Pembimbing?
               </div>
               <div class="modal-footer">
-                <button v-if="!isDeleted" class="btn btn-danger btn-sm" data-bs-dismiss="modal" @click="hapusData(pembimbing.id)" :disabled="isSending">
+                <button v-if="!isDeleted" class="btn btn-danger" data-bs-dismiss="modal" @click="hapusData(pembimbing.id)" :disabled="isSending">
                   <span v-if="isSending">Sedang menghapus</span>
                   <span v-else>Hapus</span>
                 </button>
                 <span v-else class="me-2"><em>Berhasil dihapus!</em></span>
-                <button @click="() => { isDeleted = false; isSending = flase }" class="btn btn-light btn-sm" data-bs-dismiss="modal">Gajadi</button>
+                <button @click="() => { isDeleted = false; isSending = flase }" class="btn btn-light" data-bs-dismiss="modal">Gajadi</button>
               </div>
             </div>
           </div>

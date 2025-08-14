@@ -1,7 +1,7 @@
 <template>
   <div class="card shadow-lg">
-    <div class="card-header">
-      <span class="h4 public-sans text-grey"><i class="bi bi-diagram-3-fill"></i> Pemetaan PKL</span>
+    <div class="card-header bg-info">
+      <span class="h4 public-sans"><i class="bi bi-diagram-3-fill"></i> Pemetaan PKL</span>
       <div v-if="isIdukaAvailable.length > 0" class="float-end">
         <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/pemetaan/pkl/tambah" class="btn btn-info btn-sm"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
       </div>
@@ -44,21 +44,22 @@
                       {{ pemetaan.expand.siswa.nama }}
                     </nuxt-link>
                     <span v-else>{{ pemetaan.expand.siswa.nama }}</span>
+                    <div class="mt-2 text-muted small">{{ pemetaan.expand.siswa.kelas }}</div>
                   </td>
                   <td v-if="pemetaan.showIduka" :rowspan="pemetaan.idukaRowspan">
-                    <span class="fs-6 public-sans">{{ pemetaan.expand.iduka.nama }}</span>
-                    <div class="fst-italitc text-grey">Guru Pembimbing:
-                      <span v-if="pemetaan.expand.iduka.pembimbing_sekolah == '-' || pemetaan.expand.iduka.pembimbing_sekolah == ''">-</span>
-                      <span v-else>{{ pemetaan.expand.iduka?.expand.pembimbing_sekolah?.nama }}</span>
-                    </div>
-                    <div class="fst-italic text-grey">{{ pemetaan.expand.iduka.wilayah.charAt(0).toUpperCase() + pemetaan.expand.iduka.wilayah.slice(1) }} kota</div>
+                    <nuxt-link :to="`https://www.google.com/maps/search/?api=1&query=${pemetaan.expand.iduka.alamat}`" class="link" target="_blank"><span class="fs-6 public-sans">{{ pemetaan.expand.iduka.nama }} <i class="bi bi-box-arrow-up-right"></i></span></nuxt-link>
+                    <div class="fst-italic text-grey mt-2">{{ pemetaan.expand.iduka.wilayah.charAt(0).toUpperCase() + pemetaan.expand.iduka.wilayah.slice(1) }} kota</div>
                     <div v-if="pemetaan.expand.iduka.terisi < pemetaan.expand.iduka.jumlah_kuota" class="fst-italic text-grey">Terisi: {{ pemetaan.expand.iduka.terisi }} dari {{ pemetaan.expand.iduka.jumlah_kuota }}</div>
-                    <div v-else class="fst-bold">Terisi: Penuh</div>
+                    <div v-else class="text-grey">Terisi: Penuh</div>
+                    <!-- <div class="fst-italitc text-grey">Guru Pembimbing:
+                      <span v-if="pemetaan.expand.iduka?.pembimbing_sekolah == '-' || pemetaan.expand.iduka?.pembimbing_sekolah == ''">-</span>
+                      <span v-else>{{ pemetaan.expand.iduka?.expand.pembimbing_sekolah?.nama }}</span>
+                    </div> -->
                     <div v-if="pemetaan.status_acc_pkl" class="badge bg-success">Diterima</div>
                     <div v-else-if="pemetaan.status_acc_pkl || role == 'admin' || role == 'jurusan'" class="badge bg-warning hand-cursor" data-bs-toggle="modal" :data-bs-target="`#status-${pemetaan.id}`">Diterima? <i class="bi bi-hand-index-thumb"></i></div>
                   </td>
                   <td v-if="pemetaan.showIduka" :rowspan="pemetaan.idukaRowspan">
-                    <nuxt-link v-if="!pemetaan.status_acc_pkl" :to="`/pemetaan/surat/cetak/${pemetaan.iduka}`" target="_blank" class="link">Surat permohonan <i class="bi bi-box-arrow-up-right"></i></nuxt-link>
+                    <nuxt-link v-if="!pemetaan.status_acc_pkl" :to="`/pemetaan/pkl/surat/cetak/${pemetaan.iduka}`" target="_blank" class="link">Surat permohonan <i class="bi bi-box-arrow-up-right"></i></nuxt-link>
                     <span v-else>—</span>
                   </td>
                 </tr>
@@ -79,8 +80,8 @@
                       Apakah <span class="romana">{{ pemetaan.expand.iduka.nama }}</span> sudah konfirmasi menerima Peserta PKL?
                     </div>
                     <div class="modal-footer">
-                      <button @click="handleAccPkl(pemetaan.iduka)" class="btn btn-success btn-sm" data-bs-dismiss="modal">Udah dong!</button>
-                      <button class="btn btn-light btn-sm" data-bs-dismiss="modal">eh belum</button>
+                      <button @click="handleAccPkl(pemetaan.iduka)" class="btn btn-success" data-bs-dismiss="modal">Udah dong!</button>
+                      <button class="btn btn-light" data-bs-dismiss="modal">eh belum</button>
                     </div>
                   </div>
                 </div>
@@ -125,8 +126,10 @@ async function handleAccPkl(iduka) {
 async function getPemetaan() {
   isLoading.value = true
   // atur filter berdasarkan role: `tu` atau selain `tu`
-  let filterQuery = "program_keahlian='"+prokel+"'"
+  let filterQuery = "program_keahlian='"+prokel+"' && iduka.pembimbing_sekolah='"+user.user.value.id+"'"
   if(role == 'tu') filterQuery = ""
+  else if(role == 'jurusan') filterQuery = "program_keahlian='"+prokel+"'"
+  else if(role == 'guru') filterQuery = "program_keahlian='"+prokel+"' && iduka.pembimbing_sekolah='"+user.user.value.id+"'"
   // else if(role == 'guru') filterQuery = "program_keahlian='"+prokel+"' && siswa.pembimbing='"+user.user.value.id+"'"
 
   client.autoCancellation(false)

@@ -1,10 +1,14 @@
 <template>
   <div>
     <div v-if="role != 'tu'" class="card">
-      <div class="card-header">
-        <span class="h4 public-sans text-grey"><i class="bi bi-pie-chart-fill"></i> Ringkasan</span>
+      <div class="card-header bg-info">
+        <span class="h4 public-sans"><i class="bi bi-pie-chart-fill"></i> Ringkasan</span>
       </div>
       <div class="card-body">
+        <div class="alert alert-danger">
+          <span class="h4"><i class="bi bi-info-circle"></i></span> Ada 24 Jurnal yang belum di validasi.
+          <nuxt-link to="/jurnal" class="btn btn-info btn-sm">Ayo validasi <i class="bi bi-arrow-right"></i></nuxt-link>
+        </div>
         <div class="alert alert-warning shadow-lg">
           <span class="h4"><i class="bi bi-lightbulb"></i> FYI</span>
           <ul>

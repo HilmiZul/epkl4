@@ -5,7 +5,7 @@
       <div v-confetti v-if="isConfetti" class="posiiton-absolute top-0 start-50 translate-middle-x"></div>
       <div class="card-body p-0">
         <div v-if="user" class="lexend-mega text-center py-2 border-2 border-bottom border-dark">Halo, <span class="border-2 border-bottom border-dark">{{ username.toUpperCase() }}</span>!
-          <span @click="moreConfetti">😃</span>
+          <span @click="moreConfetti" class="hand-cursor">😆</span>
         </div>
         <nav>
           <ol class="list-group list-group-flush public-sans">

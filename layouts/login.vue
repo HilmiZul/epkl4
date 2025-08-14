@@ -58,7 +58,7 @@ html, body {
 }
 .card {
   border-radius: 0 !important;
-  border: 1.9px solid #000000;
+  border: 2.5px solid #000000 !important;
   box-shadow: 0.5rem 0.5rem 0 #000000 !important;
 }
 .btn {
@@ -109,7 +109,7 @@ button.btn-grey:hover {
 }
 .btn-danger, .btn-danger:hover,
 .bg-danger, .alert-danger {
-  background-color: #ff7a5c !important;
+  background-color: rgb(255, 99, 132) !important;
   color: #000;
 }
 .btn-warning, .btn-warning:hover,

@@ -26,7 +26,7 @@
             Peserta diterima PKL di {{ pemetaan.expand.iduka.nama }}!
           </div>
           <div v-if="pemetaan?.status_acc_pkl" class="my-3">
-            <nuxt-link to="/pemetaan/pkl" class="btn btn-light btn-sm"><i class="bi bi-arrow-left"></i> kembali</nuxt-link>
+            <nuxt-link to="/pemetaan/pkl" class="btn btn-light"><i class="bi bi-arrow-left"></i> kembali</nuxt-link>
           </div>
         </div>
         <div v-else class="col-md-6">
@@ -61,11 +61,11 @@
                 <template v-slot:singleLabel="{ option }"><strong>{{ option.nama }} / {{ option.terisi }} dari {{ option.jumlah_kuota }}</strong></template>
               </multiselect>
             </div>
-            <button :disabled="isSending || form.iduka.length < 1" class="btn btn-success btn-sm me-2">
+            <button :disabled="isSending || form.iduka.length < 1" class="btn btn-success me-2">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>
-            <nuxt-link to="/pemetaan/pkl" class="btn btn-light btn-sm me-2">Kembali</nuxt-link>
+            <nuxt-link to="/pemetaan/pkl" class="btn btn-light me-2">Kembali</nuxt-link>
             <em v-if="isSaved" class="text-grey">Berhasil dipetakan ulang!</em>
           </form>
         </div>
@@ -76,7 +76,7 @@
           <div class="alert text-danger border-danger">
             <h5 class="romana">Danger Zone!</h5>
             <p class="small">Apabila Pemetaan ini dihapus, maka harus buat pemetaan ulang!</p>
-            <button class="btn btn-danger btn-sm border-dark" data-bs-toggle="modal" :data-bs-target="`#pemetaan-${route.params.id}`">Hapus</button>
+            <button class="btn btn-danger border-dark" data-bs-toggle="modal" :data-bs-target="`#pemetaan-${route.params.id}`">Hapus</button>
             <div class="modal" :id="`pemetaan-${route.params.id}`" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
@@ -87,8 +87,8 @@
                     Yakin nih mau hapus <span class="romana">{{ pemetaan?.expand.siswa.nama }}</span> dari Pemetaan?
                   </div>
                   <div class="modal-footer">
-                    <button @click="hapusData(pemetaan.id)" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Hapus</button>
-                    <button class="btn btn-light btn-sm" data-bs-dismiss="modal">Gajadi</button>
+                    <button @click="hapusData(pemetaan.id)" class="btn btn-danger" data-bs-dismiss="modal">Hapus</button>
+                    <button class="btn btn-light" data-bs-dismiss="modal">Gajadi</button>
                   </div>
                 </div>
               </div>

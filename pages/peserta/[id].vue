@@ -40,11 +40,11 @@
                 Diterima tempat PKL?
               </label>
             </div> -->
-            <button :disabled="isLoadingSave || isLoading" class="btn btn-success btn-sm mb-2 me-2">
+            <button :disabled="isLoadingSave || isLoading" class="btn btn-success mb-2 me-2">
               <span v-if="isLoadingSave">Sedang menyimpan</span>
               <span v-else>Simpan</span>
             </button>
-            <nuxt-link to="/peserta" class="btn btn-light btn-sm me-2 mb-2">Kembali</nuxt-link>
+            <nuxt-link to="/peserta" class="btn btn-light me-2 mb-2">Kembali</nuxt-link>
             <em v-if="isSaved" class="text-grey">Berhasil tersimpan!</em>
           </form>
         </div>
@@ -58,7 +58,7 @@
           <div class="alert text-danger border-danger">
             <h5 class="romana">Danger Zone!</h5>
             <p class="small">Apabila Siswa yang bernama <span class="border-2 border-bottom border-danger pb-1">{{ form.nama }}</span> telah pindah/mengundurkan diri, silahkan hapus!</p>
-            <button class="btn btn-danger btn-sm border-dark" data-bs-toggle="modal" :data-bs-target="`#siswa-${form.id}`">Hapus</button>
+            <button class="btn btn-danger border-dark" data-bs-toggle="modal" :data-bs-target="`#siswa-${form.id}`">Hapus</button>
             <div class="modal" :id="`siswa-${form.id}`" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">

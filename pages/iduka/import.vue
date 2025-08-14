@@ -12,7 +12,7 @@
               <li>Gunakan fitur impor ini untuk memindahkan daftar IDUKA lama sekaligus</li>
               <li>Sebelum impor, pastikan sesuai dengan format <nuxt-link to="https://docs.google.com/spreadsheets/d/1Q5mfr7UTqWlmkGLVMe8NdYgQfczttdKiYtHJj9GX2gA/edit?usp=sharing" target="_blank" class="link">disini</nuxt-link></li>
               <li>Sistem hanya membaca file <code>.CSV</code></li>
-              <li>Jika ingin mengubah isi tabel, salin dan ubah ubah KECUALI kolom <code>program_keahlian</code> dan kolom <code>terisi</code></li>
+              <li>Jika ingin mengubah isi tabel, salin dan ubah ubah KECUALI kolom <code>program_keahlian</code>, kolom <code>pembimbing_sekolah</code> dan kolom <code>terisi</code></li>
               <li>Proses impor akan menambahkan ke data saat ini, tidak menimpa data lama</li>
               <li>Selama proses berlangsung, mohon tunggu sampai muncul pesan <strong>Berhasil tersimpan</strong></li>
             </ul>
@@ -34,7 +34,7 @@
           <div v-if="idukaTemp.length > 0" class="mb-3 text-muted">
             <div class="strong">Berhasil tersimpan!</div>
           </div>
-          <nuxt-link to="/iduka" class="btn btn-light btn-sm mb-3"><i class="bi bi-arrow-left"></i> Kembali</nuxt-link>
+          <nuxt-link to="/iduka" class="btn btn-light mb-3"><i class="bi bi-arrow-left"></i> Kembali</nuxt-link>
         </div>
       </div>
     </div>

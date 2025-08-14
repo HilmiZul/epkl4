@@ -20,4 +20,5 @@ export default defineNuxtConfig({
       apiBaseUrl: process.env.PB_API_BASE_URL,
 		},
 	},
+  modules: ['@samk-dev/nuxt-vcalendar'],
 })

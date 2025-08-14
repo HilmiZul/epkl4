@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-6 mb-5">
+  <div class="col-md-12 mb-5">
     <canvas id="myChart"></canvas>
   </div>
 </template>
@@ -41,30 +41,22 @@ async function initChartData() {
   let chartData = await countTerserapSemuaPeserta()
   if(chartData) {
     const labels = [
-      'Terpetakan',
-      'Diterima',
-      'Belum diterima (menunggu balasan)',
-      'Belum terpetakan',
+      'Sesuai Elemen',
+      'Belum Sesuai Elemen',
     ];
 
     const data = {
       labels: labels,
       datasets: [{
-        label: "Jumlah peserta",
+        label: "Jumlah",
         backgroundColor: [
-          'rgb(10, 138, 102)',
           'rgb(54, 162, 235)',
-          'rgb(255, 205, 86)',
           'rgb(255, 99, 132)',
-          // 'rgb(127, 127, 127)'
         ],
-        // borderColor: 'rgb(255, 99, 132)',
         borderColor: 'rgb(0, 0, 0)',
         data: [
           chartData[0].length,
           chartData[1].length,
-          chartData[2].length,
-          chartData[3].length
         ],
       }]
     };

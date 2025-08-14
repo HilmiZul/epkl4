@@ -64,8 +64,12 @@ html, body {
 }
 .card {
   border-radius: 0 !important;
-  border: 2px solid #000000;
+  border: 2.5px solid #000000 !important;
   box-shadow: 0.4rem 0.4rem 0 #000000 !important;
+}
+.card .card-header {
+  border-bottom: 2.5px solid #000 !important;
+  border-radius: 0 !important;
 }
 .alert {
   border-radius: 0 !important;
@@ -120,7 +124,8 @@ button.btn-grey:hover {
 }
 .btn-danger, .btn-danger:hover,
 .bg-danger, .alert-danger {
-  background-color: #ff6b6b !important;
+  /*background-color: #ff6b6b !important;*/
+  background-color: rgb(255, 99, 132) !important;
   color: #000 !important;
 }
 .btn-warning, .btn-warning:hover,
@@ -148,7 +153,7 @@ button.btn-grey:hover {
   color: rgb(54, 162, 235) !important;
 }
 table {
-  font-size: small;
+  font-size: medium;
 }
 table thead {
   font-size: medium;

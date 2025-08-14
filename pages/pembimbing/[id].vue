@@ -38,11 +38,11 @@
                 <option value="guru">Guru Umum</option>
               </select>
             </div>
-            <button :disabled="isSending || form.username == '' || form.email == '' || form.password == '' || form.nama == '' || form.role == ''" class="btn btn-success btn-sm me-2">
+            <button :disabled="isSending || form.username == '' || form.email == '' || form.password == '' || form.nama == '' || form.role == ''" class="btn btn-success me-2">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>
-            <nuxt-link to="/pembimbing" class="btn btn-light btn-sm">Kembali</nuxt-link>
+            <nuxt-link to="/pembimbing" class="btn btn-light">Kembali</nuxt-link>
             <span v-if="isSaved" class="ms-2 mb-3"><em>Berhasil tersimpan!</em></span>
           </form>
         </div>

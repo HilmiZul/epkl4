@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="card">
-      <div class="card-header">
-        <span class="h4 public-sans text-grey"><i class="bi bi-buildings-fill"></i> IDUKA</span>
+      <div class="card-header bg-success">
+        <span class="h4 public-sans"><i class="bi bi-buildings-fill"></i> IDUKA</span>
         <span class="float-end">
           <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/iduka/tambah" class="btn btn-info btn-sm me-2"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
           <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/iduka/import" class="btn btn-success btn-sm"><i class="bi bi-download"></i> Impor dari .csv</nuxt-link>
@@ -69,12 +69,12 @@
                 Yakin nih mau hapus <span class="romana">{{ company.nama }}</span> dari daftar IDUKA?
               </div>
               <div class="modal-footer">
-                <button v-if="!isDeleted" class="btn btn-danger btn-sm" data-bs-dismiss="modal" @click="hapusData(company.id)" :disabled="isSending">
+                <button v-if="!isDeleted" class="btn btn-danger" data-bs-dismiss="modal" @click="hapusData(company.id)" :disabled="isSending">
                   <span v-if="isSending">Sedang menghapus</span>
                   <span v-else>Hapus</span>
                 </button>
                 <span v-else class="me-2"><em>Berhasil dihapus!</em></span>
-                <button @click="() => { isDeleted = false; isSending = flase }" class="btn btn-light btn-sm" data-bs-dismiss="modal">Gajadi</button>
+                <button @click="() => { isDeleted = false; isSending = flase }" class="btn btn-light" data-bs-dismiss="modal">Gajadi</button>
               </div>
             </div>
           </div>
@@ -174,8 +174,3 @@ onMounted(() => {
 })
 </script>
 
-<style scoped>
-table {
-  font-size: small;
-}
-</style>

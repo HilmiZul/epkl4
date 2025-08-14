@@ -3,7 +3,7 @@
     <div class="card-header">
       <span class="h4 public-sans text-grey"><i class="bi bi-people-fill"></i> Pemetaan Pembimbing</span>
       <div v-if="isPembimbingAvailable.length > 0" class="float-end">
-        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/pemetaan/pembimbing/tambah" class="btn btn-info btn-sm"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
+        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/pemetaan/pembimbing/tambah" class="btn btn-info"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
       </div>
     </div>
     <div class="card-body">
@@ -51,7 +51,7 @@
                           <td width="2%">{{ i+1 }}.</td>
                           <td>{{ student.nama }}</td>
                           <td>{{ student.kelas }}</td>
-                          <td width="17%"><button class="btn btn-danger btn-sm" data-bs-toggle="modal" :data-bs-target="`#student-${student.id}`">hapus</button></td>
+                          <td width="17%"><button class="btn btn-danger" data-bs-toggle="modal" :data-bs-target="`#student-${student.id}`">hapus</button></td>
                           <!-- modal confirm: apakah ingin mengapus siswa terpilih dari pemetaan guru ini? -->
                           <div class="modal" :id="`student-${student.id}`" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
@@ -63,8 +63,8 @@
                                   Hapus <span class="romana">{{ student.nama }}</span> dari daftar bimbingan <span class="romana">{{ pemetaan.expand.pembimbing.nama }}</span>?
                                 </div>
                                 <div class="modal-footer">
-                                  <button @click="hapusPesertaDariBimbingan(pemetaan.id, student.id)" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Hapus</button>
-                                  <button class="btn btn-light btn-sm" data-bs-dismiss="modal">Gajadi</button>
+                                  <button @click="hapusPesertaDariBimbingan(pemetaan.id, student.id)" class="btn btn-danger" data-bs-dismiss="modal">Hapus</button>
+                                  <button class="btn btn-light" data-bs-dismiss="modal">Gajadi</button>
                                 </div>
                               </div>
                             </div>

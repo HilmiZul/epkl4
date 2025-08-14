@@ -1,7 +1,7 @@
 <template>
   <div class="card">
-    <div class="card-header">
-      <span class="h4 public-sans text-grey"><i class="bi bi-journal-bookmark-fill"></i> Elemen CP</span>
+    <div class="card-header bg-warning">
+      <span class="h4 public-sans"><i class="bi bi-journal-bookmark-fill"></i> Elemen CP</span>
       <span class="float-end">
         <nuxt-link to="/cp/tambah" class="btn btn-info btn-sm"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
       </span>

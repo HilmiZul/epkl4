@@ -65,11 +65,11 @@
                 <template v-slot:singleLabel="{ option }"><strong>{{ option.nama }} — {{ option.kelas }}</strong></template>
               </multiselect>
             </div>
-            <button :disabled="isSending" class="btn btn-success btn-sm me-2">
+            <button :disabled="isSending" class="btn btn-success me-2">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>
-            <nuxt-link to="/pemetaan/pkl" class="btn btn-light btn-sm me-2">Kembali</nuxt-link>
+            <nuxt-link to="/pemetaan/pkl" class="btn btn-light me-2">Kembali</nuxt-link>
             <em v-if="isSaved" class="text-muted">Berhasil terpetakan!</em>
           </form>
         </div>
