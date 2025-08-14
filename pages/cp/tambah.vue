@@ -1,0 +1,63 @@
+<template>
+  <div class="card">
+    <div class="card-header">
+      <span class="h4 public-sans text-muted">Elemen CP / <span class="text-grey">Tambah</span></span>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <form @submit.prevent="buatElemenCp">
+            <div class="mb-3">
+              <label for="elemen">Elemen</label>
+              <input v-model="form.elemen" type="text" id="elemen" class="form form-control" placeholder="ketik elemen mapel PKL disini" required>
+            </div>
+            <div class="my-3">
+              <label for="cp">Capaian Pembelajaran</label>
+              <textarea v-model="form.cp" id="cp" rows="4" class="form form-control" placeholder="Pada akhir fase F ..." required></textarea>
+            </div>
+            <div class="my-3">
+              <label for="tujuan">Tujuan</label>
+              <textarea v-model="form.tujuan" id="tujuan" rows="4" class="form form-control" placeholder="Menerapkan softskills, menerapkan K3LH, ..." required></textarea>
+            </div>
+            <button :disabled="isSending" class="btn btn-success btn-sm me-2">
+              <span v-if="!isSending">Simpan</span>
+              <span v-else>Sedang menyimpan</span>
+            </button>
+            <nuxt-link to="/cp" class="btn btn-light btn-sm">Kembali</nuxt-link>
+            <span v-if="isSaved" class="ms-2 mb-3 fst-italic">Berhasil tersimpan!</span>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+definePageMeta({ middleware: 'auth' })
+useHead({ title: 'Tambah Elemen CP — e-PKL / SMKN 4 Tasikmalaya.' })
+let user = usePocketBaseUser()
+let client = usePocketBaseClient()
+let prokel = user?.user.value.program_keahlian
+let isSaved = ref(false)
+let isSending = ref(false)
+let form = ref({
+  elemen: '',
+  cp: '',
+  tujuan: '',
+  program_keahlian: prokel
+})
+
+async function buatElemenCp() {
+  isSending.value = true
+  isSaved.value = false
+  client.autoCancellation(false)
+  let res = await client.collection('elemen_cp').create(form.value)
+  if(res) {
+    isSending.value = false
+    isSaved.value = true
+    form.value.elemen = ''
+    form.value.cp = ''
+    form.value.tujuan = ''
+  }
+}
+</script>

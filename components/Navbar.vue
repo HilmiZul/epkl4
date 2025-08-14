@@ -12,7 +12,7 @@
             <nuxt-link  class="nav-link" to="/"><i class="bi bi-pie-chart-fill"></i> Ringkasan</nuxt-link>
           </li>
           <li v-if="role === 'admin' || role === 'jurusan'" class="nav-item">
-            <nuxt-link  class="nav-link" to="/cp"><i class="bi bi-journal-bookmark-fill"></i> CP Mapel</nuxt-link>
+            <nuxt-link  class="nav-link" to="/cp"><i class="bi bi-journal-bookmark-fill"></i> Elemen CP</nuxt-link>
           </li>
           <li v-if="role === 'admin' || role === 'jurusan'" class="nav-item">
             <nuxt-link  class="nav-link" to="/pembimbing"><i class="bi bi-emoji-smile"></i> Pembimbing</nuxt-link>
