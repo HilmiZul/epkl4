@@ -13,13 +13,13 @@
             </div>
             <div class="my-3">
               <label for="cp">Capaian Pembelajaran</label>
-              <textarea v-model="form.cp" id="cp" rows="4" class="form form-control" placeholder="Pada akhir fase F ..." required></textarea>
+              <textarea :disabled="form.elemen.length < 9" v-model="form.cp" id="cp" rows="4" class="form form-control" placeholder="Pada akhir fase F ..." required></textarea>
             </div>
             <div class="my-3">
               <label for="tujuan">Tujuan</label>
-              <textarea v-model="form.tujuan" id="tujuan" rows="4" class="form form-control" placeholder="Menerapkan softskills, menerapkan K3LH, ..." required></textarea>
+              <textarea :disabled="form.cp.length < 9" v-model="form.tujuan" id="tujuan" rows="4" class="form form-control" placeholder="Menerapkan softskills, menerapkan K3LH, ..." required></textarea>
             </div>
-            <button :disabled="isSending" class="btn btn-success me-2">
+            <button :disabled="isSending || form.elemen.length < 9 || form.cp.length < 9 || form.tujuan.length < 9" class="btn btn-success me-2">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>

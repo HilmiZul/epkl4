@@ -12,7 +12,6 @@
               <li>Guru pembimbing adalah Guru yang mengajar pada tingkat XII</li>
               <li>Guru pembimbing termasuk Guru kejuruan</li>
               <li>Guru pembimbing akan dipetakan saat pembuatan daftar IDUKA</li>
-              <li>Apabila tidak ada NIP, isi dengan tanda —</li>
             </ul>
           </div>
         </div>

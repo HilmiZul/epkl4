@@ -30,10 +30,10 @@
             <tr v-if="isLoading">
               <td colspan="3"><Loading /></td>
             </tr>
-            <tr v-if="elementsFiltered.length < 1">
+            <tr v-else-if="elementsFiltered.length < 1">
               <td colspan="3" class="text-center">Data tidak ditemukan</td>
             </tr>
-            <tr v-for="e in elementsFiltered" :key="e.id">
+            <tr v-else v-for="e in elementsFiltered" :key="e.id">
               <td>
                 <nuxt-link :to="`/cp/${e.id}`" class="link">{{ e.elemen }}</nuxt-link></td>
               <td>{{ e.cp }}</td>
@@ -62,7 +62,7 @@ async function getElemenCp() {
   client.autoCancellation(false)
   let res = await client.collection('elemen_cp').getFullList({
     filter: "program_keahlian='"+prokel+"'",
-    sort: "elemen"
+    sort: "created"
   })
   if(res) {
     isLoading.value = false

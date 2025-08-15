@@ -75,7 +75,7 @@
 </template>
 
 <script setup>
-definePageMeta({ middleware: 'admin-auth' })
+definePageMeta({ middleware: 'auth' })
 useHead({ title: "Tambah Pemetaan — e-PKL / SMKN 4 Tasikmalaya." })
 let user = usePocketBaseUser()
 let client = usePocketBaseClient()

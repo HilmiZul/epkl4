@@ -22,8 +22,8 @@
       <div v-if="isLoading"><Loading /></div>
       <div v-else class="row">
         <div v-if="pemetaan.status_acc_pkl" class="col-md-12">
-          <div class="alert alert-success border border-2 border-dark public-sans">
-            Peserta diterima PKL di {{ pemetaan.expand.iduka.nama }}!
+          <div class="alert alert-info border border-2 border-dark public-sans text-center py-5 fs-4">
+            👏🏻 {{ pemetaan.expand.siswa.nama }} diterima PKL di {{ pemetaan.expand.iduka.nama }}! 🎉
           </div>
           <div v-if="pemetaan?.status_acc_pkl" class="my-3">
             <nuxt-link to="/pemetaan/pkl" class="btn btn-light"><i class="bi bi-arrow-left"></i> kembali</nuxt-link>
@@ -83,7 +83,7 @@
                   <div class="modal-header rounded-0 h4 bg-danger text-white public-sans">
                     Peringatan!
                   </div>
-                  <div class="modal-body text-dark small">
+                  <div class="modal-body text-dark">
                     Yakin nih mau hapus <span class="romana">{{ pemetaan?.expand.siswa.nama }}</span> dari Pemetaan?
                   </div>
                   <div class="modal-footer">

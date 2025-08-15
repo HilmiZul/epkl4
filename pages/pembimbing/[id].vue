@@ -5,7 +5,7 @@
       <span v-if="!isLoading" class="text-grey">{{ form.nama }}</span></span>
     </div>
     <div class="card-body">
-      <div class="row">
+      <!-- <div class="row">
         <div class="col">
           <div class="alert alert-warning border-5 border-dark shadow-lg">
             <div class="h5 public-sans">Perhatiin!</div>
@@ -17,12 +17,12 @@
             </ul>
           </div>
         </div>
-      </div>
+      </div> -->
       <Loading v-if="isLoading" />
       <div v-else class="row">
         <div class="col-md-5">
           <form @submit.prevent="updatePembimbingBaru">
-            <div class="my-3">
+            <div class="mb-3">
               <label for="username">Username</label>
               <input v-model="form.username" :disabled="isLoading" type="text" id="username" class="form form-control" placeholder="masukkan username" required autofocus>
             </div>

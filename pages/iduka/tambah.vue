@@ -9,9 +9,8 @@
           <div class="alert alert-warning border-5 border-dark shadow-lg">
             <div class="h5 public-sans">Perhatiin!</div>
             <ul class="small">
-              <li>IDUKA yang ditambahkan sesuai dengan Program Keahlian</li>
-              <li>Setiap IDUKA dapat diatur berapa banyaknya kuota peserta (sesuai Program Keahlian)</li>
-              <li>Jika tidak ada, isi form dengan tanda —</li>
+              <li>Banyaknya kuota peserta sesuai permintaan IDUKA</li>
+              <li>Jika tidak ada isian, isi form dengan tanda &#8212;</li>
             </ul>
           </div>
         </div>

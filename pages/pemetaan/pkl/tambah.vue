@@ -9,10 +9,10 @@
           <div class="alert alert-warning border-5 border-dark shadow-lg">
             <div class="h5 public-sans">Perhatiin!</div>
             <ul class="small">
-              <li>IDUKA yang ditambahkan sesuai dengan Program Keahlian</li>
-              <li>Setiap IDUKA dapat diatur berapa banyaknya kuota peserta (sesuai Program Keahlian)</li>
-              <li>Setiap IDUKA dapat diatur berdasarkan jenis kelamin, L/P atau keduanya</li>
-              <li>Jika tidak ada, isi form dengan tanda —</li>
+              <!-- <li>Pemetaan peserta ini akan men-generate Surat Permohonan</li>
+              <li>Tentukan wilayah: Dalam/Luar kota untuk memfilter IDUKA</li> -->
+              <li>IDUKA yang muncul hanya yang masih kosong</li>
+              <li>Peserta didik yang muncul hanya yang belum terpetakan</li>
             </ul>
           </div>
         </div>

@@ -11,10 +11,8 @@
           <div class="alert alert-warning shadow-lg border-2 border-dark">
             <h5 class="">Perhatiin!</h5>
             <ul class="small">
-              <li>Peserta PKL adalah siswa Semester 6</li>
-              <li>Telah menuntaskan nilai rapor Semester 1 s.d 5</li>
-              <li>Status <strong>Pemetaan PKL</strong> diubah oleh sistem ketika siswa di petakan</li>
-              <li>Jika ada nilai rapor yang belum tuntas, silahkan ubah status ketuntasan rapor</li>
+              <li>Jika ada nilai rapor yang belum tuntas, silahkan ubah status <strong>Ketuntasan Rapor</strong></li>
+              <li>Status <strong>Pemetaan PKL</strong> diubah oleh sistem ketika siswa di petakan ke IDUKA</li>
             </ul>
           </div>
         </div>

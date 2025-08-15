@@ -33,7 +33,7 @@ const handleDataConfetti = (data) => {
 html, body {
   background: #f5fff2 url('~/assets/img/bg-cloud.png') no-repeat center bottom fixed;
   background-size: cover;
-  /*background-color: #a0a0a0;*/
+  /*background-color: #f5fff2;*/
   font-family: "Public Sans", sans-serif;
 }
 @media (min-width: 1400px) {

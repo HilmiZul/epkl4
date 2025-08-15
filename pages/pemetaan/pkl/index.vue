@@ -6,14 +6,14 @@
         <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/pemetaan/pkl/tambah" class="btn btn-info btn-sm"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
       </div>
     </div>
-    <div class="card-body small">
+    <div class="card-body">
       <div class="row">
         <div class="col-lg-6">
           <div class="my-3 mt-0">
             <input v-model="keyword" type="search" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan IDUKA / wilayah" />
           </div>
         </div>
-        <div class="col align-content-center">
+        <div class="col align-content-center small">
           <div class="mb-3 text-grey float-end">{{ mappingFiltered.length }} peserta terpetakan</div>
         </div>
       </div>
@@ -40,7 +40,7 @@
                 <tr v-for="(pemetaan,i) in mappingFiltered" :key="pemetaan.id">
                   <td >{{ i+1 }}.</td>
                   <td>
-                    <nuxt-link v-if="role == 'admin' || role == 'jurusan'" :to="`/pemetaan/pkl/${pemetaan.id}`" class="link">
+                    <nuxt-link v-if="role == 'admin' || role == 'jurusan'" :to="`/pemetaan/pkl/${pemetaan.id}`" class="link text-grey">
                       {{ pemetaan.expand.siswa.nama }}
                     </nuxt-link>
                     <span v-else>{{ pemetaan.expand.siswa.nama }}</span>
@@ -51,10 +51,10 @@
                     <div class="fst-italic text-grey mt-2">{{ pemetaan.expand.iduka.wilayah.charAt(0).toUpperCase() + pemetaan.expand.iduka.wilayah.slice(1) }} kota</div>
                     <div v-if="pemetaan.expand.iduka.terisi < pemetaan.expand.iduka.jumlah_kuota" class="fst-italic text-grey">Terisi: {{ pemetaan.expand.iduka.terisi }} dari {{ pemetaan.expand.iduka.jumlah_kuota }}</div>
                     <div v-else class="text-grey">Terisi: Penuh</div>
-                    <!-- <div class="fst-italitc text-grey">Guru Pembimbing:
+                    <div class="fst-italitc text-grey">Guru Pembimbing:
                       <span v-if="pemetaan.expand.iduka?.pembimbing_sekolah == '-' || pemetaan.expand.iduka?.pembimbing_sekolah == ''">-</span>
                       <span v-else>{{ pemetaan.expand.iduka?.expand.pembimbing_sekolah?.nama }}</span>
-                    </div> -->
+                    </div>
                     <div v-if="pemetaan.status_acc_pkl" class="badge bg-success">Diterima</div>
                     <div v-else-if="pemetaan.status_acc_pkl || role == 'admin' || role == 'jurusan'" class="badge bg-warning hand-cursor" data-bs-toggle="modal" :data-bs-target="`#status-${pemetaan.id}`">Diterima? <i class="bi bi-hand-index-thumb"></i></div>
                   </td>
@@ -77,7 +77,7 @@
                       ACC PKL
                     </div>
                     <div class="modal-body text-dark">
-                      Apakah <span class="romana">{{ pemetaan.expand.iduka.nama }}</span> sudah konfirmasi menerima Peserta PKL?
+                      Apakah <span class="romana">{{ pemetaan.expand.iduka.nama }}</span> sudah konfirmasi menerima Peserta?
                     </div>
                     <div class="modal-footer">
                       <button @click="handleAccPkl(pemetaan.iduka)" class="btn btn-success" data-bs-dismiss="modal">Udah dong!</button>

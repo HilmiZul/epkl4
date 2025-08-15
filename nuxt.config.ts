@@ -1,5 +1,6 @@
+import pkg from './package.json'
 export default defineNuxtConfig({
-  compatibilityDate: "2024-10-18",
+  compatibilityDate: "2025-08-15",
   devtools: { enabled: false },
   css: [
     "bootstrap/dist/css/bootstrap.min.css",
@@ -18,6 +19,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiBaseUrl: process.env.PB_API_BASE_URL,
+      appVersion: pkg.version,
 		},
 	},
   modules: ['@samk-dev/nuxt-vcalendar'],

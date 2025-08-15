@@ -32,6 +32,9 @@
           <li class="nav-item">
             <nuxt-link class="nav-link" to="/jurnal"><i class="bi bi-journals"></i> Jurnal Peserta</nuxt-link>
           </li>
+          <li v-if="role === 'admin' || role === 'tu'" class="nav-item">
+            <nuxt-link class="nav-link" to="/pengaturan"><i class="bi bi-sliders"></i> Pengaturan</nuxt-link>
+          </li>
           <!-- <li class="nav-item">
             <nuxt-link class="nav-link" to="/verifikasi"><i class="bi bi-patch-check-fill"></i> Verifikasi</nuxt-link>
           </li>

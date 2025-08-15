@@ -9,9 +9,8 @@
           <div class="alert alert-warning border-5 border-dark shadow-lg">
             <div class="h5 public-sans">Perhatiin!</div>
             <ul class="small">
-              <li>IDUKA yang ditambahkan sesuai dengan Program Keahlian</li>
-              <li>Setiap IDUKA dapat diatur berapa banyaknya kuota peserta (sesuai Program Keahlian)</li>
-              <li>Jika tidak ada, isi form dengan tanda —</li>
+              <li>Banyaknya kuota peserta sesuai permintaan IDUKA</li>
+              <li>Jika tidak ada isian, isi form dengan tanda &#8212;</li>
             </ul>
           </div>
         </div>
@@ -42,8 +41,8 @@
                 <input :disabled="isLoading" v-model="form.email" type="email" id="email" class="form form-control" placeholder="(biasanya) email juga ada" required>
               </div>
             </div>
-          </div>
-          <div class="col-md-6">
+          <!-- </div>
+          <div class="col-md-6"> -->
             <div class="form-group">
               <div class="my-3">
                 <label for="kuota">Jumlah Kuota Peserta</label>
@@ -80,6 +79,30 @@
               <span v-if="isSaved" class="ms-2 mb-3"><em>Berhasil tersimpan!</em></span>
             </div>
           </div>
+          <div class="col-md-6">
+            <div class="mt-4">Terisi:
+              <span v-if="form.terisi < form.jumlah_kuota">{{ form.terisi }} dari {{ form.jumlah_kuota }}</span>
+              <span v-else class="badge bg-danger mb-1">Penuh</span>
+            </div>
+            <div class="alert shadow-lg">
+              <table class="table small border-0">
+                <tbody>
+                  <tr v-if="isLoading">
+                    <td colspan="2"><Loading /></td>
+                  </tr>
+                  <tr v-else-if="mapping.length < 1">
+                    <td colspan="2" class="text-center">
+                      <nuxt-link to="/pemetaan/pkl/tambah" class="btn btn-info">Petakan sekarang <i class="bi bi-box-arrow-up-right"></i></nuxt-link>
+                    </td>
+                  </tr>
+                  <tr v-else v-for="p in mapping" :key="p.id">
+                    <td>{{ p.expand.siswa.nama }}</td>
+                    <td>{{ p.expand.siswa.kelas }}</td>
+                  </tr>
+                  </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </form>
     </div>
@@ -100,6 +123,7 @@ let isSending = ref(false)
 let isLoading = ref(true)
 let teachers = ref([])
 // let teacher_users = ref([])
+let mapping = ref([])
 let form = ref({
   nama: "loading",
   alamat: "loading",
@@ -128,16 +152,21 @@ async function updateIduka() {
   }
 }
 
-async function getCompanyById() {
+async function getCompanyAndPemetaanById() {
   isLoading.value = true
-  let data = await client
+  let res_iduka = await client
     .collection("iduka")
     .getOne(route.params.id, {
       expand: "program_keahlian, pembimbing_sekolah"
     })
-  if(data) {
+  let res_pemetaan = await client.collection('pemetaan').getFullList({
+    filter: "iduka='"+route.params.id+"'",
+    expand: "iduka, siswa"
+  })
+  if(res_iduka && res_pemetaan) {
     isLoading.value = false
-    form.value = data
+    form.value = res_iduka
+    mapping.value = res_pemetaan
   }
 }
 
@@ -171,10 +200,10 @@ async function getPembimbingSekolah() {
 onMounted(() => {
   // TempgetPembimbing()
   getPembimbingSekolah()
-  getCompanyById()
+  getCompanyAndPemetaanById()
   client.collection('iduka').subscribe(route.params.id, function(e) {
     if(e.action == 'update') {
-      getCompanyById()
+      getCompanyAndPemetaanById()
       getPembimbingSekolah()
     }
   },{})

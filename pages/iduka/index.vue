@@ -64,7 +64,7 @@
             <div class="modal-header rounded-0 h4 bg-danger text-white public-sans">
               Peringatan!
             </div>
-            <div class="modal-body text-dark small">
+            <div class="modal-body text-dark">
               Yakin nih mau hapus <span class="romana">{{ company.nama }}</span> dari daftar IDUKA?
             </div>
             <div class="modal-footer">

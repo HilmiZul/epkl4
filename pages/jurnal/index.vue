@@ -16,66 +16,51 @@
           </div> -->
           <div class="mb-3">
             <label for="filter">Filter Berdasarkan Tanggal</label>
-            <input v-model="tanggal" type="date" id="filter" class="form form-control picker mt-2">
+            <input @change="getJournals" v-model="tanggal" type="date" id="filter" class="form form-control picker mt-2">
           </div>
           <div class="row justify-content-center">
-            <jurnal-chart />
+            <!-- <jurnal-chart /> -->
           </div>
         </div>
         <div class="col">
-          <div class="mb-2 text-center text-muted">Menampilkan 2 dari 20 Jurnal</div>
+          <div v-if="!isLoadingJournals" class="mb-2 text-center text-muted">Menampilkan {{ journals.items.length }} dari {{ journals.totalItems }} Jurnal</div>
           <div class="row">
             <div class="col">
-              <div class="card jurnal-hover">
+              <Loading v-if="isLoadingJournals" />
+              <div v-else v-for="journal in journals.items" :key="journal.id" class="card jurnal-hover">
                 <div class="card-body">
-                  <div><strong class="fs-6">Nama Peserta</strong> &bull; <span class="text-muted fst-italic">14 Februari 2026</span></div>
+                  <div><strong class="fs-6">{{ journal.expand.siswa.expand.siswa.nama }}</strong> &bull; <span class="text-muted fst-italic">{{ journal.created }}</span></div>
                   <div class="my-2">
-                    <span class="border border-2 border-dark p-1 bg-info"><i class="bi bi-journal-bookmark-fill"></i>
-                      Elemen: Penerapan hard skills
+                    <span v-if="journal.expand.elemen.elemen == 'Lain-lain'" class="border border-2 border-dark p-1 bg-danger"><i class="bi bi-journal-bookmark-fill"></i>
+                      {{ journal.expand.elemen.elemen }}
+                    </span>
+                    <span v-else class="border border-2 border-dark p-1 bg-info"><i class="bi bi-journal-bookmark-fill"></i>
+                      {{ journal.expand.elemen.elemen }}
                     </span>
                   </div>
-                  <article class="my-2">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore quaerat ipsa atque porro ad molestias, animi nemo eligendi repudiandae mollitia laboriosam quidem. Saepe labore tempore illum exercitationem quaerat sequi expedita?
+                  <article class="my-2 pre-text">
+                    {{ journal.deskripsi }}
                   </article>
-                  <div class="my-3 foto-container">
+                  <!-- <div class="my-3 foto-container">
                     <img src="https://www.stonebridge.uk.com/blog/wp-content/uploads/2016/05/Web-design-and-development.jpg" alt="foto" class="foto" />
-                  </div>
-                  <span class="hand-cursor"><span class="text-danger"><i class="bi bi-heart"></i></span> Validasi</span>
+                  </div> -->
                   <span class="text-danger"><i class="bi bi-heart-fill"></i></span> Valid
-                  <span class="fst-italic text-muted">memvalidasi...</span>
-                </div>
-              </div>
-              <div class="card jurnal-hover">
-                <div class="card-body">
-                  <div><strong class="fs-6">Nama Peserta</strong> &bull; <span class="text-muted fst-italic">14 Februari 2026</span></div>
-                  <div class="my-2">
-                    <span class="border border-2 border-dark p-1 bg-danger"><i class="bi bi-journal-bookmark-fill"></i>
-                      Elemen: Lain-lain
-                    </span>
-                  </div>
-                  <article class="my-2">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore quaerat ipsa atque porro ad molestias, animi nemo eligendi repudiandae mollitia laboriosam quidem. Saepe labore tempore illum exercitationem quaerat sequi expedita?
-                  </article>
-                  <div class="my-3 foto-container">
-                    <img src="https://media.istockphoto.com/id/1308639642/photo/meeting-on-it-development-team-in-office.jpg?s=612x612&w=0&k=20&c=1lYZBc2Zh24ATF-OxX8U1RWpKASwUrhcmTSB-3w8PAQ=" alt="foto" class="foto" />
-                  </div>
-                  <span class="text-danger"><i class="bi bi-heart"></i></span> Validasi
-                  <span class="text-danger"><i class="bi bi-heart-fill"></i></span> Valid
+                  <!-- <span class="fst-italic text-muted">memvalidasi...</span> -->
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="row">
+      <!-- <div class="row">
         <div class="col offset-md-4">
           <Loading class="mt-5" />
         </div>
-      </div>
+      </div> -->
       <div class="row my-4 mb-4">
-        <div class="col text-end">
-          <button disabled class="btn btn-info"><i class="bi bi-arrow-left"></i> sebelumnya</button>
-          <button class="btn btn-info">lanjut <i class="bi bi-arrow-right"></i></button>
+        <div v-if="!isLoadingJournals" class="col text-end">
+          <button :disabled="journals.page < 2" @click="pagination(journals.page - 1)" class="btn btn-info me-2"><i class="bi bi-arrow-left"></i> sebelumnya</button>
+          <button :disabled="journals.page >= journals.totalPages" @click="pagination(journals.page + 1)" class="btn btn-info">lanjut <i class="bi bi-arrow-right"></i></button>
         </div>
       </div>
     </div>
@@ -86,6 +71,69 @@
 definePageMeta({ middleware: 'auth' })
 useHead({ title: "Jurnal Peserta — e-PKL / SMKN 4 Tasikmalaya." })
 let tanggal = ref()
+let user = usePocketBaseUser()
+let client = usePocketBaseClient()
+let prokel = user.user.value.program_keahlian
+let isLoadingJournals = ref(true)
+let journals = ref([])
+let perPage = 5
+
+async function getJournals() {
+  isLoadingJournals.value = true
+  // console.log(tanggal.value)
+  let queryFilter = "pembimbing='"+user.user.value.id+"'"
+  if(tanggal.value) queryFilter = "pembimbing='"+user.user.value.id+"' && created~'"+tanggal.value+"'"
+  client.autoCancellation(false)
+  let res = await client.collection('jurnal').getList(1, perPage, {
+    filter: queryFilter,
+    expand: "iduka, pembimbing, siswa.siswa, elemen",
+    sort: "-created"
+  })
+  if(res) {
+    journals.value = res
+    // console.log(journals.value)
+    // konversi waktu UTC dari server ke full date lokal indo
+    for(let i=0; i<journals.value.items.length; i++) {
+      const date = new Date(journals.value.items[i].created);
+      const options = {
+        dateStyle: "full",
+        timeStyle: "short"
+      };
+      journals.value.items[i].created = new Intl.DateTimeFormat('id-ID', options).format(date);
+    }
+    isLoadingJournals.value = false
+  }
+}
+
+async function pagination(page) {
+  isLoadingJournals.value = true
+  client.autoCancellation(false)
+  let res = await client.collection('jurnal').getList(page, perPage, {
+    filter: "pembimbing='"+user.user.value.id+"'",
+    expand: "iduka, pembimbing, siswa.siswa, elemen",
+    sort: "-created"
+  })
+  if(res) {
+    journals.value = res
+    for(let i=0; i<journals.value.items.length; i++) {
+      const date = new Date(journals.value.items[i].created);
+      const options = {
+        dateStyle: "full",
+        timeStyle: "short"
+      };
+      journals.value.items[i].created = new Intl.DateTimeFormat('id-ID', options).format(date);
+    }
+    isLoadingJournals.value = false
+  }
+}
+
+onMounted(() => {
+  getJournals()
+  client.autoCancellation(false)
+  client.collection('jurnal').subscribe('*', function(e) {
+    if(e.action == 'create') getJournals()
+  },{})
+})
 </script>
 
 <style scoped>
@@ -118,5 +166,8 @@ input.picker[type="date"]::-webkit-calendar-picker-indicator {
 }
 .bg-danger {
   background-color: rgb(255, 99, 132) !important;
+}
+.pre-text {
+  white-space: pre-wrap;
 }
 </style>
