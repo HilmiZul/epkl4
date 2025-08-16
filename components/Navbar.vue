@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary mb-3">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary bg-white border-top border-bottom border-3 border-dark mb-3">
     <div class="container-fluid">
       <nuxt-link v-if="user" class="navbar-brand lexend-mega text-grey" to="/">Halo, <span class="border-3 border-bottom">{{ username.toUpperCase() }}</span>! 😃</nuxt-link>
       <button class="navbar-toggler rounded-0 border-2 border-dark shadow-lg" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -12,7 +12,7 @@
             <nuxt-link  class="nav-link" to="/"><i class="bi bi-pie-chart-fill"></i> Ringkasan</nuxt-link>
           </li>
           <li v-if="role === 'admin' || role === 'jurusan'" class="nav-item">
-            <nuxt-link  class="nav-link" to="/cp"><i class="bi bi-journal-bookmark-fill"></i> Elemen CP</nuxt-link>
+            <nuxt-link  class="nav-link" to="/elemen"><i class="bi bi-journal-bookmark-fill"></i> Elemen</nuxt-link>
           </li>
           <li v-if="role === 'admin' || role === 'jurusan'" class="nav-item">
             <nuxt-link  class="nav-link" to="/pembimbing"><i class="bi bi-emoji-smile"></i> Pembimbing</nuxt-link>
