@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 public-sans text-muted">Update Elemen CP / <span class="text-grey">{{ form.elemen }}</span></span>
+      <span class="h4 public-sans text-muted">Update Elemen / <span class="text-grey">{{ form.elemen }}</span></span>
     </div>
     <div class="card-body">
       <div class="row">
@@ -23,7 +23,7 @@
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>
-            <nuxt-link to="/cp" class="btn btn-light">Kembali</nuxt-link>
+            <nuxt-link to="/elemen" class="btn btn-light">Kembali</nuxt-link>
             <span v-if="isSaved" class="ms-2 mb-3 fst-italic">Berhasil tersimpan!</span>
           </form>
         </div>
@@ -34,7 +34,7 @@
 
 <script setup>
 definePageMeta({ middleware: 'auth' })
-useHead({ title: 'Update Elemen CP — e-PKL / SMKN 4 Tasikmalaya.' })
+useHead({ title: 'Update Elemen — e-PKL / SMKN 4 Tasikmalaya.' })
 let user = usePocketBaseUser()
 let client = usePocketBaseClient()
 let prokel = user?.user.value.program_keahlian

@@ -1,9 +1,9 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 public-sans"><i class="bi bi-journal-bookmark-fill"></i> Elemen CP</span>
+      <span class="h4 public-sans"><i class="bi bi-journal-bookmark-fill"></i> Elemen</span>
       <span class="float-end">
-        <nuxt-link to="/cp/tambah" class="btn btn-info btn-sm"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
+        <nuxt-link to="/elemen/tambah" class="btn btn-info btn-sm"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
       </span>
     </div>
     <div class="card-body small">
@@ -35,7 +35,7 @@
             </tr>
             <tr v-else v-for="e in elementsFiltered" :key="e.id">
               <td>
-                <nuxt-link :to="`/cp/${e.id}`" class="link">{{ e.elemen }}</nuxt-link></td>
+                <nuxt-link :to="`/elemen/${e.id}`" class="link">{{ e.elemen }}</nuxt-link></td>
               <td>{{ e.cp }}</td>
               <td><span class="pre-text">{{ e.tujuan }}</span></td>
             </tr>
@@ -48,7 +48,7 @@
 
 <script setup>
 definePageMeta({ middleware: 'auth' })
-useHead({ title: "Elemen CP — e-PKL / SMKN 4 Tasikmalaya." })
+useHead({ title: "Elemen — e-PKL / SMKN 4 Tasikmalaya." })
 let client = usePocketBaseClient()
 let user = usePocketBaseUser()
 let role = user?.user.value.role
