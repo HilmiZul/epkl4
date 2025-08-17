@@ -177,9 +177,9 @@ table th {
 a.link {
   text-decoration: none;
   color: #000;
-  border-bottom: 2px dashed #c1ccd5;
-  transition: all .2s ease-in-out;
-  padding-bottom: .2rem;
+  border-bottom: 1.5px solid #a7a7a7;
+  transition: all .1s ease-in-out;
+  padding-bottom: .1rem;
 }
 a.link:hover {
   color: #000;

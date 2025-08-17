@@ -58,6 +58,7 @@ async function getFile(e) {
   let csv = await file.text()
   const lines = csv.split('\n')
   const result = [];
+  let objek = {}
   const headers = lines[0].split(',');
 
   for (let i = 1; i < lines.length; i++) {
@@ -71,8 +72,9 @@ async function getFile(e) {
     let data = await client
       .collection('iduka')
       .create(obj)
-    result.push(obj);
+    // result.push(obj);
   }
+  // console.log(objek)
   isLoading.value = false
   idukaTemp.value = result
 }

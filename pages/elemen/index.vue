@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="table-responsive">
-        <table class="table table-hover table-striped table-bordered">
+        <table class="table table-hover table-striped table-borderless">
           <thead>
             <tr>
               <th width="30%">Elemen</th>

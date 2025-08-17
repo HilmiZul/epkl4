@@ -3,8 +3,28 @@
     <div class="card-header">
       <span class="h4 public-sans"><i class="bi bi-person-fill"></i> Peserta Didik</span>
       <span class="float-end">
+        <!-- <button v-if="role == 'admin' || role == 'jurusan'" data-bs-toggle="modal" data-bs-target="#buat-akun-peserta" class="btn btn-info btn-sm me-2"><i class="bi bi-person-plus"></i> Buat akun</button> -->
         <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/peserta/import" class="btn btn-success btn-sm"><i class="bi bi-download"></i> Impor dari .csv</nuxt-link>
       </span>
+      <div class="modal" id="buat-akun-peserta" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
+            <div class="modal-header rounded-0 h4 bg-info public-sans border-bottom border-2 border-dark">
+              Buat akun Peserta
+            </div>
+            <div class="modal-body">
+              Akun ini akan digunakan Peserta untuk login ke aplikasi. <br>
+              Tekan tombol <strong>Buatkan</strong> untuk membuat akun otomatis.
+            </div>
+            <div class="modal-footer">
+              <span v-if="isCreated" class="fst-italic text-muted">Berhasil dibuat!</span>
+              <button v-if="!isCreated" @click="buatAkunPeserta" class="btn btn-success">Buatkan</button>
+              <button v-if="!isCreated" class="btn btn-light" data-bs-dismiss="modal">Nanti saja</button>
+              <button v-if="isCreated" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="card-body small">
       <div class="row">
@@ -29,7 +49,7 @@
       </div>
       <!-- <div v-if="isLoading"><Loading /></div> -->
       <div class="table-responsive">
-        <table class="table table-hover table-striped table-bordered">
+        <table class="table table-hover table-striped table-borderless">
           <thead>
             <tr>
               <th width="2%">#</th>
@@ -82,6 +102,8 @@ let role = user.user.value.role
 let prokel = user.user.value.program_keahlian
 let keyword = ref('')
 let opsiKelas = ref('')
+let isCreatingUser = ref(false)
+let isCreated = ref(false)
 
 onMounted(() => getStudents())
 
@@ -97,6 +119,42 @@ const getStudents = async () => {
   if(data) {
     isLoading.value = false
     students.value = data
+  }
+}
+
+const buatAkunPeserta = async () => {
+  let s = students.value
+  let tempUsers = []
+  isCreatingUser.value = true
+  isCreated.value = false
+  try {
+    for(let i=0; i<s.length; i++) {
+      client.autoCancellation(false)
+      await client.collection('users_siswa').create({
+        "username": s[i].nis,
+        "email": "student@smkn4-tsm.sch.id",
+        "emailVisibility": true,
+        "password": "20276063",
+        "passwordConfirm": "20276063",
+        "program_keahlian": prokel,
+        "siswa": s[i].id
+      })
+    }
+    // await Promise.all(
+    //   tempUsers.map(data => {
+    //     client.collection('users_siswa').create(data, {'$autoCancel': false })
+    //   })
+    // )
+    // console.log(tempUsers)
+    // for (let item of tempUsers) {
+    //   await client.collection('users_user').create(item)
+    // }
+    isCreated.value = true
+    isCreatingUser.value = false
+  } catch(error) {
+    isCreated.value = true
+    isCreatingUser.value = false
+    console.error("Terjadi kesalahan: ",error)
   }
 }
 
