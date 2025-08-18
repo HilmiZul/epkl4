@@ -48,6 +48,7 @@ definePageMeta({
 })
 useHead({ title: "Impor Peserta — e-PKL / SMKN 4 Tasikmalaya." })
 let client = usePocketBaseClient()
+let user = usePocketBaseUser()
 let studentTemp = ref([])
 let isLoading = ref(false)
 if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')

@@ -44,7 +44,8 @@
                   <!-- <div class="my-3 foto-container">
                     <img src="https://www.stonebridge.uk.com/blog/wp-content/uploads/2016/05/Web-design-and-development.jpg" alt="foto" class="foto" />
                   </div> -->
-                  <span class="text-danger"><i class="bi bi-heart-fill"></i></span> Valid
+                  <div v-if="journal.isValid" @click="handleValidasi(journal.id, journal.isValid)" class="hand-cursor"><span class="text-danger"><i class="bi bi-heart-fill"></i></span> Valid</div>
+                  <div v-else @click="handleValidasi(journal.id, journal.isValid)" class="hand-cursor"><span class="text-danger"><i class="bi bi-heart"></i></span> Validasi</div>
                   <!-- <span class="fst-italic text-muted">memvalidasi...</span> -->
                 </div>
               </div>
@@ -78,8 +79,8 @@ let isLoadingJournals = ref(true)
 let journals = ref([])
 let perPage = 5
 
-async function getJournals() {
-  isLoadingJournals.value = true
+async function getJournals(loading=true) {
+  isLoadingJournals.value = loading
   let queryFilter = "pembimbing='"+user.user.value.id+"'"
   if(tanggal.value) queryFilter = "pembimbing='"+user.user.value.id+"' && created~'"+tanggal.value+"'"
   if(user.user.value.role == 'admin') queryFilter = ""
@@ -130,11 +131,19 @@ async function pagination(page) {
   }
 }
 
+async function handleValidasi(id, isValid) {
+  let currValidate = isValid
+  if(currValidate) currValidate = !isValid
+  else currValidate = !isValid
+  client.autoCancellation(false)
+  await client.collection('jurnal').update(id, { isValid: currValidate })
+}
+
 onMounted(() => {
   getJournals()
   client.autoCancellation(false)
   client.collection('jurnal').subscribe('*', function(e) {
-    if(e.action == 'create') getJournals()
+    if(e.action == 'create' || e.action == 'update') getJournals(false)
   },{})
 })
 </script>

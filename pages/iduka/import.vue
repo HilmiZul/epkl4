@@ -47,6 +47,7 @@ definePageMeta({
 })
 useHead({ title: "Impor IDUKA — e-PKL / SMKN 4 Tasikmalaya." })
 let client = usePocketBaseClient()
+let user = usePocketBaseUser()
 let idukaTemp = ref([])
 let isLoading = ref(false)
 let isError = ref(false)
