@@ -1,13 +1,13 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 public-sans text-muted">Pembimbing / <span class="text-grey">Tambah baru</span></span>
+      <span class="h4 quicksand text-muted">Pembimbing / <span class="text-grey">Tambah baru</span></span>
     </div>
     <div class="card-body">
       <div class="row">
         <div class="col">
           <div class="alert alert-warning border-5 border-dark shadow-lg">
-            <div class="h5 public-sans">Perhatiin!</div>
+            <div class="h5 quicksand">Perhatiin!</div>
             <ul class="small">
               <li>Guru pembimbing adalah Guru yang mengajar pada tingkat XII</li>
               <li>Guru pembimbing termasuk Guru kejuruan</li>
@@ -19,23 +19,23 @@
       <div class="row">
         <div class="col-md-6">
           <form @submit.prevent="buatPembimbingBaru">
-            <div class="my-3">
+            <div class="my-4">
               <label for="username">Username</label>
               <input v-model="form.username" type="text" id="username" class="form form-control" placeholder="masukkan username" required autofocus>
             </div>
-            <div class="my-3">
+            <div class="my-4">
               <label for="email">Email</label>
               <input v-model="form.email" :disabled="form.username.length < 3" type="email" id="email" class="form form-control" placeholder="masukkan email (sekolah)" required>
             </div>
-            <div class="my-3">
+            <div class="my-4">
               <label for="password">Password</label>
               <input v-model="form.password" :disabled="form.email.length < 10" type="password" id="password" class="form form-control" placeholder="masukkan password min.8 karakter" required>
             </div>
-            <div class="mb-3">
+            <div class="my-4">
               <label for="nama">Nama</label>
               <input v-model="form.nama" :disabled="form.password.length < 8" type="text" id="nama" class="form form-control" placeholder="masukkan nama Guru Pembimbing" required>
             </div>
-            <div class="mb-3">
+            <div class="my-4">
               <label for="role">Role</label>
               <select v-model="form.role" :disabled="form.nama.length < 4" id="role" class="form form-control form-select" required>
                 <option disabled value="">—</option>

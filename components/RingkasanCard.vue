@@ -3,7 +3,7 @@
     <div class="col-md-3">
       <div class="card mb-3">
         <div class="card-body bg-danger">
-          <span class="medium">Peserta</span>
+          <span class="fs-5 fw-bold">Peserta</span>
           <h4 v-if="!isLoading">{{ count_peserta.length }}</h4>
           <h4 v-else>
             <p class="placeholder-glow">
@@ -17,7 +17,7 @@
     <div class="col-md-3">
       <div class="card mb-3">
         <div class="card-body bg-purple">
-          <span class="medium">Pembimbing</span>
+          <span class="fs-5 fw-bold">Pembimbing</span>
           <h4 v-if="!isLoading">{{ count_pembimbing.length }}</h4>
           <h4 v-else>
             <p class="placeholder-glow">
@@ -31,7 +31,7 @@
     <div class="col-md-3 mb-3">
       <div class="card">
         <div class="card-body bg-success">
-          <span class="medium">IDUKA</span>
+          <span class="fs-5 fw-bold">IDUKA</span>
           <h4 v-if="!isLoading">{{ count_iduka.length }}</h4>
           <h4 v-else>
             <p class="placeholder-glow">
@@ -45,7 +45,7 @@
     <div class="col-md-3 mb-3">
       <div class="card">
         <div class="card-body bg-info">
-          <span class="medium">Terserap</span>
+          <span class="fs-5 fw-bold">Terserap</span>
           <h4 v-if="!isLoading">{{ prosentase_pemetaan.toFixed(0) }}%</h4>
           <h4 v-else>
             <p class="placeholder-glow">
@@ -118,3 +118,9 @@ onMounted(() => {
   count()
 })
 </script>
+
+<style scoped>
+.fw-bold {
+  letter-spacing: .03em;
+}
+</style>

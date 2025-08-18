@@ -1,7 +1,7 @@
 <template>
   <div class="card shadow-lg">
     <div class="card-header">
-      <span class="h4 public-sans text-grey"><i class="bi bi-patch-check-fill"></i> Verifikasi</span>
+      <span class="h4 quicksand text-grey"><i class="bi bi-patch-check-fill"></i> Verifikasi</span>
     </div>
     <div class="card-body small">
       <li>Buat jadwal</li>

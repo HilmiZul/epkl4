@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 public-sans"><i class="bi bi-person-fill"></i> Peserta Didik</span>
+      <span class="h4 quicksand"><i class="bi bi-person-fill"></i> Peserta Didik</span>
       <span class="float-end">
         <!-- <button v-if="role == 'admin' || role == 'jurusan'" data-bs-toggle="modal" data-bs-target="#buat-akun-peserta" class="btn btn-info btn-sm me-2"><i class="bi bi-person-plus"></i> Buat akun</button> -->
         <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/peserta/import" class="btn btn-success btn-sm"><i class="bi bi-download"></i> Impor dari .csv</nuxt-link>
@@ -9,7 +9,7 @@
       <div class="modal" id="buat-akun-peserta" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
-            <div class="modal-header rounded-0 h4 bg-info public-sans border-bottom border-2 border-dark">
+            <div class="modal-header rounded-0 h4 bg-info quicksand border-bottom border-2 border-dark">
               Buat akun Peserta
             </div>
             <div class="modal-body">
@@ -68,7 +68,7 @@
             </tr>
             <tr v-for="(student,i) in studentsFiltered" :key="student.id">
               <td>{{ i+1 }}. </td>
-              <td>
+              <td class="fw-bold">
                 <nuxt-link :to="`/peserta/${student.id}`" class="link">{{ student.nama }}</nuxt-link>
               </td>
               <!-- <td>{{ student.pembimbing }}</td> -->

@@ -1,14 +1,14 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 public-sans text-muted">Peserta Didik / <span class="text-grey">Impor dari .csv</span></span>
+      <span class="h4 quicksand text-muted">Peserta Didik / <span class="text-grey">Impor dari .csv</span></span>
     </div>
     <div class="card-body">
       <div class="row">
         <div class="col">
           <div class="alert alert-warning border-5 border-dark shadow-lg">
-            <div class="h5 public-sans">Perhatiin!</div>
-            <ul class="small">
+            <div class="h5 quicksand">Perhatiin!</div>
+            <ul>
               <li>Tidak perlu impor apabila data peserta didik sudah lengkap</li>
               <li>Sebelum impor, pastikan sesuai dengan format <nuxt-link to="https://docs.google.com/spreadsheets/d/1Q5mfr7UTqWlmkGLVMe8NdYgQfczttdKiYtHJj9GX2gA/edit?usp=sharing" target="_blank" class="link">disini</nuxt-link></li>
               <li>Sistem hanya membaca file <code>.CSV</code></li>

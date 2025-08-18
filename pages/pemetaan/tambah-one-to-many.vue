@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 public-sans text-grey">Pemetaan / <span class="text-muted">Tambah baru</span></span>
+      <span class="h4 quicksand text-grey">Pemetaan / <span class="text-muted">Tambah baru</span></span>
     </div>
     <div class="card-body">
       <div class="row">
@@ -60,7 +60,7 @@
         </div>
         <div class="col">
           <div class="alert alert-warning border-5 border-dark shadow-lg">
-            <div class="h5 public-sans">Perhatian!</div>
+            <div class="h5 quicksand">Perhatian!</div>
             <ul class="small">
               <li>IDUKA yang ditambahkan sesuai dengan Program Keahlian</li>
               <li>Setiap IDUKA dapat diatur berapa banyaknya kuota peserta (sesuai Program Keahlian)</li>

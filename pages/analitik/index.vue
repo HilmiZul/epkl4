@@ -1,7 +1,7 @@
 <template>
   <div class="card shadow-lg">
     <div class="card-header">
-      <span class="h4 public-sans text-grey"><i class="bi bi-bar-chart-fill"></i> Analitik Kesesuaian IDUKA</span>
+      <span class="h4 quicksand text-grey"><i class="bi bi-bar-chart-fill"></i> Analitik Kesesuaian IDUKA</span>
     </div>
     <div class="card-body small">
       <li>Data statistik IDUKA per Program Keahlian</li>

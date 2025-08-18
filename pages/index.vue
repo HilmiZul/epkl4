@@ -2,7 +2,7 @@
   <div>
     <div v-if="role != 'tu'" class="card">
       <div class="card-header">
-        <span class="h4 public-sans"><i class="bi bi-pie-chart-fill"></i> Ringkasan</span>
+        <span class="h4 quicksand"><i class="bi bi-pie-chart-fill"></i> Ringkasan</span>
       </div>
       <div class="card-body">
         <div class="alert alert-info">
@@ -10,12 +10,23 @@
           <nuxt-link to="/jurnal" class="btn btn-warning btn-sm">Ayo validasi <i class="bi bi-arrow-right"></i></nuxt-link>
         </div>
         <div class="alert alert-warning shadow-lg">
-          <span class="h4"><i class="bi bi-lightbulb"></i> FYI</span>
-          <ul>
-            <li>Terserap = Peserta yang sudah diterima IDUKA</li>
-            <li>Terpetakan = Peserta yang baru ditempatkan saja</li>
-            <li>Belum diterima = Peserta yang sudah dipetakan menunggu respon/balasan IDUKA</li>
-          </ul>
+          <span class="h4 fw-bold"><i class="bi bi-lightbulb"></i> FYI</span>
+          <table class="table border-0">
+            <tbody>
+              <tr>
+                <td width="15%" class="fw-bold">Terserap</td>
+                <td>: Peserta yang sudah diterima IDUKA</td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Terpetakan</td>
+                <td>: Peserta yang baru dipetakan/tempatkan</td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Belum diterima</td>
+                <td>: Peserta yang sudah dipetakan menunggu respon/balasan IDUKA</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <ringkasan-card v-if="role == 'admin' || role == 'jurusan'" />
         <div class="row mt-4 justify-content-center">
@@ -26,7 +37,7 @@
     </div>
     <div v-else class="card">
       <div class="card-header">
-        <span class="h4 public-sans text-grey"><i class="bi bi-pie-chart-fill"></i> Ringkasan</span>
+        <span class="h4 quicksand text-grey"><i class="bi bi-pie-chart-fill"></i> Ringkasan</span>
       </div>
       <div class="card-body">
         <div class="row">

@@ -8,7 +8,7 @@
           <span @click="moreConfetti" class="hand-cursor">😆</span>
         </div>
         <nav>
-          <ol class="list-group list-group-flush public-sans">
+          <ol class="list-group list-group-flush quicksand">
             <nuxt-link to="/">
               <li class="list-group-item"><i class="bi bi-pie-chart-fill"></i> Ringkasan</li>
             </nuxt-link>
@@ -106,6 +106,7 @@ a:hover > li {
   background-color: #f0f0f0;
 }
 .list-group-item {
+  font-size: 1.2em;
   border: none !important;
   border-bottom: 2px solid #000 !important;
 }

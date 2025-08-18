@@ -1,14 +1,14 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 public-sans text-muted">Pemetaan PKL / <span class="text-grey">Tambah baru</span></span>
+      <span class="h4 quicksand text-muted">Pemetaan PKL / <span class="text-grey">Tambah baru</span></span>
     </div>
     <div class="card-body">
       <div class="row">
         <div class="col">
           <div class="alert alert-warning border-5 border-dark shadow-lg">
-            <div class="h5 public-sans">Perhatiin!</div>
-            <ul class="small">
+            <div class="h5 quicksand">Perhatiin!</div>
+            <ul>
               <!-- <li>Pemetaan peserta ini akan men-generate Surat Permohonan</li>
               <li>Tentukan wilayah: Dalam/Luar kota untuk memfilter IDUKA</li> -->
               <li>IDUKA yang muncul hanya yang masih kosong</li>
@@ -20,7 +20,7 @@
       <div class="row">
         <div class="col-md-6">
           <form @submit.prevent="buatPemetaan">
-            <div class="my-3">
+            <div class="my-4">
               <label for="wilayah">Wilayah (dalam/luar kota)</label>
               <!-- <multiselect
                 v-model="selectWilayah"
@@ -33,7 +33,7 @@
                 <option value="luar">Luar kota</option>
               </select>
             </div>
-            <div class="mb-3">
+            <div class="mb-4">
               <label for="iduka">IDUKA</label>
               <multiselect
                 v-model="form.iduka"
@@ -49,7 +49,7 @@
                 <template v-slot:singleLabel="{ option }"><strong>{{ option.nama }} / {{ option.terisi }} dari {{ option.jumlah_kuota }}</strong></template>
               </multiselect>
             </div>
-            <div class="mb-3">
+            <div class="mb-4">
               <label for="peserta">Peserta didik</label>
               <multiselect
                 v-model="form.siswa"

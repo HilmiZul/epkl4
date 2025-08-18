@@ -1,14 +1,14 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 public-sans text-muted">Pembimbing /
+      <span class="h4 quicksand text-muted">Pembimbing /
       <span v-if="!isLoading" class="text-grey">{{ form.nama }}</span></span>
     </div>
     <div class="card-body">
       <!-- <div class="row">
         <div class="col">
           <div class="alert alert-warning border-5 border-dark shadow-lg">
-            <div class="h5 public-sans">Perhatiin!</div>
+            <div class="h5 quicksand">Perhatiin!</div>
             <ul class="small">
               <li>Guru pembimbing adalah Guru yang mengajar pada tingkat XII</li>
               <li>Guru pembimbing termasuk Guru kejuruan</li>
@@ -22,15 +22,15 @@
       <div v-else class="row">
         <div class="col-md-5">
           <form @submit.prevent="updatePembimbingBaru">
-            <div class="mb-3">
+            <div class="mb-4">
               <label for="username">Username</label>
               <input v-model="form.username" :disabled="isLoading" type="text" id="username" class="form form-control" placeholder="masukkan username" required autofocus>
             </div>
-            <div class="mb-3">
+            <div class="my-4">
               <label for="nama">Nama</label>
               <input v-model="form.nama" :disabled="isLoading" type="text" id="nama" class="form form-control" placeholder="masukkan nama Guru Pembimbing" required>
             </div>
-            <div class="mb-3">
+            <div class="my-4">
               <label for="role">Role</label>
               <select v-model="form.role" :disabled="isLoading" id="role" class="form form-control form-select" required>
                 <option disabled value="">—</option>
@@ -43,7 +43,7 @@
               <span v-else>Sedang menyimpan</span>
             </button>
             <nuxt-link to="/pembimbing" class="btn btn-light">Kembali</nuxt-link>
-            <span v-if="isSaved" class="ms-2 mb-3"><em>Berhasil tersimpan!</em></span>
+            <span v-if="isSaved" class="ms-2 my-4"><em>Berhasil tersimpan!</em></span>
           </form>
         </div>
       </div>

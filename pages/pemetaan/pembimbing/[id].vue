@@ -1,15 +1,15 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 public-sans text-muted">Update Pemetaan Pembimbing ></span>
-      <span v-if="!isLoading" class="h4 public-sans text-grey">{{ pemetaan.expand.pembimbing.nama }}</span>
+      <span class="h4 quicksand text-muted">Update Pemetaan Pembimbing ></span>
+      <span v-if="!isLoading" class="h4 quicksand text-grey">{{ pemetaan.expand.pembimbing.nama }}</span>
       <p v-else class="placeholder-glow"><span class="placeholder col-3"></span></p>
     </div>
     <div class="card-body">
       <div class="row">
         <div class="col">
           <div class="alert alert-warning border-5 border-dark shadow-lg">
-            <div class="h5 public-sans">Perhatiin!</div>
+            <div class="h5 quicksand">Perhatiin!</div>
             <ul class="small">
               <li>Perubahan ini akan menambahkan ke daftar peserta yang dibimbing saat ini</li>
             </ul>

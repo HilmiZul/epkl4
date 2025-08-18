@@ -2,7 +2,7 @@
   <div class="card">
     <div v-if="pemetaan?.status_acc_pkl" v-confetti class="posiiton-absolute top-0 start-50 translate-middle-x"></div>
     <div class="card-header">
-      <span v-if="!isLoading" class="h4 public-sans text-muted">
+      <span v-if="!isLoading" class="h4 quicksand text-muted">
         {{ pemetaan.expand.siswa.nama }} > <span class="text-grey">{{ pemetaan.expand.iduka.nama }}</span>
       </span>
     </div>
@@ -11,8 +11,8 @@
       <div v-else class="row">
         <div v-if="!pemetaan.status_acc_pkl" class="col">
           <div class="alert alert-warning border-5 border-dark shadow-lg">
-            <div class="h5 public-sans">Perhatiin!</div>
-            <ul class="small">
+            <div class="h5 quicksand">Perhatiin!</div>
+            <ul>
               <li>Tentukan wilayah untuk mengubah IDUKA</li>
               <li>IDUKA yang muncul hanya yang masih kosong</li>
             </ul>
@@ -22,7 +22,7 @@
       <div v-if="isLoading"><Loading /></div>
       <div v-else class="row">
         <div v-if="pemetaan.status_acc_pkl" class="col-md-12">
-          <div class="alert alert-info border border-2 border-dark public-sans text-center py-5 fs-4">
+          <div class="alert alert-info border border-2 border-dark quicksand text-center py-5 fs-4">
             👏🏻 {{ pemetaan.expand.siswa.nama }} diterima PKL di {{ pemetaan.expand.iduka.nama }}! 🎉
           </div>
           <div v-if="pemetaan?.status_acc_pkl" class="my-3">
@@ -31,7 +31,7 @@
         </div>
         <div v-else class="col-md-6">
           <form @submit.prevent="updatePemetaan">
-            <div class="my-3">
+            <div class="my-4">
               <label for="wilayah">Wilayah (dalam/luar kota)</label>
               <!-- <multiselect
                 v-model="selectWilayah"
@@ -45,7 +45,7 @@
                 <option value="luar">Luar kota</option>
               </select>
             </div>
-            <div class="mb-3">
+            <div class="mb-4">
               <label for="iduka">IDUKA</label>
               <multiselect
                 v-model="form.iduka"
@@ -75,16 +75,16 @@
         <div class="col">
           <div class="alert text-danger border-danger">
             <h5 class="romana">Danger Zone!</h5>
-            <p class="small">Apabila Pemetaan ini dihapus, maka harus buat pemetaan ulang!</p>
+            <p>Apabila Pemetaan ini dihapus, maka harus buat pemetaan ulang!</p>
             <button class="btn btn-danger border-dark" data-bs-toggle="modal" :data-bs-target="`#pemetaan-${route.params.id}`">Hapus</button>
             <div class="modal" :id="`pemetaan-${route.params.id}`" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
-                  <div class="modal-header rounded-0 h4 bg-danger text-white public-sans">
+                  <div class="modal-header rounded-0 h4 bg-danger text-white quicksand">
                     Peringatan!
                   </div>
                   <div class="modal-body text-dark">
-                    Yakin nih mau hapus <span class="romana">{{ pemetaan?.expand.siswa.nama }}</span> dari Pemetaan?
+                    Yakin nih mau hapus <strong>{{ pemetaan?.expand.siswa.nama }}</strong> dari Pemetaan?
                   </div>
                   <div class="modal-footer">
                     <button @click="hapusData(pemetaan.id)" class="btn btn-danger" data-bs-dismiss="modal">Hapus</button>

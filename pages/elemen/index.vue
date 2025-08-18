@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 public-sans"><i class="bi bi-journal-bookmark-fill"></i> Elemen</span>
+      <span class="h4 quicksand"><i class="bi bi-journal-bookmark-fill"></i> Elemen</span>
       <span class="float-end">
         <nuxt-link to="/elemen/tambah" class="btn btn-info btn-sm"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
       </span>
@@ -34,7 +34,7 @@
               <td colspan="3" class="text-center">Data tidak ditemukan</td>
             </tr>
             <tr v-else v-for="e in elementsFiltered" :key="e.id">
-              <td>
+              <td class="fw-bold">
                 <nuxt-link :to="`/elemen/${e.id}`" class="link">{{ e.elemen }}</nuxt-link></td>
               <td>{{ e.cp }}</td>
               <td><span class="pre-text">{{ e.tujuan }}</span></td>

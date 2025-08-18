@@ -1,9 +1,9 @@
 <template>
   <div class="card shadow-lg">
     <div class="card-header">
-      <span class="h4 public-sans"><i class="bi bi-journals"></i> Jurnal Peserta</span>
+      <span class="h4 quicksand"><i class="bi bi-journals"></i> Jurnal Peserta</span>
     </div>
-    <div class="card-body small">
+    <div class="card-body">
       <div class="row">
         <div class="col-md-4">
           <!-- <div class="alert alert-warning shadow-lg small py-2">

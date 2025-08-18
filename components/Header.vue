@@ -7,7 +7,7 @@
             <span>e-PKL.</span>
           </div>
         </div>
-        <!-- <div class="mb-4 public-sans text-muted">Pemetaan siswa Praktik Kerja Lapangan (PKL)</div> -->
+        <!-- <div class="mb-4 quicksand text-muted">Pemetaan siswa Praktik Kerja Lapangan (PKL)</div> -->
       <!-- </div>
     </div> -->
   <!-- </div> -->

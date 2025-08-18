@@ -1,7 +1,7 @@
 <template>
   <div class="card shadow-lg">
     <div class="card-header">
-      <span class="h4 public-sans"><i class="bi bi-diagram-3-fill"></i> Pemetaan PKL</span>
+      <span class="h4 quicksand"><i class="bi bi-diagram-3-fill"></i> Pemetaan PKL</span>
       <div v-if="isIdukaAvailable.length > 0" class="float-end">
         <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/pemetaan/pkl/tambah" class="btn btn-info btn-sm"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
       </div>
@@ -40,14 +40,14 @@
                 <tr v-for="(pemetaan) in mappingFiltered" :key="pemetaan.id">
                   <!-- <td >{{ i+1 }}.</td> -->
                   <td class="py-1">
-                    <nuxt-link v-if="role == 'admin' || role == 'jurusan'" :to="`/pemetaan/pkl/${pemetaan.id}`" class="small link text-dark fw-bolder">
+                    <nuxt-link v-if="role == 'admin' || role == 'jurusan'" :to="`/pemetaan/pkl/${pemetaan.id}`" class="link text-dark fw-bolder">
                       {{ pemetaan.expand.siswa.nama }}
                     </nuxt-link>
-                    <span v-else class="small">{{ pemetaan.expand.siswa.nama }}</span>
-                    <div class="mt-2 text-muted smallest">{{ pemetaan.expand.siswa.kelas }}</div>
+                    <span v-else>{{ pemetaan.expand.siswa.nama }}</span>
+                    <div class="mt-2 text-muted small">{{ pemetaan.expand.siswa.kelas }}</div>
                   </td>
                   <td v-if="pemetaan.showIduka" :rowspan="pemetaan.idukaRowspan">
-                    <span class="text-grey me-2"><i class="bi bi-building"></i></span><nuxt-link :to="`https://www.google.com/maps/search/?api=1&query=${pemetaan.expand.iduka.alamat}`" class="link" target="_blank"><span class="public-sans">{{ pemetaan.expand.iduka.nama }}</span> <sup><i class="bi bi-arrow-up-right"></i></sup></nuxt-link>
+                    <span class="text-grey me-2"><i class="bi bi-building"></i></span><nuxt-link :to="`https://www.google.com/maps/search/?api=1&query=${pemetaan.expand.iduka.alamat}`" class="link" target="_blank"><span class="quicksand">{{ pemetaan.expand.iduka.nama }}</span> <sup><i class="bi bi-arrow-up-right"></i></sup></nuxt-link>
                     <div class="small text-grey mt-2">
                       <i class="bi bi-geo-alt me-2"></i>{{ pemetaan.expand.iduka.wilayah.charAt(0).toUpperCase() + pemetaan.expand.iduka.wilayah.slice(1) }} kota
                     </div>
@@ -75,11 +75,11 @@
               <div class="modal" :id="`status-${pemetaan.id}`" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
-                    <div class="modal-header rounded-0 h4 bg-warning public-sans">
+                    <div class="modal-header rounded-0 h4 bg-warning quicksand">
                       ACC PKL
                     </div>
                     <div class="modal-body text-dark">
-                      Apakah <span class="romana">{{ pemetaan.expand.iduka.nama }}</span> sudah konfirmasi menerima Peserta?
+                      Apakah <strong>{{ pemetaan.expand.iduka.nama }}</strong> sudah konfirmasi menerima Peserta?
                     </div>
                     <div class="modal-footer">
                       <button @click="handleAccPkl(pemetaan.iduka)" class="btn btn-success" data-bs-dismiss="modal">Udah dong!</button>

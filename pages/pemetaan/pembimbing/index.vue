@@ -1,7 +1,7 @@
 <template>
   <div class="card shadow-lg">
     <div class="card-header">
-      <span class="h4 public-sans text-grey"><i class="bi bi-people-fill"></i> Pemetaan Pembimbing</span>
+      <span class="h4 quicksand text-grey"><i class="bi bi-people-fill"></i> Pemetaan Pembimbing</span>
       <div v-if="isPembimbingAvailable.length > 0" class="float-end">
         <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/pemetaan/pembimbing/tambah" class="btn btn-info"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
       </div>
@@ -56,7 +56,7 @@
                           <div class="modal" :id="`student-${student.id}`" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                               <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
-                                <div class="modal-header rounded-0 h4 bg-danger public-sans">
+                                <div class="modal-header rounded-0 h4 bg-danger quicksand">
                                   Hapus dari Pembimbing
                                 </div>
                                 <div class="modal-body text-dark">

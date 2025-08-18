@@ -1,21 +1,21 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 public-sans text-muted">Elemen / <span class="text-grey">Tambah</span></span>
+      <span class="h4 quicksand text-muted">Elemen / <span class="text-grey">Tambah</span></span>
     </div>
     <div class="card-body">
       <div class="row">
         <div class="col-md-6">
           <form @submit.prevent="buatElemenCp">
-            <div class="mb-3">
+            <div class="mb-4">
               <label for="elemen">Elemen</label>
               <input v-model="form.elemen" type="text" id="elemen" class="form form-control" placeholder="ketik elemen mapel PKL disini" required>
             </div>
-            <div class="my-3">
+            <div class="my-4">
               <label for="cp">Capaian Pembelajaran</label>
               <textarea :disabled="form.elemen.length < 9" v-model="form.cp" id="cp" rows="4" class="form form-control" placeholder="Pada akhir fase F ..." required></textarea>
             </div>
-            <div class="my-3">
+            <div class="my-4">
               <label for="tujuan">Tujuan</label>
               <textarea :disabled="form.cp.length < 9" v-model="form.tujuan" id="tujuan" rows="4" class="form form-control" placeholder="Menerapkan softskills, menerapkan K3LH, ..." required></textarea>
             </div>

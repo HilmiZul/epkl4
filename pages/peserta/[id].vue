@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 public-sans text-muted">
+      <span class="h4 quicksand text-muted">
         {{ form.nama }} / <span class="text-grey">{{ form.kelas }}</span>
       </span>
     </div>
@@ -10,7 +10,7 @@
         <div class="col">
           <div class="alert alert-warning shadow-lg border-2 border-dark">
             <h5 class="">Perhatiin!</h5>
-            <ul class="small">
+            <ul>
               <li>Jika ada nilai rapor yang belum tuntas, silahkan ubah status <strong>Ketuntasan Rapor</strong></li>
               <li>Status <strong>Pemetaan PKL</strong> diubah oleh sistem ketika siswa di petakan ke IDUKA</li>
             </ul>
@@ -55,12 +55,12 @@
         <div class="col">
           <div class="alert text-danger border-danger">
             <h5 class="romana">Danger Zone!</h5>
-            <p class="small">Apabila Siswa yang bernama <span class="border-2 border-bottom border-danger pb-1">{{ form.nama }}</span> telah pindah/mengundurkan diri, silahkan hapus!</p>
+            <p>Apabila Siswa yang bernama <span class="border-2 border-bottom border-danger pb-1">{{ form.nama }}</span> telah pindah/mengundurkan diri, silahkan hapus!</p>
             <button class="btn btn-danger border-dark" data-bs-toggle="modal" :data-bs-target="`#siswa-${form.id}`">Hapus</button>
             <div class="modal" :id="`siswa-${form.id}`" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
-                  <div class="modal-header rounded-0 h4 bg-danger text-white public-sans">
+                  <div class="modal-header rounded-0 h4 bg-danger text-white quicksand">
                     Peringatan!
                   </div>
                   <div class="modal-body text-dark">

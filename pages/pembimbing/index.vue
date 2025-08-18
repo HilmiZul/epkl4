@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 public-sans text-dark"><i class="bi bi-emoji-smile"></i> Pembimbing</span>
+      <span class="h4 quicksand text-dark"><i class="bi bi-emoji-smile"></i> Pembimbing</span>
       <span class="float-end">
         <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/pembimbing/tambah" class="btn btn-info btn-sm"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
       </span>
@@ -24,7 +24,7 @@
           <thead>
             <tr>
               <th width="2%">#</th>
-              <th>Username</th>
+              <th width="15%">Username</th>
               <th>Nama</th>
               <!-- <th>Pemetaan</th> -->
               <th>Role</th>
@@ -41,7 +41,7 @@
             <tr v-else v-for="(pembimbing,i) in itemFiltered" :key="pembimbing.id">
               <td>{{ i+1 }}.</td>
               <td>{{ pembimbing.username }}</td>
-              <td><nuxt-link :to="`/pembimbing/${pembimbing.id}`" class="link">{{ pembimbing.nama }}</nuxt-link></td>
+              <td class="fw-bold"><nuxt-link :to="`/pembimbing/${pembimbing.id}`" class="link">{{ pembimbing.nama }}</nuxt-link></td>
               <!-- <td>
                 <span v-if="pembimbing.status_pemetaan" class="badge bg-success">Sudah</span>
                 <span v-else class="badge bg-danger">Belum</span>
@@ -58,7 +58,7 @@
         <div class="modal" :id="`pem-${pembimbing.id}`" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
-              <div class="modal-header rounded-0 h4 bg-danger text-white public-sans">
+              <div class="modal-header rounded-0 h4 bg-danger text-white quicksand">
                 Peringatan!
               </div>
               <div class="modal-body text-dark small">
