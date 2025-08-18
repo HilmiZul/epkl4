@@ -14,16 +14,22 @@
               <li>Untuk memvalidasi kegiatan, klik <code>Validasi</code></li>
             </ul>
           </div> -->
-          <div class="mb-3">
+          <div class="mb-4">
             <label for="filter">Filter Berdasarkan Tanggal</label>
-            <input @change="getJournals" v-model="tanggal" type="date" id="filter" class="form form-control picker mt-2">
+            <input @change="getJournals" v-model="tanggal" type="date" id="filter" class="form form-control picker">
           </div>
-          <div class="row justify-content-center">
-            <!-- <jurnal-chart /> -->
+          <div v-if="!isLoadingJournals" class="mb-4">
+            <div v-if="count > 0" class="text-danger"><strong>{{ count }}</strong> Jurnal belum di validasi</div>
+            <div v-else>Semua jurnal tervalidasi</div>
           </div>
+          <!-- <div v-if="count_sesuai || count_tidak_sesuai" class="row justify-content-center">
+            <jurnal-chart :countSesuai="count_sesuai" :countTidakSesuai="count_tidak_sesuai" />
+          </div> -->
         </div>
         <div class="col">
-          <div v-if="!isLoadingJournals" class="mb-2 text-center text-muted">Menampilkan {{ journals.items.length }} dari {{ journals.totalItems }} Jurnal</div>
+          <div v-if="!isLoadingJournals" class="mb-2 text-center text-muted">Menampilkan
+            <span v-if="journals.items">{{ journals.items.length }}</span>  dari {{ journals.totalItems }} Jurnal
+          </div>
           <div class="row">
             <div class="col">
               <Loading v-if="isLoadingJournals" />
@@ -38,7 +44,7 @@
                       {{ journal.expand.elemen.elemen }}
                     </span>
                   </div>
-                  <article class="my-2 pre-text">
+                  <article class="my-3 pre-text">
                     {{ journal.deskripsi }}
                   </article>
                   <!-- <div class="my-3 foto-container">
@@ -78,6 +84,9 @@ let prokel = user.user.value.program_keahlian
 let isLoadingJournals = ref(true)
 let journals = ref([])
 let perPage = 5
+let count = ref(0)
+let count_sesuai = ref()
+let count_tidak_sesuai = ref()
 
 async function getJournals(loading=true) {
   isLoadingJournals.value = loading
@@ -88,11 +97,20 @@ async function getJournals(loading=true) {
   let res = await client.collection('jurnal').getList(1, perPage, {
     filter: queryFilter,
     expand: "iduka, pembimbing, siswa.siswa, elemen",
-    sort: "-created"
+    sort: "isValid, -created"
   })
-  if(res) {
+  let res_count_sesuai = await client.collection('jurnal').getList(1, perPage, {
+    filter: "pembimbing='"+user.user.value.id+"' && elemen.elemen!='Lain-lain'",
+    expand: "elemen"
+  })
+  let res_count_tidak_sesuai = await client.collection('jurnal').getList(1, perPage, {
+    filter: "pembimbing='"+user.user.value.id+"' && elemen.elemen='Lain-lain'",
+    expand: "elemen"
+  })
+  if(res && res_count_sesuai && res_count_tidak_sesuai) {
     journals.value = res
-    // console.log(journals.value)
+    count_sesuai.value = res_count_sesuai.items.length
+    count_tidak_sesuai.value = res_count_tidak_sesuai.items.length
     // konversi waktu UTC dari server ke full date lokal indo
     for(let i=0; i<journals.value.items.length; i++) {
       const date = new Date(journals.value.items[i].created);
@@ -115,7 +133,7 @@ async function pagination(page) {
   let res = await client.collection('jurnal').getList(page, perPage, {
     filter: queryFilter,
     expand: "iduka, pembimbing, siswa.siswa, elemen",
-    sort: "-created"
+    sort: "isValid, -created"
   })
   if(res) {
     journals.value = res
@@ -139,11 +157,27 @@ async function handleValidasi(id, isValid) {
   await client.collection('jurnal').update(id, { isValid: currValidate })
 }
 
+async function getJournalCount(loading=true) {
+  isLoadingJournals.value = loading
+  client.autoCancellation(false)
+  let res = await client.collection('jurnal').getFullList({
+    filter: "pembimbing='"+user.user.value.id+"' && isValid=false"
+  })
+  if(res) {
+    isLoadingJournals.value = false
+    count.value = res.length
+  }
+}
+
 onMounted(() => {
   getJournals()
+  getJournalCount()
   client.autoCancellation(false)
   client.collection('jurnal').subscribe('*', function(e) {
-    if(e.action == 'create' || e.action == 'update') getJournals(false)
+    if(e.action == 'create' || e.action == 'update') {
+      getJournals(false)
+      getJournalCount(false)
+    }
   },{})
 })
 </script>

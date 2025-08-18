@@ -6,31 +6,25 @@
 
 <script setup>
 import Chart from 'chart.js/auto'
-
+let props = defineProps(['countSesuai', 'countTidakSesuai'])
 let user = usePocketBaseUser()
 let client = usePocketBaseClient()
 let prokel = user.user.value.program_keahlian
 let isLoading = ref(true)
-let count_terserap_semua = []
-let count_terpetakan_semua = []
-let count_belum_terpetakan = []
-let count_belum_terserap = []
+let count_sesuai = 0
+let count_tidak_sesuai = 0
 
 async function countTerserapSemuaPeserta() {
   try {
     isLoading.value = true
-    let resTerserap = await client.collection('pemetaan').getFullList({ filter: "program_keahlian='"+prokel+"' && status_acc_pkl=true" })
-    let resTerpetakan = await client.collection('pemetaan').getFullList({ filter: "program_keahlian='"+prokel+"'" })
-    let resBelumTerpetakan = await client.collection('siswa').getFullList({ filter: "program_keahlian='"+prokel+"' && status_pemetaan_pkl=false" })
-    let resBelumTerserap = await client.collection('pemetaan').getFullList({ filter: "program_keahlian='"+prokel+"' && status_acc_pkl=false" })
-    if(resTerserap && resTerpetakan && resBelumTerpetakan && resBelumTerserap) {
+    if(props) {
       isLoading.value = false
-      count_terserap_semua = resTerserap
-      count_terpetakan_semua = resTerpetakan
-      count_belum_terpetakan = resBelumTerpetakan
-      count_belum_terserap = resBelumTerserap
+      count_sesuai = props.countSesuai
+      count_tidak_sesuai = props.countTidakSesuai
+      // console.log(count_sesuai)
+      // console.log(count_tidak_sesuai)
     }
-    return [count_terpetakan_semua, count_terserap_semua, count_belum_terserap, count_belum_terpetakan]
+    return [count_sesuai, count_tidak_sesuai]
   } catch(error) {
     console.log('Gagal mengambil data: ', error)
     return null
@@ -55,8 +49,8 @@ async function initChartData() {
         ],
         borderColor: 'rgb(0, 0, 0)',
         data: [
-          chartData[0].length,
-          chartData[1].length,
+          chartData[0],
+          chartData[1],
         ],
       }]
     };
