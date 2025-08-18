@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand text-muted">Peserta Didik / <span class="text-grey">Impor dari .csv</span></span>
+      <span class="h4 quicksand">Peserta Didik / <span class="text-dark fw-bold">Impor dari .csv</span></span>
     </div>
     <div class="card-body">
       <div class="row">

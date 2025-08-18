@@ -20,53 +20,21 @@
       <!-- <div v-if="isLoading"><Loading /></div> -->
       <div class="row">
         <div class="col-md-12">
-          <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr>
-                  <!-- <th width="2%">#</th> -->
-                  <th>IDUKA</th>
-                  <th width="45%">Peserta</th>
-                  <th width="10%">Surat</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-if="isLoading" class="text-center my-5">
-                  <td colspan="3"><Loading /></td>
-                </tr>
-                <tr v-else-if="mappingFiltered.length < 1" class="text-center my-5">
-                  <td colspan="3">Data tidak ditemukan</td>
-                </tr>
-                <tr v-for="(pemetaan) in mappingFiltered" :key="pemetaan.id">
-                  <!-- <td >{{ i+1 }}.</td> -->
-                  <td v-if="pemetaan.showIduka" :rowspan="pemetaan.idukaRowspan">
-                    <span class="text-grey me-2"><i class="bi bi-building"></i></span><nuxt-link :to="`https://www.google.com/maps/search/?api=1&query=${pemetaan.expand.iduka.alamat}`" class="link" target="_blank"><span class="quicksand">{{ pemetaan.expand.iduka.nama }}</span> <sup><i class="bi bi-arrow-up-right"></i></sup></nuxt-link>
-                    <div class="small text-grey mt-2">
-                      <i class="bi bi-geo-alt me-2"></i>{{ pemetaan.expand.iduka.wilayah.charAt(0).toUpperCase() + pemetaan.expand.iduka.wilayah.slice(1) }} kota
+          <div class="table-responsive border-0">
+            <div class="row">
+              <Loading v-if="isLoading" />
+              <div v-if="mappingFiltered.length < 1" class="col">Data tidak ditemukan</div>
+              <div v-else v-for="(pemetaan) in mappingFiltered" :key="pemetaan.id" class="col-md-12">
+                <div class="card border-0">
+                  <div class="card-body">
+                    <div v-if="pemetaan.showIduka">
+                      {{ pemetaan.expand.iduka.nama }}
                     </div>
-                    <span v-if="pemetaan.expand.iduka.terisi < pemetaan.expand.iduka.jumlah_kuota" class="text-grey small"><i class="bi bi-ui-checks-grid me-2"></i>Terisi: <span class="text-dark fw-semibold">{{ pemetaan.expand.iduka.terisi }} dari {{ pemetaan.expand.iduka.jumlah_kuota }}</span></span>
-                    <span v-else class="text-grey small"><i class="bi bi-people me-2"></i>{{ pemetaan.expand.iduka.terisi }} peserta</span>
-                    <div class="small fst-italitc text-grey"><i class="bi bi-person-workspace me-2"></i>
-                      <span v-if="pemetaan.expand.iduka?.pembimbing_sekolah == '-' || pemetaan.expand.iduka?.pembimbing_sekolah == ''">&#8212;</span>
-                      <span v-else> {{ pemetaan.expand.iduka?.expand.pembimbing_sekolah?.nama }}</span>
-                    </div>
-                    <div v-if="pemetaan.status_acc_pkl" class="badge bg-info my-2"><i class="bi bi-patch-check"></i> Diterima</div>
-                    <div v-else-if="pemetaan.status_acc_pkl || role == 'admin' || role == 'jurusan'" class="badge bg-warning hand-cursor my-2" data-bs-toggle="modal" :data-bs-target="`#status-${pemetaan.id}`">Konfirmasi penerimaan <i class="bi bi-person-fill-check"></i></div>
-                  </td>
-                  <td class="py-1">
-                    <nuxt-link v-if="role == 'admin' || role == 'jurusan'" :to="`/pemetaan/pkl/${pemetaan.id}`" class="link text-dark fw-bolder">
-                      {{ pemetaan.expand.siswa.nama }}
-                    </nuxt-link>
-                    <span v-else>{{ pemetaan.expand.siswa.nama }}</span>
-                    <div class="mt-1 text-muted small">{{ pemetaan.expand.siswa.kelas }}</div>
-                  </td>
-                  <td v-if="pemetaan.showIduka" :rowspan="pemetaan.idukaRowspan" class="align-middle text-center">
-                    <nuxt-link v-if="!pemetaan.status_acc_pkl" :to="`/pemetaan/pkl/surat/cetak/${pemetaan.iduka}`" target="_blank" class="btn btn-light btn-sm smallest"><i class="bi bi-printer"></i> Cetak</nuxt-link>
-                    <span v-else class="text-muted small">Sudah</span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                    <div v-else>lkj</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- modal pertanyaan apakah diterima IDUKA PKL? -->
@@ -339,9 +307,5 @@ a.link.link-card .card {
 }
 .smallest {
   font-size: 12px;
-}
-table tr, table td {
-  border-bottom: 2px solid #000;
-  border-right: 2px solid #000;
 }
 </style>

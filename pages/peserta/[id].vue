@@ -1,8 +1,8 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand text-muted">
-        {{ form.nama }} / <span class="text-grey">{{ form.kelas }}</span>
+      <span class="h4 quicksand">
+        {{ form.kelas }} / <span class="text-dark fw-bold">{{ form.nama }}</span>
       </span>
     </div>
     <div class="card-body">

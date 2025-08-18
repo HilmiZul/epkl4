@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand text-muted">IDUKA / <span class="text-grey">{{ form.nama }}</span></span>
+      <span class="h4 quicksand">IDUKA / <span class="text-dark fw-bold">{{ form.nama }}</span></span>
     </div>
     <div class="card-body">
       <div class="row">
@@ -92,7 +92,7 @@
                   </tr>
                   <tr v-else-if="mapping.length < 1">
                     <td colspan="2" class="text-center">
-                      <nuxt-link to="/pemetaan/pkl/tambah" class="btn btn-info">Petakan sekarang <i class="bi bi-box-arrow-up-right"></i></nuxt-link>
+                      <nuxt-link to="/pemetaan/pkl/tambah" class="btn btn-info">Petakan sekarang <i class="bi bi-arrow-up-right"></i></nuxt-link>
                     </td>
                   </tr>
                   <tr v-else v-for="p in mapping" :key="p.id">

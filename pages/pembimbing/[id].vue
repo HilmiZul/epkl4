@@ -1,8 +1,8 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand text-muted">Pembimbing /
-      <span v-if="!isLoading" class="text-grey">{{ form.nama }}</span></span>
+      <span class="h4 quicksand">Pembimbing /
+      <span v-if="!isLoading" class="fw-bold text-dark">{{ form.nama }}</span></span>
     </div>
     <div class="card-body">
       <!-- <div class="row">

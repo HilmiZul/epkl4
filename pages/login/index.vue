@@ -16,7 +16,7 @@
         </div>
         <div class="d-grid gap-2 mt-5">
           <button :disabled="sending || username.length < 3 || password.length < 5" class="btn btn-success btn-lg">
-            <span v-if="!sending"><i class="bi bi-send"></i> Gass masuk!</span>
+            <span v-if="!sending">Masuk <i class="bi bi-box-arrow-in-right"></i></span>
             <span v-else>tunggu bentar...</span>
           </button>
         </div>

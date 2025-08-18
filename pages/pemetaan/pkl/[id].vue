@@ -2,8 +2,8 @@
   <div class="card">
     <div v-if="pemetaan?.status_acc_pkl" v-confetti class="posiiton-absolute top-0 start-50 translate-middle-x"></div>
     <div class="card-header">
-      <span v-if="!isLoading" class="h4 quicksand text-muted">
-        {{ pemetaan.expand.siswa.nama }} > <span class="text-grey">{{ pemetaan.expand.iduka.nama }}</span>
+      <span v-if="!isLoading" class="h4 quicksand text-grey">
+        {{ pemetaan.expand.siswa.nama }} <i class="bi bi-chevron-right"></i> <span class="text-dark fw-bold">{{ pemetaan.expand.iduka.nama }}</span>
       </span>
     </div>
     <div class="card-body">
@@ -23,7 +23,7 @@
       <div v-else class="row">
         <div v-if="pemetaan.status_acc_pkl" class="col-md-12">
           <div class="alert alert-info border border-2 border-dark quicksand text-center py-5 fs-4">
-            👏🏻 {{ pemetaan.expand.siswa.nama }} diterima PKL di {{ pemetaan.expand.iduka.nama }}! 🎉
+            👏🏻 <span class="fw-bold">{{ pemetaan.expand.siswa.nama }}</span> diterima PKL di <span class="fw-bold">{{ pemetaan.expand.iduka.nama }}</span>! 🎉
           </div>
           <div v-if="pemetaan?.status_acc_pkl" class="my-3">
             <nuxt-link to="/pemetaan/pkl" class="btn btn-light"><i class="bi bi-arrow-left"></i> kembali</nuxt-link>

@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand text-muted">Update Elemen / <span class="text-grey">{{ form.elemen }}</span></span>
+      <span class="h4 quicksand">Update Elemen / <span class="text-dark fw-bold">{{ form.elemen }}</span></span>
     </div>
     <div class="card-body">
       <div class="row">

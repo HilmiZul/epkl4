@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand text-muted">Elemen / <span class="text-grey">Tambah</span></span>
+      <span class="h4 quicksand">Elemen / <span class="text-dark fw-bold">Tambah</span></span>
     </div>
     <div class="card-body">
       <div class="row">

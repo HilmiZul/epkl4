@@ -30,7 +30,7 @@
         </div>
         <ringkasan-card v-if="role == 'admin' || role == 'jurusan'" />
         <div class="row mt-4 justify-content-center">
-          <ringkasan-chart v-if="role == 'admin' || role == 'jurusan'" />
+          <ringkasan-chart v-if="role == 'admin' || role == 'jurusan' || role == 'guru'" />
           <ringkasan-detail-statistik v-if="role == 'admin' || role == 'jurusan'" />
         </div>
       </div>
