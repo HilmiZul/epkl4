@@ -36,10 +36,13 @@
             <nuxt-link v-if="role === 'admin' || role === 'tu'" to="/pengaturan">
               <li class="list-group-item"><i class="bi bi-sliders"></i> Pengaturan</li>
             </nuxt-link>
-            <!-- <nuxt-link to="/verifikasi">
-              <li class="list-group-item"><i class="bi bi-patch-check-fill"></i> Verifikasi</li>
+            <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role === 'guru' || role === 'tu'" to="/ubah-password">
+              <li class="list-group-item"><i class="bi bi-key"></i> Ubah Password</li>
             </nuxt-link>
-            <nuxt-link to="/analitik">
+            <!-- <nuxt-link v-if="role === 'admin' || role === 'jurusan'" to="/verifikasi">
+              <li class="list-group-item"><i class="bi bi-patch-check"></i> Verifikasi</li>
+            </nuxt-link> -->
+            <!-- <nuxt-link to="/analitik">
               <li class="list-group-item"><i class="bi bi-bar-chart-fill"></i> Analitik</li>
             </nuxt-link> -->
             <nuxt-link to="/logout">

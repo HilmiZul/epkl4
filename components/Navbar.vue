@@ -7,7 +7,7 @@
         <i class="bi-list fs-1 text-dark"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav small">
+        <ul class="navbar-nav">
           <li class="nav-item">
             <nuxt-link  class="nav-link" to="/"><i class="bi bi-pie-chart-fill"></i> Ringkasan</nuxt-link>
           </li>
@@ -34,6 +34,9 @@
           </li>
           <li v-if="role === 'admin' || role === 'tu'" class="nav-item">
             <nuxt-link class="nav-link" to="/pengaturan"><i class="bi bi-sliders"></i> Pengaturan</nuxt-link>
+          </li>
+          <li v-if="role === 'admin' || role === 'jurusan' || role === 'guru' || role === 'tu'" class="nav-item">
+            <nuxt-link class="nav-link" to="/ubah-password"><i class="bi bi-key"></i> Ubah Password</nuxt-link>
           </li>
           <!-- <li class="nav-item">
             <nuxt-link class="nav-link" to="/verifikasi"><i class="bi bi-patch-check-fill"></i> Verifikasi</nuxt-link>

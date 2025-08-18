@@ -53,7 +53,7 @@
                           <td>{{ student.kelas }}</td>
                           <td width="17%"><button class="btn btn-danger" data-bs-toggle="modal" :data-bs-target="`#student-${student.id}`">hapus</button></td>
                           <!-- modal confirm: apakah ingin mengapus siswa terpilih dari pemetaan guru ini? -->
-                          <div class="modal" :id="`student-${student.id}`" aria-hidden="true">
+                          <!-- <div class="modal" :id="`student-${student.id}`" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                               <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
                                 <div class="modal-header rounded-0 h4 bg-danger quicksand">
@@ -68,7 +68,7 @@
                                 </div>
                               </div>
                             </div>
-                          </div>
+                          </div> -->
                         </tr>
                       </tbody>
                     </table>

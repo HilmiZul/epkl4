@@ -1,9 +1,9 @@
 <template>
-  <div class="card shadow-lg">
+  <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand text-grey"><i class="bi bi-patch-check-fill"></i> Verifikasi</span>
+      <span class="h4 quicksand"><i class="bi bi-patch-check"></i> Verifikasi</span>
     </div>
-    <div class="card-body small">
+    <div class="card-body">
       <li>Buat jadwal</li>
       <li>Rilis jadwal</li>
       <li>Penilaian sesuai format sertifikat, dan</li>
