@@ -139,6 +139,7 @@ let form = ref({
   catatan: "",
   pembimbing: ""
 })
+if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
 
 async function updateIduka() {
   isSending.value = true

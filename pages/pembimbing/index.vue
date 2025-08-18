@@ -46,7 +46,10 @@
                 <span v-if="pembimbing.status_pemetaan" class="badge bg-success">Sudah</span>
                 <span v-else class="badge bg-danger">Belum</span>
               </td> -->
-              <td>{{ pembimbing.role.charAt(0).toUpperCase() + pembimbing.role.slice(1) }}</td>
+              <td>
+                <span v-if="pembimbing.role == 'jurusan'">Manajemen</span>
+                <span v-else>Guru Pembimbing</span>
+              </td>
               <!-- <td><button class="btn btn-danger" data-bs-toggle="modal" :data-bs-target="`#pem-${pembimbing.id}`">hapus</button></td> -->
             </tr>
           </tbody>
@@ -92,6 +95,7 @@ let isDeleted = ref(false)
 let role = user.user.value.role
 let prokel = user.user.value.program_keahlian
 let keyword = ref('')
+if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
 
 // async function hapusData(id) {
   // isLoading.value = true

@@ -34,8 +34,8 @@
               <label for="role">Role</label>
               <select v-model="form.role" :disabled="isLoading" id="role" class="form form-control form-select" required>
                 <option disabled value="">—</option>
-                <option value="jurusan">Guru Kejuruan</option>
-                <option value="guru">Guru Umum</option>
+                <option value="jurusan">Manajemen</option>
+                <option value="guru">Guru Pembimbing</option>
               </select>
             </div>
             <button :disabled="isSending || form.username == '' || form.email == '' || form.password == '' || form.nama == '' || form.role == ''" class="btn btn-success me-2">
@@ -66,6 +66,7 @@ let form = ref({
   nama: '',
   role: '',
 })
+if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
 
 async function updatePembimbingBaru() {
   isSending.value = true

@@ -97,6 +97,7 @@ let isDeleted = ref(false)
 let keyword = ref('')
 let prokel = user.user.value.program_keahlian
 let opsiWilayah = ref('')
+if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
 
 async function hapusData(id) {
   await client.collection('iduka').delete(id)

@@ -80,9 +80,9 @@ let perPage = 5
 
 async function getJournals() {
   isLoadingJournals.value = true
-  // console.log(tanggal.value)
   let queryFilter = "pembimbing='"+user.user.value.id+"'"
   if(tanggal.value) queryFilter = "pembimbing='"+user.user.value.id+"' && created~'"+tanggal.value+"'"
+  if(user.user.value.role == 'admin') queryFilter = ""
   client.autoCancellation(false)
   let res = await client.collection('jurnal').getList(1, perPage, {
     filter: queryFilter,
@@ -107,9 +107,12 @@ async function getJournals() {
 
 async function pagination(page) {
   isLoadingJournals.value = true
+  let queryFilter = "pembimbing='"+user.user.value.id+"'"
+  if(tanggal.value) queryFilter = "pembimbing='"+user.user.value.id+"' && created~'"+tanggal.value+"'"
+  if(user.user.value.role == 'admin') queryFilter = ""
   client.autoCancellation(false)
   let res = await client.collection('jurnal').getList(page, perPage, {
-    filter: "pembimbing='"+user.user.value.id+"'",
+    filter: queryFilter,
     expand: "iduka, pembimbing, siswa.siswa, elemen",
     sort: "-created"
   })

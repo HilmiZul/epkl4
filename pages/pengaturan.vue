@@ -48,6 +48,7 @@
 definePageMeta({ middleware: 'auth' })
 useHead({ title: "Pengaturan — e-PKL / SMKN 4 Tasikmalaya." })
 let user = usePocketBaseUser()
+if(user?.user.value.role != 'tu' && user?.user.value.role != 'admin') navigateTo('/404')
 let client = usePocketBaseClient()
 let isLoading = ref(true)
 let isSending = ref(false)

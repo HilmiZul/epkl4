@@ -50,6 +50,7 @@ let client = usePocketBaseClient()
 let idukaTemp = ref([])
 let isLoading = ref(false)
 let isError = ref(false)
+if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
 
 async function getFile(e) {
   isLoading.value = true

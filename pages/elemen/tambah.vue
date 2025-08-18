@@ -46,6 +46,7 @@ let form = ref({
   tujuan: '',
   program_keahlian: prokel
 })
+if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
 
 async function buatElemenCp() {
   isSending.value = true

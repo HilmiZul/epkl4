@@ -101,6 +101,7 @@ let form = ref({
   status_rapot: false,
   status_pemetaan_pkl: false,
 })
+if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
 
 async function simpanPerubahan() {
   isLoadingSave.value = true

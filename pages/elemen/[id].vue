@@ -48,6 +48,7 @@ let form = ref({
   tujuan: 'loading',
   program_keahlian: prokel
 })
+if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
 
 async function updateElemenCp() {
   isSending.value = true

@@ -56,6 +56,7 @@ let prokel = user?.user.value.program_keahlian
 let elements = ref([])
 let isLoading = ref(true)
 let keyword = ref('')
+if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
 
 async function getElemenCp() {
   isLoading.value = true

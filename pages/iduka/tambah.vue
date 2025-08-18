@@ -109,6 +109,7 @@ let form = ref({
   terisi: 0,
   catatan: "",
 })
+if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
 
 async function buatIdukaBaru() {
   form.value.program_keahlian = prokel

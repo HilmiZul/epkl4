@@ -29,7 +29,7 @@
           <!-- <li  class="nav-item">
             <nuxt-link class="nav-link" to="/pemetaan/pembimbing"><i class="bi bi-people-fill"></i> Pemetaan Pembimbing</nuxt-link>
           </li> -->
-          <li class="nav-item">
+          <li v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" class="nav-item">
             <nuxt-link class="nav-link" to="/jurnal"><i class="bi bi-journals"></i> Jurnal Peserta</nuxt-link>
           </li>
           <li v-if="role === 'admin' || role === 'tu'" class="nav-item">

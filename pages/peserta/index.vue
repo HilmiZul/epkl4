@@ -104,6 +104,7 @@ let keyword = ref('')
 let opsiKelas = ref('')
 let isCreatingUser = ref(false)
 let isCreated = ref(false)
+if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
 
 onMounted(() => getStudents())
 
