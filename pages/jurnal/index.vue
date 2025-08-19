@@ -35,24 +35,37 @@
               <Loading v-if="isLoadingJournals" />
               <div v-else v-for="journal in journals.items" :key="journal.id" class="card jurnal-hover">
                 <div class="card-body">
-                  <div><strong class="fs-6">{{ journal.expand.siswa.expand.siswa.nama }}</strong> &bull; <span class="text-muted fst-italic">{{ journal.created }}</span></div>
+                  <div><strong class="fs-6">{{ journal.expand.siswa.expand.siswa.nama }}</strong> &bull; <span class="small text-muted fst-italic">{{ journal.created }}</span></div>
                   <div class="my-2">
-                    <span v-if="journal.expand.elemen.elemen == 'Lain-lain'" class="border border-2 border-dark p-1 bg-danger"><i class="bi bi-journal-bookmark-fill"></i>
+                    <span v-if="journal.expand.elemen.elemen == 'Lain-lain'" class="small border border-2 border-dark p-1 bg-danger"><i class="bi bi-journal-bookmark-fill"></i>
                       {{ journal.expand.elemen.elemen }}
                     </span>
-                    <span v-else class="border border-2 border-dark p-1 bg-info"><i class="bi bi-journal-bookmark-fill"></i>
+                    <span v-else class="small border border-2 border-dark p-1 bg-info"><i class="bi bi-journal-bookmark-fill"></i>
                       {{ journal.expand.elemen.elemen }}
                     </span>
                   </div>
                   <article class="my-3 pre-text">
                     {{ journal.deskripsi }}
                   </article>
-                  <!-- <div class="my-3 foto-container">
-                    <img src="https://www.stonebridge.uk.com/blog/wp-content/uploads/2016/05/Web-design-and-development.jpg" alt="foto" class="foto" />
-                  </div> -->
-                  <div v-if="journal.isValid" @click="handleValidasi(journal.id, journal.isValid)" class="hand-cursor"><span class="text-danger"><i class="bi bi-heart-fill"></i></span> Valid</div>
-                  <div v-else @click="handleValidasi(journal.id, journal.isValid)" class="hand-cursor"><span class="text-danger"><i class="bi bi-heart"></i></span> Validasi</div>
+                  <div v-if="journal.foto" class="my-3 foto-container hand-cursor" data-bs-toggle="modal" :data-bs-target="`#foto-${journal.id}`">
+                    <img :src="`http://localhost:8090/api/files/${journal.collectionId}/${journal.id}/${journal.foto}`" :alt="journal.deskripsi" class="foto" />
+                  </div>
+                  <span v-if="journal.isValid" @click="handleValidasi(journal.id, journal.isValid)" class="hand-cursor"><span class="text-danger"><i class="bi bi-heart-fill"></i></span> Valid</span>
+                  <span v-else @click="handleValidasi(journal.id, journal.isValid)" class="hand-cursor"><span class="text-danger"><i class="bi bi-heart"></i></span> Validasi</span>
                   <!-- <span class="fst-italic text-muted">memvalidasi...</span> -->
+                </div>
+                <!-- MODAL FOTO PREVIEW -->
+                <div class="modal" :id="`foto-${journal.id}`" aria-hidden="true" tabindex="-1">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button class="btn-close" data-bs-dismiss="modal" label="Close"></button>
+                      </div>
+                      <div class="modal-body p-0">
+                        <img :src="`http://localhost:8090/api/files/${journal.collectionId}/${journal.id}/${journal.foto}`" :alt="journal.deskripsi" class="foto-preview" />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -198,7 +211,7 @@ input.picker[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .foto-container {
-  width: 400px;
+  width: 100%;
   height: 200px;
 }
 .foto {
@@ -206,6 +219,10 @@ input.picker[type="date"]::-webkit-calendar-picker-indicator {
   height: 100%;
   object-fit: cover;
   object-position: center;
+}
+.foto-preview {
+  width: 100%;
+  height: 100%;
 }
 .jurnal-hover:hover {
   background-color: #f7fddd;
