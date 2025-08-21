@@ -1,37 +1,38 @@
 <template>
   <div>
+    <!-- ROLE: ADMIN & JURUSAN (MANAJEMEN) -->
     <div v-if="role != 'tu'" class="card">
       <div class="card-header">
         <span class="h4 quicksand"><i class="bi bi-pie-chart-fill"></i> Ringkasan</span>
       </div>
       <div class="card-body">
         <ringaksan-notif-jurnal />
-        <div class="alert alert-warning shadow-lg">
-          <span class="h4 fw-bold"><i class="bi bi-lightbulb"></i> FYI</span>
-          <table class="table border-0">
-            <tbody>
-              <tr>
-                <td width="15%" class="fw-bold">Terserap</td>
-                <td>: Peserta yang sudah diterima IDUKA</td>
-              </tr>
-              <tr>
-                <td class="fw-bold">Terpetakan</td>
-                <td>: Peserta yang baru dipetakan/tempatkan</td>
-              </tr>
-              <tr>
-                <td class="fw-bold">Belum diterima</td>
-                <td>: Peserta yang sudah dipetakan menunggu respon/balasan IDUKA</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <ringkasan-personal />
+        <!-- <ringkasan-fyi v-if="role == 'admin' || role == 'jurusan'" /> -->
         <ringkasan-card v-if="role == 'admin' || role == 'jurusan'" />
         <div class="row mt-4 justify-content-center">
-          <ringkasan-chart v-if="role == 'admin' || role == 'jurusan' || role == 'guru'" />
+          <ringkasan-chart v-if="role == 'admin' || role == 'jurusan'" />
           <ringkasan-detail-statistik v-if="role == 'admin' || role == 'jurusan'" />
         </div>
       </div>
     </div>
+
+    <!-- ROLE: GURU PEMBIMBING -->
+    <div v-else-if="role == 'guru'" class="card">
+      <div class="card-header">
+        <span class="h4 quicksand"><i class="bi bi-pie-chart-fill"></i> Ringkasan</span>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-lg-12">
+            <ringaksan-notif-jurnal />
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ROLE: TU -->
     <div v-else class="card">
       <div class="card-header">
         <span class="h4 quicksand text-grey"><i class="bi bi-pie-chart-fill"></i> Ringkasan</span>
@@ -67,9 +68,9 @@ let user = usePocketBaseUser()
 let client = usePocketBaseClient()
 let role = user?.user.value.role
 let isLoading = ref(true)
-let jumlah_pemetaan = ref(0)
+let jumlah_pemetaan = ref([])
 
-async function getCountPemetaan() {
+async function getInfo() {
   isLoading.value = true
   client.autoCancellation(false)
   let res_pemetaan = await client.collection('pemetaan').getFullList()
@@ -80,6 +81,6 @@ async function getCountPemetaan() {
 }
 
 onMounted(() => {
-  getCountPemetaan()
+  getInfo()
 })
 </script>

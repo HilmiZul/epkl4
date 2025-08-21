@@ -20,11 +20,11 @@
           </div>
           <div v-if="!isLoadingJournals" class="mb-4">
             <div v-if="count > 0" class="text-danger"><strong>{{ count }}</strong> Jurnal belum di validasi</div>
-            <div v-else>Semua jurnal tervalidasi</div>
+            <!-- <div v-else>Semua jurnal tervalidasi</div> -->
           </div>
-          <!-- <div v-if="count_sesuai || count_tidak_sesuai" class="row justify-content-center">
+          <div v-if="count_sesuai || count_tidak_sesuai" class="row justify-content-center">
             <jurnal-chart :countSesuai="count_sesuai" :countTidakSesuai="count_tidak_sesuai" />
-          </div> -->
+          </div>
         </div>
         <div class="col">
           <div v-if="!isLoadingJournals" class="mb-2 text-center text-muted">Menampilkan
@@ -56,9 +56,9 @@
                 </div>
                 <!-- MODAL FOTO PREVIEW -->
                 <div class="modal" :id="`foto-${journal.id}`" aria-hidden="true" tabindex="-1">
-                  <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                      <div class="modal-header">
+                  <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
+                      <div class="modal-header rounded-0">
                         <button class="btn-close" data-bs-dismiss="modal" label="Close"></button>
                       </div>
                       <div class="modal-body p-0">
@@ -137,8 +137,8 @@ async function getJournals(loading=true) {
   }
 }
 
-async function pagination(page) {
-  isLoadingJournals.value = true
+async function pagination(page, loading=true) {
+  isLoadingJournals.value = loading
   let queryFilter = "pembimbing='"+user.user.value.id+"'"
   if(tanggal.value) queryFilter = "pembimbing='"+user.user.value.id+"' && created~'"+tanggal.value+"'"
   if(user.user.value.role == 'admin') queryFilter = ""

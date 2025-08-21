@@ -3,7 +3,7 @@
   <div v-else class="col-md-6">
     <div class="card mb-4">
       <div class="card-body">
-        <h4>Berdasarkan wilayah</h4>
+        <div class="fw-bold fs-5">Berdasarkan wilayah</div>
         <table class="table fs-6 fw-semibold border-0">
           <tbody>
             <!-- <tr class="text-success">

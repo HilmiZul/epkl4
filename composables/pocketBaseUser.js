@@ -14,6 +14,7 @@ export const usePocketBaseUser = () => {
       nama: client.authStore.model.nama,
       role: client.authStore.model.role,
       program_keahlian: client.authStore.model.program_keahlian,
+      status_pemetaan: client.authStore.model.status_pemetaan,
     }
   } else {
     user.value = null
