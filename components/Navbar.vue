@@ -26,6 +26,9 @@
           <li  class="nav-item">
             <nuxt-link class="nav-link" to="/pemetaan/pkl"><i class="bi bi-diagram-3-fill"></i> Pemetaan PKL</nuxt-link>
           </li>
+          <!-- <li v-if="role == 'admin' || role == 'jurusan'" class="nav-item">
+            <nuxt-link class="nav-link" to="/peserta/users"><i class="bi bi-people-fill"></i> User Peserta</nuxt-link>
+          </li> -->
           <!-- <li  class="nav-item">
             <nuxt-link class="nav-link" to="/pemetaan/pembimbing"><i class="bi bi-people-fill"></i> Pemetaan Pembimbing</nuxt-link>
           </li> -->
@@ -35,7 +38,7 @@
           <li v-if="role === 'admin' || role === 'tu'" class="nav-item">
             <nuxt-link class="nav-link" to="/pengaturan"><i class="bi bi-sliders"></i> Pengaturan</nuxt-link>
           </li>
-          <li v-if="role === 'admin' || role === 'jurusan' || role === 'guru' || role === 'tu'" class="nav-item">
+          <li class="nav-item">
             <nuxt-link class="nav-link" to="/ubah-password"><i class="bi bi-key"></i> Ubah Password</nuxt-link>
           </li>
           <!-- <li class="nav-item">

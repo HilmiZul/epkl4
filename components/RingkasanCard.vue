@@ -1,5 +1,8 @@
 <template>
   <div class="row my-3">
+    <div class="col-md-12">
+      <h4 class="mb-3 fw-bold">Statistik</h4>
+    </div>
     <div class="col-md-3">
       <div class="card mb-3">
         <div class="card-body bg-danger">

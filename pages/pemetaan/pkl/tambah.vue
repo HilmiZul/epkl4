@@ -59,7 +59,7 @@
                 :custom-label="({nama, kelas}) => `${nama} — ${kelas}`"
                 track-by="nama"
                 label="nama"
-                id="iduka"
+                id="peserta"
                 placeholder="Pilih satu"
                 required>
                 <template v-slot:singleLabel="{ option }"><strong>{{ option.nama }} — {{ option.kelas }}</strong></template>

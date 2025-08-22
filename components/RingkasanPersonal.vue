@@ -4,11 +4,12 @@
       <Loading v-if="isLoading" />
       <div v-else>
         <div class="fs-5">
-          Hola,
+          <h4 class="fw-bold">Personal Info</h4>
+          <!-- Hola,
           <span v-if="user">
             <strong>{{ nama }}</strong>!
           </span>
-          <span v-else>&#8212;</span>
+          <span v-else>&#8212;</span> -->
         </div>
         <div class="row mt-3">
           <div class="col-md-3">

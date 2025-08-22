@@ -284,7 +284,6 @@ const mappingFiltered = computed(() => {
     return (
       i.expand.iduka.nama.toLowerCase().includes(keyword.value.toLowerCase()) ||
       i.expand.iduka.wilayah.toLowerCase().includes(keyword.value.toLowerCase())
-      // i.expand.siswa.nama.toLowerCase().includes(keyword.value.toLowerCase())
     )
   })
 })

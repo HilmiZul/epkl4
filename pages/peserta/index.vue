@@ -3,13 +3,15 @@
     <div class="card-header">
       <span class="h4 quicksand"><i class="bi bi-person-fill"></i> Peserta Didik</span>
       <span class="float-end">
-        <!-- <button v-if="role == 'admin' || role == 'jurusan'" data-bs-toggle="modal" data-bs-target="#buat-akun-peserta" class="btn btn-info btn-sm me-2"><i class="bi bi-person-plus"></i> Buat akun</button> -->
+        <span v-if="role == 'admin' || role == 'jurusan'">
+          <button v-if="!isLoadingPemetaan && !isLoadingUser && count_users.length < 1 && students.length == count_pemetaan.length" data-bs-toggle="modal" data-bs-target="#buat-akun-peserta" class="btn btn-info btn-sm me-2"><i class="bi bi-person-plus"></i> Buat akun</button>
+        </span>
         <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/peserta/import" class="btn btn-success btn-sm"><i class="bi bi-download"></i> Impor dari .csv</nuxt-link>
       </span>
       <div class="modal" id="buat-akun-peserta" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
-            <div class="modal-header rounded-0 h4 bg-info quicksand border-bottom border-2 border-dark">
+            <div class="modal-header rounded-0 h4 bg-info quicksand">
               Buat akun Peserta
             </div>
             <div class="modal-body">
@@ -66,7 +68,7 @@
             <tr v-else-if="studentsFiltered.length < 1" class="text-center my-5">
               <td colspan="6">Data tidak ditemukan.</td>
             </tr>
-            <tr v-for="(student,i) in studentsFiltered" :key="student.id">
+            <tr v-else v-for="(student,i) in studentsFiltered" :key="student.id">
               <td>{{ i+1 }}. </td>
               <td class="fw-bold">
                 <nuxt-link :to="`/peserta/${student.id}`" class="link">{{ student.nama }}</nuxt-link>
@@ -98,28 +100,57 @@ let client = usePocketBaseClient()
 let user = usePocketBaseUser()
 let students = ref([])
 let isLoading = ref(true)
+let isLoadingUser = ref(true)
+let isLoadingPemetaan = ref(true)
 let role = user.user.value.role
 let prokel = user.user.value.program_keahlian
 let keyword = ref('')
 let opsiKelas = ref('')
 let isCreatingUser = ref(false)
 let isCreated = ref(false)
+let count_users = ref([])
+let count_pemetaan = ref([]) // untuk menghitung jumlah pemetaan = jumlah peserta itu sendiri. maka tombol buat akun user muncul.
 if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
 
-onMounted(() => getStudents())
-
-const getStudents = async () => {
-  isLoading.value = true
+const getStudents = async (loading=true) => {
+  isLoading.value = loading
   client.autoCancellation(false)
-  const data = await client
+  const res_student = await client
     .collection('siswa')
     .getFullList({
       filter: "program_keahlian='"+prokel+"'",
       sort: 'kelas, status_rapot, status_pemetaan_pkl',
     })
-  if(data) {
+  if(res_student) {
     isLoading.value = false
-    students.value = data
+    students.value = res_student
+  }
+}
+
+const getUsers = async (loading=true) => {
+  isLoadingUser.value = loading
+  client.autoCancellation(false)
+  const res_user = await client.collection('users_siswa').getFullList({
+    filter: "program_keahlian='"+prokel+"'"
+  })
+  if(res_user) {
+    isLoadingUser.value = false
+    count_users.value = res_user
+  }
+}
+
+const getPemetaan = async () => {
+  // mengambil pemetaan berdasarkan prokel
+  // jumlahnya akan dibandingkan dengan jumlah peserta itu sendiri
+  // jika sama, maka pemetaan PKL selesai dan tombol pembuatan akun peserta muncul
+  isLoadingPemetaan.value = true
+  client.autoCancellation(false)
+  const res_pemetaan = await client.collection('pemetaan').getFullList({
+    filter: "program_keahlian='"+prokel+"'"
+  })
+  if(res_pemetaan) {
+    isLoadingPemetaan.value = false
+    count_pemetaan.value = res_pemetaan
   }
 }
 
@@ -130,10 +161,9 @@ const buatAkunPeserta = async () => {
   isCreated.value = false
   try {
     for(let i=0; i<s.length; i++) {
-      client.autoCancellation(false)
-      await client.collection('users_siswa').create({
+      tempUsers.push({
         "username": s[i].nis,
-        "email": "student@smkn4-tsm.sch.id",
+        "email": `${s[i].nis}@smkn4-tsm.sch.id`,
         "emailVisibility": true,
         "password": "20276063",
         "passwordConfirm": "20276063",
@@ -141,17 +171,16 @@ const buatAkunPeserta = async () => {
         "siswa": s[i].id
       })
     }
-    // await Promise.all(
-    //   tempUsers.map(data => {
-    //     client.collection('users_siswa').create(data, {'$autoCancel': false })
-    //   })
-    // )
-    // console.log(tempUsers)
-    // for (let item of tempUsers) {
-    //   await client.collection('users_user').create(item)
-    // }
-    isCreated.value = true
-    isCreatingUser.value = false
+    let res_create_users = await Promise.all(
+      tempUsers.map(data => {
+        client.collection('users_siswa').create(data, {'$autoCancel': false })
+        client.collection('siswa').update(data.siswa, { hasUser: true })
+      })
+    )
+    if(res_create_users) {
+      isCreated.value = true
+      isCreatingUser.value = false
+    }
   } catch(error) {
     isCreated.value = true
     isCreatingUser.value = false
@@ -197,9 +226,21 @@ const studentsFiltered = computed(() => {
     return (
       i.nama.toLowerCase().includes(keyword.value.toLowerCase()) ||
       i.kelas.toLowerCase().includes(keyword.value.toLowerCase())
-      // i.expand.pembimbing.nama.toLowerCase().includes(keyword.value.toLowerCase())
     )
   })
+})
+
+onMounted(() => {
+  getPemetaan()
+  getStudents()
+  getUsers()
+  client.autoCancellation(false)
+  client.collection('users_siswa').subscribe('*', function (e) {
+    if(e.action == 'create') {
+      getUsers()
+      getPemetaan()
+    }
+  }, {});
 })
 </script>
 

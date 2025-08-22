@@ -46,6 +46,35 @@
             <em v-if="isSaved" class="text-grey">Berhasil tersimpan!</em>
           </form>
         </div>
+        <div class="col-lg-6">
+          <Loading v-if="isLoading" />
+          <div v-else>
+            <!-- <div v-if="!form.hasUser" class="mt-3 border-dash p-3">
+              Buatkan user login untuk <strong>{{ form.nama }}</strong>?
+              <div class="mt-3">
+                <button @click="buatUserPeserta" :disabled="isCreatingUser" class="btn btn-success">
+                  <span v-if="isCreatingUser">Sedang membuat user</span>
+                  <span v-else>Buatkan!</span>
+                </button>
+              </div>
+            </div> -->
+            <div v-if="form.hasUser" class="mt-3 border-dash p-3">
+              <div v-if="isUserCreated" class="mb-2"><strong>User berhasil dibuat!</strong></div>
+              <table class="border-0">
+                <tbody>
+                  <tr>
+                    <td>Username</td>
+                    <td>: <span class="fw-bold">{{ form.nis }}</span></td>
+                  </tr>
+                  <tr>
+                    <td>Password</td>
+                    <td>: <span class="fst-italic text-muted">NPSN</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
       <hr class="my-4">
       <div class="row">
@@ -92,6 +121,8 @@ let route = useRoute()
 let isLoading = ref(true)
 let isLoadingSave = ref(false)
 let isSaved = ref(false)
+let isUserCreated = ref(false)
+let isCreatingUser = ref(false)
 let student = ref()
 let teachers = ref([])
 let form = ref({
@@ -126,8 +157,8 @@ async function getTeachersByProkelNotAdmin() {
   }
 }
 
-async function getStudentById() {
-  isLoading.value = true
+async function getStudentById(loading=true) {
+  isLoading.value = loading
   client.autoCancellation(false)
   let data = await client.collection('siswa').getOne(route.params.id, {
     expand: 'program_keahlian'
@@ -138,15 +169,33 @@ async function getStudentById() {
   }
 }
 
+async function buatUserPeserta() {
+  let data = {
+    "username": form.value.nis,
+    "email": `${form.value.nis}@smkn4-tsm.sch.id`,
+    "emailVisibility": true,
+    "password": "20276063",
+    "passwordConfirm": "20276063",
+    "program_keahlian": prokel,
+    "siswa": route.params.id
+  }
+  isCreatingUser.value = true
+  isUserCreated.value = false
+  let res = await client.collection('users_siswa').create(data)
+  if(res) {
+    await client.collection('siswa').update(route.params.id, { hasUser: true })
+    isCreatingUser.value = false
+    isUserCreated.value = true
+  }
+}
 
 onMounted(() => {
   getStudentById()
-  getTeachersByProkelNotAdmin()
-  client.collection('siswa').subscribe('update', function (e) {
-    if(e.action == 'update') {
-      getStudentById()
-      getTeachersByProkelNotAdmin()
-    }
+  client.collection('siswa').subscribe('*', function (e) {
+    if(e.action == 'update') getStudentById()
+  }, {});
+  client.collection('users_siswa').subscribe('*', function (e) {
+    if(e.action == 'create') getStudentById()
   }, {});
 })
 </script>
@@ -154,5 +203,8 @@ onMounted(() => {
 <style scoped>
 .emoji {
   font-size: 5vw;
+}
+.border-dash {
+  border: 3px dashed #4f4f4f;
 }
 </style>
