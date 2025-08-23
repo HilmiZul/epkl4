@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid mb-5">
+  <div class="container-fluid mb-3">
     <div class="row mt-5">
       <!-- <Header /> -->
       <Navbar />
@@ -170,7 +170,7 @@ table th {
   color: #fff;
 }
 .table-responsive {
-  height: 500px;
+  height: 600px;
   overflow-x: auto;
   overflow-y: auto;
   border: 2px solid #000

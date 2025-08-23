@@ -23,7 +23,7 @@
       <div v-else class="row">
         <div v-if="pemetaan.status_acc_pkl" class="col-md-12">
           <div class="alert alert-info border border-2 border-dark quicksand text-center py-5 fs-4">
-            👏🏻 <span class="fw-bold">{{ pemetaan.expand.siswa.nama }}</span> diterima PKL di <span class="fw-bold">{{ pemetaan.expand.iduka.nama }}</span>! 🎉
+            <span class="fw-bold">{{ pemetaan.expand.siswa.nama }}</span> diterima PKL di <span class="fw-bold">{{ pemetaan.expand.iduka.nama }}</span>!
           </div>
           <div v-if="pemetaan?.status_acc_pkl" class="my-3">
             <nuxt-link to="/pemetaan/pkl" class="btn btn-light"><i class="bi bi-arrow-left"></i> kembali</nuxt-link>

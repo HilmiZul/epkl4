@@ -1,16 +1,14 @@
 <template>
-  <div>
-    <h1>print!!!</h1>
+  <page size="A4">
     <div v-if="!isLoading">
-      <h2>iduka {{ pemetaan[0].iduka }}</h2>
-      <h2>prokel {{ prokel }}</h2>
       <h3>{{ pemetaan[0].expand.iduka.nama }}</h3>
       <h3>{{ pemetaan[0].expand.iduka.alamat }}</h3>
       <ul v-for="p in pemetaan" :key="p.id">
         <li>{{ p.expand.siswa.nama }}</li>
       </ul>
+      {{ tanggal }}
     </div>
-  </div>
+  </page>
 </template>
 
 <script setup>
@@ -25,6 +23,11 @@ let client = usePocketBaseClient()
 let isLoading = ref(true)
 let pemetaan = ref([])
 let prokel = user.user.value.program_keahlian
+let date_now = new Date()
+const date_options = {
+  dateStyle: "long",
+};
+let tanggal = new Intl.DateTimeFormat('id-ID', date_options).format(date_now);
 
 async function getPemetaanById() {
   isLoading.value = true
