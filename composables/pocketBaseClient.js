@@ -1,6 +1,7 @@
 import PocketBase from 'pocketbase';
 const config = useRuntimeConfig()
-const pb = new PocketBase(config.public.apiBaseUrl);
+const host = config.public.apiBaseUrl+":"+config.public.apiPort
+const pb = new PocketBase(host);
 
 export const usePocketBaseClient = () => {
   return pb

@@ -19,6 +19,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiBaseUrl: process.env.PB_API_BASE_URL,
+			apiPort: process.env.PB_API_PORT,
       appVersion: pkg.version,
 		},
 	},
