@@ -124,7 +124,7 @@ async function getPembimbingByProkel() {
   let data = await client.collection('teacher_users').getFullList({
     filter: "program_keahlian='"+prokel+"' && role!='admin'",
     expand: "program_keahlian",
-    sort: 'nama'
+    sort: '-role, nama'
   })
   if(data) {
     isLoading.value = false
