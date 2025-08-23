@@ -64,7 +64,7 @@
                 <tbody>
                   <tr>
                     <td>Username</td>
-                    <td>: <span class="fw-bold">{{ form.nis }}</span></td>
+                    <td>: <span v-if="curr_user" class="fw-bold">{{ curr_user.items[0].username }}</span></td>
                   </tr>
                   <tr>
                     <td>Password</td>
@@ -125,6 +125,7 @@ let isUserCreated = ref(false)
 let isCreatingUser = ref(false)
 let student = ref()
 let teachers = ref([])
+let curr_user = ref([])
 let form = ref({
   id: '',
   nama: '⏳',
@@ -160,12 +161,18 @@ async function getTeachersByProkelNotAdmin() {
 async function getStudentById(loading=true) {
   isLoading.value = loading
   client.autoCancellation(false)
-  let data = await client.collection('siswa').getOne(route.params.id, {
+  let res_siswa = await client.collection('siswa').getOne(route.params.id, {
     expand: 'program_keahlian'
   })
-  if(data) {
-    isLoading.value = false
-    form.value = data
+  if(res_siswa) {
+    let res_users = await client.collection('users_siswa').getList(1,1, {
+      filter: "siswa='"+res_siswa.id+"'"
+    })
+    if(res_users) {
+      isLoading.value = false
+      form.value = res_siswa
+      curr_user.value = res_users
+    }
   }
 }
 
