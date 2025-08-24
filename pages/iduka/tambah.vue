@@ -30,7 +30,7 @@
               </div>
               <div class="mb-4">
                 <label for="pimpinan">Pimpinan/PIC</label>
-                <input v-model="form.pimpinan" type="text" id="pimpinan" class="form form-control" placeholder="Kalau belum tahu tulis —" required>
+                <input v-model="form.pimpinan" type="text" id="pimpinan" class="form form-control" placeholder="Kalau belum tahu, ketik '—'" required>
               </div>
               <div class="mb-4">
                 <label for="kontak">Kontak</label>
@@ -58,7 +58,7 @@
               </div>
               <div class="mb-4">
                 <label for="pem_iduka">Pembimbing IDUKA</label>
-                <input v-model="form.pembimbing_iduka" type="text" id="pem_iduka" class="form form-control" placeholder="Tulis — kalau belum tahu" required>
+                <input v-model="form.pembimbing_iduka" type="text" id="pem_iduka" class="form form-control" placeholder="Kalau belum tahu, ketik '—'" required>
               </div>
               <div class="mb-4">
                 <label for="wilayah">Wilayah</label>
