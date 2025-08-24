@@ -23,5 +23,4 @@ export default defineNuxtConfig({
       appVersion: pkg.version,
 		},
 	},
-  modules: ['@samk-dev/nuxt-vcalendar'],
 })

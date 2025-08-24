@@ -4,7 +4,6 @@
   "author": "Zul Hilmi",
   "dependencies": {
     "@neoconfetti/vue": "^2.2.1",
-    "@samk-dev/nuxt-vcalendar": "^1.0.4",
     "bootstrap": "5.2",
     "bootstrap-icons": "^1.13.1",
     "chart.js": "^4.5.0",
