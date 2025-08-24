@@ -228,4 +228,7 @@ input[type="checkbox"]:not(:checked) {
 .label-berkas {
   border: 2px dashed #000 !important;
 }
+.smallest {
+  font-size: .8em;
+}
 </style>

@@ -36,7 +36,7 @@ async function initChartData() {
   if(chartData) {
     const labels = [
       'Sesuai Elemen',
-      'Belum Sesuai Elemen',
+      'Tidak Sesuai Elemen',
     ];
 
     const data = {
@@ -56,7 +56,7 @@ async function initChartData() {
     };
 
     const config = {
-      type: 'pie',
+      type: 'bar',
       data: data,
       options: {}
     }
