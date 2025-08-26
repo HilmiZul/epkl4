@@ -51,7 +51,7 @@
                     {{ journal.deskripsi }}
                   </article>
                   <div v-if="journal.foto" class="my-3 foto-container hand-cursor" data-bs-toggle="modal" :data-bs-target="`#foto-${journal.id}`">
-                    <img :src="`http://localhost:8090/api/files/${journal.collectionId}/${journal.id}/${journal.foto}`" :alt="journal.deskripsi" class="foto" />
+                    <img :src="`${host}/api/files/${journal.collectionId}/${journal.id}/${journal.foto}`" :alt="journal.deskripsi" class="foto" />
                   </div>
                   <span v-if="journal.isValid" @click="handleValidasi(journal.id, journal.isValid)" class="hand-cursor"><span class="text-danger"><i class="bi bi-heart-fill"></i></span> Valid</span>
                   <span v-else @click="handleValidasi(journal.id, journal.isValid)" class="hand-cursor"><span class="text-danger"><i class="bi bi-heart"></i></span> Validasi</span>
@@ -97,6 +97,8 @@
 <script setup>
 definePageMeta({ middleware: 'auth' })
 useHead({ title: "Jurnal Peserta — e-PKL / SMKN 4 Tasikmalaya." })
+const config = useRuntimeConfig()
+const host = config.public.apiBaseUrl+":"+config.public.apiPort
 let tanggal = ref()
 let user = usePocketBaseUser()
 let client = usePocketBaseClient()
