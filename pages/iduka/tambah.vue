@@ -17,7 +17,7 @@
       </div>
       <form @submit.prevent="buatIdukaBaru" class="form-horizontal">
         <div class="row">
-          <div class="col-md-12"><div v-if="isSaved" class="my-3 alert alert-success border-2 border-success py-2"><i class="bi bi-check-circle"></i> IDUKA baru berhasil ditambahkan!</div></div>
+          <!-- <div class="col-md-12"><div v-if="isSaved" class="my-3 alert alert-success border-2 border-success py-2"><i class="bi bi-check-circle"></i> IDUKA baru berhasil ditambahkan!</div></div> -->
           <div class="col-md-6">
             <div class="form-group">
               <div class="my-4">

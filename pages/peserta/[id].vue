@@ -1,7 +1,8 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand">
+      <loading-placeholder v-if="isLoading" col="5" row="1" />
+      <span v-else class="h4 quicksand">
         {{ form.kelas }} / <span class="text-dark fw-bold">{{ form.nama }}</span>
       </span>
     </div>
@@ -47,7 +48,7 @@
           </form>
         </div>
         <div class="col-lg-6">
-          <Loading v-if="isLoading" />
+          <LoadingPlaceholder v-if="isLoading" col="12" row="2" />
           <div v-else>
             <!-- <div v-if="!form.hasUser" class="mt-3 border-dash p-3">
               Buatkan user login untuk <strong>{{ form.nama }}</strong>?
@@ -128,8 +129,8 @@ let teachers = ref([])
 let curr_user = ref([])
 let form = ref({
   id: '',
-  nama: '⏳',
-  kelas: '⏳',
+  nama: '',
+  kelas: '',
   status_rapot: false,
   status_pemetaan_pkl: false,
 })

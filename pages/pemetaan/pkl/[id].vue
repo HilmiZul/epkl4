@@ -2,12 +2,16 @@
   <div class="card">
     <div v-if="pemetaan?.status_acc_pkl" v-confetti class="posiiton-absolute top-0 start-50 translate-middle-x"></div>
     <div class="card-header">
-      <span v-if="!isLoading" class="h4 quicksand text-grey">
+      <loading-placeholder v-if="isLoading" col="5" row="1" />
+      <span v-else class="h4 quicksand text-grey">
         {{ pemetaan.expand.siswa.nama }} <i class="bi bi-chevron-right"></i> <span class="text-dark fw-bold">{{ pemetaan.expand.iduka.nama }}</span>
       </span>
     </div>
     <div class="card-body">
-      <div v-if="isLoading"><Loading /></div>
+      <div v-if="isLoading">
+        <loading-placeholder v-if="isLoading" col="8" row="1" />
+        <loading-placeholder v-if="isLoading" col="5" row="1" />
+      </div>
       <div v-else class="row">
         <div v-if="!pemetaan.status_acc_pkl" class="col">
           <div class="alert alert-warning border-5 border-dark shadow-lg">
@@ -19,7 +23,9 @@
           </div>
         </div>
       </div>
-      <div v-if="isLoading"><Loading /></div>
+      <div v-if="isLoading">
+        <loading-placeholder v-if="isLoading" col="8" row="1" />
+      </div>
       <div v-else class="row">
         <div v-if="pemetaan.status_acc_pkl" class="col-md-12">
           <div class="alert alert-info border border-2 border-dark quicksand text-center py-5 fs-4">
@@ -161,8 +167,8 @@ async function updatePemetaan() {
   }
 }
 
-async function getSingleMapping() {
-  isLoading.value = true
+async function getSingleMapping(loading=true) {
+  isLoading.value = loading
   client.autoCancellation(false)
   let data = await client.collection("pemetaan").getOne(route.params.id, {
     filter: "program_keahlian='"+prokel+"'",
@@ -193,11 +199,11 @@ async function getCompanies() {
 onMounted(() => {
   getSingleMapping()
   getCompanies()
-  client.collection('pemetaan').subscribe(route.params.id, function (e) {
+  client.collection('pemetaan').subscribe('*', function (e) {
     if(e.action == 'update') {
-      getSingleMapping()
+      getSingleMapping(false)
       getCompanies()
     }
-  }, {});
+  }, {})
 })
 </script>

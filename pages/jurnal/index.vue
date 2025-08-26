@@ -4,7 +4,8 @@
       <span class="h4 quicksand"><i class="bi bi-journals"></i> Jurnal Peserta</span>
     </div>
     <div class="card-body">
-      <div v-if="!isLoadingJournals && count_not_valid > 0" class="mb-3 bg-warning border border-2 border-dark p-2">
+      <loading-placeholder v-if="isLoadingJournals" col="12" row="1" />
+      <div v-else-if="count_not_valid > 0" class="mb-3 bg-warning border border-2 border-dark p-2">
         <i class="bi bi-info-circle"></i> Ada <strong>{{ count_not_valid }}</strong> Jurnal belum di validasi
       </div>
       <div class="row">
@@ -20,6 +21,7 @@
               <option v-for="student in students" :key="student.id" :value="student.siswa">{{ student.expand.siswa.nama }}</option>
             </select>
           </div>
+          <loading-placeholder v-if="isLoadingJournals" col="12" row="1" />
           <div v-if="count_sesuai || count_tidak_sesuai" class="row justify-content-center">
             <jurnal-chart :countSesuai="count_sesuai" :countTidakSesuai="count_tidak_sesuai" />
           </div>
@@ -32,7 +34,7 @@
           </div>
           <div class="row">
             <div class="col">
-              <Loading v-if="isLoadingJournals" />
+              <LoadingPlaceholder v-if="isLoadingJournals" col="12" row="1" />
               <div v-else v-for="journal in journals.items" :key="journal.id" class="card jurnal-hover">
                 <div class="card-body">
                   <div class="bookmark fs-2">

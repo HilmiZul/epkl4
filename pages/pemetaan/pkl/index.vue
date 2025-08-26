@@ -37,7 +37,7 @@
                 <tr v-else-if="mappingFiltered.length < 1" class="text-center my-5">
                   <td colspan="3">Data tidak ditemukan</td>
                 </tr>
-                <tr v-for="(pemetaan) in mappingFiltered" :key="pemetaan.id">
+                <tr v-else v-for="(pemetaan) in mappingFiltered" :key="pemetaan.id">
                   <!-- <td >{{ i+1 }}.</td> -->
                   <td v-if="pemetaan.showIduka" :rowspan="pemetaan.idukaRowspan">
                     <span class="text-grey me-2"><i class="bi bi-building"></i></span><nuxt-link :to="`https://www.google.com/maps/search/?api=1&query=${pemetaan.expand.iduka.alamat}`" class="link" target="_blank"><span class="quicksand">{{ pemetaan.expand.iduka.nama }}</span> <sup><i class="bi bi-arrow-up-right"></i></sup></nuxt-link>

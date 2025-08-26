@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-md-12">
-      <Loading v-if="isLoading" />
+      <LoadingPlaceholder v-if="isLoading" row="1" col="12" />
       <div v-else>
         <div class="fs-5">
           <h4 class="fw-bold">Personal Info</h4>

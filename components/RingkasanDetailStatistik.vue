@@ -1,7 +1,7 @@
 <template>
-  <loading v-if="isLoading" />
-  <div v-else class="col-md-6">
-    <div class="card mb-4">
+  <div class="col-md-6">
+    <LoadingPlaceholder v-if="isLoading" col="12" row="3" />
+    <div v-else class="card mb-4">
       <div class="card-body">
         <div class="fw-bold fs-5">Berdasarkan wilayah</div>
         <table class="table fs-6 fw-semibold border-0">

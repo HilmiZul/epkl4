@@ -1,7 +1,8 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand">IDUKA / <span class="text-dark fw-bold">{{ form.nama }}</span></span>
+      <loading-placeholder v-if="isLoading" col="5" row="1" />
+      <span v-else class="h4 quicksand">IDUKA / <span class="text-dark fw-bold">{{ form.nama }}</span></span>
     </div>
     <div class="card-body">
       <div class="row">
@@ -17,7 +18,7 @@
       </div>
       <form @submit.prevent="updateIduka" class="form-horizontal">
         <div class="row">
-          <div class="col-md-12"><div v-if="isSaved" class="my-3 alert alert-success border-2 border-success py-2"><i class="bi bi-check-circle"></i> Berhasil tersimpan!</div></div>
+          <!-- <div class="col-md-12"><div v-if="isSaved" class="my-3 alert alert-success border-2 border-success py-2"><i class="bi bi-check-circle"></i> Berhasil tersimpan!</div></div> -->
           <div class="col-md-6">
             <div class="form-group">
               <div class="my-4">
@@ -71,7 +72,7 @@
                 <label for="catatan">Catatan (opsional)</label>
                 <input :disabled="isLoading" v-model="form.catatan" type="text" id="catatan" class="form form-control" placeholder="Ada catatan untuk IDUKA ini?">
               </div>
-              <button :disabled="isSending" class="btn btn-success me-2 mb-4">
+              <button :disabled="isSending || isLoading" class="btn btn-success me-2 mb-4">
                 <span v-if="isSending">Sedang menyimpan</span>
                 <span v-else>Simpan</span>
               </button>
@@ -80,17 +81,16 @@
             </div>
           </div>
           <div class="col-md-6">
-            <div class="mt-4 mb-1">Terisi:
+            <LoadingPlaceholder v-if="isLoading" col="3" row="1" />
+            <div v-else class="mt-4 mb-1">Terisi:
               <span v-if="form.terisi < form.jumlah_kuota">{{ form.terisi }} dari {{ form.jumlah_kuota }}</span>
               <span v-else class="badge bg-danger mb-1">Penuh</span>
             </div>
             <div class="alert shadow-lg">
-              <table class="table small border-0">
+              <LoadingPlaceholder v-if="isLoading" col="12" row="2" />
+              <table v-else class="table small border-0">
                 <tbody>
-                  <tr v-if="isLoading">
-                    <td colspan="2"><Loading /></td>
-                  </tr>
-                  <tr v-else-if="mapping.length < 1">
+                  <tr v-if="mapping.length < 1 || isLoading">
                     <td colspan="2" class="text-center">
                       <nuxt-link to="/pemetaan/pkl/tambah" class="btn btn-info">Petakan sekarang <i class="bi bi-arrow-up-right"></i></nuxt-link>
                     </td>
@@ -125,7 +125,7 @@ let teachers = ref([])
 // let teacher_users = ref([])
 let mapping = ref([])
 let form = ref({
-  nama: "loading",
+  nama: "",
   alamat: "loading",
   pimpinan: "loading",
   kontak: "",
@@ -153,8 +153,8 @@ async function updateIduka() {
   }
 }
 
-async function getCompanyAndPemetaanById() {
-  isLoading.value = true
+async function getCompanyAndPemetaanById(loading=true) {
+  isLoading.value = loading
   let res_iduka = await client
     .collection("iduka")
     .getOne(route.params.id, {
@@ -165,14 +165,14 @@ async function getCompanyAndPemetaanById() {
     expand: "iduka, siswa"
   })
   if(res_iduka && res_pemetaan) {
-    isLoading.value = false
     form.value = res_iduka
     mapping.value = res_pemetaan
+    isLoading.value = false
   }
 }
 
-async function getPembimbingSekolah() {
-  isLoading.value = true
+async function getPembimbingSekolah(loading=true) {
+  isLoading.value = loading
   let data = await client
     .collection("teacher_users")
     .getFullList({
@@ -202,10 +202,10 @@ onMounted(() => {
   // TempgetPembimbing()
   getPembimbingSekolah()
   getCompanyAndPemetaanById()
-  client.collection('iduka').subscribe(route.params.id, function(e) {
+  client.collection('iduka').subscribe('*', function(e) {
     if(e.action == 'update') {
-      getCompanyAndPemetaanById()
-      getPembimbingSekolah()
+      getCompanyAndPemetaanById(false)
+      getPembimbingSekolah(false)
     }
   },{})
 })

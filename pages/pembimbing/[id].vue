@@ -1,8 +1,8 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand">Pembimbing /
-      <span v-if="!isLoading" class="fw-bold text-dark">{{ form.nama }}</span></span>
+      <loading-placeholder v-if="isLoading" col="5" row="1" />
+      <span v-else class="h4 quicksand">Pembimbing / <span class="fw-bold text-dark">{{ form.nama }}</span></span>
     </div>
     <div class="card-body">
       <!-- <div class="row">
@@ -18,8 +18,7 @@
           </div>
         </div>
       </div> -->
-      <Loading v-if="isLoading" />
-      <div v-else class="row">
+      <div class="row">
         <div class="col-md-5">
           <form @submit.prevent="updatePembimbingBaru">
             <div class="mb-4">
@@ -38,7 +37,7 @@
                 <option value="guru">Guru Pembimbing</option>
               </select>
             </div>
-            <button :disabled="isSending || form.username == '' || form.email == '' || form.password == '' || form.nama == '' || form.role == ''" class="btn btn-success me-2">
+            <button :disabled="isSending || isLoading || form.username == '' || form.email == '' || form.password == '' || form.nama == '' || form.role == ''" class="btn btn-success me-2">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>
@@ -62,9 +61,9 @@ let isSaved = ref(false)
 let isSending = ref(false)
 let isLoading = ref(true)
 let form = ref({
-  username: '',
-  nama: '',
-  role: '',
+  username: 'loading',
+  nama: 'loading',
+  role: 'loading',
 })
 if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
 
@@ -79,8 +78,8 @@ async function updatePembimbingBaru() {
   }
 }
 
-async function getPembimbingById() {
-  isLoading.value = true
+async function getPembimbingById(loading=true) {
+  isLoading.value = loading
   let data = await client.collection('teacher_users').getOne(route.params.id)
   if(data) {
     isLoading.value = false
@@ -91,7 +90,7 @@ async function getPembimbingById() {
 onMounted(() => {
   getPembimbingById()
   client.collection('teacher_users').subscribe("*", function (e) {
-    if(e.action == 'update') getPembimbingById()
+    if(e.action == 'update') getPembimbingById(false)
   }, {});
 })
 </script>

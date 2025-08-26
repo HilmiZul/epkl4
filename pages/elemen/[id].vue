@@ -1,7 +1,8 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand">Update Elemen / <span class="text-dark fw-bold">{{ form.elemen }}</span></span>
+      <loading-placeholder v-if="isLoading" col="5" row="1" />
+      <span v-else class="h4 quicksand">Update Elemen / <span class="text-dark fw-bold">{{ form.elemen }}</span></span>
     </div>
     <div class="card-body">
       <div class="row">
@@ -9,15 +10,15 @@
           <form @submit.prevent="updateElemenCp">
             <div class="mb-4">
               <label for="elemen">Elemen</label>
-              <input v-model="form.elemen" type="text" id="elemen" class="form form-control" placeholder="ketik elemen mapel PKL disini" required>
+              <input v-model="form.elemen" :disabled="isLoading" type="text" id="elemen" class="form form-control" placeholder="ketik elemen mapel PKL disini" required>
             </div>
             <div class="my-4">
               <label for="cp">Capaian Pembelajaran</label>
-              <textarea v-model="form.cp" id="cp" rows="4" class="form form-control" placeholder="Pada akhir fase F ..." required></textarea>
+              <textarea v-model="form.cp" :disabled="isLoading" id="cp" rows="4" class="form form-control" placeholder="Pada akhir fase F ..." required></textarea>
             </div>
             <div class="my-4">
               <label for="tujuan">Tujuan</label>
-              <textarea v-model="form.tujuan" id="tujuan" rows="4" class="form form-control" placeholder="Menerapkan softskills, menerapkan K3LH, ..." required></textarea>
+              <textarea v-model="form.tujuan" :disabled="isLoading" id="tujuan" rows="4" class="form form-control" placeholder="Menerapkan softskills, menerapkan K3LH, ..." required></textarea>
             </div>
             <button :disabled="isSending || isLoading" class="btn btn-success me-2">
               <span v-if="!isSending">Simpan</span>
@@ -61,8 +62,8 @@ async function updateElemenCp() {
   }
 }
 
-async function getElemenCpById() {
-  isLoading.value = true
+async function getElemenCpById(loading=true) {
+  isLoading.value = loading
   client.autoCancellation(false)
   let res = await client.collection('elemen_cp').getOne(route.params.id)
   if(res) {
@@ -75,7 +76,7 @@ onMounted(() => {
   getElemenCpById()
   client.autoCancellation(false)
   client.collection('elemen_cp').subscribe('*', function(e) {
-    if(e.action == 'update') getElemenCpById()
+    if(e.action == 'update') getElemenCpById(false)
   }, {})
 })
 </script>
