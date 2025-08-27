@@ -22,7 +22,7 @@
             </select>
           </div>
           <loading-placeholder v-if="isLoadingJournals" col="12" row="1" />
-          <div v-if="count_sesuai || count_tidak_sesuai" class="row justify-content-center">
+          <div v-if="count_sesuai && count_tidak_sesuai" class="row justify-content-center">
             <jurnal-chart :countSesuai="count_sesuai" :countTidakSesuai="count_tidak_sesuai" />
           </div>
         </div>
@@ -128,18 +128,8 @@ async function getJournals(loading=true) {
     expand: "iduka, pembimbing, siswa.siswa, elemen",
     sort: "isValid, -created"
   })
-  let res_count_sesuai = await client.collection('jurnal').getList(1, perPage, {
-    filter: "pembimbing='"+user.user.value.id+"' && elemen.elemen!='Lain-lain'",
-    expand: "elemen"
-  })
-  let res_count_tidak_sesuai = await client.collection('jurnal').getList(1, perPage, {
-    filter: "pembimbing='"+user.user.value.id+"' && elemen.elemen='Lain-lain'",
-    expand: "elemen"
-  })
-  if(res && res_count_sesuai && res_count_tidak_sesuai) {
+  if(res) {
     journals.value = res
-    count_sesuai.value = res_count_sesuai.items.length
-    count_tidak_sesuai.value = res_count_tidak_sesuai.items.length
     // konversi waktu UTC dari server ke full date lokal indo
     for(let i=0; i<journals.value.items.length; i++) {
       const date = new Date(journals.value.items[i].created);
@@ -198,6 +188,24 @@ async function getJournalCountNotValid(loading=true) {
   }
 }
 
+async function getJournalCountSesuaiElemen(loading=true) {
+  isLoadingJournals.value = loading
+  client.autoCancellation(false)
+  let res_count_sesuai = await client.collection('jurnal').getFullList({
+    filter: "pembimbing='"+user.user.value.id+"' && elemen.elemen!='Lain-lain'",
+    expand: "elemen"
+  })
+  let res_count_tidak_sesuai = await client.collection('jurnal').getFullList({
+    filter: "pembimbing='"+user.user.value.id+"' && elemen.elemen='Lain-lain'",
+    expand: "elemen"
+  })
+  if(res_count_sesuai && res_count_tidak_sesuai) {
+    count_sesuai.value = res_count_sesuai.length
+    count_tidak_sesuai.value = res_count_tidak_sesuai.length
+    isLoadingJournals.value = false
+  }
+}
+
 async function getStudentsByPemetaan() {
   isLoadingStudent.value = true
   let res_student = await client.collection("pemetaan").getFullList({
@@ -215,11 +223,13 @@ onMounted(() => {
   getJournals()
   getJournalCountNotValid()
   getStudentsByPemetaan()
+  getJournalCountSesuaiElemen()
   client.autoCancellation(false)
   client.collection('jurnal').subscribe('*', function(e) {
     if(e.action == 'create' || e.action == 'update') {
       getJournals(false)
       getJournalCountNotValid(false)
+      getJournalCountSesuaiElemen(false)
     }
   },{})
 })

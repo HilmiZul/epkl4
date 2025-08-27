@@ -11,20 +11,18 @@ let user = usePocketBaseUser()
 let client = usePocketBaseClient()
 let prokel = user.user.value.program_keahlian
 let isLoading = ref(true)
-let count_sesuai = 0
-let count_tidak_sesuai = 0
+let count_sesuai = ref(0)
+let count_tidak_sesuai = ref(0)
 
-async function countTerserapSemuaPeserta() {
+async function countJurnalSesuaiDanTidak(loading=true) {
   try {
-    isLoading.value = true
+    isLoading.value = loading
     if(props) {
       isLoading.value = false
-      count_sesuai = props.countSesuai
-      count_tidak_sesuai = props.countTidakSesuai
-      // console.log(count_sesuai)
-      // console.log(count_tidak_sesuai)
+      count_sesuai.value = props.countSesuai
+      count_tidak_sesuai.value = props.countTidakSesuai
     }
-    return [count_sesuai, count_tidak_sesuai]
+    return [count_sesuai.value, count_tidak_sesuai.value]
   } catch(error) {
     console.log('Gagal mengambil data: ', error)
     return null
@@ -32,7 +30,7 @@ async function countTerserapSemuaPeserta() {
 }
 
 async function initChartData() {
-  let chartData = await countTerserapSemuaPeserta()
+  let chartData = await countJurnalSesuaiDanTidak()
   if(chartData) {
     const labels = [
       'Sesuai Elemen',
@@ -69,8 +67,11 @@ const gambarChart = () => {
 }
 
 onMounted(() => {
-  countTerserapSemuaPeserta()
+  countJurnalSesuaiDanTidak()
   initChartData()
+  client.autoCancellation(false)
+  client.collection('jurnal').subscribe('*', function(e){
+    if(e.action == 'create') countJurnalSesuaiDanTidak(false)
+  })
 })
 </script>
-
