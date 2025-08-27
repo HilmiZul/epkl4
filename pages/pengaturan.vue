@@ -47,6 +47,8 @@
 <script setup>
 definePageMeta({ middleware: 'auth' })
 useHead({ title: "Pengaturan — e-PKL / SMKN 4 Tasikmalaya." })
+let config = useRuntimeConfig()
+let host = config.public.apiBaseUrl+":"+config.public.apiPort
 let user = usePocketBaseUser()
 if(user?.user.value.role != 'tu' && user?.user.value.role != 'admin') navigateTo('/404')
 let client = usePocketBaseClient()
