@@ -28,7 +28,7 @@
               <input v-model="form.nip" id="nip" type="text" class="form form-control" placeholder="masukkan NIP Kepala Sekolah" required>
             </div>
             <div class="mb-3">
-              <span v-if="form.logo" class="me-3"><img :src="`http://127.0.0.1:8090/api/files/${form.collectionId}/${form.id}/${form.logo}`" alt="logo" class="logo"></span>
+              <span v-if="form.logo" class="me-3"><img :src="`${host}/api/files/${form.collectionId}/${form.id}/${form.logo}`" alt="logo" class="logo"></span>
               <label for="logo" class="label-berkas p-2 hand-cursor"><i class="bi-filetype-png"></i> Unggah logo</label>
               <input id="logo" type="file" accept="image/png" class="form form-control-file">
             </div>
