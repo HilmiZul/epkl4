@@ -57,6 +57,15 @@
                   </div>
                 </div>
               </div>
+              <div class="row my-4 mb-4">
+                <div v-if="!isLoadingJournals" class="col">
+                  <div v-if="journals" class="text-muted small mb-2">
+                    <span v-if="journals.totalItems">Halaman {{ journals.page }} dari {{ journals.totalPages }}</span>
+                  </div>
+                  <button :disabled="journals.page < 2" @click="pagination(journals.page - 1, false)" class="btn btn-info me-2"><i class="bi bi-arrow-left"></i> sebelumnya</button>
+                  <button :disabled="journals.page >= journals.totalPages" @click="pagination(journals.page + 1, false)" class="btn btn-info">lanjut <i class="bi bi-arrow-right"></i></button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -83,16 +92,7 @@
           <Loading class="mt-5" />
         </div>
       </div> -->
-      <div class="row my-4 mb-4">
-        <div class="col-md-4"></div>
-        <div v-if="!isLoadingJournals" class="col">
-          <div v-if="journals" class="text-muted small mb-2">
-            <span v-if="journals.totalItems">Halaman {{ journals.page }} dari {{ journals.totalPages }}</span>
-          </div>
-          <button :disabled="journals.page < 2" @click="pagination(journals.page - 1, false)" class="btn btn-info me-2"><i class="bi bi-arrow-left"></i> sebelumnya</button>
-          <button :disabled="journals.page >= journals.totalPages" @click="pagination(journals.page + 1, false)" class="btn btn-info">lanjut <i class="bi bi-arrow-right"></i></button>
-        </div>
-      </div>
+
     </div>
   </div>
 </template>
