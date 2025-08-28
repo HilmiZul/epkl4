@@ -9,23 +9,6 @@
         <i class="bi bi-info-circle"></i> Ada <strong>{{ count_not_valid }}</strong> Jurnal belum di validasi
       </div>
       <div class="row">
-        <div class="col-md-4">
-          <div class="mb-4">
-            <label for="filter">Filter Tanggal</label>
-            <input @change="getJournals" v-model="tanggal" type="date" id="filter" class="form form-control picker">
-          </div>
-          <div class="mb-4">
-            <label for="filter-peserta">Filter Peserta</label>
-            <select @change="getJournals" v-model="opsiPeserta" name="filter-peserta" id="filter-peserta" class="form form-select">
-              <option value="">&#8212; Semua &#8212;</option>
-              <option v-for="student in students" :key="student.id" :value="student.siswa">{{ student.expand.siswa.nama }}</option>
-            </select>
-          </div>
-          <loading-placeholder v-if="isLoadingJournals" col="12" row="1" />
-          <div v-if="count_sesuai && count_tidak_sesuai" class="row justify-content-center">
-            <jurnal-chart :countSesuai="count_sesuai" :countTidakSesuai="count_tidak_sesuai" />
-          </div>
-        </div>
         <div class="col">
           <div v-if="!isLoadingJournals" class="mb-2 text-end text-muted small">
             <span v-if="journals.totalItems" class="float-start">Halaman {{ journals.page }} dari {{ journals.totalPages }}</span>
@@ -75,6 +58,23 @@
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-4">
+            <label for="filter">Filter Tanggal</label>
+            <input @change="getJournals" v-model="tanggal" type="date" id="filter" class="form form-control picker">
+          </div>
+          <div class="mb-4">
+            <label for="filter-peserta">Filter Peserta</label>
+            <select @change="getJournals" v-model="opsiPeserta" name="filter-peserta" id="filter-peserta" class="form form-select">
+              <option value="">&#8212; Semua &#8212;</option>
+              <option v-for="student in students" :key="student.id" :value="student.siswa">{{ student.expand.siswa.nama }}</option>
+            </select>
+          </div>
+          <loading-placeholder v-if="isLoadingJournals" col="12" row="1" />
+          <div v-if="count_sesuai && count_tidak_sesuai" class="row justify-content-center">
+            <jurnal-chart :countSesuai="count_sesuai" :countTidakSesuai="count_tidak_sesuai" />
           </div>
         </div>
       </div>
