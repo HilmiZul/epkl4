@@ -34,6 +34,9 @@
           </div>
           <div class="row">
             <div class="col">
+              <div v-if="!isLoadingJournals" class="text-center text-muted fst-italic">
+                <span v-if="journals.totalItems == 0">Belum ada jurnal</span>
+              </div>
               <LoadingPlaceholder v-if="isLoadingJournals" col="12" row="1" />
               <div v-else v-for="journal in journals.items" :key="journal.id" class="card jurnal-hover">
                 <div class="card-body">
