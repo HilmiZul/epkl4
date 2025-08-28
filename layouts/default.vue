@@ -4,7 +4,7 @@
       <!-- <Header /> -->
       <Navbar />
       <Nav />
-      <div class="col">
+      <div class="col-lg-9">
         <slot />
       </div>
     </div>
