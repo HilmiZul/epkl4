@@ -59,11 +59,20 @@
               </div>
               <div class="row my-4 mb-4">
                 <div v-if="!isLoadingJournals" class="col-md-12">
-                  <div v-if="journals" class="text-muted small mb-2">
-                    <span v-if="journals.totalItems">Halaman {{ journals.page }} dari {{ journals.totalPages }}</span>
+                  <div v-if="isMovingPage" class="text-muted small mb-2 fst-italic">sedang berpindah halaman</div>
+                  <div v-else>
+                    <div v-if="journals || isMovingPage" class="text-muted small mb-2">
+                      <span v-if="journals.totalItems">Halaman {{ journals.page }} dari {{ journals.totalPages }}</span>
+                    </div>
                   </div>
-                  <button :disabled="journals.page < 2" @click="pagination(journals.page - 1, false)" class="btn btn-info me-2"><i class="bi bi-arrow-left"></i> sebelumnya</button>
-                  <button :disabled="journals.page >= journals.totalPages" @click="pagination(journals.page + 1, false)" class="btn btn-info">lanjut <i class="bi bi-arrow-right"></i></button>
+                  <button :disabled="isMovingPage || journals.page < 2" @click="pagination(journals.page - 1, false)" class="btn btn-info me-2">
+                    <span v-if="isMovingPage">bentar</span>
+                    <span v-else><i class="bi bi-arrow-left"></i> sebelumnya</span>
+                  </button>
+                  <button :disabled="isMovingPage || journals.page >= journals.totalPages" @click="pagination(journals.page + 1, false)" class="btn btn-info">
+                    <span v-if="isMovingPage">bentar</span>
+                    <span v-else>lanjut <i class="bi bi-arrow-right"></i></span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -115,6 +124,7 @@ let count_sesuai = ref()
 let count_tidak_sesuai = ref()
 let students = ref([])
 let opsiPeserta = ref('')
+let isMovingPage = ref(false)
 
 async function getJournals(loading=true) {
   isLoadingJournals.value = loading
@@ -148,6 +158,7 @@ async function getJournals(loading=true) {
 
 async function pagination(page, loading=true) {
   isLoadingJournals.value = loading
+  isMovingPage.value = true
   let queryFilter = "pembimbing='"+user.user.value.id+"'"
   if(tanggal.value) queryFilter = "pembimbing='"+user.user.value.id+"' && created~'"+tanggal.value+"'"
   if(user.user.value.role == 'admin') queryFilter = ""
@@ -168,6 +179,7 @@ async function pagination(page, loading=true) {
       journals.value.items[i].created = new Intl.DateTimeFormat('id-ID', options).format(date);
     }
     isLoadingJournals.value = false
+    isMovingPage.value = false
   }
 }
 
