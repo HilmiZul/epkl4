@@ -9,7 +9,7 @@
         <i class="bi bi-info-circle"></i> Ada <strong>{{ count_not_valid }}</strong> Jurnal yang belum di validasi
       </div>
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-7">
           <div v-if="!isLoadingJournals" class="mb-2 text-end text-muted small">
             <span v-if="journals.totalItems" class="float-start">Halaman {{ journals.page }} dari {{ journals.totalPages }}</span>
             Menampilkan
@@ -78,7 +78,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-5">
           <div class="mb-4">
             <label for="filter">Filter Tanggal</label>
             <input @change="getJournals" v-model="tanggal" type="date" id="filter" class="form form-control picker">
