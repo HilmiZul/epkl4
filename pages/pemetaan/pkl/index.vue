@@ -288,10 +288,10 @@ const mappingFiltered = computed(() => {
   })
 })
 
-async function getIdukaIsAvailable() {
+async function getIdukaIsAvailable(loading=true) {
   // memeriksa apakah Prokel tersebut sudah memiliki daftar IDUKA?
   // apabila belum, maka proses pemetaan belum diizinkan. :D
-  isLoading.value = true
+  isLoading.value = loading
   let data = await client.collection('iduka').getFullList({
     filter: "program_keahlian='"+prokel+"'"
   })
@@ -308,7 +308,7 @@ onMounted(() => {
   client.collection('pemetaan').subscribe('*', function(e) {
     if(e.action == 'update') {
       getPemetaan()
-      getIdukaIsAvailable()
+      getIdukaIsAvailable(false)
     }
   },{})
 })
