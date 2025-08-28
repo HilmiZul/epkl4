@@ -52,13 +52,11 @@ async function initChartData() {
       datasets: [{
         label: "Jumlah peserta",
         backgroundColor: [
-          'rgb(10, 138, 102)',
-          'rgb(54, 162, 235)',
-          'rgb(255, 205, 86)',
-          'rgb(255, 99, 132)',
-          // 'rgb(127, 127, 127)'
+          'rgba(10, 138, 102)',
+          'rgba(54, 162, 235)',
+          'rgba(255, 205, 86)',
+          'rgba(255, 99, 132)',
         ],
-        // borderColor: 'rgb(255, 99, 132)',
         borderColor: 'rgb(0, 0, 0)',
         data: [
           chartData[0].length,
