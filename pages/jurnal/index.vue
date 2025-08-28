@@ -9,14 +9,14 @@
         <i class="bi bi-info-circle"></i> Ada <strong>{{ count_not_valid }}</strong> Jurnal yang belum di validasi
       </div>
       <div class="row">
-        <div class="col">
+        <div class="col-md-8">
           <div v-if="!isLoadingJournals" class="mb-2 text-end text-muted small">
             <span v-if="journals.totalItems" class="float-start">Halaman {{ journals.page }} dari {{ journals.totalPages }}</span>
             Menampilkan
             <span v-if="journals.items">{{ journals.items.length }}</span>  dari {{ journals.totalItems }} Jurnal
           </div>
           <div class="row">
-            <div class="col">
+            <div class="col-md-12">
               <div v-if="!isLoadingJournals" class="text-center text-muted fst-italic">
                 <span v-if="journals.totalItems == 0">Belum ada jurnal</span>
               </div>
@@ -58,7 +58,7 @@
                 </div>
               </div>
               <div class="row my-4 mb-4">
-                <div v-if="!isLoadingJournals" class="col">
+                <div v-if="!isLoadingJournals" class="col-md-12">
                   <div v-if="journals" class="text-muted small mb-2">
                     <span v-if="journals.totalItems">Halaman {{ journals.page }} dari {{ journals.totalPages }}</span>
                   </div>

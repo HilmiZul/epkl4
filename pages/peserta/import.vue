@@ -5,7 +5,7 @@
     </div>
     <div class="card-body">
       <div class="row">
-        <div class="col">
+        <div class="col-md-12">
           <div class="alert alert-warning border-5 border-dark shadow-lg">
             <div class="h5 quicksand">Perhatiin!</div>
             <ul>

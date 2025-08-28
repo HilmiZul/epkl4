@@ -1,13 +1,9 @@
 <template>
-  <!-- <div class="row"> -->
-    <!-- <div class="col"> -->
-      <footer class="my-4 text-muted text-center small metropolis">
-        v{{ version }} <br>
-        &copy;2018 - {{ year }}. All rights reserved. <br>
-        <span class="">Dimasak dengan <i class="bi bi-heart-fill"></i> oleh PPLG.</span>
-      </footer>
-    <!-- </div> -->
-  <!-- </div> -->
+  <footer class="my-4 text-muted text-center small metropolis">
+    v{{ version }} <br>
+    &copy;2018 - {{ year }}. All rights reserved. <br>
+    <span class="">Dimasak dengan <i class="bi bi-heart-fill"></i> oleh PPLG.</span>
+  </footer>
 </template>
 
 <script setup>

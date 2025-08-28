@@ -8,7 +8,7 @@
     </div>
     <div class="card-body">
       <div class="row">
-        <div class="col">
+        <div class="col-md-12">
           <div class="alert alert-warning shadow-lg border-2 border-dark">
             <h5 class="">Perhatiin!</h5>
             <ul>
@@ -47,7 +47,7 @@
             <em v-if="isSaved" class="text-grey">Berhasil tersimpan!</em>
           </form>
         </div>
-        <div class="col-lg-6">
+        <div class="col-md-6">
           <LoadingPlaceholder v-if="isLoading" col="12" row="2" />
           <div v-else>
             <!-- <div v-if="!form.hasUser" class="mt-3 border-dash p-3">
@@ -82,7 +82,7 @@
         <!-- <div class="col-2 align-content-center">
           <div class="emoji text-center">🙅🏻‍♂️</div>
         </div> -->
-        <div class="col">
+        <div class="col-md-12">
           <div class="alert text-danger border-danger">
             <h5 class="romana">Danger Zone!</h5>
             <p>Apabila Siswa yang bernama <span class="border-2 border-bottom border-danger pb-1">{{ form.nama }}</span> telah pindah/mengundurkan diri, silahkan hapus!</p>

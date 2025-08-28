@@ -58,7 +58,7 @@
             <em v-if="isSaved" class="text-muted">Berhasil terpetakan!</em>
           </form>
         </div>
-        <div class="col">
+        <div class="col-md-6">
           <div class="alert alert-warning border-5 border-dark shadow-lg">
             <div class="h5 quicksand">Perhatian!</div>
             <ul class="small">

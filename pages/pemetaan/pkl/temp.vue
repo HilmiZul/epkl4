@@ -23,7 +23,7 @@
           <div class="table-responsive border-0">
             <div class="row">
               <Loading v-if="isLoading" />
-              <div v-if="mappingFiltered.length < 1" class="col">Data tidak ditemukan</div>
+              <div v-if="mappingFiltered.length < 1" class="col-md-12">Data tidak ditemukan</div>
               <div v-else v-for="(pemetaan) in mappingFiltered" :key="pemetaan.id" class="col-md-12">
                 <div class="card border-0">
                   <div class="card-body">

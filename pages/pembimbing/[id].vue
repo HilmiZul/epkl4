@@ -5,19 +5,6 @@
       <span v-else class="h4 quicksand">Pembimbing / <span class="fw-bold text-dark">{{ form.nama }}</span></span>
     </div>
     <div class="card-body">
-      <!-- <div class="row">
-        <div class="col">
-          <div class="alert alert-warning border-5 border-dark shadow-lg">
-            <div class="h5 quicksand">Perhatiin!</div>
-            <ul class="small">
-              <li>Guru pembimbing adalah Guru yang mengajar pada tingkat XII</li>
-              <li>Guru pembimbing termasuk Guru kejuruan</li>
-              <li>Guru pembimbing akan dipetakan saat pembuatan daftar IDUKA</li>
-              <li>Apabila tidak ada NIP, isi dengan tanda —</li>
-            </ul>
-          </div>
-        </div>
-      </div> -->
       <div class="row">
         <div class="col-md-5">
           <form @submit.prevent="updatePembimbingBaru">

@@ -13,7 +13,7 @@
         <loading-placeholder v-if="isLoading" col="5" row="1" />
       </div>
       <div v-else class="row">
-        <div v-if="!pemetaan.status_acc_pkl" class="col">
+        <div v-if="!pemetaan.status_acc_pkl" class="col-md-12">
           <div class="alert alert-warning border-5 border-dark shadow-lg">
             <div class="h5 quicksand">Perhatiin!</div>
             <ul>
@@ -78,7 +78,7 @@
       </div>
       <hr class="my-4">
       <div v-if="!isLoading" class="row">
-        <div class="col">
+        <div class="col-md-12">
           <div class="alert text-danger border-danger">
             <h5 class="romana">Danger Zone!</h5>
             <p>Apabila Pemetaan ini dihapus, maka harus buat pemetaan ulang!</p>

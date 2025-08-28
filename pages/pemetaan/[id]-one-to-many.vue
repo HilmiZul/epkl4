@@ -31,7 +31,7 @@
             <nuxt-link to="/pemetaan" class="btn btn-light">Kembali</nuxt-link>
           </form>
         </div> -->
-        <div class="col">
+        <div class="col-md-6">
           <div class="alert alert-warning border-5 border-dark shadow-lg">
             <div class="h5 quicksand">Peserta didik yang terpetakan</div>
             <div v-if="isLoading"><Loading /></div>
