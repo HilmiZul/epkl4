@@ -23,12 +23,10 @@
       <!-- <div v-if="isLoading"><Loading /></div> -->
       <div class="row">
         <div class="col-md-12">
-          <div>
-            <div v-if="isMovingPage" class="text-muted small mb-2 fst-italic">sedang berpindah halaman</div>
-            <div v-else>
-              <div v-if="mapping || isMovingPage" class="text-muted small mb-2">
-                <span v-if="mapping.totalItems">Halaman {{ mapping.page }} dari {{ mapping.totalPages }}</span>
-              </div>
+          <div v-if="isMovingPage" class="text-muted small mb-2 fst-italic">sedang berpindah halaman</div>
+          <div v-else>
+            <div v-if="mapping || isMovingPage" class="text-muted small mb-2">
+              <span v-if="mapping.totalItems">Halaman {{ mapping.page }} dari {{ mapping.totalPages }}</span>
             </div>
           </div>
           <div class="table-responsive">
@@ -45,7 +43,7 @@
                 <tr v-if="isLoading" class="text-center my-5">
                   <td colspan="3"><Loading /></td>
                 </tr>
-                <tr v-else-if="mapping && mapping.items.length < 1" class="text-center my-5">
+                <tr v-else-if="mapping && mapping.totalItems < 1" class="text-center my-5">
                   <td colspan="3">Data tidak ditemukan</td>
                 </tr>
                 <tr v-else v-for="(pemetaan) in newMapping" :key="pemetaan.id">
