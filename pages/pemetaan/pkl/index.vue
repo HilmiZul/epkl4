@@ -45,7 +45,7 @@
                 <tr v-if="isLoading" class="text-center my-5">
                   <td colspan="3"><Loading /></td>
                 </tr>
-                <tr v-else-if="mapping && mapping.length < 1" class="text-center my-5">
+                <tr v-else-if="mapping && mapping.items.length < 1" class="text-center my-5">
                   <td colspan="3">Data tidak ditemukan</td>
                 </tr>
                 <tr v-else v-for="(pemetaan) in newMapping" :key="pemetaan.id">
