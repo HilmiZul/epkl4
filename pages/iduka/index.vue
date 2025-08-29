@@ -7,57 +7,86 @@
         <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/iduka/import" class="btn btn-success btn-sm"><i class="bi bi-download"></i> Impor dari .csv</nuxt-link>
       </span>
     </div>
-    <div class="card-body small">
+    <div class="card-body">
       <div class="row">
         <div class="col-lg-6">
-          <div class="my-3 mt-0">
-            <input type="search" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan nama IDUKA / wilayah..." />
-          </div>
+          <form @submit.prevent="getCompanies">
+            <div class="my-3 mt-0 input-group">
+              <input type="search" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan nama IDUKA / wilayah..." />
+              <button class="btn btn-info ms-2">Cari</button>
+            </div>
+          </form>
         </div>
         <div class="col align-content-center">
-          <div class="mb-3 text-grey float-end">{{ idukaFiltered.length }} IDUKA</div>
+          <div class="mb-3 text-grey float-end">{{ companies.totalItems }} IDUKA</div>
         </div>
       </div>
-      <div class="table-responsive">
-        <table class="table table-hover table-striped table-borderless">
-          <thead>
-            <tr>
-              <th width="2%">#</th>
-              <th>Nama</th>
-              <th>Wilayah</th>
-              <th width="8%">Terisi</th>
-              <th>Pembimbing</th>
-              <th>Hapus</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-if="isLoading" class="text-center my-5">
-              <td colspan="6"><Loading /></td>
-            </tr>
-            <tr v-else-if="idukaFiltered.length < 1" class="text-center my-5">
-              <td colspan="6">Data tidak ditemukan</td>
-            </tr>
-            <tr v-for="(company, i) in idukaFiltered" :key="i">
-              <td>{{ i + 1 }}.</td>
-              <td class="fw-bold"><nuxt-link :to="`/iduka/${company.id}`" class="link">{{ company.nama }}</nuxt-link></td>
-              <td>{{ company.wilayah.charAt(0).toUpperCase() + company.wilayah.slice(1) }} kota </td>
-              <td>
-                <span v-if="company.terisi < company.jumlah_kuota">{{ company.terisi }} dari {{ company.jumlah_kuota }}</span>
-                <span v-else class="badge bg-danger">Penuh</span>
-              </td>
-              <td>{{ company.expand.pembimbing_sekolah?.nama }} </td>
-              <td>
-                <button v-if="company.terisi < 1" class="btn btn-danger btn-sm" data-bs-toggle="modal" :data-bs-target="`#iduka-${company.id}`">hapus</button>
-                <button v-else class="btn btn-dark btn-sm" disabled>Hapus</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="row">
+        <div class="col-md-12">
+          <div v-if="isMovingPage" class="text-muted small mb-2 fst-italic">sedang berpindah halaman</div>
+            <div v-else>
+              <div v-if="companies || isMovingPage" class="text-muted small mb-2">
+                <span v-if="companies.totalItems">Halaman {{ companies.page }} dari {{ companies.totalPages }}</span>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-hover table-striped table-borderless">
+                <thead>
+                  <tr>
+                    <th width="2%">#</th>
+                    <th>Nama</th>
+                    <th>Wilayah</th>
+                    <th width="8%">Terisi</th>
+                    <th>Pembimbing</th>
+                    <th>Hapus</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-if="isLoading" class="text-center my-5">
+                    <td colspan="6"><Loading /></td>
+                  </tr>
+                  <tr v-else-if="companies && companies.totalItems < 1" class="text-center my-5">
+                    <td colspan="6">Data tidak ditemukan</td>
+                  </tr>
+                  <tr v-else v-for="(company, i) in companies.items" :key="i">
+                    <td>{{ i + 1 }}.</td>
+                    <td class="fw-bold"><nuxt-link :to="`/iduka/${company.id}`" class="link">{{ company.nama }}</nuxt-link></td>
+                    <td>{{ company.wilayah.charAt(0).toUpperCase() + company.wilayah.slice(1) }} kota </td>
+                    <td>
+                      <span v-if="company.terisi < company.jumlah_kuota">{{ company.terisi }} dari {{ company.jumlah_kuota }}</span>
+                      <span v-else class="badge bg-danger">Penuh</span>
+                    </td>
+                    <td>{{ company.expand.pembimbing_sekolah?.nama }} </td>
+                    <td>
+                      <button v-if="company.terisi < 1" class="btn btn-danger btn-sm" data-bs-toggle="modal" :data-bs-target="`#iduka-${company.id}`">hapus</button>
+                      <button v-else class="btn btn-dark btn-sm" disabled>Hapus</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        </div>
+      </div>
+      <div class="col-md-12 mt-2">
+        <div v-if="isMovingPage" class="text-muted small mb-2 fst-italic">sedang berpindah halaman</div>
+        <div v-else>
+          <div v-if="companies || isMovingPage" class="text-muted small mb-2">
+            <span v-if="companies.totalItems">Halaman {{ companies.page }} dari {{ companies.totalPages }}</span>
+          </div>
+        </div>
+        <button :disabled="isMovingPage || companies.page < 2" @click="pagination(companies.page - 1, false)" class="btn btn-info btn-sm me-2">
+          <span v-if="isMovingPage">bentar</span>
+          <span v-else><i class="bi bi-arrow-left"></i> sebelumnya</span>
+        </button>
+        <button :disabled="isMovingPage || companies.page >= companies.totalPages" @click="pagination(companies.page + 1, false)" class="btn btn-info btn-sm">
+          <span v-if="isMovingPage">bentar</span>
+          <span v-else>lanjut <i class="bi bi-arrow-right"></i></span>
+        </button>
       </div>
     </div>
   </div>
-  <div v-if="idukaFiltered.length > 0">
-    <div v-for="company in idukaFiltered" :key="company.id">
+  <div v-if="companies && companies.totalItems > 0">
+    <div v-for="company in companies" :key="company.id">
       <div class="modal" :id="`iduka-${company.id}`" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
@@ -98,6 +127,8 @@ let keyword = ref('')
 let prokel = user.user.value.program_keahlian
 let opsiWilayah = ref('')
 if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
+let perPage = 20
+let isMovingPage = ref(false)
 
 async function hapusData(id) {
   await client.collection('iduka').delete(id)
@@ -124,7 +155,23 @@ async function searchByKeyword() {
 
 async function getCompanies() {
   isLoading.value = true
-  let data = await client.collection('iduka').getFullList({
+  let searchFilter = ''
+  if(keyword.value != '') searchFilter = " && nama~'"+keyword.value+"'"
+  let data = await client.collection('iduka').getList(1, perPage, {
+    filter: 'program_keahlian = "' + user.user.value.program_keahlian + '"' + searchFilter,
+    expand: "program_keahlian, pembimbing_sekolah",
+    sort: 'terisi, -wilayah, nama'
+  })
+  if (data) {
+    isLoading.value = false
+    companies.value = data
+    // console.log(companies.value[0].expand.pembimbing_sekolah.nama)
+  }
+}
+
+async function pagination(page, loading=true) {
+  isLoading.value = loading
+  let data = await client.collection('iduka').getList(page, perPage, {
     filter: 'program_keahlian = "' + user.user.value.program_keahlian + '"',
     expand: "program_keahlian, pembimbing_sekolah",
     sort: 'terisi, -wilayah, nama'
@@ -156,14 +203,14 @@ async function filterByWilayah() {
   }
 }
 
-const idukaFiltered = computed(() => {
-  return companies.value.filter((i) => {
-    return (
-      i.nama.toLowerCase().includes(keyword.value.toLowerCase()) ||
-      i.wilayah.toLowerCase().includes(keyword.value.toLowerCase())
-    )
-  })
-})
+// const companies = computed(() => {
+//   return companies.value.items.filter((i) => {
+//     return (
+//       i.nama.toLowerCase().includes(keyword.value.toLowerCase()) ||
+//       i.wilayah.toLowerCase().includes(keyword.value.toLowerCase())
+//     )
+//   })
+// })
 
 onMounted(() => {
   getCompanies()
