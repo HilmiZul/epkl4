@@ -9,17 +9,28 @@
     <div class="card-body">
       <div class="row">
         <div class="col-lg-6">
-          <div class="my-3 mt-0">
-            <input v-model="keyword" type="search" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan IDUKA / wilayah" />
-          </div>
+          <form @submit.prevent="getPemetaan">
+            <div class="my-3 mt-0 input-group">
+              <input v-model="keyword" type="search" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan IDUKA / wilayah" />
+              <button class="btn btn-info ms-2">Cari</button>
+            </div>
+          </form>
         </div>
-        <div class="col align-content-center small">
-          <div class="mb-3 text-grey float-end">{{ mappingFiltered.length }} peserta terpetakan</div>
+        <div v-if="mapping.items" class="col align-content-center small">
+          <div class="mb-3 text-grey float-end">{{ mapping.totalItems }} peserta terpetakan</div>
         </div>
       </div>
       <!-- <div v-if="isLoading"><Loading /></div> -->
       <div class="row">
         <div class="col-md-12">
+          <div>
+            <div v-if="isMovingPage" class="text-muted small mb-2 fst-italic">sedang berpindah halaman</div>
+            <div v-else>
+              <div v-if="mapping || isMovingPage" class="text-muted small mb-2">
+                <span v-if="mapping.totalItems">Halaman {{ mapping.page }} dari {{ mapping.totalPages }}</span>
+              </div>
+            </div>
+          </div>
           <div class="table-responsive">
             <table class="table">
               <thead>
@@ -34,10 +45,10 @@
                 <tr v-if="isLoading" class="text-center my-5">
                   <td colspan="3"><Loading /></td>
                 </tr>
-                <tr v-else-if="mappingFiltered.length < 1" class="text-center my-5">
+                <tr v-else-if="mapping && mapping.length < 1" class="text-center my-5">
                   <td colspan="3">Data tidak ditemukan</td>
                 </tr>
-                <tr v-else v-for="(pemetaan) in mappingFiltered" :key="pemetaan.id">
+                <tr v-else v-for="(pemetaan) in newMapping" :key="pemetaan.id">
                   <!-- <td >{{ i+1 }}.</td> -->
                   <td v-if="pemetaan.showIduka" :rowspan="pemetaan.idukaRowspan">
                     <span class="text-grey me-2"><i class="bi bi-building"></i></span><nuxt-link :to="`https://www.google.com/maps/search/?api=1&query=${pemetaan.expand.iduka.alamat}`" class="link" target="_blank"><span class="quicksand">{{ pemetaan.expand.iduka.nama }}</span> <sup><i class="bi bi-arrow-up-right"></i></sup></nuxt-link>
@@ -68,10 +79,26 @@
               </tbody>
             </table>
           </div>
+          <div class="mt-2">
+            <div v-if="isMovingPage" class="text-muted small mb-2 fst-italic">sedang berpindah halaman</div>
+            <div v-else>
+              <div v-if="mapping || isMovingPage" class="text-muted small mb-2">
+                <span v-if="mapping.totalItems">Halaman {{ mapping.page }} dari {{ mapping.totalPages }}</span>
+              </div>
+            </div>
+            <button :disabled="isMovingPage || mapping.page < 2" @click="pagination(mapping.page - 1, false)" class="btn btn-info btn-sm me-2">
+              <span v-if="isMovingPage">bentar</span>
+              <span v-else><i class="bi bi-arrow-left"></i> sebelumnya</span>
+            </button>
+            <button :disabled="isMovingPage || mapping.page >= mapping.totalPages" @click="pagination(mapping.page + 1, false)" class="btn btn-info btn-sm">
+              <span v-if="isMovingPage">bentar</span>
+              <span v-else>lanjut <i class="bi bi-arrow-right"></i></span>
+            </button>
+          </div>
 
           <!-- modal pertanyaan apakah diterima IDUKA PKL? -->
           <div>
-            <div v-for="(pemetaan) in mapping" :key="pemetaan.id">
+            <div v-for="(pemetaan) in newMapping" :key="pemetaan.id">
               <div class="modal" :id="`status-${pemetaan.id}`" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
@@ -109,6 +136,8 @@ let isLoading = ref(true)
 let opsiWilayah = ref('')
 let keyword = ref('')
 let isIdukaAvailable = ref([])
+let perPage = 20
+let isMovingPage = ref(false)
 
 async function handleAccPkl(iduka) {
   // kumpulkan peserta yang iduka-nya sama. ubah status Acc. PKL dengan looping
@@ -116,17 +145,23 @@ async function handleAccPkl(iduka) {
     filter: "program_keahlian='"+prokel+"' && iduka='"+iduka+"'"
   })
   if(idukaById) {
-    for(let i=0; i<idukaById.length; i++) {
-      // console.log(count_dudi[i].id)
-      // console.log('ubah ke true')
-      // console.log('--------------------')
-      await client.collection('pemetaan').update(idukaById[i].id, { status_acc_pkl: true })
-    }
+    idukaById.map(async (item) => {
+      try {
+        await client.collection('pemetaan').update(item.id, { status_acc_pkl: true })
+        // console.log(item.id)
+        // console.log('ubah ke true')
+        // console.log('--------------------')
+      } catch (error) {
+        console.error(`Terjadi kesalahan: ${error}`)
+      }
+    })
   }
 }
 
 async function getPemetaan() {
   isLoading.value = true
+  let searchActive = ''
+  if(keyword.value != '') searchActive = " && iduka.nama~'"+keyword.value+"'"
   // atur filter berdasarkan role: `tu` atau selain `tu`
   let filterQuery = "program_keahlian='"+prokel+"' && iduka.pembimbing_sekolah='"+user.user.value.id+"'"
   if(role == 'tu') filterQuery = ""
@@ -135,8 +170,8 @@ async function getPemetaan() {
   // else if(role == 'guru') filterQuery = "program_keahlian='"+prokel+"' && siswa.pembimbing='"+user.user.value.id+"'"
 
   client.autoCancellation(false)
-  let data = await client.collection("pemetaan").getFullList({
-    filter: filterQuery,
+  let data = await client.collection("pemetaan").getList(1, perPage, {
+    filter: filterQuery + searchActive,
     expand: "iduka, iduka.pembimbing_sekolah, siswa, program_keahlian",
     sort: "status_acc_pkl, iduka.wilayah, iduka.nama",
   })
@@ -148,12 +183,12 @@ async function getPemetaan() {
     const tempMapping = []
     let prevIduka = null
     let rowspanCount = 0
-    mapping.value.forEach((item, index) => {
+    mapping.value.items.forEach((item, index) => {
       if(item.iduka !== prevIduka) {
         rowspanCount = 1
         // cari banyaknya baris dari banyaknya iduka yang sama
-        for(let i=index+1; i<mapping.value.length; i++) {
-          if(mapping.value[i].iduka === item.iduka) {
+        for(let i=index+1; i<mapping.value.items.length; i++) {
+          if(mapping.value.items[i].iduka === item.iduka) {
             rowspanCount++
           } else {
             break
@@ -173,114 +208,66 @@ async function getPemetaan() {
       }
       prevIduka = item.iduka
     })
-    mapping.value = tempMapping
+    newMapping.value = tempMapping
   }
 }
 
-async function filterByWilayah() {
-  isLoading.value = true
-  if(opsiWilayah.value.length > 0) {
-    client.autoCancellation(false)
-    const data = await client
-      .collection('pemetaan')
-      .getFullList({
-        filter: "iduka.wilayah='"+opsiWilayah.value+"' && program_keahlian='"+prokel+"'",
-        expand: "iduka, siswa, program_keahlian",
-        sort: "iduka.wilayah, iduka.nama"
-      })
-    if(data) {
-      isLoading.value = false
-      mapping.value = data
+async function pagination(page, loading=true) {
+  isLoading.value = loading
+  isMovingPage.value = true
+  // atur filter berdasarkan role: `tu` atau selain `tu`
+  let filterQuery = "program_keahlian='"+prokel+"' && iduka.pembimbing_sekolah='"+user.user.value.id+"'"
+  if(role == 'tu') filterQuery = ""
+  else if(role == 'jurusan') filterQuery = "program_keahlian='"+prokel+"'"
+  else if(role == 'guru') filterQuery = "program_keahlian='"+prokel+"' && iduka.pembimbing_sekolah='"+user.user.value.id+"'"
+  // else if(role == 'guru') filterQuery = "program_keahlian='"+prokel+"' && siswa.pembimbing='"+user.user.value.id+"'"
 
-      // grouping untuk rowspan
-      const tempMapping = []
-      let prevIduka = null
-      let rowspanCount = 0
-      mapping.value.forEach((item, index) => {
-        if(item.iduka !== prevIduka) {
-          rowspanCount = 1
-          // cari banyaknya baris dari banyaknya iduka yang sama
-          for(let i=index+1; i<mapping.value.length; i++) {
-            if(mapping.value[i].iduka === item.iduka) {
-              rowspanCount++
-            } else {
-              break
-            }
-          }
-          tempMapping.push({
-            ...item,
-            showIduka: true,
-            idukaRowspan: rowspanCount
-          })
-        } else {
-          tempMapping.push({
-            ...item,
-            showIduka: false,
-            idukaRowspan: 1
-          })
-        }
-        prevIduka = item.iduka
-      })
-      mapping.value = tempMapping
-    }
-  } else {
-    getPemetaan()
-  }
-}
-
-async function searchByKeyword() {
-  isLoading.value = true
   client.autoCancellation(false)
-  if(keyword.value.length > 0) {
-    let data = await client
-      .collection('pemetaan')
-      .getFullList({
-        filter: "iduka.nama~'"+keyword.value+"' || siswa.nama~'"+keyword.value+"' && program_keahlian='"+prokel+"'",
-        expand: "iduka, siswa, program_keahlian",
-        sort: "iduka.wilayah"
-      })
-    if(data) {
-      isLoading.value = false
-      mapping.value = data
+  let data = await client.collection("pemetaan").getList(page, perPage, {
+    filter: filterQuery,
+    expand: "iduka, iduka.pembimbing_sekolah, siswa, program_keahlian",
+    sort: "status_acc_pkl, iduka.wilayah, iduka.nama",
+  })
+  if(data) {
+    isLoading.value = false
+    mapping.value = data
 
-      // grouping untuk rowspan
-      const tempMapping = []
-      let prevIduka = null
-      let rowspanCount = 0
-      mapping.value.forEach((item, index) => {
-        if(item.iduka !== prevIduka) {
-          rowspanCount = 1
-          // cari banyaknya baris dari banyaknya iduka yang sama
-          for(let i=index+1; i<mapping.value.length; i++) {
-            if(mapping.value[i].iduka === item.iduka) {
-              rowspanCount++
-            } else {
-              break
-            }
+    // grouping untuk rowspan
+    const tempMapping = []
+    let prevIduka = null
+    let rowspanCount = 0
+    mapping.value.items.forEach((item, index) => {
+      if(item.iduka !== prevIduka) {
+        rowspanCount = 1
+        // cari banyaknya baris dari banyaknya iduka yang sama
+        for(let i=index+1; i<mapping.value.items.length; i++) {
+          if(mapping.value.items[i].iduka === item.iduka) {
+            rowspanCount++
+          } else {
+            break
           }
-          tempMapping.push({
-            ...item,
-            showIduka: true,
-            idukaRowspan: rowspanCount
-          })
-        } else {
-          tempMapping.push({
-            ...item,
-            showIduka: false,
-            idukaRowspan: 1
-          })
         }
-        prevIduka = item.iduka
-      })
-      mapping.value = tempMapping
-    }
-  } else {
-    getPemetaan()
+        tempMapping.push({
+          ...item,
+          showIduka: true,
+          idukaRowspan: rowspanCount
+        })
+      } else {
+        tempMapping.push({
+          ...item,
+          showIduka: false,
+          idukaRowspan: 1
+        })
+      }
+      prevIduka = item.iduka
+    })
+    newMapping.value = tempMapping
+    isMovingPage.value = false
   }
 }
 
 const mappingFiltered = computed(() => {
-  return mapping.value.filter((i) => {
+  return newMapping.value.filter((i) => {
     return (
       i.expand.iduka.nama.toLowerCase().includes(keyword.value.toLowerCase()) ||
       i.expand.iduka.wilayah.toLowerCase().includes(keyword.value.toLowerCase())

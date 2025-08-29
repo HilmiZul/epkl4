@@ -28,7 +28,6 @@
             <ringaksan-notif-jurnal />
           </div>
         </div>
-
       </div>
     </div>
 
@@ -40,18 +39,19 @@
       <div class="card-body">
         <div class="row">
           <div class="col-md-3">
-            <div class="card">
-              <div class="card-body bg-info">
-                <span class="medium">Semua Pemetaan</span>
-                <h4 v-if="!isLoading">{{ jumlah_pemetaan.length }}</h4>
-                <h4 v-else>
-                  <p class="placeholder-glow">
-                    <span class="placeholder col-6"></span>
-                  </p>
-                </h4>
-                <div class="mt-3 small"><nuxt-link to="/pemetaan/pkl" class="link border-0">intip <i class="bi bi-arrow-up-right-square"></i></nuxt-link></div>
+            <nuxt-link to="/pemetaan/pkl" class="link border-0">
+              <div class="card">
+                <div class="card-body bg-info">
+                  <h2 v-if="!isLoading" class="fs-bold">{{ jumlah_pemetaan.length }}</h2>
+                  <h4 v-else>
+                    <p class="placeholder-glow">
+                      <span class="placeholder col-6"></span>
+                    </p>
+                  </h4>
+                  <span class="medium">Pemetaan</span>
+                </div>
               </div>
-            </div>
+            </nuxt-link>
           </div>
         </div>
       </div>
