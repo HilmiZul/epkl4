@@ -1,12 +1,13 @@
 <template>
   <div class="container-fluid mb-3">
-    <div class="row mt-5">
+    <div class="row mt-3">
       <!-- <Header /> -->
       <Navbar />
       <Nav />
       <div class="col-lg-9">
         <slot />
       </div>
+      <Footer class="footer-mobile-view" />
     </div>
   </div>
 </template>
@@ -230,5 +231,10 @@ input[type="checkbox"]:not(:checked) {
 }
 .smallest {
   font-size: .8em;
+}
+@media screen and (min-width: 992px) {
+  .footer-mobile-view {
+    display: none;
+  }
 }
 </style>
