@@ -6,7 +6,7 @@
         <span class="h4 quicksand"><i class="bi bi-pie-chart-fill"></i> Ringkasan</span>
       </div>
       <div class="card-body">
-        <ringaksan-notif-jurnal />
+        <ringkasan-notif-jurnal />
         <ringkasan-personal />
         <!-- <ringkasan-fyi v-if="role == 'admin' || role == 'jurusan'" /> -->
         <ringkasan-card v-if="role == 'admin' || role == 'jurusan'" />
