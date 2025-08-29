@@ -171,14 +171,16 @@ async function getCompanies() {
 
 async function pagination(page, loading=true) {
   isLoading.value = loading
+  isMovingPage.value = true
   let data = await client.collection('iduka').getList(page, perPage, {
     filter: 'program_keahlian = "' + user.user.value.program_keahlian + '"',
     expand: "program_keahlian, pembimbing_sekolah",
     sort: 'terisi, -wilayah, nama'
   })
   if (data) {
-    isLoading.value = false
     companies.value = data
+    isLoading.value = false
+    isMovingPage.value = false
     // console.log(companies.value[0].expand.pembimbing_sekolah.nama)
   }
 }
