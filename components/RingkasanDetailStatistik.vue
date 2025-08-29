@@ -3,32 +3,23 @@
     <LoadingPlaceholder v-if="isLoading" col="12" row="3" />
     <div v-else class="card mb-4">
       <div class="card-body">
-        <div class="fw-bold fs-5">Berdasarkan wilayah</div>
         <table class="table fs-6 fw-semibold border-0">
           <tbody>
-            <!-- <tr class="text-success">
-              <td width="65%">Terserap</td>
-              <td>: {{ count_terserap_semua.toFixed(0) }}%</td>
-            </tr>
-            <tr class="text-info">
-              <td width="65%">Terpetakan</td>
-              <td>: {{ count_terpetakan_semua }} dari {{ count_peserta }}</td>
-            </tr> -->
             <tr>
               <td>Jumlah IDUKA dalam kota</td>
-              <td>: {{ count_iduka_dalam }}</td>
+              <td>: <span class="fw-bold">{{ count_iduka_dalam }}</span></td>
             </tr>
             <tr>
               <td>Jumlah IDUKA luar kota</td>
-              <td>: {{ count_iduka_luar }}</td>
+              <td>: <span class="fw-bold">{{ count_iduka_luar }}</span></td>
             </tr>
             <tr>
               <td>Terserap di dalam kota</td>
-              <td>: {{ count_terserap_dalam }} dari {{ count_peserta }}</td>
+              <td>: <span class="fw-bold">{{ count_terserap_dalam }}</span> / <span class="fw-bold">{{ count_peserta }}</span></td>
             </tr>
             <tr>
               <td>Terserap di luar kota</td>
-              <td>: {{ count_terserap_luar }} dari {{ count_peserta }}</td>
+              <td>: <span class="fw-bold">{{ count_terserap_luar }}</span> / <span class="fw-bold">{{ count_peserta }}</span></td>
             </tr>
           </tbody>
         </table>
