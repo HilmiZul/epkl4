@@ -94,10 +94,10 @@
                     Peringatan!
                   </div>
                   <div class="modal-body text-dark">
-                    Yakin nih mau hapus? pikir-piki dulu deh!
+                    Sorry, selain Administrator gak diizinin 🙏🏻
                   </div>
                   <div class="modal-footer">
-                    <button class="btn text-dark" data-bs-dismiss="modal">Iya iyaa</button>
+                    <button class="btn text-dark" data-bs-dismiss="modal">Baiklah</button>
                   </div>
                 </div>
               </div>
