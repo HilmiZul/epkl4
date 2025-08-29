@@ -25,7 +25,7 @@
       <div class="card-body">
         <div class="row">
           <div class="col-lg-12">
-            <ringaksan-notif-jurnal />
+            <ringkasan-notif-jurnal />
           </div>
         </div>
       </div>
