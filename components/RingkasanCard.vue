@@ -48,7 +48,7 @@
         </div>
       </nuxt-link>
     </div>
-    <div class="col-md-3 mb-3">
+    <div class="col-md-3">
       <nuxt-link to="/pemetaan/pkl" class="link border-0">
         <div class="card">
           <div class="card-body bg-info">

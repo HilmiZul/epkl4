@@ -4,7 +4,7 @@
       <span class="h4 quicksand"><i class="bi bi-person-fill"></i> Peserta Didik</span>
       <span class="float-end">
         <!-- <span v-if="role == 'admin' || role == 'jurusan'">
-          <button v-if="students.length > 0 && count_users.length < 1" data-bs-toggle="modal" data-bs-target="#buat-akun-peserta" class="btn btn-info btn-sm me-2"><i class="bi bi-person-plus"></i> Buat akun</button>
+          <button v-if="students.totalItems > 0 && count_users.length < 1" data-bs-toggle="modal" data-bs-target="#buat-akun-peserta" class="btn btn-info btn-sm me-2"><i class="bi bi-person-plus"></i> Buat akun</button>
         </span> -->
         <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/peserta/import" class="btn btn-success btn-sm"><i class="bi bi-download"></i> Impor dari .csv</nuxt-link>
       </span>
@@ -42,58 +42,84 @@
           </select>
         </div> -->
         <div class="col-lg-6">
-          <div class="my-3 mt-0">
-            <input type="search" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan nama / kelas" />
-          </div>
+          <form @submit.prevent="getStudents">
+            <div class="my-3 mt-0 input-group">
+              <input type="search" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari nama" />
+              <button class="btn btn-info ms-2">Cari</button>
+            </div>
+          </form>
         </div>
         <div class="col align-content-center">
           <LoadingPlaceholder v-if="isLoading" col="12" row="1" />
-          <div v-else class="mb-3 text-grey float-end">{{ studentsFiltered.length }} peserta</div>
+          <div v-else class="mb-3 text-grey float-end">{{ students.totalItems }} peserta</div>
         </div>
       </div>
       <!-- <div v-if="isLoading"><Loading /></div> -->
-      <div class="table-responsive">
-        <table class="table table-hover table-striped table-borderless">
-          <thead>
-            <tr>
-              <th width="2%">#</th>
-              <th>Nama</th>
-              <th>Kelas</th>
-              <th>Rapor</th>
-              <th>Pemetaan</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-if="isLoading" class="text-center my-5">
-              <td colspan="6">
-                <LoadingPlaceholder col="12" row="1" />
-                <LoadingPlaceholder col="12" row="1" />
-                <LoadingPlaceholder col="12" row="1" />
-                <LoadingPlaceholder col="12" row="1" />
-                <LoadingPlaceholder col="12" row="1" />
-              </td>
-            </tr>
-            <tr v-else-if="studentsFiltered.length < 1" class="text-center my-5">
-              <td colspan="6">Data tidak ditemukan.</td>
-            </tr>
-            <tr v-else v-for="(student,i) in studentsFiltered" :key="student.id">
-              <td>{{ i+1 }}. </td>
-              <td class="fw-bold">
-                <nuxt-link :to="`/peserta/${student.id}`" class="link">{{ student.nama }}</nuxt-link>
-              </td>
-              <!-- <td>{{ student.pembimbing }}</td> -->
-              <td>{{ student.kelas }}</td>
-              <td>
-                <span v-if="student.status_rapot" class="badge bg-success">Tuntas</span>
-                <span v-else class="badge bg-danger">Belum tuntas</span>
-              </td>
-              <td>
-                <span v-if="student.status_pemetaan_pkl" class="badge bg-success">Sudah</span>
-                <span v-else class="badge bg-danger">Belum</span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table table-hover table-striped table-borderless">
+              <thead>
+                <tr>
+                  <th width="2%">#</th>
+                  <th>Nama</th>
+                  <th>Kelas</th>
+                  <th>Rapor</th>
+                  <th>Pemetaan</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-if="isLoading" class="text-center my-5">
+                  <td colspan="5">
+                    <LoadingPlaceholder col="12" row="1" />
+                    <LoadingPlaceholder col="12" row="1" />
+                    <LoadingPlaceholder col="12" row="1" />
+                    <LoadingPlaceholder col="12" row="1" />
+                    <LoadingPlaceholder col="12" row="1" />
+                  </td>
+                </tr>
+                <tr v-else-if="!isLoading && students.totalItems < 1" class="text-center my-5">
+                  <td colspan="5">Data tidak ditemukan.</td>
+                </tr>
+                <tr v-else v-for="(student,i) in students.items" :key="student.id">
+                  <td>{{ i+1 }}. </td>
+                  <td class="fw-bold">
+                    <nuxt-link :to="`/peserta/${student.id}`" class="link">{{ student.nama }}</nuxt-link>
+                  </td>
+                  <!-- <td>{{ student.pembimbing }}</td> -->
+                  <td>{{ student.kelas }}</td>
+                  <td>
+                    <span v-if="student.status_rapot" class="badge bg-success">Tuntas</span>
+                    <span v-else class="badge bg-danger">Belum tuntas</span>
+                  </td>
+                  <td>
+                    <span v-if="student.status_pemetaan_pkl" class="badge bg-success">Sudah</span>
+                    <span v-else class="badge bg-danger">Belum</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-12 mt-2">
+          <loading-placeholder v-if="isLoading" col="3" row="1" />
+          <span v-else>
+            <div v-if="isMovingPage" class="text-muted small mb-2 fst-italic">sedang berpindah halaman</div>
+            <div v-else>
+              <div v-if="students || isMovingPage" class="text-muted small mb-2">
+                <span v-if="students.totalItems">Halaman {{ students.page }} dari {{ students.totalPages }}</span>
+              </div>
+            </div>
+            <button :disabled="isMovingPage || students.page < 2" @click="pagination(students.page - 1, false)" class="btn btn-info btn-sm me-2">
+              <span v-if="isMovingPage">bentar</span>
+              <span v-else><i class="bi bi-arrow-left"></i> sebelumnya</span>
+            </button>
+            <button :disabled="isMovingPage || students.page >= students.totalPages" @click="pagination(students.page + 1, false)" class="btn btn-info btn-sm">
+              <span v-if="isMovingPage">bentar</span>
+              <span v-else>lanjut <i class="bi bi-arrow-right"></i></span>
+            </button>
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -119,19 +145,43 @@ let isCreated = ref(false)
 let count_users = ref([])
 let count_pemetaan = ref([]) // untuk menghitung jumlah pemetaan = jumlah peserta itu sendiri. maka tombol buat akun user muncul.
 if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
+let perPage = 20
+let isMovingPage = ref(false)
+let allStudent = ref([])
 
 const getStudents = async (loading=true) => {
   isLoading.value = loading
+  let searchFilter = ''
+  if(keyword.value != '') searchFilter = " && nama~'"+keyword.value+"'"
   client.autoCancellation(false)
   const res_student = await client
     .collection('siswa')
+    .getList(1, perPage, {
+      filter: "program_keahlian='"+prokel+"'" + searchFilter,
+      sort: 'kelas, status_rapot, status_pemetaan_pkl',
+    })
+  const res_all_student = await client.collection('siswa')
     .getFullList({
       filter: "program_keahlian='"+prokel+"'",
       sort: 'kelas, status_rapot, status_pemetaan_pkl',
     })
-  if(res_student) {
+  if(res_student && res_all_student) {
     isLoading.value = false
     students.value = res_student
+    allStudent.value = res_all_student
+  }
+}
+
+async function pagination(page) {
+  isMovingPage.value = true
+  client.autoCancellation(false)
+  let res_student = await client.collection('siswa').getList(page, perPage, {
+    filter: "program_keahlian='"+prokel+"'",
+    sort: 'kelas, status_rapot, status_pemetaan_pkl',
+  })
+  if(res_student) {
+    students.value = res_student
+    isMovingPage.value = false
   }
 }
 
@@ -163,7 +213,7 @@ const getPemetaan = async () => {
 }
 
 const buatAkunPeserta = async () => {
-  let s = students.value
+  let s = allStudent.value
   let tempUsers = []
   isCreatingUser.value = true
   isCreated.value = false
@@ -196,47 +246,14 @@ const buatAkunPeserta = async () => {
   }
 }
 
-const filterByKelas = async () => {
-  isLoading.value = true
-  if(opsiKelas.value.length > 0) {
-    client.autoCancellation(false)
-    const data = await client
-      .collection('siswa')
-      .getFullList({
-        filter: 'kelas="'+opsiKelas.value+'"',
-        sort: 'kelas',
-      })
-    if(data) {
-      isLoading.value = false
-      students.value = data
-    }
-  } else {
-    getStudents()
-  }
-}
-
-const searchByKeyword = async () => {
-  isLoading.value = true
-  client.autoCancellation(false)
-  let data = await client
-    .collection('siswa')
-    .getFullList({
-      filter: "nama~'"+keyword.value+"' && program_keahlian='"+prokel+"'"
-    })
-  if(data) {
-    isLoading.value = false
-    students.value = data
-  }
-}
-
-const studentsFiltered = computed(() => {
-  return students.value.filter((i) => {
-    return (
-      i.nama.toLowerCase().includes(keyword.value.toLowerCase()) ||
-      i.kelas.toLowerCase().includes(keyword.value.toLowerCase())
-    )
-  })
-})
+// const studentsFiltered = computed(() => {
+//   return students.value.items.filter((i) => {
+//     return (
+//       i.nama.toLowerCase().includes(keyword.value.toLowerCase()) ||
+//       i.kelas.toLowerCase().includes(keyword.value.toLowerCase())
+//     )
+//   })
+// })
 
 onMounted(() => {
   getStudents()

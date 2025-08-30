@@ -10,7 +10,7 @@
       <div class="row">
         <div class="col-lg-6">
           <div class="my-3 mt-0">
-            <input @input="searchByKeyword" v-model="keyword" type="search" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan nama pembimbing">
+            <input @input="searchByKeyword" v-model="keyword" type="search" class="form form-control form-control-md" placeholder="🔎 Cari nama pembimbing">
           </div>
         </div>
         <div class="col align-content-center">

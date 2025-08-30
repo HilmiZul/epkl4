@@ -11,7 +11,7 @@
         <div class="col-lg-6">
           <form @submit.prevent="getPemetaan">
             <div class="my-3 mt-0 input-group">
-              <input v-model="keyword" type="search" class="form form-control form-control-md" placeholder="🔎 Cari berdasarkan IDUKA / wilayah" />
+              <input v-model="keyword" type="search" class="form form-control form-control-md" placeholder="🔎 Cari nama IDUKA" />
               <button class="btn btn-info ms-2">Cari</button>
             </div>
           </form>
