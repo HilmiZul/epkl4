@@ -2,7 +2,7 @@
   <footer class="my-4 text-muted text-center small metropolis">
     v{{ version }} <br>
     &copy;2018 - {{ year }}. All rights reserved. <br>
-    <span class="">Dimasak dengan <i class="bi bi-heart-fill"></i> oleh PPLG.</span>
+    <span class="">Cooked with <i class="bi bi-heart-fill text-danger"></i> in Tasikmalaya.</span>
   </footer>
 </template>
 
