@@ -15,7 +15,8 @@
           </div>
         </div>
         <div class="col align-content-center">
-          <div class="mb-3 text-grey float-end">{{ itemFiltered.length }} pembimbing</div>
+          <LoadingPlaceholder v-if="isLoading" col="12" row="1" />
+          <div v-else class="mb-3 text-grey float-end">{{ itemFiltered.length }} pembimbing</div>
         </div>
       </div>
       <!-- <div v-if="isLoading"><Loading /></div> -->
@@ -26,14 +27,18 @@
               <th width="2%">#</th>
               <th width="15%">Username</th>
               <th>Nama</th>
-              <!-- <th>Pemetaan</th> -->
               <th>Role</th>
-              <!-- <th width="15%">Hapus</th> -->
             </tr>
           </thead>
           <tbody>
             <tr v-if="isLoading" class="text-center my-5">
-              <td colspan="4"><Loading /></td>
+              <td colspan="4">
+                <LoadingPlaceholder col="12" row="1" />
+                <LoadingPlaceholder col="12" row="1" />
+                <LoadingPlaceholder col="12" row="1" />
+                <LoadingPlaceholder col="12" row="1" />
+                <LoadingPlaceholder col="12" row="1" />
+              </td>
             </tr>
             <tr v-else-if="itemFiltered.length < 1" class="text-center my-5">
               <td colspan="4">Data tidak ditemukan.</td>

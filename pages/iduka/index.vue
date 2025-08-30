@@ -18,75 +18,79 @@
           </form>
         </div>
         <div class="col align-content-center">
-          <div class="mb-3 text-grey float-end">{{ companies.totalItems }} IDUKA</div>
+          <LoadingPlaceholder v-if="isLoading" col="12" row="1" />
+          <div v-else class="mb-3 text-grey float-end">{{ companies.totalItems }} IDUKA</div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12">
-          <div v-if="isMovingPage" class="text-muted small mb-2 fst-italic">sedang berpindah halaman</div>
-            <div v-else>
-              <div v-if="companies || isMovingPage" class="text-muted small mb-2">
-                <span v-if="companies.totalItems">Halaman {{ companies.page }} dari {{ companies.totalPages }}</span>
-              </div>
-            </div>
-            <div class="table-responsive">
-              <table class="table table-hover table-striped table-borderless">
-                <thead>
-                  <tr>
-                    <th width="2%">#</th>
-                    <th>Nama</th>
-                    <th>Wilayah</th>
-                    <th width="8%">Terisi</th>
-                    <th>Pembimbing</th>
-                    <th>Hapus</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-if="isLoading" class="text-center my-5">
-                    <td colspan="6"><Loading /></td>
-                  </tr>
-                  <tr v-else-if="companies && companies.totalItems < 1" class="text-center my-5">
-                    <td colspan="6">Data tidak ditemukan</td>
-                  </tr>
-                  <tr v-else v-for="(company, i) in companies.items" :key="i">
-                    <td>{{ i + 1 }}.</td>
-                    <td class="fw-bold"><nuxt-link :to="`/iduka/${company.id}`" class="link">{{ company.nama }}</nuxt-link></td>
-                    <td>{{ company.wilayah.charAt(0).toUpperCase() + company.wilayah.slice(1) }} kota </td>
-                    <td>
-                      <span v-if="company.terisi < company.jumlah_kuota">{{ company.terisi }} dari {{ company.jumlah_kuota }}</span>
-                      <span v-else class="badge bg-danger">Penuh</span>
-                    </td>
-                    <td>{{ company.expand.pembimbing_sekolah?.nama }} </td>
-                    <td>
-                      <button v-if="company.terisi < 1" class="btn btn-danger btn-sm" data-bs-toggle="modal" :data-bs-target="`#iduka-${company.id}`">hapus</button>
-                      <button v-else class="btn btn-dark btn-sm" disabled>Hapus</button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="table-responsive">
+            <table class="table table-hover table-striped table-borderless">
+              <thead>
+                <tr>
+                  <th width="2%">#</th>
+                  <th>Nama</th>
+                  <th>Wilayah</th>
+                  <th width="8%">Terisi</th>
+                  <th>Pembimbing</th>
+                  <th width="5%">Hapus</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-if="isLoading" class="text-center my-5">
+                  <td colspan="6">
+                    <LoadingPlaceholder col="12" row="1" />
+                    <LoadingPlaceholder col="12" row="1" />
+                    <LoadingPlaceholder col="12" row="1" />
+                    <LoadingPlaceholder col="12" row="1" />
+                    <LoadingPlaceholder col="12" row="1" />
+                  </td>
+                </tr>
+                <tr v-else-if="companies && companies.totalItems < 1" class="text-center my-5">
+                  <td colspan="6">Data tidak ditemukan</td>
+                </tr>
+                <tr v-else v-for="(company, i) in companies.items" :key="i">
+                  <td>{{ i + 1 }}.</td>
+                  <td class="fw-bold"><nuxt-link :to="`/iduka/${company.id}`" class="link">{{ company.nama }}</nuxt-link></td>
+                  <td class="smallest">{{ company.wilayah.charAt(0).toUpperCase() + company.wilayah.slice(1) }} kota </td>
+                  <td class="smallest">
+                    <span v-if="company.terisi < company.jumlah_kuota">{{ company.terisi }} / {{ company.jumlah_kuota }}</span>
+                    <span v-else class="badge bg-danger">Penuh</span>
+                  </td>
+                  <td class="smallest">{{ company.expand.pembimbing_sekolah?.nama }} </td>
+                  <td class="smallest">
+                    <button v-if="company.terisi < 1" class="btn btn-danger btn-sm" data-bs-toggle="modal" :data-bs-target="`#iduka-${company.id}`"><i class="bi bi-trash3"></i></button>
+                    <button v-else class="btn btn-dark btn-sm" disabled><i class="bi bi-trash3"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
       <div class="col-md-12 mt-2">
-        <div v-if="isMovingPage" class="text-muted small mb-2 fst-italic">sedang berpindah halaman</div>
-        <div v-else>
-          <div v-if="companies || isMovingPage" class="text-muted small mb-2">
-            <span v-if="companies.totalItems">Halaman {{ companies.page }} dari {{ companies.totalPages }}</span>
+        <loading-placeholder v-if="isLoading" col="3" row="1" />
+        <span v-else>
+          <div v-if="isMovingPage" class="text-muted small mb-2 fst-italic">sedang berpindah halaman</div>
+          <div v-else>
+            <div v-if="companies || isMovingPage" class="text-muted small mb-2">
+              <span v-if="companies.totalItems">Halaman {{ companies.page }} dari {{ companies.totalPages }}</span>
+            </div>
           </div>
-        </div>
-        <button :disabled="isMovingPage || companies.page < 2" @click="pagination(companies.page - 1, false)" class="btn btn-info btn-sm me-2">
-          <span v-if="isMovingPage">bentar</span>
-          <span v-else><i class="bi bi-arrow-left"></i> sebelumnya</span>
-        </button>
-        <button :disabled="isMovingPage || companies.page >= companies.totalPages" @click="pagination(companies.page + 1, false)" class="btn btn-info btn-sm">
-          <span v-if="isMovingPage">bentar</span>
-          <span v-else>lanjut <i class="bi bi-arrow-right"></i></span>
-        </button>
+          <button :disabled="isMovingPage || companies.page < 2" @click="pagination(companies.page - 1, false)" class="btn btn-info btn-sm me-2">
+            <span v-if="isMovingPage">bentar</span>
+            <span v-else><i class="bi bi-arrow-left"></i> sebelumnya</span>
+          </button>
+          <button :disabled="isMovingPage || companies.page >= companies.totalPages" @click="pagination(companies.page + 1, false)" class="btn btn-info btn-sm">
+            <span v-if="isMovingPage">bentar</span>
+            <span v-else>lanjut <i class="bi bi-arrow-right"></i></span>
+          </button>
+        </span>
       </div>
     </div>
   </div>
   <div v-if="companies && companies.totalItems > 0">
-    <div v-for="company in companies" :key="company.id">
+    <div v-for="company in companies.items" :key="company.id">
       <div class="modal" :id="`iduka-${company.id}`" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">

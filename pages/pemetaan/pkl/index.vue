@@ -16,19 +16,14 @@
             </div>
           </form>
         </div>
-        <div v-if="mapping.items" class="col align-content-center small">
-          <div class="mb-3 text-grey float-end">{{ mapping.totalItems }} peserta terpetakan</div>
+        <div class="col align-content-center small">
+          <LoadingPlaceholder v-if="isLoading" col="12" row="1" />
+          <div v-else class="mb-3 text-grey float-end">{{ mapping.totalItems }} peserta terpetakan</div>
         </div>
       </div>
       <!-- <div v-if="isLoading"><Loading /></div> -->
       <div class="row">
         <div class="col-md-12">
-          <div v-if="isMovingPage" class="text-muted small mb-2 fst-italic">sedang berpindah halaman</div>
-          <div v-else>
-            <div v-if="mapping || isMovingPage" class="text-muted small mb-2">
-              <span v-if="mapping.totalItems">Halaman {{ mapping.page }} dari {{ mapping.totalPages }}</span>
-            </div>
-          </div>
           <div class="table-responsive">
             <table class="table">
               <thead>
@@ -41,7 +36,13 @@
               </thead>
               <tbody>
                 <tr v-if="isLoading" class="text-center my-5">
-                  <td colspan="3"><Loading /></td>
+                  <td colspan="3">
+                    <LoadingPlaceholder col="12" row="1" />
+                    <LoadingPlaceholder col="12" row="1" />
+                    <LoadingPlaceholder col="12" row="1" />
+                    <LoadingPlaceholder col="12" row="1" />
+                    <LoadingPlaceholder col="12" row="1" />
+                  </td>
                 </tr>
                 <tr v-else-if="mapping && mapping.totalItems < 1" class="text-center my-5">
                   <td colspan="3">Data tidak ditemukan</td>
@@ -78,20 +79,23 @@
             </table>
           </div>
           <div class="mt-2">
-            <div v-if="isMovingPage" class="text-muted small mb-2 fst-italic">sedang berpindah halaman</div>
-            <div v-else>
-              <div v-if="mapping || isMovingPage" class="text-muted small mb-2">
-                <span v-if="mapping.totalItems">Halaman {{ mapping.page }} dari {{ mapping.totalPages }}</span>
+            <loading-placeholder v-if="isLoading" col="3" row="1" />
+            <span v-else>
+              <div v-if="isMovingPage" class="text-muted small mb-2 fst-italic">sedang berpindah halaman</div>
+              <div v-else>
+                <div v-if="mapping || isMovingPage" class="text-muted small mb-2">
+                  <span v-if="mapping.totalItems">Halaman {{ mapping.page }} dari {{ mapping.totalPages }}</span>
+                </div>
               </div>
-            </div>
-            <button :disabled="isMovingPage || mapping.page < 2" @click="pagination(mapping.page - 1, false)" class="btn btn-info btn-sm me-2">
-              <span v-if="isMovingPage">bentar</span>
-              <span v-else><i class="bi bi-arrow-left"></i> sebelumnya</span>
-            </button>
-            <button :disabled="isMovingPage || mapping.page >= mapping.totalPages" @click="pagination(mapping.page + 1, false)" class="btn btn-info btn-sm">
-              <span v-if="isMovingPage">bentar</span>
-              <span v-else>lanjut <i class="bi bi-arrow-right"></i></span>
-            </button>
+              <button :disabled="isMovingPage || mapping.page < 2" @click="pagination(mapping.page - 1, false)" class="btn btn-info btn-sm me-2">
+                <span v-if="isMovingPage">bentar</span>
+                <span v-else><i class="bi bi-arrow-left"></i> sebelumnya</span>
+              </button>
+              <button :disabled="isMovingPage || mapping.page >= mapping.totalPages" @click="pagination(mapping.page + 1, false)" class="btn btn-info btn-sm">
+                <span v-if="isMovingPage">bentar</span>
+                <span v-else>lanjut <i class="bi bi-arrow-right"></i></span>
+              </button>
+            </span>
           </div>
 
           <!-- modal pertanyaan apakah diterima IDUKA PKL? -->

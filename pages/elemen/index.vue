@@ -14,7 +14,8 @@
           </div>
         </div>
         <div class="col align-content-center">
-          <div class="mb-3 text-grey float-end">{{ elements.length }} elemen</div>
+          <LoadingPlaceholder v-if="isLoading" col="12" row="1" />
+          <div v-else class="mb-3 text-grey float-end">{{ elements.length }} elemen</div>
         </div>
       </div>
       <div class="table-responsive">
@@ -27,8 +28,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-if="isLoading">
-              <td colspan="3"><Loading /></td>
+            <tr v-if="isLoading" class="text-center my-5">
+              <td colspan="3">
+                <LoadingPlaceholder col="12" row="1" />
+                <LoadingPlaceholder col="12" row="1" />
+                <LoadingPlaceholder col="12" row="1" />
+                <LoadingPlaceholder col="12" row="1" />
+                <LoadingPlaceholder col="12" row="1" />
+              </td>
             </tr>
             <tr v-else-if="elementsFiltered.length < 1">
               <td colspan="3" class="text-center">Data tidak ditemukan</td>
