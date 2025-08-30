@@ -43,8 +43,8 @@
               <span v-if="isLoadingSave">Sedang menyimpan</span>
               <span v-else>Simpan</span>
             </button>
-            <nuxt-link to="/peserta" class="btn btn-light me-2 mb-2">Kembali</nuxt-link>
-            <em v-if="isSaved" class="text-grey">Berhasil tersimpan!</em>
+            <nuxt-link to="/peserta" class="btn btn-light mb-2">Kembali</nuxt-link>
+            <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small">Berhasil tersimpan!</span>
           </form>
         </div>
         <div class="col-md-6">

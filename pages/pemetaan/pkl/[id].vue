@@ -72,7 +72,7 @@
               <span v-else>Sedang menyimpan</span>
             </button>
             <nuxt-link to="/pemetaan/pkl" class="btn btn-light me-2">Kembali</nuxt-link>
-            <em v-if="isSaved" class="text-grey">Berhasil dipetakan ulang!</em>
+            <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small">Berhasil dipetakan ulang!</span>
           </form>
         </div>
       </div>

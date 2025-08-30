@@ -48,7 +48,7 @@
               <span v-else>Sedang menyimpan</span>
             </button>
             <nuxt-link to="/pembimbing" class="btn btn-light">Kembali</nuxt-link>
-            <span v-if="isSaved" class="ms-2 mb-3"><em>Berhasil tersimpan!</em></span>
+            <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small">Berhasil tersimpan!</span>
           </form>
         </div>
       </div>

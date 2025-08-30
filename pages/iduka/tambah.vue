@@ -76,7 +76,7 @@
                 <span v-else>Simpan</span>
               </button>
               <nuxt-link class="btn btn-light mb-4" to="/iduka">Kembali</nuxt-link>
-              <span v-if="isSaved" class="ms-2 mb-4"><em>Berhasil tersimpan!</em></span>
+              <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small">Berhasil tersimpan!</span>
             </div>
           </div>
         </div>

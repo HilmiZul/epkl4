@@ -3,9 +3,9 @@
     <div class="card-header">
       <span class="h4 quicksand"><i class="bi bi-person-fill"></i> Peserta Didik</span>
       <span class="float-end">
-        <span v-if="role == 'admin' || role == 'jurusan'">
-          <button v-if="!isLoadingPemetaan && !isLoadingUser && count_users.length < 1 && students.length == count_pemetaan.length" data-bs-toggle="modal" data-bs-target="#buat-akun-peserta" class="btn btn-info btn-sm me-2"><i class="bi bi-person-plus"></i> Buat akun</button>
-        </span>
+        <!-- <span v-if="role == 'admin' || role == 'jurusan'">
+          <button v-if="students.length > 0 && count_users.length < 1" data-bs-toggle="modal" data-bs-target="#buat-akun-peserta" class="btn btn-info btn-sm me-2"><i class="bi bi-person-plus"></i> Buat akun</button>
+        </span> -->
         <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/peserta/import" class="btn btn-success btn-sm"><i class="bi bi-download"></i> Impor dari .csv</nuxt-link>
       </span>
       <div class="modal" id="buat-akun-peserta" tabindex="-1" aria-hidden="true">
@@ -20,6 +20,7 @@
             </div>
             <div class="modal-footer">
               <span v-if="isCreated" class="fst-italic text-muted">Berhasil dibuat!</span>
+              <span v-if="isCreatingUser" class="fst-italic text-muted">Membuat akun user peserta</span>
               <button v-if="!isCreated" @click="buatAkunPeserta" class="btn btn-success">Buatkan</button>
               <button v-if="!isCreated" class="btn btn-light" data-bs-dismiss="modal">Nanti saja</button>
               <button v-if="isCreated" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
@@ -46,7 +47,8 @@
           </div>
         </div>
         <div class="col align-content-center">
-          <div class="mb-3 text-grey float-end">{{ studentsFiltered.length }} peserta</div>
+          <LoadingPlaceholder v-if="isLoading" col="12" row="1" />
+          <div v-else class="mb-3 text-grey float-end">{{ studentsFiltered.length }} peserta</div>
         </div>
       </div>
       <!-- <div v-if="isLoading"><Loading /></div> -->
@@ -63,7 +65,13 @@
           </thead>
           <tbody>
             <tr v-if="isLoading" class="text-center my-5">
-              <td colspan="6"><Loading /></td>
+              <td colspan="6">
+                <LoadingPlaceholder col="12" row="1" />
+                <LoadingPlaceholder col="12" row="1" />
+                <LoadingPlaceholder col="12" row="1" />
+                <LoadingPlaceholder col="12" row="1" />
+                <LoadingPlaceholder col="12" row="1" />
+              </td>
             </tr>
             <tr v-else-if="studentsFiltered.length < 1" class="text-center my-5">
               <td colspan="6">Data tidak ditemukan.</td>
@@ -231,14 +239,12 @@ const studentsFiltered = computed(() => {
 })
 
 onMounted(() => {
-  getPemetaan()
   getStudents()
   getUsers()
   client.autoCancellation(false)
   client.collection('users_siswa').subscribe('*', function (e) {
     if(e.action == 'create') {
       getUsers()
-      getPemetaan()
     }
   }, {});
 })
