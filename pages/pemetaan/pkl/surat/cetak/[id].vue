@@ -236,8 +236,6 @@ async function getPengaturanAndPemetaanById() {
     pengaturan.value = res_pengaturan
     pemetaan.value = res_pemetaan
     isLoading.value = false
-    console.log(pengaturan.value)
-    // console.log(pemetaan.value)
   }
   return isLoading.value
 }
@@ -245,10 +243,10 @@ async function getPengaturanAndPemetaanById() {
 onMounted(() => {
   getPengaturanAndPemetaanById()
   if(getPengaturanAndPemetaanById()) {
-    // setTimeout(function () { window.print(); }, 600);
-    // window.onfocus=function() {
-    //   setTimeout(function () { window.close(); }, 100);
-    // }
+    setTimeout(function () { window.print(); }, 700);
+    window.onfocus=function() {
+      setTimeout(function () { window.close(); }, 100);
+    }
   }
 })
 
