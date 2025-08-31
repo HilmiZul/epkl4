@@ -68,14 +68,22 @@ async function getFile(e) {
     for (let j = 0; j < headers.length; j++) {
       obj[headers[j]] = currentline[j];
     }
-    client.autoCancellation(false)
-    let data = await client
-      .collection('siswa')
-      .create(obj)
+    // client.autoCancellation(false)
+    // let data = await client
+    //   .collection('siswa')
+    //   .create(obj)
     result.push(obj);
   }
-  isLoading.value = false
-  studentTemp.value = result
+
+  let res_import_students = await Promise.all(
+    result.map(data => {
+      client.collection('siswa').create(data, {'$autoCancel': false })
+    })
+  )
+  if(res_import_students) {
+    isLoading.value = false
+    studentTemp.value = result
+  }
 }
 </script>
 
