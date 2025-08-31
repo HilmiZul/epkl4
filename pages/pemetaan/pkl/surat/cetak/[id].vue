@@ -242,12 +242,12 @@ async function getPengaturanAndPemetaanById() {
 
 onMounted(() => {
   getPengaturanAndPemetaanById()
-  if(getPengaturanAndPemetaanById()) {
-    setTimeout(function () { window.print(); }, 700);
-    window.onfocus=function() {
-      setTimeout(function () { window.close(); }, 100);
-    }
-  }
+  // if(getPengaturanAndPemetaanById()) {
+  //   setTimeout(function () { window.print(); }, 700);
+  //   window.onfocus=function() {
+  //     setTimeout(function () { window.close(); }, 100);
+  //   }
+  // }
 })
 
 </script>
