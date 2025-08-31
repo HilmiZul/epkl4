@@ -135,6 +135,7 @@ let perPage = 20
 let isMovingPage = ref(false)
 
 async function hapusData(id) {
+  client.autoCancellation(false)
   await client.collection('iduka').delete(id)
 }
 
@@ -220,6 +221,7 @@ async function filterByWilayah() {
 
 onMounted(() => {
   getCompanies()
+  client.autoCancellation(false)
   client.collection('iduka').subscribe('*', function(e) {
     if(e.action == 'delete') getCompanies()
   },{})
