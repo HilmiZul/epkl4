@@ -158,7 +158,7 @@ const getStudents = async (loading=true) => {
     .collection('siswa')
     .getList(1, perPage, {
       filter: "program_keahlian='"+prokel+"'" + searchFilter,
-      sort: 'kelas, status_rapot, status_pemetaan_pkl',
+      sort: 'kelas, nama, status_rapot, status_pemetaan_pkl',
     })
   const res_all_student = await client.collection('siswa')
     .getFullList({
