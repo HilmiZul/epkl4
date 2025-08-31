@@ -39,7 +39,7 @@
               <table>
                 <tr>
                   <td width="21%">Nomor</td>
-                  <td>: 853/421.5/SMKN.4.Cabdin WIL-XII/2024</td>
+                  <td>: {{ pengaturan.nomor_surat }}</td>
                 </tr>
                 <tr>
                   <td>Lampiran</td>
