@@ -18,22 +18,24 @@
   <div v-else class="base F4">
     <section class="kertas">
       <article>
-        <table>
+        <table class="header">
           <tr>
             <td><img :src="`${host}/api/files/${pengaturan.collectionId}/${pengaturan.id}/${pengaturan.logo}`" :alt="pengaturan.logo" class="logo" /></td>
             <td width="100%" class="text-center">
-              <div>PEMERINTAH DAERAH PROVINSI JAWA BARAT</div>
-              <div>DINAS PENDIDIKAN</div>
-              <div>CABANG DINAS PENDIDIKAN WILAYAH XII</div>
-              <h5 class="bold">{{ pengaturan.nama_sekolah }}</h5>
-              <address class="small">Jln. Depok Kelurahan Sukamenak Kec. Purbaratu(0265) 312059</address>
-              <div class="small">Website : www.smkn4-tsm.sch.id. Email : info@smkn4-tsm.sch.id</div>
-              <div class="small">Kota Tasikmalaya - 46196</div>
+              <div class="fs-14">PEMERINTAH DAERAH PROVINSI JAWA BARAT</div>
+              <div class="fs-16">DINAS PENDIDIKAN</div>
+              <div class="fs-14">CABANG DINAS PENDIDIKAN WILAYAH XII</div>
+              <div class="fs-16 bold">{{ pengaturan.nama_sekolah }}</div>
+              <address class="smallest">
+                Jln. Depok Kelurahan Sukamenak Kec. Purbaratu(0265) 312059 <br>
+                Website : www.smkn4-tsm.sch.id. Email : info@smkn4-tsm.sch.id <br>
+                Kota Tasikmalaya - 46196 <br>
+              </address>
             </td>
           </tr>
         </table>
         <div class="garis mt-2"></div>
-        <table class="mt-3 small">
+        <table class="mt-3">
           <tr>
             <td>
               <table>
@@ -55,7 +57,7 @@
                 </tr>
               </table>
             </td>
-            <td width="33%">
+            <td width="35%">
               <div>Tasikmalaya, {{ tanggal }}</div>
               <strong>Yth. Kepala/Pimpinan</strong>
               <div>{{ pemetaan[0].expand.iduka.nama }}</div>
@@ -64,11 +66,11 @@
             </td>
           </tr>
         </table>
-        <p class="mt-2 justify">
+        <p class="mt-3 justify">
           Dengar hormat,<br>
           Berdasarkan tujuan kurikulum Sekolah Menengah Kejuruan, diharapkan lembaga menyiapkan tamatan yang mampu:
         </p>
-        <ol class="small">
+        <ol>
           <li>Memasuki lapangan kerja serta dapat mengembangkan sikap professional sesuai dengan program keahlian</li>
           <li>Memiliki karir, berkompetensi dan mengembangkan diri</li>
           <li>Menjadi tenaga kerja tingkat menengah untuk mengisi kebutuhan dunia usaha dan industri pada saat ini maupun masa yang akan datang</li>
@@ -84,7 +86,7 @@
           siswa kami untuk melaksanakan program tersebut di dinas/jawatan/perusahaan yang Bapak/Ibu pimpin. Mulai tanggal
           <strong>13 Januari sampai dengan 18 April 2026</strong>. Siswa yang akan melaksanakan PKL di dinas/jawatan/perusahaan Bapak/Ibu sebagai berikut:
         </p>
-        <table class="mt-2 small table">
+        <table class="mt-3 smallest siswa">
           <tr class="text-center">
             <td>No.</td>
             <td>Nama</td>
@@ -100,13 +102,13 @@
             <td>{{ p.expand.program_keahlian.alias }}</td>
           </tr>
         </table>
-        <p class="mt-2">
+        <p class="mt-3">
           Atas kesediaan dan kerjasama Bapak/Ibu, Kami mengucapkan terima kasih.
         </p>
-        <table class="mt-3 small">
+        <table class="mt-4 small">
           <tr>
             <td></td>
-            <td width="31%">
+            <td width="35%">
               Kepala Sekolah,
               <br>
               <br>
@@ -155,7 +157,7 @@
           </table>
           <div class="mt-4 text-center bold">MENERIMA / TIDAK MENERIMA *</div>
           <p class="mt-3">Siswa/i tersebut di bawah ini PKL dari {{ pengaturan.nama_sekolah }}.</p>
-          <table class="mt-2 table">
+          <table class="mt-3 smallest siswa">
             <tr class="text-center">
               <td>No.</td>
               <td>Nama</td>

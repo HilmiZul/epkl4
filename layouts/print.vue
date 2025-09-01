@@ -33,7 +33,7 @@ page[size="A4"][layout="portrait"] {
 
 body {
   margin: 0;
-  font-size: 12pt;
+  font-size: 12pt !important;
   font-family: 'Times New Roman', Times, serif;
 }
 .base {
@@ -59,15 +59,15 @@ body {
 }
 
 .base.F4 .kertas {
-  width: 210mm;
-  height: 330mm;
+  width: 210mm !important;
+  height: 330mm !important;
   padding: 17mm;
 }
 /*.kertas.padding-5mm { padding: 5mm }*/
 
 @page {
-  width: 210mm;
-  height: 330mm;
+  width: 210mm !important;
+  height: 330mm !important;
   margin: 0
 }
 /*@media print {
@@ -82,12 +82,17 @@ body {
 
 table {
   width: 90%;
-  line-height: 4.5mm;
+  line-height: 5mm;
 }
-table.table {
+table.header {
+  line-height: 5.7mm;
+}
+table.siswa {
+  width: 100% !important;
+  line-height: 5mm !important;
   border-collapse: collapse;;
 }
-table.table tr, table.table td {
+table.siswa tr, table.siswa td {
   border: 1px solid;
 }
 table.lineheigh {
@@ -98,6 +103,9 @@ h1, h2, h3, h4, h5, h6, address {
   padding: 0;
   margin: 0;
 }
+address {
+  line-height: 4.5mm !important;
+}
 .bold {
   font-weight: bold;
 }
@@ -105,11 +113,13 @@ h1, h2, h3, h4, h5, h6, address {
   font-style: italic;
 }
 p {
-  font-size: 11pt;
   line-height: 4.7mm;
   text-align: justify !important;
 }
-.small {
+/*.small {
+  font-size: 12pt !important;
+}*/
+.smallest {
   font-size: 11pt !important;
 }
 
@@ -138,5 +148,11 @@ p, ol, li {
 }
 .underline {
   border-bottom: 1px solid;
+}
+.fs-14 {
+  font-size: 14pt;
+}
+.fs-16 {
+  font-size: 16pt;
 }
 </style>
