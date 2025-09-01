@@ -105,7 +105,7 @@
         <p class="mt-3">
           Atas kesediaan dan kerjasama Bapak/Ibu, Kami mengucapkan terima kasih.
         </p>
-        <table class="mt-4 small">
+        <table class="mt-4">
           <tr>
             <td></td>
             <td width="35%">
@@ -123,7 +123,7 @@
       </article>
     </section>
     <section class="kertas">
-      <article class="small">
+      <article>
         <div class="bold text-center">LEMBAR PENERIMAAN PKL</div>
         <div class="mt-2">
           Yang bertanda tangan di bawah ini:
@@ -184,7 +184,7 @@
             Jl. Depok Kelurahan Sukamenak Kecamatan Purbaratu Kota Tasikmalaya <br>
             Tlp. (0265)312059
           </div>
-          <table class="mt-3 small">
+          <table class="mt-3">
             <tr>
               <td></td>
               <td width="31%">
