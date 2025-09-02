@@ -10,7 +10,7 @@
             <div class="h5 quicksand">Perhatiin!</div>
             <ul>
               <li>Gunakan fitur impor ini untuk memindahkan daftar IDUKA lama sekaligus</li>
-              <li>Sebelum impor, pastikan sesuai dengan format <nuxt-link to="https://docs.google.com/spreadsheets/d/1Q5mfr7UTqWlmkGLVMe8NdYgQfczttdKiYtHJj9GX2gA/edit?usp=sharing" target="_blank" class="link">disini</nuxt-link></li>
+              <li>Sebelum impor, pastikan sesuai dengan format <nuxt-link to="https://docs.google.com/spreadsheets/d/1Q5mfr7UTqWlmkGLVMe8NdYgQfczttdKiYtHJj9GX2gA/edit?usp=sharing" target="_blank" class="link-external">disini</nuxt-link></li>
               <li>Sistem hanya membaca file <code>.CSV</code></li>
               <li>Jika ingin mengubah isi tabel, salin dan ubah ubah KECUALI kolom <code>program_keahlian</code>, kolom <code>pembimbing_sekolah</code> dan kolom <code>terisi</code></li>
               <li>Proses impor akan menambahkan ke data saat ini, tidak menimpa data lama</li>
