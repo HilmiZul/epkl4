@@ -74,6 +74,9 @@ body {
   .base.F4, .base.F4.landscape {
     width: 330mm
   }
+  .kertas {
+    margin: 0 auto !important;
+  }
 }*/
 
 .text-center {
