@@ -91,9 +91,10 @@
             </select>
           </div>
           <loading-placeholder v-if="isLoadingJournals" col="12" row="1" />
-          <div v-if="count_sesuai && count_tidak_sesuai" class="row justify-content-center">
+          <div v-if="count_sesuai > 0 || count_tidak_sesuai > 0" class="row justify-content-center">
             <jurnal-chart :countSesuai="count_sesuai" :countTidakSesuai="count_tidak_sesuai" />
           </div>
+          <div v-else>belum ada</div>
         </div>
       </div>
       <!-- <div class="row">
@@ -120,8 +121,8 @@ let isLoadingStudent = ref(true)
 let journals = ref([])
 let perPage = 5
 let count_not_valid = ref(0)
-let count_sesuai = ref()
-let count_tidak_sesuai = ref()
+let count_sesuai = ref(0)
+let count_tidak_sesuai = ref(0)
 let students = ref([])
 let opsiPeserta = ref('')
 let isMovingPage = ref(false)
