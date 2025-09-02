@@ -111,8 +111,8 @@
                       Apakah <strong>{{ pemetaan.expand.iduka.nama }}</strong> sudah konfirmasi menerima Peserta?
                     </div>
                     <div class="modal-footer">
-                      <button @click="handleAccPkl(pemetaan.iduka)" class="btn btn-success" data-bs-dismiss="modal">Udah dong!</button>
-                      <button class="btn btn-light" data-bs-dismiss="modal">eh belum</button>
+                      <button @click="handleAccPkl(pemetaan.iduka)" class="btn btn-success" data-bs-dismiss="modal">Udah!</button>
+                      <button class="btn btn-light" data-bs-dismiss="modal">belum</button>
                     </div>
                   </div>
                 </div>
