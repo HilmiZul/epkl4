@@ -98,7 +98,7 @@
               Peringatan!
             </div>
             <div class="modal-body text-dark">
-              Yakin nih mau hapus <strong>{{ company.nama }}</strong> dari daftar IDUKA?
+              Yakin mau hapus <strong>{{ company.nama }}</strong> dari daftar IDUKA?
             </div>
             <div class="modal-footer">
               <button v-if="!isDeleted" class="btn btn-danger" data-bs-dismiss="modal" @click="hapusData(company.id)" :disabled="isSending">
