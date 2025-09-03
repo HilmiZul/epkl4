@@ -7,7 +7,7 @@
         <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/iduka/import" class="btn btn-success btn-sm"><i class="bi bi-download"></i> Impor dari .csv</nuxt-link>
       </span>
     </div>
-    <div class="card-body">
+    <div class="card-body small">
       <div class="row">
         <div class="col-lg-6">
           <form @submit.prevent="getCompanies">
