@@ -46,7 +46,7 @@
             <div class="form-group">
               <div class="my-4">
                 <label for="kuota">Jumlah Kuota Peserta</label>
-                <input v-model="form.jumlah_kuota" type="number" min="1" max="10" id="kuota" class="form form-control" required>
+                <input v-model="form.jumlah_kuota" type="number" min="1" max="15" id="kuota" class="form form-control" required>
               </div>
               <!-- <input v-model="form.program_keahlian" type="hidden" :value="prokel" disabled id="prokel" class="form form-control"> -->
               <div class="mb-4">
