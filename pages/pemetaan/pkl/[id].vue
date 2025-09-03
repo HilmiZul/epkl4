@@ -27,7 +27,7 @@
         <loading-placeholder v-if="isLoading" col="8" row="1" />
       </div>
       <div v-else class="row">
-        <div v-if="pemetaan.status_acc_pkl" class="col-md-12">
+        <div v-if="pemetaan?.status_acc_pkl" class="col-md-12">
           <div class="alert alert-info border border-2 border-dark quicksand text-center py-5 fs-4">
             <span class="fw-bold">{{ pemetaan.expand.siswa.nama }}</span> diterima PKL di <span class="fw-bold">{{ pemetaan.expand.iduka.nama }}</span>!
           </div>
@@ -36,6 +36,9 @@
           </div>
         </div>
         <div v-else class="col-md-6">
+          <div v-if="isFail"  class="alert alert-danger p-2 mb-0 mt-2">
+            Terjadi error: {{ errMessage }}
+          </div>
           <form @submit.prevent="updatePemetaan">
             <div class="my-4">
               <label for="wilayah">Wilayah (dalam/luar kota)</label>
@@ -120,6 +123,8 @@ let isLoading = ref(true)
 let isLoadingCompanies = ref(true)
 let isSending = ref(false)
 let isSaved = ref(false)
+let isFail = ref(false)
+let errMessage = ref('')
 let selectWilayah = ref('')
 let companies = ref([])
 let form = ref({
@@ -128,43 +133,56 @@ let form = ref({
 let wilayah = ref(['dalam', 'luar'])
 
 async function hapusData(id) {
-  // let curr_terisi = pemetaan.value.expand.iduka.terisi
-  let new_terisi = pemetaan.value.expand.iduka.terisi - 1
-  await client.collection('siswa').update(pemetaan.value.siswa, {
-    status_pemetaan_pkl: false,
-    status_acc_pkl: false
-  })
-  await client.collection('iduka').update(pemetaan.value.iduka, { terisi: new_terisi })
-  await client.collection('pemetaan').delete(id)
-  navigateTo("/pemetaan/pkl")
-  // console.log("Terisi saat ini: "+curr_terisi)
-  // console.log("Terisi terbaru: "+new_terisi)
-  // console.log("ID peserta: "+pemetaan.value.siswa)
-  // console.log("ID pemetaan: "+id)
+  try {
+    // let curr_terisi = pemetaan.value.expand.iduka.terisi
+    let new_terisi = pemetaan.value.expand.iduka.terisi - 1
+    await client.collection('siswa').update(pemetaan.value.siswa, {
+      status_pemetaan_pkl: false,
+      status_acc_pkl: false
+    })
+    await client.collection('iduka').update(pemetaan.value.iduka, { terisi: new_terisi })
+    await client.collection('pemetaan').delete(id)
+    navigateTo("/pemetaan/pkl")
+    // console.log("Terisi saat ini: "+curr_terisi)
+    // console.log("Terisi terbaru: "+new_terisi)
+    // console.log("ID peserta: "+pemetaan.value.siswa)
+    // console.log("ID pemetaan: "+id)
+  } catch(error) {
+    isFail.value = true
+    errMessage.value = errMessage
+  }
 }
 
 async function updatePemetaan() {
-  isSending.value = true
-  isSaved.value = false
-  let updateTerisi_lama = pemetaan.value.expand.iduka.terisi - 1
-  let updateTerisi_baru = form.value.iduka.terisi + 1
-  form.value.iduka = form.value.iduka.id
-  // console.log("lama: "+pemetaan.value.iduka)
-  // console.log(form.value) // pemetaan yang baru
-  // console.log("---") // lanjut masukkan yang ada dalam console.log ini ke query
-  // console.log("lama: "+updateTerisi_lama)
-  // console.log("baru: "+updateTerisi_baru)
-  // client.autoCancellation(false)
-  let data = await client.collection("pemetaan").update(route.params.id, form.value)
-  // -1 kolom `terisi` iduka lama
-  // +1 kolom `terisi` iduka baru
-  await client.collection("iduka").update(pemetaan.value.iduka, { terisi: updateTerisi_lama })
-  await client.collection("iduka").update(form.value.iduka, { terisi: updateTerisi_baru })
-  if(data) {
+  try {
+    isSending.value = true
+    isSaved.value = false
+    let updateTerisi_lama = pemetaan.value.expand.iduka.terisi - 1
+    let updateTerisi_baru = form.value.iduka.terisi + 1
+    form.value.iduka = form.value.iduka.id
+    // console.log("lama: "+pemetaan.value.iduka)
+    // console.log(form.value) // pemetaan yang baru
+    // console.log("---") // lanjut masukkan yang ada dalam console.log ini ke query
+    // console.log("lama: "+updateTerisi_lama)
+    // console.log("baru: "+updateTerisi_baru)
+    // client.autoCancellation(false)
+    let data = await client.collection("pemetaan").update(route.params.id, form.value)
+    // -1 kolom `terisi` iduka lama
+    // +1 kolom `terisi` iduka baru
+    await client.collection("iduka").update(pemetaan.value.iduka, { terisi: updateTerisi_lama })
+    await client.collection("iduka").update(form.value.iduka, { terisi: updateTerisi_baru })
+    if(data) {
+      isSending.value = false
+      isSaved.value = true
+      navigateTo('/pemetaan/pkl')
+      // status_pemetaan_pkl=true
+      // await client.collection("siswa").update(form.value.siswa, { status_pemetaan_pkl: true })
+    }
+  } catch(error) {
     isSending.value = false
-    isSaved.value = true
-    // status_pemetaan_pkl=true
-    // await client.collection("siswa").update(form.value.siswa, { status_pemetaan_pkl: true })
+    isSaved.value = false
+    isFail.value = true
+    errMessage.value = errMessage
   }
 }
 

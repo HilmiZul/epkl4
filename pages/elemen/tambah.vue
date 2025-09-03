@@ -6,6 +6,9 @@
     <div class="card-body">
       <div class="row">
         <div class="col-md-6">
+          <div v-if="isFail" class="alert alert-danger p-2">
+            Terjadi error: {{ errMessage }}
+          </div>
           <form @submit.prevent="buatElemenCp">
             <div class="mb-4">
               <label for="elemen">Elemen</label>
@@ -40,6 +43,8 @@ let client = usePocketBaseClient()
 let prokel = user?.user.value.program_keahlian
 let isSaved = ref(false)
 let isSending = ref(false)
+let isFail = ref(false)
+let errMessage = ref('')
 let form = ref({
   elemen: '',
   cp: '',
@@ -49,16 +54,24 @@ let form = ref({
 if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
 
 async function buatElemenCp() {
-  isSending.value = true
-  isSaved.value = false
-  client.autoCancellation(false)
-  let res = await client.collection('elemen_cp').create(form.value)
-  if(res) {
+  try {
+    isSending.value = true
+    isSaved.value = false
+    client.autoCancellation(false)
+    let res = await client.collection('elemen_cp').create(form.value)
+    if(res) {
+      isSending.value = false
+      isSaved.value = true
+      form.value.elemen = ''
+      form.value.cp = ''
+      form.value.tujuan = ''
+      navigateTo('/elemen')
+    }
+  } catch(error) {
     isSending.value = false
-    isSaved.value = true
-    form.value.elemen = ''
-    form.value.cp = ''
-    form.value.tujuan = ''
+    isSaved.value = false
+    isFail.value = true
+    errMessage.value = error
   }
 }
 </script>

@@ -70,15 +70,21 @@ async function getFile(e) {
     for (let j = 0; j < headers.length; j++) {
       obj[headers[j]] = currentline[j];
     }
-    client.autoCancellation(false)
-    let data = await client
-      .collection('iduka')
-      .create(obj)
-    // result.push(obj);
+    // client.autoCancellation(false)
+    // let data = await client
+    //   .collection('iduka')
+    //   .create(obj)
+    result.push(obj);
   }
-  // console.log(objek)
-  isLoading.value = false
-  idukaTemp.value = result
+  let res_import = await Promise.all(
+    result.map(data => {
+      client.collection('iduka').create(data, {'$autoCancel': false })
+    })
+  )
+  if(res_import) {
+    isLoading.value = false
+    idukaTemp.value = result
+  }
 }
 </script>
 

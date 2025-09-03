@@ -7,6 +7,9 @@
     <div class="card-body">
       <div class="row">
         <div class="col-md-5">
+          <div v-if="isFail" class="alert alert-danger p-2">
+            Terjadi error: {{ errMessage }}
+          </div>
           <form @submit.prevent="updatePembimbingBaru">
             <div class="mb-4">
               <label for="username">Username</label>
@@ -47,6 +50,8 @@ let prokel = user.user.value.program_keahlian
 let isSaved = ref(false)
 let isSending = ref(false)
 let isLoading = ref(true)
+let isFail = ref(false)
+let errMessage = ref('')
 let form = ref({
   username: 'loading',
   nama: 'loading',
@@ -55,13 +60,20 @@ let form = ref({
 if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
 
 async function updatePembimbingBaru() {
-  isSending.value = true
-  isSaved.value = false
-  form.value.username = form.value.username.toLowerCase()
-  let data = await client.collection('teacher_users').update(route.params.id, form.value)
-  if(data) {
+  try {
+    isSending.value = true
+    isSaved.value = false
+    form.value.username = form.value.username.toLowerCase()
+    let data = await client.collection('teacher_users').update(route.params.id, form.value)
+    if(data) {
+      isSending.value = false
+      isSaved.value = true
+    }
+  } catch(error) {
     isSending.value = false
-    isSaved.value = true
+    isSaved.value = false
+    isFail.value = true
+    errMessage.value = error
   }
 }
 

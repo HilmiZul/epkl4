@@ -7,6 +7,9 @@
     <div class="card-body">
       <div class="row">
         <div class="col-md-6">
+          <div v-if="isFail" class="alert alert-danger p-2">
+            Terjadi error: {{ errMessage }}
+          </div>
           <form @submit.prevent="updateElemenCp">
             <div class="mb-4">
               <label for="elemen">Elemen</label>
@@ -42,6 +45,8 @@ let prokel = user?.user.value.program_keahlian
 let isSaved = ref(false)
 let isSending = ref(false)
 let isLoading = ref(true)
+let isFail = ref(false)
+let errMessage = ref('')
 let route = useRoute()
 let form = ref({
   elemen: 'loading',
@@ -52,13 +57,20 @@ let form = ref({
 if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
 
 async function updateElemenCp() {
-  isSending.value = true
-  isSaved.value = false
-  client.autoCancellation(false)
-  let res = await client.collection('elemen_cp').update(route.params.id, form.value)
-  if(res) {
+  try {
+    isSending.value = true
+    isSaved.value = false
+    client.autoCancellation(false)
+    let res = await client.collection('elemen_cp').update(route.params.id, form.value)
+    if(res) {
+      isSending.value = false
+      isSaved.value = true
+    }
+  } catch(error) {
     isSending.value = false
-    isSaved.value = true
+    isSaved.value = false
+    isFail.value = true
+    errMessage.value = error
   }
 }
 

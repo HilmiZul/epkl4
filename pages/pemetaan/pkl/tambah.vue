@@ -19,6 +19,9 @@
       </div>
       <div class="row">
         <div class="col-md-6">
+          <div v-if="isFail"  class="alert alert-danger p-2 mb-0 mt-2">
+            Terjadi error: {{ errMessage }}
+          </div>
           <form @submit.prevent="buatPemetaan">
             <div class="my-4">
               <label for="wilayah">Wilayah (dalam/luar kota)</label>
@@ -89,6 +92,8 @@ let isLoadingCompanies = ref(true)
 let isLoadingStudents = ref(true)
 let isSending = ref(false)
 let isSaved = ref(false)
+let isFail = ref(false)
+let errMessage = ref('')
 let selectWilayah = ref('dalam')
 let companies = ref([])
 let students = ref([])
@@ -101,24 +106,31 @@ let form = ref({
 let wilayah = ref(['dalam', 'luar'])
 
 async function buatPemetaan() {
-  isSending.value = true
-  isSaved.value = false
-  let updateTerisi = form.value.iduka.terisi + 1
-  form.value.program_keahlian = prokel
-  form.value.iduka = form.value.iduka.id
-  form.value.siswa = form.value.siswa.id
-  // console.log(form.value)
-  // console.log(updateTerisi)
-  // client.autoCancellation(false)
-  let data = await client.collection("pemetaan").create(form.value)
-  // `terisi` + 1
-  // status_pemetaan_pkl=true
-  await client.collection("iduka").update(form.value.iduka, { terisi: updateTerisi })
-  await client.collection("siswa").update(form.value.siswa, { status_pemetaan_pkl: true })
-  if(data) {
+  try {
+    isSending.value = true
+    isSaved.value = false
+    let updateTerisi = form.value.iduka.terisi + 1
+    form.value.program_keahlian = prokel
+    form.value.iduka = form.value.iduka.id
+    form.value.siswa = form.value.siswa.id
+    // console.log(form.value)
+    // console.log(updateTerisi)
+    // client.autoCancellation(false)
+    let data = await client.collection("pemetaan").create(form.value)
+    // `terisi` + 1
+    // status_pemetaan_pkl=true
+    await client.collection("iduka").update(form.value.iduka, { terisi: updateTerisi })
+    await client.collection("siswa").update(form.value.siswa, { status_pemetaan_pkl: true })
+    if(data) {
+      isSending.value = false
+      isSaved.value = true
+      navigateTo("/pemetaan/pkl")
+    }
+  } catch(error) {
     isSending.value = false
-    isSaved.value = true
-    navigateTo("/pemetaan/pkl")
+    isSaved.value = false
+    isFail.value = true
+    errMessage.value = error
   }
 }
 

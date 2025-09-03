@@ -94,7 +94,6 @@
           <div v-if="count_sesuai > 0 || count_tidak_sesuai > 0" class="row justify-content-center">
             <jurnal-chart :countSesuai="count_sesuai" :countTidakSesuai="count_tidak_sesuai" />
           </div>
-          <div v-else>belum ada</div>
         </div>
       </div>
       <!-- <div class="row">

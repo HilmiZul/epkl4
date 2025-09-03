@@ -20,6 +20,9 @@
         <div class="row">
           <!-- <div class="col-md-12"><div v-if="isSaved" class="my-3 alert alert-success border-2 border-success py-2"><i class="bi bi-check-circle"></i> Berhasil tersimpan!</div></div> -->
           <div class="col-md-6">
+            <div v-if="isFail" class="alert alert-danger p-2">
+              Terjadi error: {{ errMessage }}
+            </div>
             <div class="form-group">
               <div class="my-4">
                 <label for="nama">Nama IDUKA</label>
@@ -42,8 +45,8 @@
                 <input :disabled="isLoading" v-model="form.email" type="email" id="email" class="form form-control" placeholder="(biasanya) email juga ada" required>
               </div>
             </div>
-          <!-- </div>
-          <div class="col-md-6"> -->
+          </div>
+          <div class="col-md-6">
             <div class="form-group">
               <div class="my-3">
                 <label for="kuota">Jumlah Kuota Peserta</label>
@@ -78,9 +81,10 @@
               </button>
               <nuxt-link class="btn btn-light mb-4" to="/iduka">Kembali</nuxt-link>
               <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small">Berhasil tersimpan!</span>
+              <span v-if="isFail" class="ms-2 fst-italic text-danger small">Terjadi error saat menyimpan!</span>
             </div>
           </div>
-          <div class="col-md-6">
+          <!-- <div class="col-md-6">
             <LoadingPlaceholder v-if="isLoading" col="3" row="1" />
             <div v-else class="mt-4 mb-1">Terisi:
               <span v-if="form.terisi < form.jumlah_kuota">{{ form.terisi }} dari {{ form.jumlah_kuota }}</span>
@@ -102,7 +106,7 @@
                   </tbody>
               </table>
             </div>
-          </div>
+          </div> -->
         </div>
       </form>
     </div>
@@ -121,6 +125,8 @@ let prokel = user?.user.value.program_keahlian
 let isSaved = ref(false)
 let isSending = ref(false)
 let isLoading = ref(true)
+let isFail = ref(false)
+let errMessage = ref('')
 let teachers = ref([])
 // let teacher_users = ref([])
 let mapping = ref([])
@@ -142,14 +148,21 @@ let form = ref({
 if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
 
 async function updateIduka() {
-  isSending.value = true
-  isSaved.value = false
-  let data = await client
-    .collection("iduka")
-    .update(form.value.id, form.value)
-  if(data) {
+  try {
+    isSending.value = true
+    isSaved.value = false
+    let data = await client
+      .collection("iduka")
+      .update(form.value.id, form.value)
+    if(data) {
+      isSending.value = false
+      isSaved.value = true
+    }
+  } catch(error) {
     isSending.value = false
-    isSaved.value = true
+    isSaved.value = false
+    isFail.value = true
+    errMessage.value = error
   }
 }
 

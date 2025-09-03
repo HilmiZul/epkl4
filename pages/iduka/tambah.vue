@@ -15,6 +15,9 @@
           </div>
         </div>
       </div>
+      <div v-if="isFail" class="alert alert-danger p-2 mb-0 mt-2">
+        Terjadi error: {{ errMessage }}
+      </div>
       <form @submit.prevent="buatIdukaBaru" class="form-horizontal">
         <div class="row">
           <!-- <div class="col-md-12"><div v-if="isSaved" class="my-3 alert alert-success border-2 border-success py-2"><i class="bi bi-check-circle"></i> IDUKA baru berhasil ditambahkan!</div></div> -->
@@ -94,6 +97,8 @@ let prokel = user?.user.value.program_keahlian
 let isSaved = ref(false)
 let isSending = ref(false)
 let isLoading = ref(true)
+let isFail = ref(false)
+let errMessage = ref('')
 let teachers = ref([])
 let form = ref({
   nama: "",
@@ -112,29 +117,36 @@ let form = ref({
 if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
 
 async function buatIdukaBaru() {
-  form.value.program_keahlian = prokel
-  isSending.value = true
-  isSaved.value = false
-  let data = await client
-    .collection("iduka")
-    .create(form.value)
-  if(data) {
-    isSending.value = false
-    isSaved.value = true
-    form.value = {
-      nama: "",
-      alamat: "",
-      pimpinan: "",
-      kontak: "",
-      email: "email@gmail.com",
-      jumlah_kuota: "",
-      program_keahlian: "",
-      pembimbing_sekolah: "",
-      pembimbing_iduka: "",
-      wilayah: "dalam",
-      terisi: 0,
-      catatan: "",
+  try {
+    form.value.program_keahlian = prokel
+    isSending.value = true
+    isSaved.value = false
+    let data = await client
+      .collection("iduka")
+      .create(form.value)
+    if(data) {
+      isSending.value = false
+      isSaved.value = true
+      form.value = {
+        nama: "",
+        alamat: "",
+        pimpinan: "",
+        kontak: "",
+        email: "email@gmail.com",
+        jumlah_kuota: "",
+        program_keahlian: "",
+        pembimbing_sekolah: "",
+        pembimbing_iduka: "",
+        wilayah: "dalam",
+        terisi: 0,
+        catatan: "",
+      }
     }
+  } catch(error) {
+    isSending.value = false
+    isSaved.value = false
+    isFail.value = true
+    errMessage.value = error
   }
 }
 

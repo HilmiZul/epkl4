@@ -20,6 +20,9 @@
       </div>
       <div class="row">
         <div class="col-md-6">
+          <div v-if="isFail" class="alert alert-danger p-2">
+            Terjadi error: {{ errMessage }}
+          </div>
           <form @submit.prevent="simpanPerubahan">
             <div class="my-3 form-check form-switch">
               <input v-model="form.status_rapot" :checked="form.status_rapot" class="form-check-input" type="checkbox" id="checkRapor" switch>
@@ -124,6 +127,8 @@ let isLoadingSave = ref(false)
 let isSaved = ref(false)
 let isUserCreated = ref(false)
 let isCreatingUser = ref(false)
+let isFail = ref(false)
+let errMessage = ref('')
 let student = ref()
 let teachers = ref([])
 let curr_user = ref([])
@@ -137,14 +142,22 @@ let form = ref({
 if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
 
 async function simpanPerubahan() {
-  isLoadingSave.value = true
-  isSaved.value = false
-  client.autoCancellation(false)
-  let data = await client.collection('siswa').update(route.params.id, { status_rapot: form.value.status_rapot })
-  if(data) {
+  try {
+    isLoadingSave.value = true
+    isSaved.value = false
+    client.autoCancellation(false)
+    let data = await client.collection('siswa').update(route.params.id, { status_rapot: form.value.status_rapot })
+    if(data) {
+      isLoading.value = false
+      isLoadingSave.value = false
+      isSaved.value = true
+    }
+  } catch(error) {
     isLoading.value = false
     isLoadingSave.value = false
-    isSaved.value = true
+    isSaved.value = false
+    isFail.value = true
+    errMessage.value = error
   }
 }
 

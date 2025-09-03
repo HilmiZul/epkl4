@@ -147,16 +147,21 @@ async function handleAccPkl(iduka) {
     filter: "program_keahlian='"+prokel+"' && iduka='"+iduka+"'"
   })
   if(idukaById) {
-    idukaById.map(async (item) => {
-      try {
-        await client.collection('pemetaan').update(item.id, { status_acc_pkl: true })
-        // console.log(item.id)
-        // console.log('ubah ke true')
-        // console.log('--------------------')
-      } catch (error) {
-        console.error(`Terjadi kesalahan: ${error}`)
+    try {
+      let promises = await Promise.all(
+        idukaById.map((item) => {
+          client.collection('pemetaan').update(item.id, { status_acc_pkl: true }, {'$autoCancel': false })
+          // console.log(item.id)
+          // console.log('ubah ke true')
+          // console.log('--------------------')
+        })
+      )
+      if(promises) {
+        console.log('berhasil konfirmasi!')
       }
-    })
+    } catch(error) {
+      console.log(`Terjadi error: ${error}`)
+    }
   }
 }
 
