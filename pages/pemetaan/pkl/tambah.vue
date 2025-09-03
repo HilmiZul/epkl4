@@ -132,7 +132,7 @@ async function getCompanies() {
   if(data) {
     isLoadingCompanies.value = false
     companies.value = data
-    if(companies.value.length < 1) navigateTo("/pemetaan/pkl")
+    // if(companies.value.length < 1) navigateTo("/pemetaan/pkl")
   }
 }
 
