@@ -24,7 +24,7 @@
             <nuxt-link class="nav-link" to="/iduka"><i class="bi bi-buildings-fill"></i> IDUKA</nuxt-link>
           </li>
           <li  class="nav-item">
-            <nuxt-link class="nav-link" to="/pemetaan/pkl"><i class="bi bi-diagram-3-fill"></i> Pemetaan PKL</nuxt-link>
+            <nuxt-link class="nav-link" to="/pemetaan/pkl"><i class="bi bi-diagram-3-fill"></i> Pemetaan</nuxt-link>
           </li>
           <!-- <li v-if="role == 'admin' || role == 'jurusan'" class="nav-item">
             <nuxt-link class="nav-link" to="/peserta/users"><i class="bi bi-people-fill"></i> User Peserta</nuxt-link>
