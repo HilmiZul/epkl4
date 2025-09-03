@@ -135,6 +135,7 @@ let wilayah = ref(['dalam', 'luar'])
 async function hapusData(id) {
   try {
     // let curr_terisi = pemetaan.value.expand.iduka.terisi
+    client.autoCancellation(false)
     let new_terisi = pemetaan.value.expand.iduka.terisi - 1
     await client.collection('siswa').update(pemetaan.value.siswa, {
       status_pemetaan_pkl: false,
@@ -165,7 +166,7 @@ async function updatePemetaan() {
     // console.log("---") // lanjut masukkan yang ada dalam console.log ini ke query
     // console.log("lama: "+updateTerisi_lama)
     // console.log("baru: "+updateTerisi_baru)
-    // client.autoCancellation(false)
+    client.autoCancellation(false)
     let data = await client.collection("pemetaan").update(route.params.id, form.value)
     // -1 kolom `terisi` iduka lama
     // +1 kolom `terisi` iduka baru
