@@ -84,7 +84,7 @@
         <p class="mt-3 justify">
           Berkaitan dengan pelaksanaan tersebut di atas, Kami mohon bantuan kerja sama Bapak/Ibu untuk berkenan memberikan kesempatan kepada
           siswa kami untuk melaksanakan program tersebut di dinas/jawatan/perusahaan yang Bapak/Ibu pimpin. Mulai tanggal
-          <strong>13 Januari sampai dengan 18 April 2026</strong>. Siswa yang akan melaksanakan PKL di dinas/jawatan/perusahaan Bapak/Ibu sebagai berikut:
+          <strong>11 Januari sampai dengan 17 April 2026</strong>. Siswa yang akan melaksanakan PKL di dinas/jawatan/perusahaan Bapak/Ibu sebagai berikut:
         </p>
         <table class="mt-3 smallest siswa">
           <tr class="text-center">
