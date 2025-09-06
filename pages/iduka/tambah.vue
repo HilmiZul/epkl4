@@ -141,6 +141,7 @@ async function buatIdukaBaru() {
         terisi: 0,
         catatan: "",
       }
+      navigateTo('/iduka')
     }
   } catch(error) {
     isSending.value = false

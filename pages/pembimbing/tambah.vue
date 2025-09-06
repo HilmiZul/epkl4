@@ -93,6 +93,7 @@ async function buatPembimbingBaru() {
     if(data) {
       isSending.value = false
       isSaved.value = true
+      navigateTo('/pembimbing')
     }
   } catch(error) {
     isSending.value = false

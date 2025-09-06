@@ -45,7 +45,10 @@
                   </td>
                 </tr>
                 <tr v-else-if="mapping && mapping.totalItems < 1" class="text-center my-5">
-                  <td colspan="3">Data tidak ditemukan</td>
+                  <td colspan="3">
+                    <div class="fs-1"><i class="bi bi-database-fill"></i></div>
+                    <div class="pb-3">Data tidak ditemukan</div>
+                  </td>
                 </tr>
                 <tr v-else v-for="(pemetaan) in newMapping" :key="pemetaan.id">
                   <!-- <td >{{ i+1 }}.</td> -->
@@ -68,7 +71,7 @@
                       {{ pemetaan.expand.siswa.nama }}
                     </nuxt-link>
                     <span v-else>{{ pemetaan.expand.siswa.nama }}</span>
-                    <div class="mt-1 text-muted small">{{ pemetaan.expand.siswa.kelas }}</div>
+                    <div class="mt-1 text-muted smallest">{{ pemetaan.expand.siswa.kelas }}</div>
                   </td>
                   <td v-if="pemetaan.showIduka" :rowspan="pemetaan.idukaRowspan" class="align-middle text-center">
                     <nuxt-link v-if="!pemetaan.status_acc_pkl" :to="`/pemetaan/pkl/surat/cetak/${pemetaan.iduka}`" target="_blank" class="btn btn-light btn-sm smallest"><i class="bi bi-printer"></i> Cetak</nuxt-link>
@@ -135,6 +138,7 @@ let prokel = user.user.value.program_keahlian
 let mapping = ref([])
 let newMapping = ref([])
 let isLoading = ref(true)
+let isFail = ref(false)
 let opsiWilayah = ref('')
 let keyword = ref('')
 let isIdukaAvailable = ref([])
@@ -157,9 +161,10 @@ async function handleAccPkl(iduka) {
         })
       )
       if(promises) {
-        console.log('berhasil konfirmasi!')
+        return true
       }
     } catch(error) {
+      isFail.value = true
       console.log(`Terjadi error: ${error}`)
     }
   }

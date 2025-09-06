@@ -18,7 +18,10 @@
           <div class="row">
             <div class="col-md-12">
               <div v-if="!isLoadingJournals" class="text-center text-muted fst-italic">
-                <span v-if="journals.totalItems == 0">Belum ada jurnal</span>
+                <span v-if="journals.totalItems == 0">
+                  <div class="fs-1 pt-5"><i class="bi bi-journals"></i></div>
+                  <div class="pb-5">Belum ada jurnal</div>
+                </span>
               </div>
               <LoadingPlaceholder v-if="isLoadingJournals" col="12" row="1" />
               <div v-else v-for="journal in journals.items" :key="journal.id" class="card jurnal-hover">

@@ -9,10 +9,8 @@
           <div class="alert alert-warning border-5 border-dark shadow-lg">
             <div class="h5 quicksand">Perhatiin!</div>
             <ul>
-              <!-- <li>Pemetaan peserta ini akan men-generate Surat Permohonan</li>
-              <li>Tentukan wilayah: Dalam/Luar kota untuk memfilter IDUKA</li> -->
               <li>IDUKA yang muncul hanya yang masih kosong</li>
-              <li>Peserta didik yang muncul hanya yang belum terpetakan</li>
+              <li>Peserta didik yang muncul hanya yang sudah tuntas rapor dan belum terpetakan</li>
             </ul>
           </div>
         </div>

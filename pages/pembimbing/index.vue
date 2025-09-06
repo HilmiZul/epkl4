@@ -41,7 +41,10 @@
               </td>
             </tr>
             <tr v-else-if="itemFiltered.length < 1" class="text-center my-5">
-              <td colspan="4">Data tidak ditemukan.</td>
+              <td colspan="4">
+                <div class="fs-1"><i class="bi bi-database-fill"></i></div>
+                <div class="pb-3">Data tidak ditemukan</div>
+              </td>
             </tr>
             <tr v-else v-for="(pembimbing,i) in itemFiltered" :key="pembimbing.id">
               <td>{{ i+1 }}.</td>

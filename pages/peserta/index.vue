@@ -79,7 +79,10 @@
                   </td>
                 </tr>
                 <tr v-else-if="!isLoading && students.totalItems < 1" class="text-center my-5">
-                  <td colspan="5">Data tidak ditemukan.</td>
+                  <td colspan="5">
+                    <div class="fs-1"><i class="bi bi-database-fill"></i></div>
+                    <div class="pb-3">Data tidak ditemukan</div>
+                  </td>
                 </tr>
                 <tr v-else v-for="(student,i) in students.items" :key="student.id">
                   <td>{{ i+1 }}. </td>

@@ -157,6 +157,7 @@ async function updateIduka() {
     if(data) {
       isSending.value = false
       isSaved.value = true
+      navigateTo('/iduka')
     }
   } catch(error) {
     isSending.value = false

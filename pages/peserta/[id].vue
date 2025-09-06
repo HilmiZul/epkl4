@@ -151,6 +151,7 @@ async function simpanPerubahan() {
       isLoading.value = false
       isLoadingSave.value = false
       isSaved.value = true
+      navigateTo('/peserta')
     }
   } catch(error) {
     isLoading.value = false

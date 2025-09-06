@@ -65,6 +65,7 @@ async function updateElemenCp() {
     if(res) {
       isSending.value = false
       isSaved.value = true
+      navigateTo('/elemen')
     }
   } catch(error) {
     isSending.value = false

@@ -47,7 +47,10 @@
                   </td>
                 </tr>
                 <tr v-else-if="companies && companies.totalItems < 1" class="text-center my-5">
-                  <td colspan="6">Data tidak ditemukan</td>
+                  <td colspan="6">
+                    <div class="fs-1"><i class="bi bi-database-fill"></i></div>
+                    <div class="pb-3">Data tidak ditemukan</div>
+                  </td>
                 </tr>
                 <tr v-else v-for="(company, i) in companies.items" :key="i">
                   <td>{{ i + 1 }}.</td>
