@@ -53,7 +53,7 @@
                 <tr v-else v-for="(pemetaan) in newMapping" :key="pemetaan.id">
                   <!-- <td >{{ i+1 }}.</td> -->
                   <td v-if="pemetaan.showIduka" :rowspan="pemetaan.idukaRowspan">
-                    <span class="text-grey me-2"><i class="bi bi-building"></i></span><nuxt-link :to="`https://www.google.com/maps/search/?api=1&query=${pemetaan.expand.iduka.alamat}`" class="link" target="_blank"><span class="quicksand">{{ pemetaan.expand.iduka.nama }}</span> <sup><i class="bi bi-arrow-up-right"></i></sup></nuxt-link>
+                    <span class="text-grey me-2"><i class="bi bi-building"></i></span><nuxt-link :to="`https://www.google.com/maps/search/?api=1&query=${pemetaan.expand.iduka.nama} ${pemetaan.expand.iduka.alamat}`" class="link" target="_blank"><span class="quicksand">{{ pemetaan.expand.iduka.nama }}</span> <sup><i class="bi bi-arrow-up-right"></i></sup></nuxt-link>
                     <div class="small text-grey mt-2">
                       <i class="bi bi-geo-alt me-2"></i>{{ pemetaan.expand.iduka.wilayah.charAt(0).toUpperCase() + pemetaan.expand.iduka.wilayah.slice(1) }} kota
                     </div>
