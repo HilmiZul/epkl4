@@ -40,7 +40,7 @@ html, body {
 }
 @media (min-width: 1400px) {
   .container-fluid {
-    max-width: 1500px; /* Your desired custom width */
+    max-width: 1500px;
   }
 }
 .quicksand {
