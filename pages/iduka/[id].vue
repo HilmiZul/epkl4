@@ -48,7 +48,7 @@
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <div class="my-3">
+              <div class="my-4">
                 <label for="kuota">Jumlah Kuota Peserta</label>
                 <input :disabled="isLoading" v-model="form.jumlah_kuota" type="number" min="1" max="15" id="kuota" class="form form-control" required>
               </div>
