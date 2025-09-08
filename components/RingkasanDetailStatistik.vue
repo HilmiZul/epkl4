@@ -37,7 +37,7 @@
                 <span class="placeholder col-6"></span>
               </p>
             </h4>
-            <span>Terserap dalam kota</span>
+            <span>Terpetakan dalam kota</span>
           </div>
         </div>
       </div>
@@ -50,7 +50,7 @@
                 <span class="placeholder col-6"></span>
               </p>
             </h4>
-            <span>Terserap luar kota</span>
+            <span>Terpetakan luar kota</span>
           </div>
         </div>
       </div>
