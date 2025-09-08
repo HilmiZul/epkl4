@@ -176,8 +176,14 @@ async function getPemetaan() {
   if(keyword.value != '') searchActive = " && iduka.nama~'"+keyword.value+"'"
   // atur filter berdasarkan role: `tu` atau selain `tu`
   let filterQuery = "program_keahlian='"+prokel+"' && iduka.pembimbing_sekolah='"+user.user.value.id+"'"
+
+  // filterQuery dikosongkan untuk role: TU tanpa keyword pencarian
   if(role == 'tu') filterQuery = ""
+  // filterQuery diisi untuk role: TU dengan keyword pencarian
+  if(role == 'tu' && keyword.value != '') searchActive = "iduka.nama~'"+keyword.value+"'"
+  // filterQuery untuk role: jurusan/manajemen
   else if(role == 'jurusan') filterQuery = "program_keahlian='"+prokel+"'"
+  // filterQuery untuk role: guru pembimbing
   else if(role == 'guru') filterQuery = "program_keahlian='"+prokel+"' && iduka.pembimbing_sekolah='"+user.user.value.id+"'"
   // else if(role == 'guru') filterQuery = "program_keahlian='"+prokel+"' && siswa.pembimbing='"+user.user.value.id+"'"
 
