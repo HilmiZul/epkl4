@@ -84,7 +84,7 @@
         <p class="mt-3 justify">
           Berkaitan dengan pelaksanaan tersebut di atas, Kami mohon bantuan kerja sama Bapak/Ibu untuk berkenan memberikan kesempatan kepada
           siswa kami untuk melaksanakan program tersebut di dinas/jawatan/perusahaan yang Bapak/Ibu pimpin. Mulai tanggal
-          <strong>11 Januari sampai dengan 17 April 2026</strong>. Siswa yang akan melaksanakan PKL di dinas/jawatan/perusahaan Bapak/Ibu sebagai berikut:
+          <strong>{{ pengaturan.rentang_pelaksanaan }}</strong>. Siswa yang akan melaksanakan PKL di dinas/jawatan/perusahaan Bapak/Ibu sebagai berikut:
         </p>
         <table class="mt-3 smallest siswa">
           <tr class="text-center">
@@ -152,7 +152,7 @@
             <tr>
               <td>Waktu kegiatan</td>
               <td>:</td>
-              <td class="bold">13 Januari sampai dengan 18 April 2026</td>
+              <td class="bold">{{ pengaturan.rentang_pelaksanaan }}</td>
             </tr>
           </table>
           <div class="mt-4 text-center bold">MENERIMA / TIDAK MENERIMA *</div>

@@ -12,6 +12,10 @@
               <input v-model="form.nomor_surat" id="no" type="text" class="form form-control" placeholder="masukkan nomor surat permohonan PKL" required>
             </div>
             <div class="mb-3">
+              <label for="rentang_pelaksanaan">Rentang Pelaksanaan</label>
+              <input v-model="form.rentang_pelaksanaan"  id="rentang_pelaksanaan" type="text" class="form form-control" placeholder="misal: 11 Januari sampai dengan 20 April 2026" required>
+            </div>
+            <div class="mb-3">
               <label for="npsn">NPSN</label>
               <input v-model="form.npsn" id="npsn" type="text" class="form form-control" placeholder="masukkan NPSN Sekolah" required>
             </div>
@@ -61,7 +65,8 @@ let form = ref({
   "nama_kepala_sekolah": "",
   "nip": "",
   "nomor_surat": "",
-  "logo": ""
+  "logo": "",
+  "rentang_pelaksanaan": ''
 })
 
 async function updatePengaturan() {
