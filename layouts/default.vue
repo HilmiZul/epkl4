@@ -98,7 +98,7 @@ html, body {
 }
 .form {
   font-weight: 550;
-  border: 1.9px solid #000000;
+  border: 2.3px solid #000000;
   border-radius: 0 !important;
   box-shadow: 0.2rem 0.2rem 0 #000000 !important;
 }
