@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- ROLE: ADMIN & JURUSAN (MANAJEMEN) -->
-    <div v-if="role != 'tu'" class="card">
+    <div v-if="role == 'admin' || role == 'jurusan'" class="card">
       <div class="card-header">
         <span class="h4 quicksand"><i class="bi bi-pie-chart-fill"></i> Ringkasan</span>
       </div>
@@ -9,10 +9,10 @@
         <ringkasan-notif-jurnal />
         <ringkasan-personal />
         <!-- <ringkasan-fyi v-if="role == 'admin' || role == 'jurusan'" /> -->
-        <ringkasan-card v-if="role == 'admin' || role == 'jurusan'" />
+        <ringkasan-card />
         <div class="row mt-4 justify-content-center">
-          <ringkasan-chart v-if="role == 'admin' || role == 'jurusan'" />
-          <ringkasan-detail-statistik v-if="role == 'admin' || role == 'jurusan'" />
+          <ringkasan-chart />
+          <ringkasan-detail-statistik />
         </div>
       </div>
     </div>
@@ -26,6 +26,7 @@
         <div class="row">
           <div class="col-lg-12">
             <ringkasan-notif-jurnal />
+            <ringkasan-personal />
           </div>
         </div>
       </div>
