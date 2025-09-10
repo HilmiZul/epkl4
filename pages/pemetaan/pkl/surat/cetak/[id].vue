@@ -35,12 +35,12 @@
           </tr>
         </table>
         <div class="garis mt-2"></div>
-        <table class="mt-3">
+        <table class="mt-3" width="100%">
           <tr>
             <td>
               <table>
                 <tr>
-                  <td width="21%">Nomor</td>
+                  <td>Nomor</td>
                   <td>: {{ pengaturan.nomor_surat }}</td>
                 </tr>
                 <tr>
@@ -57,7 +57,7 @@
                 </tr>
               </table>
             </td>
-            <td width="35%">
+            <td width="40%">
               <div>Tasikmalaya, {{ tanggal }}</div>
               <strong>Yth. Kepala/Pimpinan</strong>
               <div>{{ pemetaan[0].expand.iduka.nama }}</div>
