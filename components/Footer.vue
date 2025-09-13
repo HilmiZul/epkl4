@@ -1,8 +1,8 @@
 <template>
-  <footer class="my-4 text-muted text-center small metropolis">
+  <footer class="my-4 text-muted text-center smallest metropolis">
     v{{ version }} <br>
     &copy;2018 - {{ year }}. All rights reserved. <br>
-    <span class="">Cooked with <i class="bi bi-heart-fill"></i> in Tasikmalaya.</span>
+    Cooked by <strong>ZH</strong>
   </footer>
 </template>
 
