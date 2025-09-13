@@ -126,4 +126,13 @@ label {
   letter-spacing: .05em;
   margin-bottom: .3em;
 }
+a.link-footer {
+  text-decoration: none;
+  color: inherit;
+  transition: all .1s ease-in-out;
+  padding-bottom: .01rem;
+}
+a.link-footer:hover {
+  border-bottom: 1px solid #777777
+}
 </style>

@@ -184,13 +184,12 @@ table th {
 }
 a.link {
   text-decoration: none;
-  color: #000;
+  color: inherit;
   /*border-bottom: 1.5px solid #a7a7a7;*/
   transition: all .1s ease-in-out;
   padding-bottom: .01rem;
 }
 a.link:hover {
-  color: #000;
   border-bottom: 1.5px solid #000 !important;
 }
 a.link-external {
@@ -203,6 +202,15 @@ a.link-external {
 a.link-external:hover {
   color: #000;
   border-bottom-color: #000 !important;
+}
+a.link-footer {
+  text-decoration: none;
+  color: inherit;
+  transition: all .1s ease-in-out;
+  padding-bottom: .01rem;
+}
+a.link-footer:hover {
+  border-bottom: 1px solid #777777
 }
 input[type="checkbox"]:checked {
   transform: scale(1.3);

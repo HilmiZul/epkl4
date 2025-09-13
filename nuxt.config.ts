@@ -24,6 +24,7 @@ export default defineNuxtConfig({
       apiBaseUrl: process.env.PB_API_BASE_URL,
 			apiPort: process.env.PB_API_PORT,
       appVersion: pkg.version,
+      author: pkg.author,
 		},
 	},
 })
