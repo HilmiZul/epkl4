@@ -91,12 +91,10 @@
                 </div>
               </div>
               <button :disabled="isMovingPage || mapping.page < 2" @click="pagination(mapping.page - 1, false)" class="btn btn-info btn-sm me-2">
-                <span v-if="isMovingPage">bentar</span>
-                <span v-else><i class="bi bi-arrow-left"></i> sebelumnya</span>
+                <i class="bi bi-arrow-left"></i> sebelumnya
               </button>
               <button :disabled="isMovingPage || mapping.page >= mapping.totalPages" @click="pagination(mapping.page + 1, false)" class="btn btn-info btn-sm">
-                <span v-if="isMovingPage">bentar</span>
-                <span v-else>lanjut <i class="bi bi-arrow-right"></i></span>
+                lanjut <i class="bi bi-arrow-right"></i>
               </button>
             </span>
           </div>

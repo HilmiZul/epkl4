@@ -69,12 +69,10 @@
                     </div>
                   </div>
                   <button :disabled="isMovingPage || journals.page < 2" @click="pagination(journals.page - 1, false)" class="btn btn-info me-2">
-                    <span v-if="isMovingPage">bentar</span>
-                    <span v-else><i class="bi bi-arrow-left"></i> sebelumnya</span>
+                    <i class="bi bi-arrow-left"></i> sebelumnya
                   </button>
                   <button :disabled="isMovingPage || journals.page >= journals.totalPages" @click="pagination(journals.page + 1, false)" class="btn btn-info">
-                    <span v-if="isMovingPage">bentar</span>
-                    <span v-else>lanjut <i class="bi bi-arrow-right"></i></span>
+                    lanjut <i class="bi bi-arrow-right"></i>
                   </button>
                 </div>
               </div>
