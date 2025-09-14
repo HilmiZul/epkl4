@@ -2,7 +2,7 @@
   <div>
     <footer class="my-4 text-muted text-center smallest metropolis">
       v{{ version }} <br>
-      &copy;2018 - {{ year }}. All rights reserved. <br>
+      &copy;2018 - {{ year }} <span class="fw-bold">e-PKL</span>. <br>
       Cooked by <nuxt-link to="#" data-bs-toggle="modal" data-bs-target="#cooked" class="link-footer">{{ author }}</nuxt-link>.
     </footer>
     <div class="modal" id="cooked" tabindex="-1" aria-hidden="false">
