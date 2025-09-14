@@ -32,7 +32,7 @@ const handleDataConfetti = (data) => {
   src: url('~/assets/font/Metropolis-Regular.otf');
 }
 html, body {
-  background: #f5fff2 url('~/assets/img/bg-cloud.png') no-repeat center bottom fixed;
+  background: #f5fff2 url('~/assets/img/bg.png') no-repeat center bottom fixed;
   background-size: cover;
   /*background-color: #f5fff2;*/
   font-family: "Quicksand", sans-serif;
