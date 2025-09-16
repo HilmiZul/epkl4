@@ -14,6 +14,9 @@
           <ringkasan-chart />
           <ringkasan-detail-statistik />
         </div>
+        <div class="row">
+          <RingkasanDaftarPesertaBelumTerpetakan />
+        </div>
       </div>
     </div>
 
