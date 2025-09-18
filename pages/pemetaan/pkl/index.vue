@@ -16,6 +16,14 @@
             </div>
           </form>
         </div>
+        <div v-if="role == 'tu'" class="col-lg-3">
+          <div class="my-3 mt-0">
+            <select v-model="selectedProkel" @change="getPemetaan" class="form form-select">
+              <option value="">Semua Jurusan</option>
+              <option v-for="p in opsiProkel" :key="p.id" :value="p.id">{{ p.nama }}</option>
+            </select>
+          </div>
+        </div>
         <div class="col align-content-center small">
           <LoadingPlaceholder v-if="isLoading" col="12" row="1" />
           <div v-else class="mb-3 text-grey float-end">{{ mapping.totalItems }} peserta terpetakan</div>
@@ -142,6 +150,15 @@ let keyword = ref('')
 let isIdukaAvailable = ref([])
 let perPage = 20
 let isMovingPage = ref(false)
+let opsiProkel = ref([])
+let selectedProkel = ref('')
+
+async function getProkelForOption() {
+  let res_prokel = await client.collection('program_keahlian').getFullList({
+    sort: "created"
+  })
+  if(res_prokel) opsiProkel = res_prokel
+}
 
 async function handleAccPkl(iduka) {
   // kumpulkan peserta yang iduka-nya sama. ubah status Acc. PKL dengan looping
@@ -176,9 +193,24 @@ async function getPemetaan() {
   let filterQuery = "program_keahlian='"+prokel+"' && iduka.pembimbing_sekolah='"+user.user.value.id+"'"
 
   // filterQuery dikosongkan untuk role: TU tanpa keyword pencarian
-  if(role == 'tu') filterQuery = ""
+  // atau dengan opsi filter prokel
+  if(role == 'tu') {
+    filterQuery = ""
+    searchActive = ""
+    if(keyword.value != '' && selectedProkel.value != '') {
+      filterQuery = "program_keahlian='"+selectedProkel.value+"'"
+      searchActive = " && (iduka.nama~'"+keyword.value+"' || siswa.nama~'"+keyword.value+"')"
+    }
+    else if(keyword.value != '') {
+      searchActive = "iduka.nama~'"+keyword.value+"' || siswa.nama~'"+keyword.value+"'"
+    }
+    else if(selectedProkel.value != '') {
+      filterQuery = "program_keahlian='"+selectedProkel.value+"'"
+      // searchActive = " && (iduka.nama~'"+keyword.value+"' || siswa.nama~'"+keyword.value+"')"
+    }
+  }
   // filterQuery diisi untuk role: TU dengan keyword pencarian
-  if(role == 'tu' && keyword.value != '') searchActive = "iduka.nama~'"+keyword.value+"' || siswa.nama~'"+keyword.value+"'"
+  // if(role == 'tu' && keyword.value != '') searchActive = "iduka.nama~'"+keyword.value+"' || siswa.nama~'"+keyword.value+"'"
   // filterQuery untuk role: jurusan/manajemen
   else if(role == 'jurusan') filterQuery = "program_keahlian='"+prokel+"'"
   // filterQuery untuk role: guru pembimbing
@@ -307,6 +339,7 @@ async function getIdukaIsAvailable(loading=true) {
 onMounted(() => {
   getPemetaan()
   getIdukaIsAvailable()
+  getProkelForOption()
   client.autoCancellation(false)
   client.collection('pemetaan').subscribe('*', function(e) {
     if(e.action == 'update') {
