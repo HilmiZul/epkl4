@@ -58,7 +58,7 @@
                     <nuxt-link :to="`/iduka/${company.id}`" class="link">{{ company.nama }}</nuxt-link>
                     <a href="#" v-if="company.catatan" data-bs-toggle="modal" :data-bs-target="`#catatan-${company.id}`" class="ms-2 text-warning"><i class="bi bi-stickies"></i></a>
                     <!-- MODAL: catatan. dibuat jika ada pada record -->
-                    <div v-if="company.catatan" class="modal" :id="`catatan-${company.id}`">
+                    <div v-if="company.catatan" class="modal" :id="`catatan-${company.id}`" aria-hidden="true" tabindex="-1">
                       <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
                           <div class="modal-header rounded-0 bg-warning quicksand">
@@ -110,7 +110,7 @@
   </div>
   <div v-if="companies && companies.totalItems > 0">
     <div v-for="company in companies.items" :key="company.id">
-      <div class="modal" :id="`iduka-${company.id}`" aria-hidden="true">
+      <div class="modal" :id="`iduka-${company.id}`" aria-hidden="true" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
             <div class="modal-header rounded-0 h4 bg-danger text-white quicksand">
