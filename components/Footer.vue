@@ -15,7 +15,7 @@
           <div class="modal-body small">
             <p>
               <strong>e-PKL</strong> (<strong>PKL</strong> stand for Praktik Kerja Lapangan) is an internship mapping app for students.
-              I made this project is just for fun, because the Head of the Software Engineering Department (Deni Ridwan) challenged me to make an app that can generate letters.
+              I made this project is just for fun, because the Head of the Software Engineering Department challenged me to make an app that can generate letters.
             </p>
             <p>
               Original written in Python (with Django Framework) since 2018 and translated to Javascript (with Vue Framework) in 2022.
