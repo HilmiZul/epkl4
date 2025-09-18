@@ -54,7 +54,24 @@
                 </tr>
                 <tr v-else v-for="(company, i) in companies.items" :key="i">
                   <td>{{ i + 1 }}.</td>
-                  <td class="fw-bold"><nuxt-link :to="`/iduka/${company.id}`" class="link">{{ company.nama }}</nuxt-link></td>
+                  <td class="fw-bold">
+                    <nuxt-link :to="`/iduka/${company.id}`" class="link">{{ company.nama }}</nuxt-link>
+                    <a href="#" v-if="company.catatan" data-bs-toggle="modal" :data-bs-target="`#catatan-${company.id}`" class="ms-2 text-warning"><i class="bi bi-stickies"></i></a>
+                    <!-- MODAL: catatan. dibuat jika ada pada record -->
+                    <div v-if="company.catatan" class="modal" :id="`catatan-${company.id}`">
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
+                          <div class="modal-header rounded-0 bg-warning quicksand">
+                            <div class="fs-4">Catatan</div>
+                            <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
+                          </div>
+                          <div class="modal-body text-muted">
+                            {{ company.catatan }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
                   <td class="smallest">{{ company.wilayah.charAt(0).toUpperCase() + company.wilayah.slice(1) }} kota </td>
                   <td class="smallest">
                     <span v-if="company.terisi < company.jumlah_kuota">{{ company.terisi }} / {{ company.jumlah_kuota }}</span>
@@ -68,6 +85,7 @@
                 </tr>
               </tbody>
             </table>
+
           </div>
         </div>
       </div>
