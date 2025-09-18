@@ -1,12 +1,8 @@
 <template>
   <div v-if="isLoading">
     <loading-placeholder row="1" col="12" />
-    <loading-placeholder row="1" col="12" />
-    <loading-placeholder row="1" col="12" />
-    <loading-placeholder row="1" col="12" />
-    <loading-placeholder row="1" col="12" />
   </div>
-  <div v-else class="p-2">
+  <div v-else-if="students && students.totalItems > 0" class="p-2">
     <div class="my-2">
       <h4 class="fw-bold">Belum terpetakan</h4>
       <div class="small text-muted">{{ students.totalItems }} peserta</div>
