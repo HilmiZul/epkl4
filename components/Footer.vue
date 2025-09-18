@@ -3,7 +3,7 @@
     <footer class="my-4 text-muted text-center smallest metropolis">
       v{{ version }} <br>
       &copy;2018 - {{ year }} <span class="fw-bold">e-PKL</span>. <br>
-      Cooked by <nuxt-link to="#" data-bs-toggle="modal" data-bs-target="#cooked" class="link-footer">{{ author }}</nuxt-link>.
+      Cooked by <span data-bs-toggle="modal" data-bs-target="#cooked" class="hand-cursor link-footer">{{ author }}</span>
     </footer>
     <div class="modal" id="cooked" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
