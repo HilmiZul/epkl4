@@ -263,16 +263,31 @@ async function getPemetaan() {
 async function pagination(page, loading=true) {
   isLoading.value = loading
   isMovingPage.value = true
+  let searchActive = ''
   // atur filter berdasarkan role: `tu` atau selain `tu`
   let filterQuery = "program_keahlian='"+prokel+"' && iduka.pembimbing_sekolah='"+user.user.value.id+"'"
-  if(role == 'tu') filterQuery = ""
+  if(role == 'tu') {
+    filterQuery = ""
+    searchActive = ""
+    if(keyword.value != '' && selectedProkel.value != '') {
+      filterQuery = "program_keahlian='"+selectedProkel.value+"'"
+      searchActive = " && (iduka.nama~'"+keyword.value+"' || siswa.nama~'"+keyword.value+"')"
+    }
+    else if(keyword.value != '') {
+      searchActive = "iduka.nama~'"+keyword.value+"' || siswa.nama~'"+keyword.value+"'"
+    }
+    else if(selectedProkel.value != '') {
+      filterQuery = "program_keahlian='"+selectedProkel.value+"'"
+      // searchActive = " && (iduka.nama~'"+keyword.value+"' || siswa.nama~'"+keyword.value+"')"
+    }
+  }
   else if(role == 'jurusan') filterQuery = "program_keahlian='"+prokel+"'"
   else if(role == 'guru') filterQuery = "program_keahlian='"+prokel+"' && iduka.pembimbing_sekolah='"+user.user.value.id+"'"
   // else if(role == 'guru') filterQuery = "program_keahlian='"+prokel+"' && siswa.pembimbing='"+user.user.value.id+"'"
 
   client.autoCancellation(false)
   let data = await client.collection("pemetaan").getList(page, perPage, {
-    filter: filterQuery,
+    filter: filterQuery + searchActive,
     expand: "iduka, iduka.pembimbing_sekolah, siswa, program_keahlian",
     sort: "status_acc_pkl, iduka.wilayah, iduka.nama",
   })
