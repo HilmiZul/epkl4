@@ -5,7 +5,7 @@
         <span class="placeholder col-6 py-3"></span>
       </p>
     </div>
-    <div v-else-if="!isLoading && count > 0" class="alert alert-info small">
+    <div v-else-if="!isLoading && count > 0" class="alert alert-info">
       <i class="bi bi-info-circle"></i> Ada {{ count }} Jurnal yang belum di validasi.
       <nuxt-link to="/jurnal" class="btn btn-warning btn-sm">Ayo validasi <i class="bi bi-arrow-right"></i></nuxt-link>
     </div>

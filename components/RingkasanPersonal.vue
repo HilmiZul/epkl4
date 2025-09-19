@@ -10,7 +10,7 @@
           </span>
           <span v-else>&#8212;</span> -->
         </div>
-        <div class="row mt-3">
+        <div class="row mt-3 fw-bold">
           <div class="col-md-3">
             <div class="mb-3">
               <div class="text-muted">Program Keahlian</div>

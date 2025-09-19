@@ -8,7 +8,7 @@
           <span @click="moreConfetti" class="hand-cursor">😃</span>
         </div>
         <nav>
-          <ol class="list-group list-group-flush quicksand">
+          <ol class="list-group list-group-flush quicksand fw-bold">
             <nuxt-link to="/" :activeClass="activeClass">
               <li class="list-group-item"><i class="bi bi-pie-chart-fill"></i> Ringkasan</li>
             </nuxt-link>
