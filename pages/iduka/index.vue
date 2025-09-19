@@ -103,7 +103,7 @@
               <div class="fs-4">Catatan</div>
               <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
             </div>
-            <div class="modal-body text-muted">
+            <div class="modal-body text-muted py-4">
               {{ company.catatan }}
             </div>
           </div>

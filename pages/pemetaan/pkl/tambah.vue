@@ -4,7 +4,7 @@
       <span class="h4 quicksand">Pemetaan PKL / <span class="text-dark fw-bold">Tambah baru</span></span>
     </div>
     <div class="card-body">
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-12">
           <div class="alert alert-warning border-5 border-dark shadow-lg">
             <div class="h5 quicksand">Perhatiin!</div>
@@ -14,15 +14,15 @@
             </ul>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="row">
         <div class="col-md-6">
           <div v-if="isFail"  class="alert alert-danger p-2 mb-0 mt-2">
             Terjadi error: {{ errMessage }}
           </div>
           <form @submit.prevent="buatPemetaan">
-            <div class="my-4">
-              <label for="wilayah">Wilayah (dalam/luar kota)</label>
+            <div class="mb-4">
+              <label for="wilayah">Wilayah</label>
               <!-- <multiselect
                 v-model="selectWilayah"
                 :options="wilayah"
@@ -66,13 +66,22 @@
                 <template v-slot:singleLabel="{ option }"><strong>{{ option.nama }} — {{ option.kelas }}</strong></template>
               </multiselect>
             </div>
-            <button :disabled="isSending" class="btn btn-success me-2">
+            <button :disabled="isSending || form.iduka.length < 1 || form.siswa.length < 1" class="btn btn-success me-2 mb-3">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>
-            <nuxt-link to="/pemetaan/pkl" class="btn btn-light me-2">Kembali</nuxt-link>
-            <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small">Berhasil terpetekan!</span>
+            <nuxt-link to="/pemetaan/pkl" class="btn btn-light me-2 mb-3">Kembali</nuxt-link>
+            <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small mb-3">Berhasil terpetekan!</span>
           </form>
+        </div>
+        <div class="col-md-6">
+          <div class="alert alert-warning border-5 border-dark shadow-lg">
+            <div class="h5 quicksand">Perhatiin!</div>
+            <ul>
+              <li>IDUKA yang muncul hanya yang masih kosong</li>
+              <li>Peserta didik yang muncul hanya yang sudah tuntas rapor dan belum terpetakan</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

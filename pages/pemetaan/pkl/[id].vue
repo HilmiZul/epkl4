@@ -8,7 +8,7 @@
       </span>
     </div>
     <div class="card-body">
-      <div v-if="isLoading">
+      <!-- <div v-if="isLoading">
         <loading-placeholder v-if="isLoading" col="8" row="1" />
         <loading-placeholder v-if="isLoading" col="5" row="1" />
       </div>
@@ -22,9 +22,9 @@
             </ul>
           </div>
         </div>
-      </div>
+      </div> -->
       <div v-if="isLoading">
-        <loading-placeholder v-if="isLoading" col="8" row="1" />
+        <loading-placeholder v-if="isLoading" col="12" row="1" />
       </div>
       <div v-else class="row">
         <div v-if="pemetaan?.status_acc_pkl" class="col-md-12">
@@ -40,8 +40,8 @@
             Terjadi error: {{ errMessage }}
           </div>
           <form @submit.prevent="updatePemetaan">
-            <div class="my-4">
-              <label for="wilayah">Wilayah (dalam/luar kota)</label>
+            <div class="mb-4">
+              <label for="wilayah">Wilayah</label>
               <!-- <multiselect
                 v-model="selectWilayah"
                 :options="wilayah"
@@ -80,7 +80,8 @@
         </div>
       </div>
       <hr class="my-4">
-      <div v-if="!isLoading" class="row">
+      <loading-placeholder v-if="isLoading" col="12" row="1" />
+      <div v-else class="row">
         <div class="col-md-12">
           <div class="alert text-danger border-danger">
             <h5 class="romana">Danger Zone!</h5>

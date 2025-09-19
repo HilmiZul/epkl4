@@ -5,7 +5,7 @@
       <span v-else class="h4 quicksand">IDUKA / <span class="text-dark fw-bold">{{ form.nama }}</span></span>
     </div>
     <div class="card-body">
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-12">
           <div class="alert alert-warning border-5 border-dark shadow-lg">
             <div class="h5 quicksand">Perhatiin!</div>
@@ -15,7 +15,7 @@
             </ul>
           </div>
         </div>
-      </div>
+      </div> -->
       <form @submit.prevent="updateIduka" class="form-horizontal">
         <div class="row">
           <!-- <div class="col-md-12"><div v-if="isSaved" class="my-3 alert alert-success border-2 border-success py-2"><i class="bi bi-check-circle"></i> Berhasil tersimpan!</div></div> -->
@@ -24,7 +24,7 @@
               Terjadi error: {{ errMessage }}
             </div>
             <div class="form-group">
-              <div class="my-4">
+              <div class="mb-4">
                 <label for="nama">Nama IDUKA</label>
                 <input :disabled="isLoading" v-model="form.nama" type="text" id="nama" class="form form-control" placeholder="Tulis nama IDUKA" required autofocus>
               </div>
@@ -48,7 +48,7 @@
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <div class="my-4">
+              <div class="mb-4">
                 <label for="kuota">Jumlah Kuota Peserta</label>
                 <input :disabled="isLoading" v-model="form.jumlah_kuota" type="number" min="1" max="15" id="kuota" class="form form-control" required>
               </div>
@@ -75,13 +75,6 @@
                 <label for="catatan">Catatan (opsional)</label>
                 <input :disabled="isLoading" v-model="form.catatan" type="text" id="catatan" class="form form-control" placeholder="Ada catatan untuk IDUKA ini?">
               </div>
-              <button :disabled="isSending || isLoading" class="btn btn-success me-2 mb-4">
-                <span v-if="isSending">Sedang menyimpan</span>
-                <span v-else>Simpan</span>
-              </button>
-              <nuxt-link class="btn btn-light mb-4" to="/iduka">Kembali</nuxt-link>
-              <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small">Berhasil tersimpan!</span>
-              <span v-if="isFail" class="ms-2 fst-italic text-danger small">Terjadi error saat menyimpan!</span>
             </div>
           </div>
           <!-- <div class="col-md-6">
@@ -107,6 +100,17 @@
               </table>
             </div>
           </div> -->
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <button :disabled="isSending || isLoading" class="btn btn-success me-2 mb-4">
+              <span v-if="isSending">Sedang menyimpan</span>
+              <span v-else>Simpan</span>
+            </button>
+            <nuxt-link class="btn btn-light mb-4" to="/iduka">Kembali</nuxt-link>
+            <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small">Berhasil tersimpan!</span>
+            <span v-if="isFail" class="ms-2 fst-italic text-danger small">Terjadi error saat menyimpan!</span>
+          </div>
         </div>
       </form>
     </div>

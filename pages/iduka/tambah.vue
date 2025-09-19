@@ -4,7 +4,7 @@
       <span class="h4 quicksand">IDUKA / <span class="text-dark fw-bold">Tambah baru</span></span>
     </div>
     <div class="card-body">
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-12">
           <div class="alert alert-warning border-5 border-dark shadow-lg">
             <div class="h5 quicksand">Perhatiin!</div>
@@ -14,7 +14,7 @@
             </ul>
           </div>
         </div>
-      </div>
+      </div> -->
       <div v-if="isFail" class="alert alert-danger p-2 mb-0 mt-2">
         Terjadi error: {{ errMessage }}
       </div>
@@ -23,13 +23,13 @@
           <!-- <div class="col-md-12"><div v-if="isSaved" class="my-3 alert alert-success border-2 border-success py-2"><i class="bi bi-check-circle"></i> IDUKA baru berhasil ditambahkan!</div></div> -->
           <div class="col-md-6">
             <div class="form-group">
-              <div class="my-4">
+              <div class="mb-4">
                 <label for="nama">Nama IDUKA</label>
                 <input v-model="form.nama" type="text" id="nama" class="form form-control" placeholder="Tulis nama IDUKA" required autofocus>
               </div>
               <div class="mb-4">
                 <label for="alamat">Alamat</label>
-                <textarea v-model="form.alamat" id="alamat" class="form form-control" cols="30" rows="2" placeholder="Alamat lengkap IDUKA. Gunain search enginge kalau bingung" required></textarea>
+                <textarea v-model="form.alamat" id="alamat" class="form form-control" cols="30" rows="3" placeholder="Alamat lengkap IDUKA. Gunain search enginge kalau bingung" required></textarea>
               </div>
               <div class="mb-4">
                 <label for="pimpinan">Pimpinan/PIC</label>
@@ -47,7 +47,7 @@
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <div class="my-4">
+              <div class="mb-4">
                 <label for="kuota">Jumlah Kuota Peserta</label>
                 <input v-model="form.jumlah_kuota" type="number" min="1" max="15" id="kuota" class="form form-control" required>
               </div>
@@ -74,13 +74,17 @@
                 <label for="catatan">Catatan (opsional)</label>
                 <input v-model="form.catatan" type="text" id="catatan" class="form form-control" placeholder="Ada catatan untuk IDUKA ini?">
               </div>
-              <button :disabled="isSending" class="btn btn-success me-2 mb-4">
-                <span v-if="isSending">Sedang menyimpan</span>
-                <span v-else>Simpan</span>
-              </button>
-              <nuxt-link class="btn btn-light mb-4" to="/iduka">Kembali</nuxt-link>
-              <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small">Berhasil tersimpan!</span>
             </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <button :disabled="isSending" class="btn btn-success me-2 mb-4">
+              <span v-if="isSending">Sedang menyimpan</span>
+              <span v-else>Simpan</span>
+            </button>
+            <nuxt-link class="btn btn-light mb-4" to="/iduka">Kembali</nuxt-link>
+            <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small">Berhasil tersimpan!</span>
           </div>
         </div>
       </form>
