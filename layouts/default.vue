@@ -256,4 +256,9 @@ input[type="checkbox"]:not(:checked) {
     display: none;
   }
 }
+.multiselect__tags {
+  border: 2.3px solid #000000 !important;
+  border-radius: 0 !important;
+  box-shadow: 0.2rem 0.2rem 0 #000000 !important;
+}
 </style>
