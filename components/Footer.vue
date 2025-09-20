@@ -18,7 +18,7 @@
               I made this project is just for fun, because the Head of the Software Engineering Department challenged me to make an app that can generate letters.
             </p>
             <p>
-              Original written in Python (with Django Framework) since 2018 and translated to Javascript (with Vue Framework) in 2022.
+              Original written in Python (with Django Framework) since 2018 and rewrite to Javascript (with Vue Framework) in 2022.
             </p>
             <p>
               This project is an open source software under MIT Licensed. Feel free if you want to contribute to this <nuxt-link to="https://github.com/hilmizul/epkl4" target="_blank" class="link-footer">project</nuxt-link>.
