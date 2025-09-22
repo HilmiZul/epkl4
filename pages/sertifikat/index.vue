@@ -68,7 +68,7 @@ let form = ref({
   kelas: '',
   siswa: ''
 })
-if(role == 'tu' && role == 'guru') navigateTo('/404')
+if(role == 'tu') navigateTo('/404')
 
 let getKelasByProkel = (e) => {
   // form.value.prokel = e.target.value
