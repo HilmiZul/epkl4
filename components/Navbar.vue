@@ -11,7 +11,7 @@
           <li class="nav-item">
             <nuxt-link  class="nav-link" to="/"><i class="bi bi-pie-chart-fill"></i> Ringkasan</nuxt-link>
           </li>
-          <li v-if="role === 'admin' || role === 'jurusan'" class="nav-item">
+          <li v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" class="nav-item">
             <nuxt-link  class="nav-link" to="/elemen"><i class="bi bi-journal-bookmark-fill"></i> Elemen</nuxt-link>
           </li>
           <li v-if="role === 'admin' || role === 'jurusan'" class="nav-item">

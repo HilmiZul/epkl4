@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-header">
       <span class="h4 quicksand"><i class="bi bi-journal-bookmark-fill"></i> Elemen</span>
-      <span class="float-end">
+      <span v-if="role == 'admin' || role == 'jurusan'" class="float-end">
         <nuxt-link to="/elemen/tambah" class="btn btn-info btn-sm"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
       </span>
     </div>
@@ -45,7 +45,9 @@
             </tr>
             <tr v-else v-for="e in elementsFiltered" :key="e.id">
               <td class="fw-bold">
-                <nuxt-link :to="`/elemen/${e.id}`" class="link">{{ e.elemen }}</nuxt-link></td>
+                <nuxt-link v-if="role == 'admin' || role == 'jurusan'" :to="`/elemen/${e.id}`" class="link">{{ e.elemen }}</nuxt-link>
+                <span v-else>{{ e.elemen }}</span>
+              </td>
               <td>{{ e.cp }}</td>
               <td><span class="pre-text">{{ e.tujuan }}</span></td>
             </tr>
@@ -66,7 +68,7 @@ let prokel = user?.user.value.program_keahlian
 let elements = ref([])
 let isLoading = ref(true)
 let keyword = ref('')
-if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
+if(role == 'admin' && role == 'jurusan' && role == 'guru') navigateTo('/404')
 
 async function getElemenCp() {
   isLoading.value = true
