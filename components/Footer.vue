@@ -2,8 +2,7 @@
   <div>
     <footer class="my-4 text-muted text-center smallest metropolis">
       v{{ version }} <br>
-      &copy;2018 - {{ year }} <span class="fw-bold">e-PKL</span>. <br>
-      Cooked by <span data-bs-toggle="modal" data-bs-target="#cooked" class="hand-cursor link-footer">{{ author }}</span>
+      &copy;2018 - {{ year }} <span class="fw-bold hand-cursor link-footer" data-bs-toggle="modal" data-bs-target="#cooked">e-PKL</span>. <br>
     </footer>
     <div class="modal" id="cooked" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
