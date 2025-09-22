@@ -138,7 +138,4 @@ a.link-footer:hover {
 .hand-cursor {
   cursor: pointer;
 }
-.hand-cursor:hover {
-  border-bottom: 1.2px solid #777 !important;
-}
 </style>
