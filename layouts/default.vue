@@ -12,13 +12,6 @@
   </div>
 </template>
 
-<script setup>
-let isConfetti = ref(false)
-const handleDataConfetti = (data) => {
-  isConfetti.value = data
-}
-</script>
-
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Mega:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
