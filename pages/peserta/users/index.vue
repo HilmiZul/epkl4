@@ -71,7 +71,7 @@ const getUsers = async () => {
   isLoading.value = true
   client.autoCancellation(false)
   const data = await client
-    .collection('users_siswa')
+    .collection('student_users')
     .getFullList({
       expand: "siswa",
       filter: "program_keahlian='"+prokel+"'",
@@ -103,7 +103,7 @@ const buatAkunPeserta = async () => {
     // console.log(tempUsers)
     // client.autoCancellation(false)
     // for (const item of tempUsers) {
-    //   await client.collection('users_siswa').create(item)
+    //   await client.collection('student_users').create(item)
     // }
     isCreated.value = true
     isCreatingUser.value = false
@@ -118,7 +118,7 @@ const searchByKeyword = async () => {
   isLoading.value = true
   client.autoCancellation(false)
   let data = await client
-    .collection('users_siswa')
+    .collection('student_users')
     .getFullList({
       expand: "siswa",
       filter: "username~'"+keyword.value+"' || siswa.nama~'"+keyword.value+"' && program_keahlian='"+prokel+"'"

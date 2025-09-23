@@ -3,9 +3,9 @@
     <div class="card-header">
       <span class="h4 quicksand"><i class="bi bi-person-fill"></i> Peserta Didik</span>
       <span class="float-end">
-        <!-- <span v-if="role == 'admin' || role == 'jurusan'">
+        <span v-if="role == 'admin' || role == 'jurusan'">
           <button v-if="students.totalItems > 0 && count_users.length < 1" data-bs-toggle="modal" data-bs-target="#buat-akun-peserta" class="btn btn-info btn-sm me-2"><i class="bi bi-person-plus"></i> Buat akun</button>
-        </span> -->
+        </span>
         <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/peserta/import" class="btn btn-success btn-sm"><i class="bi bi-download"></i> Impor dari .csv</nuxt-link>
       </span>
       <div class="modal" id="buat-akun-peserta" tabindex="-1" aria-hidden="true">
@@ -189,7 +189,7 @@ async function pagination(page) {
 const getUsers = async (loading=true) => {
   isLoadingUser.value = loading
   client.autoCancellation(false)
-  const res_user = await client.collection('users_siswa').getFullList({
+  const res_user = await client.collection('student_users').getFullList({
     filter: "program_keahlian='"+prokel+"'"
   })
   if(res_user) {
@@ -232,7 +232,7 @@ const buatAkunPeserta = async () => {
     }
     let res_create_users = await Promise.all(
       tempUsers.map(data => {
-        client.collection('users_siswa').create(data, {'$autoCancel': false })
+        client.collection('student_users').create(data, {'$autoCancel': false })
         client.collection('siswa').update(data.siswa, { hasUser: true })
       })
     )
@@ -260,7 +260,7 @@ onMounted(() => {
   getStudents()
   getUsers()
   client.autoCancellation(false)
-  client.collection('users_siswa').subscribe('*', function (e) {
+  client.collection('student_users').subscribe('*', function (e) {
     if(e.action == 'create') {
       getUsers()
     }

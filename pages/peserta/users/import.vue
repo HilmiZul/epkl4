@@ -68,7 +68,7 @@ async function getFile(e) {
     }
     client.autoCancellation(false)
     let data = await client
-      .collection('users_siswa')
+      .collection('student_users')
       .create(obj)
     result.push(obj);
   }

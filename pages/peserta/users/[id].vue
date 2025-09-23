@@ -45,7 +45,7 @@ async function updateUserpeserta() {
   isSending.value = true
   isSaved.value = false
   form.value.username = form.value.username.toLowerCase()
-  let data = await client.collection('users_siswa').update(route.params.id, form.value)
+  let data = await client.collection('student_users').update(route.params.id, form.value)
   if(data) {
     isSending.value = false
     isSaved.value = true
@@ -54,7 +54,7 @@ async function updateUserpeserta() {
 
 async function getUserPesertaById(loading=true) {
   isLoading.value = loading
-  let data = await client.collection('users_siswa').getOne(route.params.id, {
+  let data = await client.collection('student_users').getOne(route.params.id, {
     expand: "siswa"
   })
   if(data) {
@@ -66,7 +66,7 @@ async function getUserPesertaById(loading=true) {
 onMounted(() => {
   getUserPesertaById()
   client.autoCancellation(false)
-  client.collection('users_siswa').subscribe("*", function (e) {
+  client.collection('student_users').subscribe("*", function (e) {
     if(e.action == 'update') getUserPesertaById(false)
   }, {});
 })

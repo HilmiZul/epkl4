@@ -180,7 +180,7 @@ async function getStudentById(loading=true) {
     expand: 'program_keahlian'
   })
   if(res_siswa) {
-    let res_users = await client.collection('users_siswa').getList(1,1, {
+    let res_users = await client.collection('student_users').getList(1,1, {
       filter: "siswa='"+res_siswa.id+"'"
     })
     if(res_users) {
@@ -203,7 +203,7 @@ async function buatUserPeserta() {
   }
   isCreatingUser.value = true
   isUserCreated.value = false
-  let res = await client.collection('users_siswa').create(data)
+  let res = await client.collection('student_users').create(data)
   if(res) {
     await client.collection('siswa').update(route.params.id, { hasUser: true })
     isCreatingUser.value = false
@@ -216,7 +216,7 @@ onMounted(() => {
   client.collection('siswa').subscribe('*', function (e) {
     if(e.action == 'update') getStudentById()
   }, {});
-  client.collection('users_siswa').subscribe('*', function (e) {
+  client.collection('student_users').subscribe('*', function (e) {
     if(e.action == 'create') getStudentById()
   }, {});
 })
