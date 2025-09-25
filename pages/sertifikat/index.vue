@@ -29,19 +29,19 @@
       <div v-if="isLoaded" class="row pt-3">
         <div class="col-md-12">
           <div class="container">
-            <div class="logo">
-              [LOGO DISINI]
+            <div class="logo fw-bold">
+              [Logo IDUKA disini]
             </div>
-            <div class="title">
+            <div class="title text-center">
               Sertifikat Praktik Kerja Lapangan
             </div>
-            <div class="assignment">
+            <div class="assignment text-center">
               diberikan kepada
             </div>
-            <div class="person">
-              [Nama Peserta Didik]
+            <div class="person py-5 text-center">
+              {{ nama_peserta }}
             </div>
-            <div class="text">
+            <div class="text text-center">
               atas pencapaian melaksanakan Praktik Kerja Lapangan<br/>
               selama 4 bulan dari .. sampai dengan .. April 2026.
             </div>
@@ -68,6 +68,7 @@ let form = ref({
   kelas: '',
   siswa: ''
 })
+let nama_peserta = ref('')
 if(role == 'tu') navigateTo('/404')
 
 let getKelasByProkel = (e) => {
@@ -114,6 +115,7 @@ async function getPemetaanBySiswa() {
   })
   if(res_pemetaan) {
     isLoaded.value = true
+    nama_peserta.value = res_pemetaan.expand.siswa.nama
   }
 }
 
@@ -141,6 +143,7 @@ body {
   vertical-align: middle;
 }
 .logo {
+  font-size: large;
   color: #b5d2ad;
 }
 
@@ -153,7 +156,6 @@ body {
   margin: 20px;
 }
 .person {
-  border-bottom: 2px solid black;
   font-size: 20pt;
   font-style: italic;
   margin: 0 auto;
