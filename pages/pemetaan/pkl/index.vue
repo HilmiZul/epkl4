@@ -82,7 +82,7 @@
                     <div class="mt-1 text-muted smallest">{{ pemetaan.expand.siswa.kelas }}</div>
                   </td>
                   <td v-if="pemetaan.showIduka" :rowspan="pemetaan.idukaRowspan" class="align-middle text-center">
-                    <nuxt-link v-if="!pemetaan.status_acc_pkl" :to="`/pemetaan/pkl/surat/cetak/${pemetaan.iduka}`" target="_blank" class="btn btn-light btn-sm smallest"><i class="bi bi-printer"></i> Cetak</nuxt-link>
+                    <nuxt-link v-if="!pemetaan.status_acc_pkl" :to="`/pemetaan/pkl/surat/cetak/${pemetaan.iduka}`" target="_blank" class="btn btn-light btn-sm smallest"><i class="bi bi-download"></i> Unduh</nuxt-link>
                     <span v-else class="text-muted small">Sudah</span>
                   </td>
                 </tr>
