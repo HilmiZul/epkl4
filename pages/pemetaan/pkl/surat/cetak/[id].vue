@@ -86,7 +86,7 @@
           siswa kami untuk melaksanakan program tersebut di dinas/jawatan/perusahaan yang Bapak/Ibu pimpin. Mulai tanggal
           <strong>{{ pengaturan.rentang_pelaksanaan }}</strong>. Siswa yang akan melaksanakan PKL di dinas/jawatan/perusahaan Bapak/Ibu sebagai berikut:
         </p>
-        <table class="mt-3 smallest siswa">
+        <table width="100%" class="mt-3 smallest siswa">
           <tr class="text-center">
             <td>No.</td>
             <td>Nama</td>
@@ -105,18 +105,22 @@
         <p class="mt-3">
           Atas kesediaan dan kerjasama Bapak/Ibu, Kami mengucapkan terima kasih.
         </p>
-        <table class="mt-4">
+        <table width="100%" class="mt-4 float-end">
           <tr>
             <td></td>
-            <td width="35%">
-              Kepala Sekolah,
+            <td width="45%" class="text-center">
+              <span class="text-center small">Kepala {{ pengaturan.nama_sekolah }},</span>
+              <span class="text-end">
+                <img src="~/assets/img/tte-kepala.png" alt="TTE Kepala Sekolah" width="100%">
+              </span>
+              <!-- Kepala Sekolah,
               <br>
               <br>
               <br>
               <br>
               <br>
               <span class="underline">{{ pengaturan.nama_kepala_sekolah }}</span><br>
-              NIP. {{ pengaturan.nip }}
+              NIP. {{ pengaturan.nip }} -->
             </td>
           </tr>
         </table>
