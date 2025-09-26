@@ -38,9 +38,9 @@
           <li v-if="role === 'admin' || role === 'tu'" class="nav-item">
             <nuxt-link class="nav-link" to="/pengaturan"><i class="bi bi-sliders"></i> Pengaturan</nuxt-link>
           </li>
-          <li v-if="role === 'admin' || role === 'jurusan'" class="nav-item">
+          <!-- <li v-if="role === 'admin' || role === 'jurusan'" class="nav-item">
             <nuxt-link class="nav-link" to="/sertifikat"><i class="bi bi-person-vcard-fill"></i> Sertifikat</nuxt-link>
-          </li>
+          </li> -->
           <li class="nav-item">
             <nuxt-link class="nav-link" to="/ubah-password"><i class="bi bi-key"></i> Ubah Password</nuxt-link>
           </li>
