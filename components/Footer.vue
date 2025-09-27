@@ -121,10 +121,11 @@
             </ul>
             <h5 class="fw-bold text-grey">Alur Pemetaan PKL</h5>
             <ul>
-              <li>Upayakan peserta didik melakukan konsultasi bersama pihak jurusan sebelum melakukan survey tempat PKL.</li>
+              <li>Hanya peserta didik yang sudah tuntas nilai rapor 4 semester terakhir yang dapat dipetakan.</li>
+              <li>Jurusan wajib mengajak peserta didik melakukan konsultasi sebelum survey tempat PKL.</li>
               <li>
-                Pihak jurusan wajib memfasilitasi, melayani dan mengarahkan peserta didik kepada IDUKA yang sesuai kompetensi,
-                apabila terdaftar pada IDUKA dan masih kosong.
+                Jurusan wajib memfasilitasi, melayani dan mengarahkan peserta didik kepada IDUKA yang sesuai kompetensi,
+                apabila terdaftar pada halaman IDUKA dan masih kosong.
               </li>
               <li>Peserta didik masih dapat mengubah pilihan IDUKA selama surat permohonan belum terbit.</li>
               <li>Surat permohonan akan di <em>generate</em> oleh aplikasi e-PKL pasca pemetaan peserta ke IDUKA selesai.</li>
@@ -168,7 +169,7 @@
                     </tr>
                   </tbody>
                 </table>
-                Selain yang tercantum diatas, Guru Pembimbing tidak berkenan memvalidasi.
+                Selain yang tercantum diatas, Guru Pembimbing tidak berkenan memvalidasi jurnal.
               </li>
               <li>Jurnal peserta akan diurutkan berdasarkan status yang belum valid.</li>
               <li>Guru Pembimbing dapat memfilter jurnal berdasarkan tanggal dan atau peserta didik.</li>
