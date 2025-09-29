@@ -138,4 +138,14 @@ a.link-footer:hover {
 .hand-cursor {
   cursor: pointer;
 }
+table {
+  font-size: medium;
+}
+table thead {
+  font-size: medium;
+}
+table th {
+  background-color: #000 !important;
+  color: #fff;
+}
 </style>
