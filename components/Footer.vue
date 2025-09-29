@@ -172,7 +172,7 @@
             </ul>
 
             <p class="pt-3 text-grey small">
-              Diperbaharui pada 27 September 2025
+              Diperbaharui pada 29 September 2025
             </p>
           </div>
         </div>
