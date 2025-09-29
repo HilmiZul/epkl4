@@ -145,31 +145,27 @@
               <li>Setiap Guru Pembimbing wajib memantau dan memvalidasi aktivitas peserta pada halaman Jurnal Harian.</li>
               <li>Setiap jurnal peserta memiliki pita berwarna <span class="text-primary">Biru (sesuai elemen)</span> dan <span class="text-danger">Merah (tidak sesuai elemen)</span>.</li>
               <li>Guru Pembimbing hanya diperbolehkan memvalidasi Jurnal peserta apabila:
-                <table class="table text-muted small">
+                <table class="table text-muted small mt-3">
                   <tbody>
                     <tr>
                       <th>Elemen</th>
                       <th>Konten</th>
-                      <th>Status Validasi</th>
                     </tr>
                     <tr>
                       <td><i class="bi bi-bookmark-fill text-primary"></i> Pita Biru (sesuai)</td>
                       <td>Sesuai dengan elemen yang dipilih</td>
-                      <td><i class="bi bi-check-circle-fill text-success"></i> Valid</td>
                     </tr>
                     <tr>
                       <td><i class="bi bi-bookmark-fill text-primary"></i> Pita Biru (sesuai)</td>
                       <td>Ada hubungannya dengan elemen yang dipilih</td>
-                      <td><i class="bi bi-check-circle-fill text-success"></i> Valid</td>
                     </tr>
                     <tr>
                       <td> <i class="bi bi-bookmark-fill text-danger"></i> Pita Merah (tidak sesuai)</td>
                       <td>Lintas konsentrasi keahlian atau aktivitas masih berhubungan dengan pekerjaan</td>
-                      <td><i class="bi bi-check-circle-fill text-success"></i> Valid</td>
                     </tr>
                   </tbody>
                 </table>
-                Selain yang tercantum diatas, Guru Pembimbing tidak berkenan memvalidasi jurnal.
+                Yang tidak tercantum diatas, Guru Pembimbing tidak berkenan memvalidasi jurnal.
               </li>
               <li>Jurnal peserta akan diurutkan berdasarkan status yang belum valid.</li>
               <li>Guru Pembimbing dapat memfilter jurnal berdasarkan tanggal dan atau peserta didik.</li>
