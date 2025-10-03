@@ -111,7 +111,7 @@
             <td width="45%" class="text-center">
               <span class="text-center small">Kepala {{ pengaturan.nama_sekolah }},</span>
               <span class="text-end">
-                <img src="~/assets/img/tte-kepala.png" alt="TTE Kepala Sekolah" width="100%">
+                <img src="~/assets/img/tte-kepala.webp" alt="TTE Kepala Sekolah" width="100%">
               </span>
               <!-- Kepala Sekolah,
               <br>
