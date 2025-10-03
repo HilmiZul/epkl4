@@ -31,7 +31,12 @@ definePageMeta({
   layout: 'login',
   middleware: 'check-auth'
 })
-useHead({ title: "Login — e-PKL / SMKN 4 Tasikmalaya." })
+useHead({
+  title: "Login — e-PKL / SMKN 4 Tasikmalaya.",
+  meta: [
+    { name: "description", content: "SaaS/App Pemetaan dan Jurnal Peserta PKL (Praktik Kerja Lapangan) tingkat SMK."}
+  ]
+})
 
 let client = usePocketBaseClient()
 let user = usePocketBaseUser()
