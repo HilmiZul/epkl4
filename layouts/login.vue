@@ -22,14 +22,6 @@ let user = usePocketBaseUser()
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Mega:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 
-@font-face {
-  font-family: 'Romana BT';
-  src: url('~/assets/font/RomanaB.ttf');
-}
-@font-face {
-  font-family: 'Metropolis';
-  src: url('~/assets/font/Metropolis-Regular.otf');
-}
 html, body {
   background: #f5fff2 url('~/assets/img/bg.webp') no-repeat center bottom fixed;
   background-size: cover;
@@ -46,12 +38,6 @@ html, body {
   font-optical-sizing: auto;
   font-weight: 700;
   font-style: normal;
-}
-.metropolis {
-  font-family: 'Metropolis';
-}
-.romana {
-  font-family: 'Romana BT';
 }
 .shadow-lg {
   box-shadow: 0.5rem 0.5rem 0 #000000 !important;

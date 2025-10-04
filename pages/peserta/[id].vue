@@ -87,7 +87,7 @@
         </div> -->
         <div class="col-md-12">
           <div class="alert text-danger border-danger">
-            <h5 class="romana">Danger Zone!</h5>
+            <h5 class="fw-bold">Danger Zone!</h5>
             <p>Apabila Siswa yang bernama <span class="border-2 border-bottom border-danger pb-1">{{ form.nama }}</span> telah pindah/mengundurkan diri, silahkan hapus!</p>
             <button class="btn btn-danger border-dark" data-bs-toggle="modal" :data-bs-target="`#siswa-${form.id}`">Hapus</button>
             <div class="modal" :id="`siswa-${form.id}`" aria-hidden="true">

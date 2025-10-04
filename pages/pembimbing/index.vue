@@ -64,7 +64,7 @@
         </table>
       </div>
     </div>
-    <div v-if="itemFiltered.length > 0">
+    <!-- <div v-if="itemFiltered.length > 0">
       <div v-for="pembimbing in itemFiltered" :key="pembimbing.id">
         <div class="modal" :id="`pem-${pembimbing.id}`" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
@@ -73,7 +73,7 @@
                 Peringatan!
               </div>
               <div class="modal-body text-dark small">
-                Yakin nih mau hapus <span class="romana">{{ pembimbing.nama }}</span> dari Pembimbing?
+                Yakin nih mau hapus {{ pembimbing.nama }} dari Pembimbing?
               </div>
               <div class="modal-footer">
                 <button v-if="!isDeleted" class="btn btn-danger" data-bs-dismiss="modal" @click="hapusData(pembimbing.id)" :disabled="isSending">
@@ -87,7 +87,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 

@@ -60,7 +60,7 @@
                                   Hapus dari Pembimbing
                                 </div>
                                 <div class="modal-body text-dark">
-                                  Hapus <span class="romana">{{ student.nama }}</span> dari daftar bimbingan <span class="romana">{{ pemetaan.expand.pembimbing.nama }}</span>?
+                                  Hapus {{ student.nama }} dari daftar bimbingan {{ pemetaan.expand.pembimbing.nama }}?
                                 </div>
                                 <div class="modal-footer">
                                   <button @click="hapusPesertaDariBimbingan(pemetaan.id, student.id)" class="btn btn-danger" data-bs-dismiss="modal">Hapus</button>
