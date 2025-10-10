@@ -240,4 +240,7 @@ input[type="checkbox"]:not(:checked) {
   border-radius: 0 !important;
   box-shadow: 0.2rem 0.2rem 0 #000000 !important;
 }
+.badge {
+  border: 1.8px solid #000 !important
+}
 </style>
