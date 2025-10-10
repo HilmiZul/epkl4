@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-header">
       <loading-placeholder v-if="isLoading" col="5" row="1" />
-      <span v-else class="h4 quicksand">Pembimbing / <span class="fw-bold text-dark">{{ form.nama }}</span></span>
+      <span v-else class="h4 quicksand fw-bold text-muted">Pembimbing / <span class="text-dark">{{ form.nama }}</span></span>
     </div>
     <div class="card-body">
       <div class="row">

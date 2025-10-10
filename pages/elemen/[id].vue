@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-header">
       <loading-placeholder v-if="isLoading" col="5" row="1" />
-      <span v-else class="h4 quicksand">Update Elemen / <span class="text-dark fw-bold">{{ form.elemen }}</span></span>
+      <span v-else class="h4 quicksand fw-bold text-muted">Update Elemen / <span class="text-dark">{{ form.elemen }}</span></span>
     </div>
     <div class="card-body">
       <div class="row">

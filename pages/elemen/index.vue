@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand"><i class="bi bi-journal-bookmark-fill"></i> Elemen</span>
+      <span class="h4 quicksand fw-bold"><i class="bi bi-journal-bookmark-fill"></i> Elemen</span>
       <span v-if="role == 'admin' || role == 'jurusan'" class="float-end">
         <nuxt-link to="/elemen/tambah" class="btn btn-info btn-sm"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
       </span>

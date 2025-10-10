@@ -3,8 +3,8 @@
     <div v-if="pemetaan?.status_acc_pkl" v-confetti class="posiiton-absolute top-0 start-50 translate-middle-x"></div>
     <div class="card-header">
       <loading-placeholder v-if="isLoading" col="5" row="1" />
-      <span v-else class="h4 quicksand text-grey">
-        {{ pemetaan.expand.siswa.nama }} <i class="bi bi-chevron-right"></i> <span class="text-dark fw-bold">{{ pemetaan.expand.iduka.nama }}</span>
+      <span v-else class="h4 quicksand fw-bold text-muted">
+        {{ pemetaan.expand.siswa.nama }} <i class="bi bi-chevron-right"></i> <span class="text-dark">{{ pemetaan.expand.iduka.nama }}</span>
       </span>
     </div>
     <div class="card-body">

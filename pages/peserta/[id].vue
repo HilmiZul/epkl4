@@ -2,8 +2,8 @@
   <div class="card">
     <div class="card-header">
       <loading-placeholder v-if="isLoading" col="5" row="1" />
-      <span v-else class="h4 quicksand">
-        {{ form.kelas }} / <span class="text-dark fw-bold">{{ form.nama }}</span>
+      <span v-else class="h4 quicksand fw-bold text-muted">
+        {{ form.kelas }} / <span class="text-dark">{{ form.nama }}</span>
       </span>
     </div>
     <div class="card-body">

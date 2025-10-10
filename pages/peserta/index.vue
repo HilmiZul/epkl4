@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand"><i class="bi bi-person-fill"></i> Peserta Didik</span>
+      <span class="h4 quicksand fw-bold"><i class="bi bi-person-fill"></i> Peserta Didik</span>
       <span class="float-end">
         <!-- <span v-if="role == 'admin' || role == 'jurusan'">
           <button v-if="students.totalItems > 0 && count_users.length < 1" data-bs-toggle="modal" data-bs-target="#buat-akun-peserta" class="btn btn-info btn-sm me-2"><i class="bi bi-person-plus"></i> Buat akun</button>

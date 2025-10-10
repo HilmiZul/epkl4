@@ -3,7 +3,7 @@
     <!-- ROLE: ADMIN & JURUSAN (MANAJEMEN) -->
     <div v-if="role == 'admin' || role == 'jurusan'" class="card">
       <div class="card-header">
-        <span class="h4 quicksand"><i class="bi bi-pie-chart-fill"></i> Ringkasan</span>
+        <span class="h4 quicksand fw-bold"><i class="bi bi-pie-chart-fill"></i> Ringkasan</span>
       </div>
       <div class="card-body">
         <ringkasan-notif-jurnal />
@@ -38,7 +38,7 @@
     <!-- ROLE: TU -->
     <div v-else class="card">
       <div class="card-header">
-        <span class="h4 quicksand text-grey"><i class="bi bi-pie-chart-fill"></i> Ringkasan</span>
+        <span class="h4 quicksand fw-bold"><i class="bi bi-pie-chart-fill"></i> Ringkasan</span>
       </div>
       <div class="card-body">
         <div class="row">

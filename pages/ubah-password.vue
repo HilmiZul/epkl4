@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand"><i class="bi bi-key"></i> Ubah Password</span>
+      <span class="h4 quicksand fw-bold"><i class="bi bi-key"></i> Ubah Password</span>
     </div>
     <div class="card-body">
       <div class="row">

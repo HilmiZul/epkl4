@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4"><i class="bi bi-sliders"></i> Pengaturan</span>
+      <span class="h4 fw-bold"><i class="bi bi-sliders"></i> Pengaturan</span>
     </div>
     <div class="card-body">
       <div class="row">

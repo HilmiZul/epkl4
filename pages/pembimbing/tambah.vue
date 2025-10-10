@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand">Pembimbing / <span class="text-dark fw-bold">Tambah baru</span></span>
+      <span class="h4 quicksand fw-bold text-muted">Pembimbing / <span class="text-dark">Tambah baru</span></span>
     </div>
     <div class="card-body">
       <div class="row">
