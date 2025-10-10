@@ -34,7 +34,7 @@
           <div v-if="idukaTemp.length > 0" class="mb-3 text-muted">
             <div class="strong">Berhasil tersimpan!</div>
           </div>
-          <nuxt-link to="/iduka" class="btn btn-light mb-3"><i class="bi bi-arrow-left"></i> Kembali</nuxt-link>
+          <nuxt-link to="/iduka" class="btn btn-danger mb-3 border border-2 border-dark"><i class="bi bi-arrow-left"></i> Kembali</nuxt-link>
         </div>
       </div>
     </div>

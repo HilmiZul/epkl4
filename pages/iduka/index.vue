@@ -3,8 +3,8 @@
     <div class="card-header">
       <span class="h4 quicksand fw-bold"><i class="bi bi-buildings-fill"></i> IDUKA</span>
       <span class="float-end">
-        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/iduka/tambah" class="btn btn-info btn-sm me-2"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
-        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/iduka/import" class="btn btn-success btn-sm"><i class="bi bi-download"></i> Impor dari .csv</nuxt-link>
+        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/iduka/tambah" class="btn btn-info btn-sm me-2 border border-2 border-dark"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
+        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/iduka/import" class="btn btn-success btn-sm border border-2 border-dark"><i class="bi bi-download"></i> Impor dari .csv</nuxt-link>
       </span>
     </div>
     <div class="card-body small">
@@ -12,8 +12,8 @@
         <div class="col-lg-6">
           <form @submit.prevent="getCompanies">
             <div class="my-3 mt-0 input-group">
-              <input type="search" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari nama IDUKA" />
-              <button class="btn btn-info ms-2">Cari</button>
+              <input type="search" v-model="keyword" class="form form-control form-control-lg" placeholder="🔎 Cari nama IDUKA" />
+              <button class="btn btn-info ms-2 border border-2 border-dark">Cari</button>
             </div>
           </form>
         </div>
@@ -65,7 +65,7 @@
                   </td>
                   <td class="smallest">{{ company.expand.pembimbing_sekolah?.nama }} </td>
                   <td class="smallest">
-                    <button v-if="company.terisi < 1" class="btn btn-danger btn-sm" data-bs-toggle="modal" :data-bs-target="`#iduka-${company.id}`"><i class="bi bi-trash3"></i></button>
+                    <button v-if="company.terisi < 1" class="btn btn-danger btn-sm border border-2 border-dark" data-bs-toggle="modal" :data-bs-target="`#iduka-${company.id}`"><i class="bi bi-trash3"></i></button>
                     <button v-else class="btn btn-dark btn-sm" disabled><i class="bi bi-trash3"></i></button>
                   </td>
                 </tr>
@@ -83,10 +83,10 @@
               <span v-if="companies.totalItems">Halaman {{ companies.page }} dari {{ companies.totalPages }}</span>
             </div>
           </div>
-          <button :disabled="isMovingPage || companies.page < 2" @click="pagination(companies.page - 1, false)" class="btn btn-info btn-sm me-2">
+          <button :disabled="isMovingPage || companies.page < 2" @click="pagination(companies.page - 1, false)" class="btn btn-info btn-sm me-2 border border-2 border-dark">
             <i class="bi bi-arrow-left"></i> sebelumnya
           </button>
-          <button :disabled="isMovingPage || companies.page >= companies.totalPages" @click="pagination(companies.page + 1, false)" class="btn btn-info btn-sm">
+          <button :disabled="isMovingPage || companies.page >= companies.totalPages" @click="pagination(companies.page + 1, false)" class="btn btn-info btn-sm border border-2 border-dark">
             lanjut <i class="bi bi-arrow-right"></i>
           </button>
         </span>
@@ -98,12 +98,12 @@
       <!-- modal: catatan jika available -->
       <div v-if="company.catatan" class="modal" :id="`catatan-${company.id}`" aria-hidden="true" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
-            <div class="modal-header rounded-0 bg-warning quicksand">
+          <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
+            <div class="modal-header rounded-0 bg-warning fw-bold border-bottom border-3 border-dark">
               <div class="fs-4">Catatan</div>
               <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
             </div>
-            <div class="modal-body text-muted py-4">
+            <div class="modal-body py-4">
               {{ company.catatan }}
             </div>
           </div>
@@ -113,20 +113,20 @@
       <!-- modal: hapus iduka -->
       <div class="modal" :id="`iduka-${company.id}`" aria-hidden="true" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
-            <div class="modal-header rounded-0 h4 bg-danger text-white quicksand">
+          <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
+            <div class="modal-header rounded-0 h4 bg-danger fw-bold border-bottom border-3 border-dark">
               Peringatan!
             </div>
             <div class="modal-body text-dark">
               Yakin mau hapus <strong>{{ company.nama }}</strong> dari daftar IDUKA?
             </div>
-            <div class="modal-footer">
-              <button v-if="!isDeleted" class="btn btn-danger" data-bs-dismiss="modal" @click="hapusData(company.id)" :disabled="isSending">
+            <div class="modal-footer border-0 justify-content-center">
+              <button v-if="!isDeleted" class="btn btn-danger border border-2 border-dark" data-bs-dismiss="modal" @click="hapusData(company.id)" :disabled="isSending">
                 <span v-if="isSending">Sedang menghapus</span>
                 <span v-else>Hapus</span>
               </button>
               <span v-else class="me-2"><em>Berhasil dihapus!</em></span>
-              <button @click="() => { isDeleted = false; isSending = flase }" class="btn btn-light" data-bs-dismiss="modal">Gajadi</button>
+              <button @click="() => { isDeleted = false; isSending = flase }" class="btn btn-light border border-2 border-dark" data-bs-dismiss="modal">Gajadi</button>
             </div>
           </div>
         </div>

@@ -35,7 +35,7 @@
             <div class="strong">Berhasil tersimpan!</div>
           </div>
           <!-- <button @click="()=>isLoading=!isLoading">tes</button> -->
-          <nuxt-link to="/peserta" class="btn btn-light mb-3"><i class="bi bi-arrow-left"></i> Kembali</nuxt-link>
+          <nuxt-link to="/peserta" class="btn btn-danger mb-3 border border-2 border-dark"><i class="bi bi-arrow-left"></i> Kembali</nuxt-link>
         </div>
       </div>
     </div>

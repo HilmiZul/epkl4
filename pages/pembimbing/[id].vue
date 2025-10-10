@@ -13,25 +13,25 @@
           <form @submit.prevent="updatePembimbingBaru">
             <div class="mb-4">
               <label for="username">Username</label>
-              <input v-model="form.username" :disabled="isLoading" type="text" id="username" class="form form-control" placeholder="masukkan username" required autofocus>
+              <input v-model="form.username" :disabled="isLoading" type="text" id="username" class="form form-control form-control-lg" placeholder="masukkan username" required autofocus>
             </div>
             <div class="my-4">
               <label for="nama">Nama</label>
-              <input v-model="form.nama" :disabled="isLoading" type="text" id="nama" class="form form-control" placeholder="masukkan nama Guru Pembimbing" required>
+              <input v-model="form.nama" :disabled="isLoading" type="text" id="nama" class="form form-control form-control-lg" placeholder="masukkan nama Guru Pembimbing" required>
             </div>
             <div class="my-4">
               <label for="role">Role</label>
-              <select v-model="form.role" :disabled="isLoading" id="role" class="form form-control form-select" required>
+              <select v-model="form.role" :disabled="isLoading" id="role" class="form form-control form-select form-select-lg" required>
                 <option disabled value="">—</option>
                 <option value="jurusan">Manajemen</option>
                 <option value="guru">Guru Pembimbing</option>
               </select>
             </div>
-            <button :disabled="isSending || isLoading || form.username == '' || form.email == '' || form.password == '' || form.nama == '' || form.role == ''" class="btn btn-success me-2">
+            <button :disabled="isSending || isLoading || form.username == '' || form.email == '' || form.password == '' || form.nama == '' || form.role == ''" class="btn btn-success me-2 border border-2 border-dark">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>
-            <nuxt-link to="/pembimbing" class="btn btn-light">Kembali</nuxt-link>
+            <nuxt-link to="/pembimbing" class="btn btn-danger border border-2 border-dark">Kembali</nuxt-link>
             <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small">Berhasil tersimpan!</span>
           </form>
         </div>

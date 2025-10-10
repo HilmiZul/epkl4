@@ -6,7 +6,7 @@
         <!-- <span v-if="role == 'admin' || role == 'jurusan'">
           <button v-if="students.totalItems > 0 && count_users.length < 1" data-bs-toggle="modal" data-bs-target="#buat-akun-peserta" class="btn btn-info btn-sm me-2"><i class="bi bi-person-plus"></i> Buat akun</button>
         </span> -->
-        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/peserta/import" class="btn btn-success btn-sm"><i class="bi bi-download"></i> Impor dari .csv</nuxt-link>
+        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/peserta/import" class="btn btn-success btn-sm border border-2 border-dark"><i class="bi bi-download"></i> Impor dari .csv</nuxt-link>
       </span>
       <div class="modal" id="buat-akun-peserta" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -44,8 +44,8 @@
         <div class="col-lg-6">
           <form @submit.prevent="getStudents">
             <div class="my-3 mt-0 input-group">
-              <input type="search" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari nama" />
-              <button class="btn btn-info ms-2">Cari</button>
+              <input type="search" v-model="keyword" class="form form-control form-control-lg" placeholder="🔎 Cari nama" />
+              <button class="btn btn-info ms-2 border border-2 border-dark">Cari</button>
             </div>
           </form>
         </div>
@@ -113,10 +113,10 @@
                 <span v-if="students.totalItems">Halaman {{ students.page }} dari {{ students.totalPages }}</span>
               </div>
             </div>
-            <button :disabled="isMovingPage || students.page < 2" @click="pagination(students.page - 1, false)" class="btn btn-info btn-sm me-2">
+            <button :disabled="isMovingPage || students.page < 2" @click="pagination(students.page - 1, false)" class="btn btn-info btn-sm me-2 border border-2 border-dark">
               <i class="bi bi-arrow-left"></i> sebelumnya
             </button>
-            <button :disabled="isMovingPage || students.page >= students.totalPages" @click="pagination(students.page + 1, false)" class="btn btn-info btn-sm">
+            <button :disabled="isMovingPage || students.page >= students.totalPages" @click="pagination(students.page + 1, false)" class="btn btn-info btn-sm border border-2 border-dark">
               lanjut <i class="bi bi-arrow-right"></i>
             </button>
           </span>

@@ -11,7 +11,7 @@
       <div class="row">
         <div class="col-lg-6">
           <div class="my-3 mt-0">
-            <input type="search" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari username / nama / kelas" />
+            <input type="search" v-model="keyword" class="form form-control" placeholder="🔎 Cari username / nama / kelas" />
           </div>
         </div>
         <div class="col align-content-center">

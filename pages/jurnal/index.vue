@@ -49,8 +49,8 @@
                 <!-- MODAL FOTO PREVIEW -->
                 <div class="modal" :id="`foto-${journal.id}`" aria-hidden="true" tabindex="-1">
                   <div class="modal-dialog modal-dialog-centered modal-xl">
-                    <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
-                      <div class="modal-header rounded-0 border-bottom border-2 border-dark">
+                    <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
+                      <div class="modal-header rounded-0 border-bottom border-3 border-dark">
                         <button class="btn-close" data-bs-dismiss="modal" label="Close"></button>
                       </div>
                       <div class="modal-body p-0">
@@ -68,10 +68,10 @@
                       <span v-if="journals.totalItems">Halaman {{ journals.page }} dari {{ journals.totalPages }}</span>
                     </div>
                   </div>
-                  <button :disabled="isMovingPage || journals.page < 2" @click="pagination(journals.page - 1, false)" class="btn btn-info me-2">
+                  <button :disabled="isMovingPage || journals.page < 2" @click="pagination(journals.page - 1, false)" class="btn btn-info me-2 border border-2 border-dark">
                     <i class="bi bi-arrow-left"></i> sebelumnya
                   </button>
-                  <button :disabled="isMovingPage || journals.page >= journals.totalPages" @click="pagination(journals.page + 1, false)" class="btn btn-info">
+                  <button :disabled="isMovingPage || journals.page >= journals.totalPages" @click="pagination(journals.page + 1, false)" class="btn btn-info border border-2 border-dark">
                     lanjut <i class="bi bi-arrow-right"></i>
                   </button>
                 </div>

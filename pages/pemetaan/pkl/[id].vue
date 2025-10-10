@@ -32,7 +32,7 @@
             <span class="fw-bold">{{ pemetaan.expand.siswa.nama }}</span> diterima PKL di <span class="fw-bold">{{ pemetaan.expand.iduka.nama }}</span>!
           </div>
           <div v-if="pemetaan?.status_acc_pkl" class="my-3">
-            <nuxt-link to="/pemetaan/pkl" class="btn btn-light"><i class="bi bi-arrow-left"></i> kembali</nuxt-link>
+            <nuxt-link to="/pemetaan/pkl" class="btn btn-danger border border-2 border-dark"><i class="bi bi-arrow-left"></i> kembali</nuxt-link>
           </div>
         </div>
         <div v-else class="col-md-6">
@@ -49,7 +49,7 @@
                 placeholder="dalam atau luar kota?"
                 required>
               </multiselect> -->
-              <select @change="getCompanies" v-model="selectWilayah" id="wilayah" class="form form-control form-select" required>
+              <select @change="getCompanies" v-model="selectWilayah" id="wilayah" class="form form-control form-select form-select-lg" required>
                 <option value="dalam" selected>Dalam kota</option>
                 <option value="luar">Luar kota</option>
               </select>
@@ -70,11 +70,11 @@
                 <template v-slot:singleLabel="{ option }"><strong>{{ option.nama }} / {{ option.terisi }} dari {{ option.jumlah_kuota }}</strong></template>
               </multiselect>
             </div>
-            <button :disabled="isSending || form.iduka.length < 1" class="btn btn-success me-2">
+            <button :disabled="isSending || form.iduka.length < 1" class="btn btn-success me-2 border border-2 border-dark">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>
-            <nuxt-link to="/pemetaan/pkl" class="btn btn-light me-2">Kembali</nuxt-link>
+            <nuxt-link to="/pemetaan/pkl" class="btn btn-danger me-2 border border-2 border-dark">Kembali</nuxt-link>
             <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small">Berhasil dipetakan ulang!</span>
           </form>
         </div>
@@ -87,19 +87,19 @@
             <h5 class="fw-bold">Danger Zone!</h5>
             <p class="mb-0">Apabila Pemetaan ini dihapus, maka harus buat pemetaan ulang!</p>
             <p class="pt-0">Usahakan <strong>TIDAK</strong> menghapus/memindahkan peserta ini apabila sudah diterima.</p>
-            <button class="btn btn-danger border-dark" data-bs-toggle="modal" :data-bs-target="`#pemetaan-${route.params.id}`">Hapus</button>
+            <button class="btn btn-danger border border-2 border-dark" data-bs-toggle="modal" :data-bs-target="`#pemetaan-${route.params.id}`">Hapus</button>
             <div class="modal" :id="`pemetaan-${route.params.id}`" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
-                  <div class="modal-header rounded-0 h4 bg-danger text-white quicksand">
+                <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
+                  <div class="modal-header rounded-0 h4 bg-danger fw-bold border-bottom border-3 border-dark">
                     Peringatan!
                   </div>
                   <div class="modal-body text-dark">
                     Yakin nih mau hapus <strong>{{ pemetaan?.expand.siswa.nama }}</strong> dari Pemetaan?
                   </div>
-                  <div class="modal-footer">
-                    <button @click="hapusData(pemetaan.id)" class="btn btn-danger" data-bs-dismiss="modal">Hapus</button>
-                    <button class="btn btn-light" data-bs-dismiss="modal">Gajadi</button>
+                  <div class="modal-footer border-0 justify-content-center">
+                    <button @click="hapusData(pemetaan.id)" class="btn btn-danger border border-2 border-dark" data-bs-dismiss="modal">Hapus</button>
+                    <button class="btn btn-light border border-2 border-dark" data-bs-dismiss="modal">Gajadi</button>
                   </div>
                 </div>
               </div>

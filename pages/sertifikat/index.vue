@@ -22,7 +22,7 @@
             <option value="">&#8212; Peserta didik &#8212;</option>
             <option v-for="s in students" :key="s.id" :value="s.id">{{ s.nama }}</option>
           </select>
-          <div v-if="isLoaded" class="text-end pt-3"><button class="btn btn-success btn-sm"><i class="bi bi-download"></i> Unduh</button></div>
+          <div v-if="isLoaded" class="text-end pt-3"><button class="btn btn-success btn-sm border border-2 border-dark"><i class="bi bi-download"></i> Unduh</button></div>
         </div>
       </div>
 

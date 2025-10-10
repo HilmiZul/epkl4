@@ -26,23 +26,23 @@
             <div class="form-group">
               <div class="mb-4">
                 <label for="nama">Nama IDUKA</label>
-                <input :disabled="isLoading" v-model="form.nama" type="text" id="nama" class="form form-control" placeholder="Tulis nama IDUKA" required autofocus>
+                <input :disabled="isLoading" v-model="form.nama" type="text" id="nama" class="form form-control form-control-lg" placeholder="Tulis nama IDUKA" required autofocus>
               </div>
               <div class="mb-4">
                 <label for="alamat">Alamat</label>
-                <textarea :disabled="isLoading" v-model="form.alamat" id="alamat" class="form form-control" cols="30" rows="3" placeholder="Alamat lengkap IDUKA. Gunain search enginge kalau bingung" required></textarea>
+                <textarea :disabled="isLoading" v-model="form.alamat" id="alamat" class="form form-control form-control-lg" cols="30" rows="3" placeholder="Alamat lengkap IDUKA. Gunain search enginge kalau bingung" required></textarea>
               </div>
               <div class="mb-4">
                 <label for="pimpinan">Pimpinan/PIC</label>
-                <input :disabled="isLoading" v-model="form.pimpinan" type="text" id="pimpinan" class="form form-control" placeholder="Kalau belum tahu, ketik '-'" required>
+                <input :disabled="isLoading" v-model="form.pimpinan" type="text" id="pimpinan" class="form form-control form-control-lg" placeholder="Kalau belum tahu, ketik '-'" required>
               </div>
               <div class="mb-4">
                 <label for="kontak">Kontak</label>
-                <input :disabled="isLoading" v-model="form.kontak" type="text" maxlength="13" min="0" id="kontak" class="form form-control" placeholder="di search engine biasanya ada" required>
+                <input :disabled="isLoading" v-model="form.kontak" type="text" maxlength="13" min="0" id="kontak" class="form form-control form-control-lg" placeholder="di search engine biasanya ada" required>
               </div>
               <div class="mb-4">
                 <label for="email">Email</label>
-                <input :disabled="isLoading" v-model="form.email" type="email" id="email" class="form form-control" placeholder="(biasanya) email juga ada" required>
+                <input :disabled="isLoading" v-model="form.email" type="email" id="email" class="form form-control form-control-lg" placeholder="(biasanya) email juga ada" required>
               </div>
             </div>
           </div>
@@ -50,30 +50,30 @@
             <div class="form-group">
               <div class="mb-4">
                 <label for="kuota">Jumlah Kuota Peserta</label>
-                <input :disabled="isLoading" v-model="form.jumlah_kuota" type="number" min="1" max="15" id="kuota" class="form form-control" required>
+                <input :disabled="isLoading" v-model="form.jumlah_kuota" type="number" min="1" max="15" id="kuota" class="form form-control form-control-lg" required>
               </div>
               <!-- <input v-model="form.program_keahlian" type="hidden" :value="prokel" disabled id="prokel" class="form form-control"> -->
               <div class="mb-4">
                 <label for="pem_sekolah">Pembimbing Sekolah</label>
-                <select :disabled="isLoading" v-model="form.pembimbing_sekolah" id="pem_sekolah" class="form form-control form-select">
+                <select :disabled="isLoading" v-model="form.pembimbing_sekolah" id="pem_sekolah" class="form form-control form-select form-select-lg">
                   <option disabled value="" selected>&#8212;</option>
                   <option :disabled="isLoading" v-for="teacher in teachers" :key="teacher.id" :value="teacher.id">{{ teacher.nama }}</option>
                 </select>
               </div>
               <div class="mb-4">
                 <label for="pem_iduka">Pembimbing IDUKA</label>
-                <input :disabled="isLoading" v-model="form.pembimbing_iduka" type="text" id="pem_iduka" class="form form-control" placeholder="Kalau belum tahu, ketik '-'" required>
+                <input :disabled="isLoading" v-model="form.pembimbing_iduka" type="text" id="pem_iduka" class="form form-control form-control-lg" placeholder="Kalau belum tahu, ketik '-'" required>
               </div>
               <div class="mb-4">
                 <label for="wilayah">Wilayah</label>
-                <select :disabled="isLoading" v-model="form.wilayah" id="wilayah" class="form form-control form-select" required>
+                <select :disabled="isLoading" v-model="form.wilayah" id="wilayah" class="form form-control form-select form-select-lg" required>
                   <option value="dalam" selected>Dalam kota</option>
                   <option value="luar">Luar kota</option>
                 </select>
               </div>
               <div class="mb-4">
                 <label for="catatan">Catatan (opsional)</label>
-                <input :disabled="isLoading" v-model="form.catatan" type="text" id="catatan" class="form form-control" placeholder="Ada catatan untuk IDUKA ini?">
+                <input :disabled="isLoading" v-model="form.catatan" type="text" id="catatan" class="form form-control form-control-lg" placeholder="Ada catatan untuk IDUKA ini?">
               </div>
             </div>
           </div>
@@ -103,11 +103,11 @@
         </div>
         <div class="row">
           <div class="col-md-6">
-            <button :disabled="isSending || isLoading" class="btn btn-success me-2 mb-4">
+            <button :disabled="isSending || isLoading" class="btn btn-success me-2 mb-4 border border-2 border-dark">
               <span v-if="isSending">Sedang menyimpan</span>
               <span v-else>Simpan</span>
             </button>
-            <nuxt-link class="btn btn-light mb-4" to="/iduka">Kembali</nuxt-link>
+            <nuxt-link class="btn btn-danger mb-4 border border-2 border-dark" to="/iduka">Kembali</nuxt-link>
             <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small">Berhasil tersimpan!</span>
             <span v-if="isFail" class="ms-2 fst-italic text-danger small">Terjadi error saat menyimpan!</span>
           </div>

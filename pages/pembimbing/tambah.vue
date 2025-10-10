@@ -24,33 +24,33 @@
           <form @submit.prevent="buatPembimbingBaru">
             <div class="my-4">
               <label for="username">Username</label>
-              <input v-model="form.username" type="text" id="username" class="form form-control" placeholder="masukkan username" required autofocus>
+              <input v-model="form.username" type="text" id="username" class="form form-control form-control-lg" placeholder="masukkan username" required autofocus>
             </div>
             <div class="my-4">
               <label for="email">Email</label>
-              <input v-model="form.email" :disabled="form.username.length < 3" type="email" id="email" class="form form-control" placeholder="masukkan email (sekolah)" required>
+              <input v-model="form.email" :disabled="form.username.length < 3" type="email" id="email" class="form form-control form-control-lg" placeholder="masukkan email (sekolah)" required>
             </div>
             <div class="my-4">
               <label for="password">Password</label>
-              <input v-model="form.password" :disabled="form.email.length < 10" type="password" id="password" class="form form-control" placeholder="masukkan password min.8 karakter" required>
+              <input v-model="form.password" :disabled="form.email.length < 10" type="password" id="password" class="form form-control form-control-lg" placeholder="masukkan password min.8 karakter" required>
             </div>
             <div class="my-4">
               <label for="nama">Nama</label>
-              <input v-model="form.nama" :disabled="form.password.length < 8" type="text" id="nama" class="form form-control" placeholder="masukkan nama Guru Pembimbing" required>
+              <input v-model="form.nama" :disabled="form.password.length < 8" type="text" id="nama" class="form form-control form-control-lg" placeholder="masukkan nama Guru Pembimbing" required>
             </div>
             <div class="my-4">
               <label for="role">Role</label>
-              <select v-model="form.role" :disabled="form.nama.length < 4" id="role" class="form form-control form-select" required>
+              <select v-model="form.role" :disabled="form.nama.length < 4" id="role" class="form form-control form-select form-select-lg" required>
                 <option disabled value="">—</option>
                 <option value="jurusan">Manajemen</option>
                 <option value="guru">Guru Pembimbing</option>
               </select>
             </div>
-            <button :disabled="isSending || form.username.length < 3 || form.email.length < 10 || form.password.length < 8 || form.nama.length < 4 || form.role.length < 4" class="btn btn-success me-2">
+            <button :disabled="isSending || form.username.length < 3 || form.email.length < 10 || form.password.length < 8 || form.nama.length < 4 || form.role.length < 4" class="btn btn-success me-2 border border-2 border-dark">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>
-            <nuxt-link to="/pembimbing" class="btn btn-light">Kembali</nuxt-link>
+            <nuxt-link to="/pembimbing" class="btn btn-danger border border-2 border-dark">Kembali</nuxt-link>
             <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small">Berhasil tersimpan!</span>
           </form>
         </div>

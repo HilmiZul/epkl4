@@ -3,14 +3,14 @@
     <div class="card-header">
       <span class="h4 quicksand fw-bold"><i class="bi bi-journal-bookmark-fill"></i> Elemen</span>
       <span v-if="role == 'admin' || role == 'jurusan'" class="float-end">
-        <nuxt-link to="/elemen/tambah" class="btn btn-info btn-sm"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
+        <nuxt-link to="/elemen/tambah" class="btn btn-info btn-sm border border-2 border-dark"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
       </span>
     </div>
     <div class="card-body small">
       <div class="row">
         <div class="col-lg-6">
           <div class="my-3 mt-0">
-            <input v-model="keyword" type="search" class="form form-control form-control-md" placeholder="🔎 Cari nama elemen / tujuan" />
+            <input v-model="keyword" type="search" class="form form-control form-control-lg" placeholder="🔎 Cari nama elemen / tujuan" />
           </div>
         </div>
         <div class="col align-content-center">

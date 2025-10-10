@@ -3,15 +3,15 @@
     <div class="card-header">
       <span class="h4 quicksand fw-bold"><i class="bi bi-emoji-smile"></i> Pembimbing</span>
       <span class="float-end">
-        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/pembimbing/tambah" class="btn btn-info btn-sm"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
+        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/pembimbing/tambah" class="btn btn-info btn-sm border border-2 border-dark"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
       </span>
     </div>
     <div class="card-body small">
       <div class="row">
         <div class="col-lg-6">
           <div class="my-3 mt-0">
-            <!-- <input type="search" @input="searchByKeyword" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari nama atau NIP..." /> -->
-            <input type="search" v-model="keyword" class="form form-control form-control-md" placeholder="🔎 Cari username / nama" />
+            <!-- <input type="search" @input="searchByKeyword" v-model="keyword" class="form form-control" placeholder="🔎 Cari nama atau NIP..." /> -->
+            <input type="search" v-model="keyword" class="form form-control form-control-lg" placeholder="🔎 Cari username / nama" />
           </div>
         </div>
         <div class="col align-content-center">

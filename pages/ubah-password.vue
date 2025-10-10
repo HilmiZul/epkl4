@@ -11,17 +11,17 @@
             <div v-if="isErrorOldPass" class="alert alert-danger border border-2 border-dark">Password lama salah.</div>
             <div class="mb-4">
               <label for="oldPassword">Password lama</label>
-              <input v-model="form.oldPassword" type="password" id="oldPassword" class="form form-control" placeholder="masukkan password lama (saat ini)" required>
+              <input v-model="form.oldPassword" type="password" id="oldPassword" class="form form-control form-control-lg" placeholder="masukkan password lama (saat ini)" required>
             </div>
             <div class="mb-4">
               <label for="password">Password baru</label>
-              <input v-model="form.password" :disabled="form.oldPassword.length < 8" type="password" id="password" class="form form-control" placeholder="masukkan password baru" required>
+              <input v-model="form.password" :disabled="form.oldPassword.length < 8" type="password" id="password" class="form form-control form-control-lg" placeholder="masukkan password baru" required>
             </div>
             <div class="my-4">
               <label for="passwordConfirm">Konfirmasi password baru</label>
-              <input v-model="form.passwordConfirm" :disabled="form.password.length < 8" type="password" id="newPassword" class="form form-control" placeholder="ketik ulang password baru" required>
+              <input v-model="form.passwordConfirm" :disabled="form.password.length < 8" type="password" id="newPassword" class="form form-control form-control-lg" placeholder="ketik ulang password baru" required>
             </div>
-            <button :disabled="isSending || form.oldPassword.length < 8 || form.password.length < 8 || form.passwordConfirm.length < 8" class="btn btn-success me-2">
+            <button :disabled="isSending || form.oldPassword.length < 8 || form.password.length < 8 || form.passwordConfirm.length < 8" class="btn btn-success me-2 border border-2 border-dark">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>

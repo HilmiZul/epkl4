@@ -42,11 +42,11 @@
                 Diterima tempat PKL?
               </label>
             </div> -->
-            <button :disabled="isLoadingSave || isLoading" class="btn btn-success mb-2 me-2">
+            <button :disabled="isLoadingSave || isLoading" class="btn btn-success mb-2 me-2 border border-2 border-dark">
               <span v-if="isLoadingSave">Sedang menyimpan</span>
               <span v-else>Simpan</span>
             </button>
-            <nuxt-link to="/peserta" class="btn btn-light mb-2">Kembali</nuxt-link>
+            <nuxt-link to="/peserta" class="btn btn-danger mb-2 border border-2 border-dark">Kembali</nuxt-link>
             <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small">Berhasil tersimpan!</span>
           </form>
         </div>
@@ -89,18 +89,18 @@
           <div class="alert text-danger border-danger">
             <h5 class="fw-bold">Danger Zone!</h5>
             <p>Apabila Siswa yang bernama <span class="border-2 border-bottom border-danger pb-1">{{ form.nama }}</span> telah pindah/mengundurkan diri, silahkan hapus!</p>
-            <button class="btn btn-danger border-dark" data-bs-toggle="modal" :data-bs-target="`#siswa-${form.id}`">Hapus</button>
-            <div class="modal" :id="`siswa-${form.id}`" aria-hidden="true">
+            <button class="btn btn-danger border border-2 border-dark" data-bs-toggle="modal" :data-bs-target="`#siswa-${form.id}`">Hapus</button>
+            <div class="modal" :id="`siswa-${form.id}`" aria-hidden="true" tabindex="-1">
               <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
-                  <div class="modal-header rounded-0 h4 bg-danger text-white quicksand">
+                <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
+                  <div class="modal-header rounded-0 h4 bg-danger fw-bold border-bottom border-3 border-dark">
                     Peringatan!
                   </div>
                   <div class="modal-body text-dark">
                     Sorry, selain Administrator gak diizinin 🙏🏻
                   </div>
-                  <div class="modal-footer">
-                    <button class="btn text-dark" data-bs-dismiss="modal">Baiklah</button>
+                  <div class="modal-footer border-0 justify-content-center">
+                    <button class="btn border border-2 border-dark text-dark" data-bs-dismiss="modal">Baiklah</button>
                   </div>
                 </div>
               </div>
