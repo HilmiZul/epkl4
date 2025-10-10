@@ -82,12 +82,36 @@
                     <div class="mt-1 text-muted smallest">{{ pemetaan.expand.siswa.kelas }}</div>
                   </td>
                   <td v-if="pemetaan.showIduka" :rowspan="pemetaan.idukaRowspan" class="align-middle text-center">
-                    <nuxt-link v-if="!pemetaan.status_acc_pkl" :to="`/pemetaan/pkl/surat/cetak/${pemetaan.iduka}`" target="_blank" class="btn btn-light btn-sm smallest"><i class="bi bi-download"></i> Unduh</nuxt-link>
+                    <button v-if="!pemetaan.status_acc_pkl" @click="setCetakSurat(pemetaan.iduka)" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#cetak"><i class="bi bi-printer"></i> Cetak</button>
+                    <!-- <div class="mb-2"><nuxt-link v-if="!pemetaan.status_acc_pkl" :to="`/pemetaan/pkl/surat/cetak/tte/${pemetaan.iduka}`" target="_blank" class="btn btn-light btn-sm smallest"><i class="bi bi-qr-code"></i> TTE</nuxt-link></div>
+                    <nuxt-link v-if="!pemetaan.status_acc_pkl" :to="`/pemetaan/pkl/surat/cetak/non-tte/${pemetaan.iduka}`" target="_blank" class="btn btn-light btn-sm smallest"><i class="bi bi-pencil-square"></i> TTB</nuxt-link> -->
                     <span v-else class="text-muted small">Sudah</span>
                   </td>
                 </tr>
               </tbody>
             </table>
+            <!-- Modal Opsi Cetak: TTE / TTB -->
+            <div class="modal" id="cetak" aria-hidden="true" tabindex="-1">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
+                  <div class="modal-header rounded-0 bg-info">
+                    <span class="h4">Konfirmasi Jenis Surat</span>
+                    <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
+                  </div>
+                  <div class="modal-body">
+                    <select v-model="cetakSurat.opsi_jenis_surat"  @change="setJenisSurat" class="form form-select form-select-lg">
+                      <option value="" disabled>&#8212; Pilih Jenis Surat &#8212;</option>
+                      <option value="ttb">Tanda Tangan Basah</option>
+                      <option value="tte">Tanda Tangan Elektronik</option>
+                    </select>
+                  </div>
+                  <div class="modal-footer">
+                    <nuxt-link v-if="cetakSurat.opsi_jenis_surat" :to="`/pemetaan/pkl/surat/cetak/${cetakSurat.opsi_jenis_surat}/${cetakSurat.id_iduka}`" target="_blank" class="btn btn-info"><i class="bi bi-printer me-2"></i> Cetak</nuxt-link>
+                    <button v-else class="btn btn-light" disabled><i class="bi bi-printer me-2"></i> Cetak</button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="mt-2">
             <loading-placeholder v-if="isLoading" col="3" row="1" />
@@ -152,6 +176,19 @@ let perPage = 20
 let isMovingPage = ref(false)
 let opsiProkel = ref([])
 let selectedProkel = ref('')
+// state untuk jenis surat dan id iduka sebelum kehalaman cetak surat
+let cetakSurat = ref({
+  id_iduka: '',
+  opsi_jenis_surat: ''
+})
+
+// mengambil ID IDUKA untuk ditetapkan kedalam id_iduka dan diteruskan kedalam link cetak surat
+function setCetakSurat(iduka) {
+  cetakSurat.value.id_iduka = iduka
+}
+function setJenisSurat() {
+  cetakSurat.value.opsi_jenis_surat = cetakSurat.value.opsi_jenis_surat
+}
 
 async function getProkelForOption() {
   let res_prokel = await client.collection('program_keahlian').getFullList({
