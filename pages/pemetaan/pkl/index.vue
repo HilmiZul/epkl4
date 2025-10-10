@@ -105,7 +105,7 @@
                       <option value="tte">Tanda Tangan Elektronik</option>
                     </select>
                   </div>
-                  <div class="modal-footer">
+                  <div class="modal-footer border-0 justify-content-center">
                     <nuxt-link v-if="cetakSurat.opsi_jenis_surat" :to="`/pemetaan/pkl/surat/cetak/${cetakSurat.opsi_jenis_surat}/${cetakSurat.id_iduka}`" target="_blank" class="btn btn-info border border-2 border-dark"><i class="bi bi-printer me-2"></i> Cetak</nuxt-link>
                     <button v-else class="btn btn-light border border-2 border-dark" disabled><i class="bi bi-printer me-2"></i> Cetak</button>
                   </div>
