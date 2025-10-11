@@ -8,21 +8,6 @@
       </span>
     </div>
     <div class="card-body">
-      <!-- <div v-if="isLoading">
-        <loading-placeholder v-if="isLoading" col="8" row="1" />
-        <loading-placeholder v-if="isLoading" col="5" row="1" />
-      </div>
-      <div v-else class="row">
-        <div v-if="!pemetaan.status_acc_pkl" class="col-md-12">
-          <div class="alert alert-warning border-5 border-dark shadow-lg">
-            <div class="h5 quicksand">Perhatiin!</div>
-            <ul>
-              <li>Tentukan wilayah untuk mengubah IDUKA</li>
-              <li>IDUKA yang muncul hanya yang masih kosong</li>
-            </ul>
-          </div>
-        </div>
-      </div> -->
       <div v-if="isLoading">
         <loading-placeholder v-if="isLoading" col="12" row="1" />
       </div>
@@ -77,6 +62,19 @@
             <nuxt-link to="/pemetaan/pkl" class="btn btn-danger me-2 border border-2 border-dark">Kembali</nuxt-link>
             <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small">Berhasil dipetakan ulang!</span>
           </form>
+        </div>
+        <div class="col-lg-6">
+          <div class="row">
+            <div v-if="!pemetaan.status_acc_pkl" class="col-md-12">
+              <div class="alert alert-warning border-5 border-dark shadow-lg">
+                <div class="h5 quicksand">Transfer Pemetaan</div>
+                <ul>
+                  <li>Tentukan wilayah luar/dalam kota</li>
+                  <li>Pilih target IDUKA</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <hr class="my-4">
