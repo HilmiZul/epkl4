@@ -57,7 +57,7 @@
                   <td class="fw-bold">
                     <nuxt-link :to="`/iduka/${company.id}`" class="link">{{ company.nama }}</nuxt-link>
                     <nuxt-link v-if="company.alamat" :to="`https://www.google.com/maps/search/?api=1&query=${company.nama} ${company.alamat}`" target="_blannk" class="hand-cursor ms-2 text-danger"><i class="bi bi-geo-alt-fill"></i></nuxt-link>
-                    <span v-if="company.catatan" data-bs-toggle="modal" :data-bs-target="`#catatan-${company.id}`" class="hand-cursor ms-3 text-warning"><i class="bi bi-stickies"></i></span>
+                    <span v-if="company.catatan" @click="setModalCatatanById(company.id)" data-bs-toggle="modal" data-bs-target="#catatan" class="hand-cursor ms-3 text-warning"><i class="bi bi-stickies"></i></span>
                   </td>
                   <td class="smallest">{{ company.wilayah.charAt(0).toUpperCase() + company.wilayah.slice(1) }} kota </td>
                   <td class="smallest">
@@ -66,7 +66,8 @@
                   </td>
                   <td class="smallest">{{ company.expand.pembimbing_sekolah?.nama }} </td>
                   <td class="smallest">
-                    <button v-if="company.terisi < 1" class="btn btn-danger btn-sm border border-2 border-dark" data-bs-toggle="modal" :data-bs-target="`#iduka-${company.id}`"><i class="bi bi-trash3"></i></button>
+                    <!-- <button v-if="company.terisi < 1" class="btn btn-danger btn-sm border border-2 border-dark" data-bs-toggle="modal" :data-bs-target="`#iduka-${company.id}`"><i class="bi bi-trash3"></i></button> -->
+                    <button v-if="company.terisi < 1" @click="setModalDeleteById(company.id)" class="btn btn-danger btn-sm border border-2 border-dark" data-bs-toggle="modal" data-bs-target="#delete"><i class="bi bi-trash3"></i></button>
                     <button v-else class="btn btn-dark btn-sm" disabled><i class="bi bi-trash3"></i></button>
                   </td>
                 </tr>
@@ -94,42 +95,47 @@
       </div>
     </div>
   </div>
-  <div v-if="companies && companies.totalItems > 0">
-    <div v-for="company in companies.items" :key="company.id">
-      <!-- modal: catatan jika available -->
-      <div v-if="company.catatan" class="modal" :id="`catatan-${company.id}`" aria-hidden="true" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-            <div class="modal-header rounded-0 bg-warning fw-bold border-bottom border-3 border-dark">
-              <div class="fs-4">Catatan</div>
-              <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body py-4">
-              {{ company.catatan }}
-            </div>
-          </div>
+
+  <!-- Single Modal: hapus iduka -->
+  <div class="modal" id="delete" aria-hidden="true" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
+        <div class="modal-header rounded-0 h4 bg-danger fw-bold border-bottom border-3 border-dark">
+          Peringatan!
+        </div>
+        <div class="modal-body">
+          <loading-placeholder v-if="isLoadingModalDelete" col="12" row="1" />
+          <span v-else>
+            Yakin mau hapus <strong>{{ company?.nama }}</strong> dari daftar IDUKA?
+          </span>
+        </div>
+        <div class="modal-footer border-0 justify-content-center">
+          <loading-placeholder v-if="isLoadingModalDelete" col="12" row="1" />
+          <span v-else>
+            <button v-if="!isDeleted" class="btn btn-danger border border-2 border-dark me-2" data-bs-dismiss="modal" @click="hapusData(company?.id)" :disabled="isSending">
+              <span v-if="isSending">Sedang menghapus</span>
+              <span v-else>Hapus</span>
+            </button>
+          </span>
+          <button @click="() => { isDeleted = false; isSending = flase }" class="btn btn-light border border-2 border-dark" data-bs-dismiss="modal">Gajadi</button>
         </div>
       </div>
+    </div>
+  </div>
 
-      <!-- modal: hapus iduka -->
-      <div class="modal" :id="`iduka-${company.id}`" aria-hidden="true" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-            <div class="modal-header rounded-0 h4 bg-danger fw-bold border-bottom border-3 border-dark">
-              Peringatan!
-            </div>
-            <div class="modal-body text-dark">
-              Yakin mau hapus <strong>{{ company.nama }}</strong> dari daftar IDUKA?
-            </div>
-            <div class="modal-footer border-0 justify-content-center">
-              <button v-if="!isDeleted" class="btn btn-danger border border-2 border-dark" data-bs-dismiss="modal" @click="hapusData(company.id)" :disabled="isSending">
-                <span v-if="isSending">Sedang menghapus</span>
-                <span v-else>Hapus</span>
-              </button>
-              <span v-else class="me-2"><em>Berhasil dihapus!</em></span>
-              <button @click="() => { isDeleted = false; isSending = flase }" class="btn btn-light border border-2 border-dark" data-bs-dismiss="modal">Gajadi</button>
-            </div>
-          </div>
+  <!-- Single Modal: Catatan -->
+  <div class="modal" id="catatan" aria-hidden="true" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
+        <div class="modal-header rounded-0 bg-warning fw-bold border-bottom border-3 border-dark">
+          <div class="fs-4">Catatan</div>
+          <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body py-4">
+          <loading-placeholder v-if="isLoadingModalCatatan" col="12" row="1" />
+          <span v-else>
+            {{ catatan?.catatan }}
+          </span>
         </div>
       </div>
     </div>
@@ -146,6 +152,8 @@ let user = usePocketBaseUser()
 let role = user?.user.value.role
 let companies = ref([])
 let isLoading = ref(true)
+let isLoadingModalDelete = ref(false)
+let isLoadingModalCatatan = ref(false)
 let isSending = ref(false)
 let isDeleted = ref(false)
 let keyword = ref('')
@@ -154,6 +162,8 @@ let opsiWilayah = ref('')
 if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
 let perPage = 20
 let isMovingPage = ref(false)
+let company = ref('') // single data untuk render ke Modal Delete
+let catatan = ref('') // single data untuk render ke Modal Catatan
 
 async function hapusData(id) {
   client.autoCancellation(false)
@@ -208,6 +218,30 @@ async function pagination(page, loading=true) {
     isLoading.value = false
     isMovingPage.value = false
     // console.log(companies.value[0].expand.pembimbing_sekolah.nama)
+  }
+}
+
+// ambil IDUKA dari id saat tombol delete dihapus
+// ini akan memuat single record yang akan dirender ke Modal
+async function setModalDeleteById(id) {
+  isLoadingModalDelete.value = true
+  client.autoCancellation(false)
+  let res = await client.collection('iduka').getOne(id, {})
+  if(res) {
+    company.value = res
+    isLoadingModalDelete.value = false
+  }
+}
+
+// ambil IDUKA dari id saat tombol catatan ditekan
+// ini akan memuat single record yang akan dirender ke Modal catatan
+async function setModalCatatanById(id) {
+  isLoadingModalCatatan.value = true
+  client.autoCancellation(false)
+  let res = await client.collection('iduka').getOne(id, {})
+  if(res) {
+    catatan.value = res
+    isLoadingModalCatatan.value = false
   }
 }
 

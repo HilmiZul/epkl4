@@ -2,7 +2,7 @@
   <div class="card shadow-lg">
     <div class="card-header">
       <span class="h4 quicksand fw-bold"><i class="bi bi-diagram-3-fill"></i> Pemetaan</span>
-      <div v-if="isIdukaAvailable.length > 0" class="float-end">
+      <div v-if="isIdukaAvailable?.totalItems > 0" class="float-end">
         <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/pemetaan/pkl/tambah" class="btn btn-info btn-sm border border-2 border-dark"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
       </div>
     </div>
@@ -72,7 +72,7 @@
                       <span v-else> {{ pemetaan.expand.iduka?.expand.pembimbing_sekolah?.nama }}</span>
                     </div>
                     <div v-if="pemetaan.status_acc_pkl" class="badge bg-success my-2"><i class="bi bi-patch-check"></i> Diterima</div>
-                    <div v-else-if="pemetaan.status_acc_pkl || role == 'admin' || role == 'jurusan'" class="badge bg-warning hand-cursor my-2" data-bs-toggle="modal" :data-bs-target="`#status-${pemetaan.id}`">Konfirmasi penerimaan <i class="bi bi-person-fill-check"></i></div>
+                    <div v-else-if="pemetaan.status_acc_pkl || role == 'admin' || role == 'jurusan'" @click="setModalKonfirmasiPenerimaan(pemetaan.iduka)" class="badge bg-warning hand-cursor my-2" data-bs-toggle="modal" data-bs-target="#konfirmasi-penerimaan">Konfirmasi penerimaan <i class="bi bi-person-fill-check"></i></div>
                   </td>
                   <td class="py-1">
                     <nuxt-link v-if="role == 'admin' || role == 'jurusan'" :to="`/pemetaan/pkl/${pemetaan.id}`" class="link text-dark fw-bolder">
@@ -90,28 +90,6 @@
                 </tr>
               </tbody>
             </table>
-            <!-- Modal Opsi Cetak: TTE / TTB -->
-            <div class="modal" id="cetak" aria-hidden="true" tabindex="-1">
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-                  <div class="modal-header rounded-0 bg-info h4 fw-bold border-bottom border-3 border-dark">
-                    Konfirmasi Jenis Surat
-                    <button class="btn-close small" data-bs-dismiss="modal" label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <select v-model="cetakSurat.opsi_jenis_surat"  @change="setJenisSurat" class="form form-select form-select-lg">
-                      <option value="" disabled>&#8212; Pilih Jenis Surat &#8212;</option>
-                      <option value="ttb">Tanda Tangan Basah</option>
-                      <option value="tte">Tanda Tangan Elektronik</option>
-                    </select>
-                  </div>
-                  <div class="modal-footer border-0 justify-content-center">
-                    <nuxt-link v-if="cetakSurat.opsi_jenis_surat" :to="`/pemetaan/pkl/surat/cetak/${cetakSurat.opsi_jenis_surat}/${cetakSurat.id_iduka}`" target="_blank" class="btn btn-info border border-2 border-dark"><i class="bi bi-printer me-2"></i> Cetak</nuxt-link>
-                    <button v-else class="btn btn-light border border-2 border-dark" disabled><i class="bi bi-printer me-2"></i> Cetak</button>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
           <div class="mt-2">
             <loading-placeholder v-if="isLoading" col="3" row="1" />
@@ -131,27 +109,51 @@
             </span>
           </div>
 
-          <!-- modal pertanyaan apakah diterima IDUKA PKL? -->
-          <div>
-            <div v-for="(pemetaan) in newMapping" :key="pemetaan.id">
-              <div class="modal" :id="`status-${pemetaan.id}`" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-                    <div class="modal-header rounded-0 h4 bg-warning fw-bold border-bottom border-3 border-dark">
-                      Konfrimasi Penerimaan
-                    </div>
-                    <div class="modal-body text-dark">
-                      Apakah <strong>{{ pemetaan.expand.iduka.nama }}</strong> sudah konfirmasi menerima Peserta?
-                    </div>
-                    <div class="modal-footer border-0 justify-content-center">
-                      <button @click="handleAccPkl(pemetaan.iduka)" class="btn btn-success border border-2 border-dark" data-bs-dismiss="modal">Udah!</button>
-                      <button class="btn btn-light border border-2 border-dark" data-bs-dismiss="modal">belum</button>
-                    </div>
-                  </div>
+          <!-- Single Modal: Opsi Jenis Surat TTE / TTB -->
+          <div class="modal" id="cetak" aria-hidden="true" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
+                <div class="modal-header rounded-0 bg-info h4 fw-bold border-bottom border-3 border-dark">
+                  Konfirmasi Jenis Surat
+                  <button class="btn-close small" data-bs-dismiss="modal" label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <select v-model="cetakSurat.opsi_jenis_surat"  @change="setJenisSurat" class="form form-select form-select-lg">
+                    <option value="" disabled>&#8212; Pilih Jenis Surat &#8212;</option>
+                    <option value="ttb">Tanda Tangan Basah</option>
+                    <option value="tte">Tanda Tangan Elektronik</option>
+                  </select>
+                </div>
+                <div class="modal-footer border-0 justify-content-center">
+                  <nuxt-link v-if="cetakSurat.opsi_jenis_surat" :to="`/pemetaan/pkl/surat/cetak/${cetakSurat.opsi_jenis_surat}/${cetakSurat.id_iduka}`" target="_blank" class="btn btn-info border border-2 border-dark"><i class="bi bi-printer me-2"></i> Cetak</nuxt-link>
+                  <button v-else class="btn btn-light border border-2 border-dark" disabled><i class="bi bi-printer me-2"></i> Cetak</button>
                 </div>
               </div>
             </div>
           </div>
+
+          <!-- Single Modal: Konfirmasi penerimaan -->
+          <div class="modal" id="konfirmasi-penerimaan" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
+                <div class="modal-header rounded-0 h4 bg-warning fw-bold border-bottom border-3 border-dark">
+                  Konfrimasi Penerimaan
+                </div>
+                <div class="modal-body text-dark">
+                  <loading-placeholder v-if="isLoadingModalKonfirmasi" col="12" row="1" />
+                  <span v-else>
+                    Apakah <strong>{{ iduka_dari_pemetan?.expand.iduka.nama }}</strong> sudah konfirmasi menerima Peserta?
+                  </span>
+                </div>
+                <div class="modal-footer border-0 justify-content-center">
+                  <loading-placeholder v-if="isLoadingModalKonfirmasi" col="12" row="1" />
+                  <button v-else @click="handleAccPkl(iduka_dari_pemetan?.iduka)" class="btn btn-success border border-2 border-dark me-2" data-bs-dismiss="modal">Udah!</button>
+                  <button class="btn btn-light border border-2 border-dark" data-bs-dismiss="modal">belum</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -168,6 +170,7 @@ let prokel = user.user.value.program_keahlian
 let mapping = ref([])
 let newMapping = ref([])
 let isLoading = ref(true)
+let isLoadingModalKonfirmasi = ref(false)
 let isFail = ref(false)
 let opsiWilayah = ref('')
 let keyword = ref('')
@@ -181,8 +184,10 @@ let cetakSurat = ref({
   id_iduka: '',
   opsi_jenis_surat: ''
 })
+let iduka_dari_pemetan = ref()
 
-// mengambil ID IDUKA untuk ditetapkan kedalam id_iduka dan diteruskan kedalam link cetak surat
+// setCetakSurat: mengambil ID IDUKA untuk ditetapkan kedalam cetakSurat.id_iduka
+// setJenisSurat: tte atau ttb untuk link cetak surat: /{opsi_jenis_surat}/{id_iduka}
 function setCetakSurat(iduka) {
   cetakSurat.value.id_iduka = iduka
 }
@@ -190,13 +195,33 @@ function setJenisSurat() {
   cetakSurat.value.opsi_jenis_surat = cetakSurat.value.opsi_jenis_surat
 }
 
-async function getProkelForOption() {
-  let res_prokel = await client.collection('program_keahlian').getFullList({
-    sort: "created"
-  })
-  if(res_prokel) opsiProkel = res_prokel
+// load single record dari pemetaan berdasarkan id `iduka`
+// set ke variable iduka
+async function setModalKonfirmasiPenerimaan(iduka) {
+  isLoadingModalKonfirmasi.value = true
+  client.autoCancellation(false)
+  if(iduka) {
+    let res = await client.collection('pemetaan').getFirstListItem(`iduka='${iduka}'`, {
+      expand: "iduka"
+    })
+    if(res) {
+      iduka_dari_pemetan.value = res
+      isLoadingModalKonfirmasi.value = false
+    }
+  }
 }
 
+async function getProkelForOption() {
+  if(role == 'tu') {
+    let res_prokel = await client.collection('program_keahlian').getFullList({
+      sort: "created"
+    })
+    if(res_prokel) opsiProkel.value = res_prokel
+  }
+}
+
+// handleAccPkl: menerima parameter id IDUKA
+// load semua record dari pemetaan yang id IDUKA nya sama dengan parameter
 async function handleAccPkl(iduka) {
   // kumpulkan peserta yang iduka-nya sama. ubah status Acc. PKL dengan looping
   let idukaById = await client.collection('pemetaan').getFullList({
@@ -379,7 +404,7 @@ async function getIdukaIsAvailable(loading=true) {
   // memeriksa apakah Prokel tersebut sudah memiliki daftar IDUKA?
   // apabila belum, maka proses pemetaan belum diizinkan. :D
   isLoading.value = loading
-  let data = await client.collection('iduka').getFullList({
+  let data = await client.collection('iduka').getList(1, 1, {
     filter: "program_keahlian='"+prokel+"'"
   })
   if(data) {
