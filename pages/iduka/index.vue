@@ -56,7 +56,8 @@
                   <td>{{ i + 1 }}.</td>
                   <td class="fw-bold">
                     <nuxt-link :to="`/iduka/${company.id}`" class="link">{{ company.nama }}</nuxt-link>
-                    <span v-if="company.catatan" data-bs-toggle="modal" :data-bs-target="`#catatan-${company.id}`" class="hand-cursor ms-2 text-warning"><i class="bi bi-stickies"></i></span>
+                    <nuxt-link v-if="company.alamat" :to="`https://www.google.com/maps/search/?api=1&query=${company.nama} ${company.alamat}`" target="_blannk" class="hand-cursor ms-2 text-danger"><i class="bi bi-geo-alt-fill"></i></nuxt-link>
+                    <span v-if="company.catatan" data-bs-toggle="modal" :data-bs-target="`#catatan-${company.id}`" class="hand-cursor ms-3 text-warning"><i class="bi bi-stickies"></i></span>
                   </td>
                   <td class="smallest">{{ company.wilayah.charAt(0).toUpperCase() + company.wilayah.slice(1) }} kota </td>
                   <td class="smallest">
