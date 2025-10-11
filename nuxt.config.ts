@@ -2,6 +2,7 @@ import pkg from './package.json'
 export default defineNuxtConfig({
   compatibilityDate: "2025-08-15",
   devtools: { enabled: false },
+  modules: ['@nuxtjs/robots'],
   css: [
     "bootstrap/dist/css/bootstrap.min.css",
     "bootstrap-icons/font/bootstrap-icons.min.css",
@@ -30,4 +31,8 @@ export default defineNuxtConfig({
       author: pkg.author,
 		},
 	},
+  robots: {
+    UserAgent: '*',
+    Disallow: '/'
+  },
 })
