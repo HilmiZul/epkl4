@@ -19,52 +19,58 @@
     <section class="kertas">
       <article>
         <table class="header">
-          <tr>
-            <td><img :src="`${host}/api/files/${pengaturan.collectionId}/${pengaturan.id}/${pengaturan.logo}`" :alt="pengaturan.logo" class="logo" /></td>
-            <td width="100%" class="text-center">
-              <div class="fs-14">PEMERINTAH DAERAH PROVINSI JAWA BARAT</div>
-              <div class="fs-16">DINAS PENDIDIKAN</div>
-              <div class="fs-14">CABANG DINAS PENDIDIKAN WILAYAH XII</div>
-              <div class="fs-16 bold">{{ pengaturan.nama_sekolah }}</div>
-              <address class="smallest">
-                Jln. Depok Kelurahan Sukamenak Kec. Purbaratu(0265) 312059 <br>
-                Website : www.smkn4-tsm.sch.id. Email : info@smkn4-tsm.sch.id <br>
-                Kota Tasikmalaya - 46196 <br>
-              </address>
-            </td>
-          </tr>
+          <tbody>
+            <tr>
+              <td><img :src="`${host}/api/files/${pengaturan.collectionId}/${pengaturan.id}/${pengaturan.logo}`" :alt="pengaturan.logo" class="logo" /></td>
+              <td width="100%" class="text-center">
+                <div class="fs-14">PEMERINTAH DAERAH PROVINSI JAWA BARAT</div>
+                <div class="fs-16">DINAS PENDIDIKAN</div>
+                <div class="fs-14">CABANG DINAS PENDIDIKAN WILAYAH XII</div>
+                <div class="fs-16 bold">{{ pengaturan.nama_sekolah }}</div>
+                <address class="smallest">
+                  Jln. Depok Kelurahan Sukamenak Kec. Purbaratu(0265) 312059 <br>
+                  Website : www.smkn4-tsm.sch.id. Email : info@smkn4-tsm.sch.id <br>
+                  Kota Tasikmalaya - 46196 <br>
+                </address>
+              </td>
+            </tr>
+          </tbody>
         </table>
         <div class="garis mt-2"></div>
         <table class="mt-3" width="100%">
-          <tr>
-            <td>
-              <table>
-                <tr>
-                  <td>Nomor</td>
-                  <td>: {{ pengaturan.nomor_surat }}</td>
-                </tr>
-                <tr>
-                  <td>Lampiran</td>
-                  <td>: 1 (satu) lembar</td>
-                </tr>
-                <tr>
-                  <td>Perihal</td>
-                  <td>: Permohonan Bantuan Pelaksanaan <br> </td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>&nbsp;&nbsp;Praktik Kerja Lapangan (PKL)</td>
-                </tr>
-              </table>
-            </td>
-            <td width="40%">
-              <div>Tasikmalaya, {{ tanggal }}</div>
-              <strong>Yth. Kepala/Pimpinan</strong>
-              <div>{{ pemetaan[0].expand.iduka.nama }}</div>
-              <div>di</div>
-              <div>{{ pemetaan[0].expand.iduka.alamat }}</div>
-            </td>
-          </tr>
+          <tbody>
+            <tr>
+              <td>
+                <table>
+                  <tbody>
+                    <tr>
+                      <td>Nomor</td>
+                      <td>: {{ pengaturan.nomor_surat }}</td>
+                    </tr>
+                    <tr>
+                      <td>Lampiran</td>
+                      <td>: 1 (satu) lembar</td>
+                    </tr>
+                    <tr>
+                      <td>Perihal</td>
+                      <td>: Permohonan Bantuan Pelaksanaan <br> </td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>&nbsp;&nbsp;Praktik Kerja Lapangan (PKL)</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td width="40%">
+                <div>Tasikmalaya, {{ tanggal }}</div>
+                <strong>Yth. Kepala/Pimpinan</strong>
+                <div>{{ pemetaan[0].expand.iduka.nama }}</div>
+                <div>di</div>
+                <div>{{ pemetaan[0].expand.iduka.alamat }}</div>
+              </td>
+            </tr>
+          </tbody>
         </table>
         <p class="mt-3 justify">
           Dengar hormat,<br>
@@ -87,85 +93,7 @@
           <strong>{{ pengaturan.rentang_pelaksanaan }}</strong>. Siswa yang akan melaksanakan PKL di dinas/jawatan/perusahaan Bapak/Ibu sebagai berikut:
         </p>
         <table width="100%" class="mt-3 smallest siswa">
-          <tr class="text-center">
-            <td>No.</td>
-            <td>Nama</td>
-            <td width="12%">NIS</td>
-            <td width="10%">Kelas</td>
-            <td>Program Keahlian</td>
-          </tr>
-          <tr v-for="(p,i) in pemetaan" :key="p.id">
-            <td class="text-center">{{ i+1 }}.</td>
-            <td>{{ p.expand.siswa.nama.charAt(0).toUpperCase() + p.expand.siswa.nama.slice(1).toLowerCase() }}</td>
-            <td class="text-center">{{ p.expand.siswa.nis }}</td>
-            <td class="text-center">{{ p.expand.siswa.kelas }}</td>
-            <td>{{ p.expand.program_keahlian.alias }}</td>
-          </tr>
-        </table>
-        <p class="mt-3">
-          Atas kesediaan dan kerjasama Bapak/Ibu, Kami mengucapkan terima kasih.
-        </p>
-        <table width="100%" class="mt-4 float-end">
-          <tr>
-            <td></td>
-            <td width="45%">
-              <div v-if="route.params.jenis == 'tte'" class="text-center">
-                <span class="text-center small">Kepala {{ pengaturan.nama_sekolah }},</span>
-                <span class="text-end">
-                  <img src="~/assets/img/tte-kepala.webp" alt="TTE Kepala Sekolah" width="100%">
-                </span>
-              </div>
-              <span v-else>
-                Kepala Sekolah,
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <span class="underline">{{ pengaturan.nama_kepala_sekolah }}</span><br>
-                NIP. {{ pengaturan.nip }}
-              </span>
-            </td>
-          </tr>
-        </table>
-      </article>
-    </section>
-    <section class="kertas">
-      <article>
-        <div class="bold text-center">LEMBAR PENERIMAAN PKL</div>
-        <div class="mt-2">
-          Yang bertanda tangan di bawah ini:
-          <table class="mt-3 lineheigh">
-            <tr>
-              <td width="20%">Nama</td>
-              <td>:</td>
-            </tr>
-            <tr>
-              <td>Jabatan</td>
-              <td>:</td>
-            </tr>
-            <tr>
-              <td>Nama Industri</td>
-              <td>:</td>
-            </tr>
-            <tr>
-              <td>Alamat</td>
-              <td>:</td>
-            </tr>
-            <tr><td>&nbsp;</td></tr>
-            <tr>
-              <td>Telepon/HP</td>
-              <td>:</td>
-            </tr>
-            <tr>
-              <td>Waktu kegiatan</td>
-              <td>:</td>
-              <td class="bold">{{ pengaturan.rentang_pelaksanaan }}</td>
-            </tr>
-          </table>
-          <div class="mt-4 text-center bold">MENERIMA / TIDAK MENERIMA *</div>
-          <p class="mt-3">Siswa/i tersebut di bawah ini PKL dari {{ pengaturan.nama_sekolah }}.</p>
-          <table class="mt-3 smallest siswa">
+          <tbody>
             <tr class="text-center">
               <td>No.</td>
               <td>Nama</td>
@@ -180,6 +108,92 @@
               <td class="text-center">{{ p.expand.siswa.kelas }}</td>
               <td>{{ p.expand.program_keahlian.alias }}</td>
             </tr>
+          </tbody>
+        </table>
+        <p class="mt-3">
+          Atas kesediaan dan kerjasama Bapak/Ibu, Kami mengucapkan terima kasih.
+        </p>
+        <table width="100%" class="mt-4 float-end">
+          <tbody>
+            <tr>
+              <td></td>
+              <td width="45%">
+                <div v-if="route.params.jenis == 'tte'" class="text-center">
+                  <span class="text-center small">Kepala {{ pengaturan.nama_sekolah }},</span>
+                  <span class="text-end">
+                    <img src="~/assets/img/tte-kepala.webp" alt="TTE Kepala Sekolah" width="100%">
+                  </span>
+                </div>
+                <span v-else>
+                  Kepala Sekolah,
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <span class="underline">{{ pengaturan.nama_kepala_sekolah }}</span><br>
+                  NIP. {{ pengaturan.nip }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+    </section>
+    <section class="kertas">
+      <article>
+        <div class="bold text-center">LEMBAR PENERIMAAN PKL</div>
+        <div class="mt-2">
+          Yang bertanda tangan di bawah ini:
+          <table class="mt-3 lineheigh">
+            <tbody>
+              <tr>
+                <td width="20%">Nama</td>
+                <td>:</td>
+              </tr>
+              <tr>
+                <td>Jabatan</td>
+                <td>:</td>
+              </tr>
+              <tr>
+                <td>Nama Industri</td>
+                <td>:</td>
+              </tr>
+              <tr>
+                <td>Alamat</td>
+                <td>:</td>
+              </tr>
+              <tr><td>&nbsp;</td></tr>
+              <tr>
+                <td>Telepon/HP</td>
+                <td>:</td>
+              </tr>
+              <tr>
+                <td>Waktu kegiatan</td>
+                <td>:</td>
+                <td class="bold">{{ pengaturan.rentang_pelaksanaan }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="mt-4 text-center bold">MENERIMA / TIDAK MENERIMA *</div>
+          <p class="mt-3">Siswa/i tersebut di bawah ini PKL dari {{ pengaturan.nama_sekolah }}.</p>
+          <table class="mt-3 smallest siswa">
+            <tbody>
+              <tr class="text-center">
+                <td>No.</td>
+                <td>Nama</td>
+                <td width="12%">NIS</td>
+                <td width="10%">Kelas</td>
+                <td>Program Keahlian</td>
+              </tr>
+              <tr v-for="(p,i) in pemetaan" :key="p.id">
+                <td class="text-center">{{ i+1 }}.</td>
+                <td>{{ p.expand.siswa.nama.charAt(0).toUpperCase() + p.expand.siswa.nama.slice(1).toLowerCase() }}</td>
+                <td class="text-center">{{ p.expand.siswa.nis }}</td>
+                <td class="text-center">{{ p.expand.siswa.kelas }}</td>
+                <td>{{ p.expand.program_keahlian.alias }}</td>
+              </tr>
+            </tbody>
           </table>
           <div class="mt-3">
             Demikian surat penerimaan PKL ini kami buat dan untuk digunakan sebagai mana mestinya.
@@ -193,19 +207,21 @@
             Tlp. (0265)312059
           </div>
           <table class="mt-3">
-            <tr>
-              <td></td>
-              <td width="31%">
-                Tasikmalaya,.......................2025 <br>
-                <div class="mt-2">Hormat Kami,</div>
-                <div class="mt-2">a.n PT / CV ................................</div>
-                <br>
-                <br>
-                <br>
-                <br>
-                ....................................................
-              </td>
-            </tr>
+            <tbody>
+              <tr>
+                <td></td>
+                <td width="31%">
+                  Tasikmalaya,.......................2025 <br>
+                  <div class="mt-2">Hormat Kami,</div>
+                  <div class="mt-2">a.n PT / CV ................................</div>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  ....................................................
+                </td>
+              </tr>
+            </tbody>
           </table>
         </div>
       </article>
