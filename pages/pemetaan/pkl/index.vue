@@ -223,6 +223,7 @@ async function getProkelForOption() {
 // handleAccPkl: menerima parameter id IDUKA
 // load semua record dari pemetaan yang id IDUKA nya sama dengan parameter
 async function handleAccPkl(iduka) {
+  isLoading.value = true
   // kumpulkan peserta yang iduka-nya sama. ubah status Acc. PKL dengan looping
   let idukaById = await client.collection('pemetaan').getFullList({
     filter: "program_keahlian='"+prokel+"' && iduka='"+iduka+"'"
@@ -238,6 +239,7 @@ async function handleAccPkl(iduka) {
         })
       )
       if(promises) {
+        isLoading.value = false
         return true
       }
     } catch(error) {
