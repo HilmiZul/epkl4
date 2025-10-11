@@ -39,7 +39,7 @@
                   <!-- <th width="2%">#</th> -->
                   <th>IDUKA</th>
                   <th width="45%">Peserta</th>
-                  <th width="10%">Surat</th>
+                  <th v-if="role != 'guru'" width="10%">Surat</th>
                 </tr>
               </thead>
               <tbody>
@@ -61,7 +61,7 @@
                 <tr v-else v-for="(pemetaan) in newMapping" :key="pemetaan.id">
                   <!-- <td >{{ i+1 }}.</td> -->
                   <td v-if="pemetaan.showIduka" :rowspan="pemetaan.idukaRowspan">
-                    <span class="text-grey me-2"><i class="bi bi-building"></i></span><nuxt-link :to="`https://www.google.com/maps/search/?api=1&query=${pemetaan.expand.iduka.nama} ${pemetaan.expand.iduka.alamat}`" class="link" target="_blank"><span class="quicksand">{{ pemetaan.expand.iduka.nama }}</span> <sup><i class="bi bi-arrow-up-right"></i></sup></nuxt-link>
+                    <span class="text-grey me-2"><i class="bi bi-building"></i></span><nuxt-link :to="`https://www.google.com/maps/search/?api=1&query=${pemetaan.expand.iduka.nama} ${pemetaan.expand.iduka.alamat}`" class="link" target="_blank"><span class="fw-bold">{{ pemetaan.expand.iduka.nama }}</span> <sup><i class="bi bi-arrow-up-right"></i></sup></nuxt-link>
                     <div class="small text-grey mt-2">
                       <i class="bi bi-geo-alt me-2"></i>{{ pemetaan.expand.iduka.wilayah.charAt(0).toUpperCase() + pemetaan.expand.iduka.wilayah.slice(1) }} kota
                     </div>
@@ -71,7 +71,7 @@
                       <span v-if="pemetaan.expand.iduka?.pembimbing_sekolah == '-' || pemetaan.expand.iduka?.pembimbing_sekolah == ''">&#8212;</span>
                       <span v-else> {{ pemetaan.expand.iduka?.expand.pembimbing_sekolah?.nama }}</span>
                     </div>
-                    <div v-if="pemetaan.status_acc_pkl" class="badge bg-info my-2"><i class="bi bi-patch-check"></i> Diterima</div>
+                    <div v-if="pemetaan.status_acc_pkl" class="badge bg-success my-2"><i class="bi bi-patch-check"></i> Diterima</div>
                     <div v-else-if="pemetaan.status_acc_pkl || role == 'admin' || role == 'jurusan'" class="badge bg-warning hand-cursor my-2" data-bs-toggle="modal" :data-bs-target="`#status-${pemetaan.id}`">Konfirmasi penerimaan <i class="bi bi-person-fill-check"></i></div>
                   </td>
                   <td class="py-1">
@@ -81,7 +81,7 @@
                     <span v-else class="fw-bold">{{ pemetaan.expand.siswa.nama }}</span>
                     <div class="mt-1 text-muted smallest">{{ pemetaan.expand.siswa.kelas }}</div>
                   </td>
-                  <td v-if="pemetaan.showIduka" :rowspan="pemetaan.idukaRowspan" class="align-middle text-center">
+                  <td v-if="pemetaan.showIduka && role != 'guru'" :rowspan="pemetaan.idukaRowspan" class="align-middle text-center">
                     <button v-if="!pemetaan.status_acc_pkl" @click="setCetakSurat(pemetaan.iduka)" class="btn btn-light btn-sm border border-2 border-dark" data-bs-toggle="modal" data-bs-target="#cetak"><i class="bi bi-printer"></i> Cetak</button>
                     <!-- <div class="mb-2"><nuxt-link v-if="!pemetaan.status_acc_pkl" :to="`/pemetaan/pkl/surat/cetak/tte/${pemetaan.iduka}`" target="_blank" class="btn btn-light btn-sm smallest"><i class="bi bi-qr-code"></i> TTE</nuxt-link></div>
                     <nuxt-link v-if="!pemetaan.status_acc_pkl" :to="`/pemetaan/pkl/surat/cetak/non-tte/${pemetaan.iduka}`" target="_blank" class="btn btn-light btn-sm smallest"><i class="bi bi-pencil-square"></i> TTB</nuxt-link> -->
