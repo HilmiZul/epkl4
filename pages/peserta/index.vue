@@ -63,9 +63,9 @@
                 <tr>
                   <th width="2%">#</th>
                   <th>Nama</th>
-                  <th>Kelas</th>
-                  <th>Rapor</th>
-                  <th>Pemetaan</th>
+                  <th width="10%">Kelas</th>
+                  <th width="15%">Rapor</th>
+                  <th width="10%">Pemetaan</th>
                 </tr>
               </thead>
               <tbody>

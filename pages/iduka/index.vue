@@ -25,14 +25,14 @@
       <div class="row">
         <div class="col-md-12">
           <div class="table-responsive">
-            <table class="table table-hover table-striped table-borderless">
+            <table class="table table-hover table-striped table-bordereless">
               <thead>
                 <tr>
                   <th width="2%">#</th>
-                  <th>Nama</th>
-                  <th>Wilayah</th>
-                  <th width="8%">Terisi</th>
-                  <th>Pembimbing</th>
+                  <th width="60%">Nama</th>
+                  <th width="10%">Wilayah</th>
+                  <th width="6%">Terisi</th>
+                  <th width="17%">Pembimbing</th>
                   <th width="5%">Hapus</th>
                 </tr>
               </thead>

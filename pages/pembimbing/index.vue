@@ -27,7 +27,7 @@
               <th width="2%">#</th>
               <th width="15%">Username</th>
               <th>Nama</th>
-              <th>Role</th>
+              <th width="15%">Role</th>
             </tr>
           </thead>
           <tbody>
