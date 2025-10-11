@@ -11,6 +11,9 @@ export default defineNuxtConfig({
   ssr: false,
   app: {
     head: {
+      htmlAttrs: {
+        lang: 'id',
+      },
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
       ],
