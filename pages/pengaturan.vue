@@ -9,34 +9,34 @@
           <form @submit.prevent="updatePengaturan">
             <div class="mb-3">
               <label for="no">Nomor Surat</label>
-              <input v-model="form.nomor_surat" id="no" type="text" class="form form-control" placeholder="masukkan nomor surat permohonan PKL" required>
+              <input v-model="form.nomor_surat" id="no" type="text" class="form form-control form-control-lg" placeholder="masukkan nomor surat permohonan PKL" required>
             </div>
             <div class="mb-3">
               <label for="rentang_pelaksanaan">Rentang Pelaksanaan</label>
-              <input v-model="form.rentang_pelaksanaan"  id="rentang_pelaksanaan" type="text" class="form form-control" placeholder="misal: 11 Januari sampai dengan 20 April 2026" required>
+              <input v-model="form.rentang_pelaksanaan"  id="rentang_pelaksanaan" type="text" class="form form-control form-control-lg" placeholder="misal: 11 Januari sampai dengan 20 April 2026" required>
             </div>
             <div class="mb-3">
               <label for="npsn">NPSN</label>
-              <input v-model="form.npsn" id="npsn" type="text" class="form form-control" placeholder="masukkan NPSN Sekolah" required>
+              <input v-model="form.npsn" id="npsn" type="text" class="form form-control form-control-lg" placeholder="masukkan NPSN Sekolah" required>
             </div>
             <div class="mb-3">
               <label for="sekolah">Nama Sekolah</label>
-              <input v-model="form.nama_sekolah" id="sekolah" type="text" class="form form-control" placeholder="masukkan nama Sekolah" required>
+              <input v-model="form.nama_sekolah" id="sekolah" type="text" class="form form-control form-control-lg" placeholder="masukkan nama Sekolah" required>
             </div>
             <div class="mb-3">
               <label for="kepala">Kepala Sekolah</label>
-              <input v-model="form.nama_kepala_sekolah" id="kepala" type="text" class="form form-control" placeholder="masukkan nama Kepala Sekolah" required>
+              <input v-model="form.nama_kepala_sekolah" id="kepala" type="text" class="form form-control form-control-lg" placeholder="masukkan nama Kepala Sekolah" required>
             </div>
             <div class="mb-3">
               <label for="nip">NIP Kepala Sekolah</label>
-              <input v-model="form.nip" id="nip" type="text" class="form form-control" placeholder="masukkan NIP Kepala Sekolah" required>
+              <input v-model="form.nip" id="nip" type="text" class="form form-control form-control-lg" placeholder="masukkan NIP Kepala Sekolah" required>
             </div>
             <div class="mb-3">
               <span v-if="form.logo" class="me-3"><img :src="`${host}/api/files/${form.collectionId}/${form.id}/${form.logo}`" alt="logo" class="logo"></span>
               <label for="logo" class="label-berkas p-2 hand-cursor"><i class="bi-filetype-png"></i> Unggah logo</label>
               <input id="logo" type="file" accept="image/png" class="form form-control-file">
             </div>
-            <button :disabled="isSending" class="btn btn-success me-2">
+            <button :disabled="isSending" class="btn btn-success me-2 border border-2 border-dark">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>

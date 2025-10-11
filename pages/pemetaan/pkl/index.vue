@@ -18,7 +18,7 @@
         </div>
         <div v-if="role == 'tu'" class="col-lg-3">
           <div class="my-3 mt-0">
-            <select v-model="selectedProkel" @change="getPemetaan" class="form form-select">
+            <select v-model="selectedProkel" @change="getPemetaan" class="form form-select form-select-lg">
               <option value="">Semua Jurusan</option>
               <option v-for="p in opsiProkel" :key="p.id" :value="p.id">{{ p.nama }}</option>
             </select>
