@@ -29,10 +29,10 @@
         <span v-if="students.totalItems">Halaman {{ students.page }} dari {{ students.totalPages }}</span>
       </div>
     </div>
-    <button :disabled="isMovingPage || students.page < 2" @click="pagination(students.page - 1, false)" class="btn btn-info btn-sm me-2">
+    <button :disabled="isMovingPage || students.page < 2" @click="pagination(students.page - 1, false)" class="btn btn-info btn-sm me-2 border border-2 border-dark">
       <i class="bi bi-arrow-left"></i> sebelumnya
     </button>
-    <button :disabled="isMovingPage || students.page >= students.totalPages" @click="pagination(students.page + 1, false)" class="btn btn-info btn-sm">
+    <button :disabled="isMovingPage || students.page >= students.totalPages" @click="pagination(students.page + 1, false)" class="btn btn-info btn-sm border border-2 border-dark">
       lanjut <i class="bi bi-arrow-right"></i>
     </button>
   </div>
