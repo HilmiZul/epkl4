@@ -2,12 +2,12 @@
   <nav class="navbar navbar-expand-lg bg-body-tertiary bg-white border-top border-bottom border-3 border-dark mb-3">
     <div class="container-fluid">
       <nuxt-link v-if="user" class="navbar-brand lexend-mega text-muted" to="/">Halo, <span class="text-dark">{{ username.toUpperCase() }}</span>! 😃</nuxt-link>
-      <button class="navbar-toggler rounded-0 border-2 border-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      <button class="navbar-toggler rounded-0 border-3 border-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="bi-list fs-1 text-dark"></i>
+        <i class="bi-three-dots-vertical fs-1 text-dark"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav fw-bold text-center">
           <li class="nav-item">
             <nuxt-link  class="nav-link" to="/"><i class="bi bi-pie-chart-fill"></i> Ringkasan</nuxt-link>
           </li>
