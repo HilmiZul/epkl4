@@ -62,7 +62,8 @@
                 </button>
               </div>
             </div> -->
-            <div v-if="form.hasUser" class="mt-3 border-dash p-3">
+            <!-- <div v-if="form.hasUser" class="mt-3 border-dash p-3"> -->
+            <div v-if="curr_user?.totalItems > 0" class="mt-3 border-dash p-3">
               <div v-if="isUserCreated" class="mb-2"><strong>User berhasil dibuat!</strong></div>
               <table class="border-0">
                 <tbody>
