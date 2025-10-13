@@ -180,7 +180,7 @@ async function pagination(page) {
   client.autoCancellation(false)
   let res_student = await client.collection('siswa').getList(page, perPage, {
     filter: "program_keahlian='"+prokel+"'",
-    sort: 'kelas, status_rapot, status_pemetaan_pkl',
+    sort: 'kelas, nama',
   })
   if(res_student) {
     students.value = res_student
