@@ -180,13 +180,17 @@ async function getStudentById(loading=true) {
     expand: 'program_keahlian'
   })
   if(res_siswa) {
-    let res_users = await client.collection('student_users').getList(1,1, {
-      filter: "siswa='"+res_siswa.id+"'"
-    })
-    if(res_users) {
+    form.value = res_siswa
+    try {
+      let res_users = await client.collection('student_users').getList(1,1, {
+        filter: "siswa='"+route.params.id+"'"
+      })
+      if(res_users) {
+        isLoading.value = false
+        curr_user.value = res_users
+      }
+    } catch {
       isLoading.value = false
-      form.value = res_siswa
-      curr_user.value = res_users
     }
   }
 }
