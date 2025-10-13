@@ -233,10 +233,10 @@ async function buatUserPeserta() {
 onMounted(() => {
   getStudentById()
   client.collection('siswa').subscribe('*', function (e) {
-    if(e.action == 'update') getStudentById()
+    if(e.action == 'update') getStudentById(false)
   }, {});
   client.collection('student_users').subscribe('*', function (e) {
-    if(e.action == 'create') getStudentById()
+    if(e.action == 'create') getStudentById(false)
   }, {});
 })
 </script>
