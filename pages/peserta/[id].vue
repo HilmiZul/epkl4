@@ -24,13 +24,21 @@
             Terjadi error: {{ errMessage }}
           </div>
           <form @submit.prevent="simpanPerubahan">
-            <div class="my-3 form-check form-switch">
+            <div class="mt-3 mb-4">
+              <label for="nis">NIS (temp)</label>
+              <input v-model="form.nis" type="text" class="form form-control form-control-lg" placeholder="NIS sebenarnya!" required>
+            </div>
+            <div class="mb-4">
+              <label for="nisn">NISN (temp)</label>
+              <input v-model="form.nisn" type="text" class="form form-control form-control-lg" placeholder="NISN sebenarnya!" required>
+            </div>
+            <div class="mb-4 form-check form-switch">
               <input v-model="form.status_rapot" :checked="form.status_rapot" class="form-check-input" type="checkbox" id="checkRapor" switch>
               <label class="form-check-label" for="checkRapor">
                 Ketuntasan Rapor
               </label>
             </div>
-            <div class="mb-3 form-check form-switch">
+            <div class="mb-4 form-check form-switch">
               <input :checked="form.status_pemetaan_pkl" disabled class="form-check-input" type="checkbox" id="checkPemetaan" switch>
               <label class="form-check-label" for="checkPemetaan">
                 Pemetaan PKL
@@ -135,6 +143,8 @@ let teachers = ref([])
 let curr_user = ref([])
 let form = ref({
   id: '',
+  nis: '',
+  nisn: '',
   nama: '',
   kelas: '',
   status_rapot: false,
@@ -147,7 +157,11 @@ async function simpanPerubahan() {
     isLoadingSave.value = true
     isSaved.value = false
     client.autoCancellation(false)
-    let data = await client.collection('siswa').update(route.params.id, { status_rapot: form.value.status_rapot })
+    let data = await client.collection('siswa').update(route.params.id, {
+      status_rapot: form.value.status_rapot,
+      nis: form.value.nis,
+      nisn: form.value.nisn,
+    })
     if(data) {
       isLoading.value = false
       isLoadingSave.value = false
