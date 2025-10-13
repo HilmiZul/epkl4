@@ -159,17 +159,19 @@ const getStudents = async (loading=true) => {
     .collection('siswa')
     .getList(1, perPage, {
       filter: "program_keahlian='"+prokel+"'" + searchFilter,
-      sort: 'kelas, nama, status_rapot, status_pemetaan_pkl',
+      sort: 'kelas, nama',
     })
   const res_all_student = await client.collection('siswa')
     .getFullList({
       filter: "program_keahlian='"+prokel+"'",
       sort: 'kelas, status_rapot, status_pemetaan_pkl',
     })
-  if(res_student && res_all_student) {
-    isLoading.value = false
+  if(res_student) {
     students.value = res_student
-    allStudent.value = res_all_student
+    if(res_all_student) {
+      isLoading.value = false
+      allStudent.value = res_all_student
+    }
   }
 }
 
