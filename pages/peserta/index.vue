@@ -3,9 +3,9 @@
     <div class="card-header">
       <span class="h4 quicksand fw-bold"><i class="bi bi-person-fill"></i> Peserta Didik</span>
       <span class="float-end">
-        <span v-if="role == 'admin' || role == 'jurusan'">
+        <!-- <span v-if="role == 'admin' || role == 'jurusan'">
           <button v-if="students.totalItems > 0 && count_users.length < 1" data-bs-toggle="modal" data-bs-target="#buat-akun-peserta" class="btn btn-info btn-sm me-2 border border-2 border-dark"><i class="bi bi-person-plus"></i> Buat akun</button>
-        </span>
+        </span> -->
         <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/peserta/import" class="btn btn-success btn-sm border border-2 border-dark"><i class="bi bi-download"></i> Impor dari .csv</nuxt-link>
       </span>
       <div class="modal" id="buat-akun-peserta" tabindex="-1" aria-hidden="true">
