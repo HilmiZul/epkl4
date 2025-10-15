@@ -36,7 +36,7 @@
               <div class="text-muted">Relasi IDUKA</div>
               <LoadingPlaceholder v-if="isLoading" row="1" col="6" />
               <span v-else>
-                <span v-if="iduka.length > 0" class="fw-bold">{{ iduka.length }}</span>
+                <span v-if="iduka?.totalItems > 0" class="fw-bold">{{ iduka.totalItems }}</span>
                 <span v-else>Belum ada</span>
               </span>
             </div>
@@ -46,7 +46,7 @@
               <div class="text-muted">Relasi Peserta</div>
               <LoadingPlaceholder v-if="isLoading" row="1" col="6" />
               <span v-else>
-                <span v-if="pemetaan.length > 0" class="fw-bold">{{ pemetaan.length }}</span>
+                <span v-if="pemetaan?.totalItems > 0" class="fw-bold">{{ pemetaan?.totalItems }}</span>
                 <span v-else>Belum ada</span>
               </span>
             </div>
