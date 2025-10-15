@@ -55,35 +55,46 @@
       </div>
     </div>
   </div>
-  <div v-if="role == 'guru'" class="row my-3">
+  <div v-if="role == 'guru'" class="row mt-3">
     <div class="col-lg-6">
-      <div class="text-muted mb-1 fw-medium">Peserta didik yang dibimbing:</div>
-      <table class="table table-striped border-0">
+      <div class="text-muted mb-1 fw-medium fw-bold">Peserta didik yang dibimbing:</div>
+      <table class="table table-striped border border-2 border-dark shadow-lg">
         <tbody>
-          <tr v-if="pemetaan.length < 1">
+          <tr v-if="pemetaan?.totalItems < 1">
             <td class="text-muted fst-italic">Belum ada</td>
           </tr>
-          <tr v-for="(p,i) in pemetaan" :key="p.id" class="fw-bold">
+          <tr v-else v-for="(p,i) in pemetaan.items" :key="p.id" class="fw-bold">
             <td width="3%">{{ i+1 }}.</td>
-            <td>{{ p.expand.siswa.nama }}</td>
-            <td>{{ p.expand.siswa.kelas }}</td>
+            <td>
+              {{ p.expand.siswa.nama }} <br>
+              <span class="smallest text-muted">{{ p.expand.siswa.kelas }}</span>
+            </td>
           </tr>
         </tbody>
       </table>
+      <div v-if="pemetaan?.totalItems > 5" class="mb-3">
+        <nuxt-link to="/pemetaan/pkl" class="link">Lihat semua <i class="bi bi-chevron-right"></i></nuxt-link>
+      </div>
     </div>
     <div class="col-lg-6">
-      <div class="text-muted mb-1 fw-medium">Relasi ke IDUKA:</div>
-      <table class="table table-striped border-0">
+      <div class="text-muted mb-1 fw-medium fw-bold">Relasi ke IDUKA:</div>
+      <table class="table table-striped border border-2 border-dark shadow-lg">
         <tbody>
-          <tr v-if="iduka.length < 1">
+          <tr v-if="iduka?.totalItems < 1">
             <td class="text-muted fst-italic">Belum ada</td>
           </tr>
-          <tr v-for="(company,i) in iduka" :key="company.id" class="fw-bold">
+          <tr v-else v-for="(company,i) in iduka.items" :key="company.id" class="fw-bold">
             <td width="3%">{{ i+1 }}.</td>
-            <td>{{ company.nama }}</td>
+            <td>
+              {{ company.nama }} <br>
+              <nuxt-link :to="`https://www.google.com/maps/search/?api=1&query=${company.nama} ${company.alamat}`" target="_blank" class="link smallest text-muted">lihat peta <i class="bi bi-arrow-up-right"></i></nuxt-link>
+            </td>
           </tr>
         </tbody>
       </table>
+      <div v-if="iduka?.totalItems > 5" class="mb-3">
+        <nuxt-link to="/pemetaan/pkl" class="link">Lihat semua <i class="bi bi-chevron-right"></i></nuxt-link>
+      </div>
     </div>
   </div>
 </template>
@@ -102,7 +113,7 @@ async function getPemetaanInfo() {
   isLoading.value = true
   client.autoCancellation(false)
   // let res_pemetaan = await client.collection('pemetaan').getFullList()
-  let res_pemetaan_by_pembimbing = await client.collection('pemetaan').getFullList({
+  let res_pemetaan_by_pembimbing = await client.collection('pemetaan').getList(1, 5, {
     expand: "iduka, siswa",
     filter: "iduka.pembimbing_sekolah='"+user?.user.value.id+"'"
   })
@@ -115,7 +126,7 @@ async function getPemetaanInfo() {
 async function getIdukaInfo() {
   isLoading.value = true
   client.autoCancellation(false)
-  let res_iduka = await client.collection('iduka').getFullList({
+  let res_iduka = await client.collection('iduka').getList(1, 5, {
     filter: "pembimbing_sekolah='"+user?.user.value.id+"'"
   })
   if(res_iduka) iduka.value = res_iduka

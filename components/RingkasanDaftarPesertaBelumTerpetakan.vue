@@ -7,19 +7,14 @@
       <h4 class="fw-bold">Belum terpetakan</h4>
       <div class="small text-muted">{{ students.totalItems }} peserta</div>
     </div>
-    <table class="table table-striped table-hover">
-      <thead>
-        <tr>
-          <th width="2%">#</th>
-          <th>NAMA</th>
-          <th>KELAS</th>
-        </tr>
-      </thead>
+    <table class="table table-striped border border-3 border-dark">
       <tbody>
         <tr v-for="(student,i) in students.items" :key="student.id">
-          <td>{{ i+1 }}.</td>
-          <td>{{ student.nama }}</td>
-          <td>{{ student.kelas }}</td>
+          <td width="3%">{{ i+1 }}.</td>
+          <td class="fw-bold">
+            {{ student.nama }} <br>
+          </td>
+          <td width="15%">{{ student.kelas }}</td>
         </tr>
       </tbody>
     </table>
