@@ -3,8 +3,8 @@
     <div class="card-header">
       <span class="h4 quicksand fw-bold"><i class="bi bi-buildings-fill"></i> IDUKA</span>
       <span class="float-end">
-        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/iduka/tambah" class="btn btn-info btn-sm me-2 border border-2 border-dark"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
-        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/iduka/import" class="btn btn-success btn-sm border border-2 border-dark"><i class="bi bi-download"></i> Impor dari .csv</nuxt-link>
+        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/iduka/tambah" class="btn btn-info btn-sm border border-2 border-dark"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
+        <!-- <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/iduka/import" class="btn btn-success btn-sm ms-2 border border-2 border-dark"><i class="bi bi-download"></i> Impor dari .csv</nuxt-link> -->
       </span>
     </div>
     <div class="card-body small">
