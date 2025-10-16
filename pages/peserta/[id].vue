@@ -64,14 +64,14 @@
             <!-- <div v-if="!form.hasUser" class="mt-3 border-dash p-3">
               Buatkan user login untuk <strong>{{ form.nama }}</strong>?
               <div class="mt-3">
-                <button @click="buatUserPeserta" :disabled="isCreatingUser" class="btn btn-success">
+                <button @click="buatUserPeserta" :disabled="isCreatingUser" class="btn btn-success border border-2 border-dark">
                   <span v-if="isCreatingUser">Sedang membuat user</span>
                   <span v-else>Buatkan!</span>
                 </button>
               </div>
             </div> -->
             <!-- <div v-if="form.hasUser" class="mt-3 border-dash p-3"> -->
-            <div v-if="curr_user?.totalItems > 0" class="mt-3 border-dash p-3">
+            <div v-if="curr_user?.totalItems > 0" class="mt-4 border-dash p-3">
               <div v-if="isUserCreated" class="mb-2"><strong>User berhasil dibuat!</strong></div>
               <table class="border-0">
                 <tbody>
