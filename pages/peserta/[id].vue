@@ -89,8 +89,9 @@
               <div class="modal" id="update-username">
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-                    <div class="modal-header rounded-0 h4 bg-success fw-bold border-bottom border-3 border-dark">
-                      Custom Username Peserta
+                    <div class="modal-header rounded-0 bg-success border-bottom border-3 border-dark">
+                      <span class="fs-4 fw-bold">Custom Username Peserta</span>
+                      <button @click="() => usernameUpdated = false" class="btn-close" label="Close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body text-dark">
                       <form @submit.prevent="updateUsername">
@@ -102,7 +103,6 @@
                           <span v-if="isUpdateUsername">Sedang menyimpan</span>
                           <span v-else>Simpan</span>
                         </button>
-                        <button @click="resetUpdateVariable" class="btn btn-light border border-2 border-dark ms-2" data-bs-dismiss="modal">Tutup</button>
                         <span v-if="usernameUpdated" class="ms-2 fst-italic text-muted">Username berhasil diubah!</span>
                       </form>
                     </div>
@@ -285,10 +285,6 @@ async function updateUsername() {
     isUpdateUsername.value = false
     usernameUpdated.value = true
   }
-}
-
-function resetUpdateVariable() {
-  usernameUpdated.value = false
 }
 
 onMounted(() => {
