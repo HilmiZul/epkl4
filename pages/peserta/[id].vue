@@ -24,15 +24,15 @@
             Terjadi error: {{ errMessage }}
           </div>
           <form @submit.prevent="simpanPerubahan">
-            <div class="mt-3 mb-4">
+            <!-- <div class="mt-3 mb-4">
               <label for="nis">NIS (temp)</label>
               <input v-model="form.nis" :disabled="isLoading || isLoadingSave" type="text" class="form form-control form-control-lg" placeholder="NIS sebenarnya!" required>
             </div>
             <div class="mb-4">
               <label for="nisn">NISN (temp)</label>
               <input v-model="form.nisn" :disabled="isLoading || isLoadingSave" type="text" class="form form-control form-control-lg" placeholder="NISN sebenarnya!" required>
-            </div>
-            <div class="mb-4 form-check form-switch">
+            </div> -->
+            <div class="my-4 form-check form-switch">
               <input v-model="form.status_rapot" :checked="form.status_rapot" :disabled="isLoading || isLoadingSave" class="form-check-input" type="checkbox" id="checkRapor" switch>
               <label class="form-check-label" for="checkRapor">
                 Ketuntasan Rapor
