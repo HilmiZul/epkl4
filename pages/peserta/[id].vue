@@ -77,14 +77,54 @@
                 <tbody>
                   <tr>
                     <td>Username</td>
-                    <td>: <span v-if="curr_user" class="fw-bold">{{ curr_user.items[0].username }}</span></td>
+                    <td>: <nuxt-link data-bs-toggle="modal" data-bs-target="#update-username" v-if="curr_user" class="fw-bold hand-cursor link-external">{{ curr_user.items[0].username }}</nuxt-link></td>
                   </tr>
                   <tr>
                     <td>Password</td>
-                    <td>: <span class="fst-italic text-muted">NPSN</span></td>
+                    <td>: <nuxt-link data-bs-toggle="modal" data-bs-target="#reset-password" class="fst-italic text-muted hand-cursor link-external">NPSN</nuxt-link></td>
                   </tr>
                 </tbody>
               </table>
+              <!-- Modal: Update Username Peserta -->
+              <div class="modal" id="update-username">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
+                    <div class="modal-header rounded-0 h4 bg-success fw-bold border-bottom border-3 border-dark">
+                      Custom Username Peserta
+                    </div>
+                    <div class="modal-body text-dark">
+                      <form @submit.prevent="updateUsername">
+                        <div class="mb-4">
+                          <label for="username">Username</label>
+                          <input v-model="new_user_update" type="text" id="username" class="form form-control form-control-lg" placeholder="custom username minimal 3 karakter " required>
+                        </div>
+                        <button :disabled="new_user_update.length < 3 || isUpdateUsername" class="btn btn-success border border-2 border-dark">
+                          <span v-if="isUpdateUsername">Sedang menyimpan</span>
+                          <span v-else>Simpan</span>
+                        </button>
+                        <button @click="resetUpdateVariable" class="btn btn-light border border-2 border-dark ms-2" data-bs-dismiss="modal">Tutup</button>
+                        <span v-if="usernameUpdated" class="ms-2 fst-italic text-muted">Username berhasil diubah!</span>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Modal: Reset Password -->
+              <div class="modal" id="reset-password">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
+                    <div class="modal-header rounded-0 h4 bg-danger fw-bold border-bottom border-3 border-dark">
+                      Reset Password
+                    </div>
+                    <div class="modal-body text-dark">
+                      Hubungi Administrator untuk reset password peserta.
+                    </div>
+                    <div class="modal-footer border-0 justify-content-center">
+                      <button class="btn border border-2 border-dark text-dark" data-bs-dismiss="modal">Baiklah</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -136,6 +176,8 @@ let isLoadingSave = ref(false)
 let isSaved = ref(false)
 let isUserCreated = ref(false)
 let isCreatingUser = ref(false)
+let isUpdateUsername = ref(false)
+let usernameUpdated = ref(false)
 let isFail = ref(false)
 let errMessage = ref('')
 let student = ref()
@@ -150,6 +192,7 @@ let form = ref({
   status_rapot: false,
   status_pemetaan_pkl: false,
 })
+let new_user_update = ref('')
 if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
 
 async function simpanPerubahan() {
@@ -203,6 +246,7 @@ async function getStudentById(loading=true) {
       if(res_users) {
         isLoading.value = false
         curr_user.value = res_users
+        new_user_update.value = curr_user.value.items[0].username
       }
     } catch {
       isLoading.value = false
@@ -230,13 +274,30 @@ async function buatUserPeserta() {
   }
 }
 
+async function updateUsername() {
+  isUpdateUsername.value = true
+  usernameUpdated.value = false
+  client.autoCancellation(false)
+  let res = await client.collection('student_users').update(curr_user.value.items[0].id, {
+    "username": new_user_update.value
+  })
+  if(res) {
+    isUpdateUsername.value = false
+    usernameUpdated.value = true
+  }
+}
+
+function resetUpdateVariable() {
+  usernameUpdated.value = false
+}
+
 onMounted(() => {
   getStudentById()
   client.collection('siswa').subscribe('*', function (e) {
     if(e.action == 'update') getStudentById(false)
   }, {});
   client.collection('student_users').subscribe('*', function (e) {
-    if(e.action == 'create') getStudentById(false)
+    if(e.action == 'create' || e.action == 'update') getStudentById(false)
   }, {});
 })
 </script>
