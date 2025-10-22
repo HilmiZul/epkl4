@@ -7,7 +7,7 @@
       <loading-placeholder v-if="isLoading" row="1" col="12" />
       <div v-else-if="nilaiNotVerify?.length > 0" class="alert alert-warning fs-6">
         <i class="bi bi-info-circle"></i>
-        Ada {{ nilaiNotVerify.length }} nilai yang belum di verifikasi
+        Ada {{ nilaiNotVerify.length }} nilai yang belum diverifikasi
       </div>
       <div class="row">
         <div class="col-lg-6">

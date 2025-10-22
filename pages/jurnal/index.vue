@@ -6,7 +6,7 @@
     <div class="card-body">
       <loading-placeholder v-if="isLoadingJournals" col="12" row="1" />
       <div v-else-if="count_not_valid > 0" class="mb-3 bg-warning border border-2 border-dark p-2">
-        <i class="bi bi-info-circle"></i> Ada <strong>{{ count_not_valid }}</strong> Jurnal yang belum di validasi
+        <i class="bi bi-info-circle"></i> Ada <strong>{{ count_not_valid }}</strong> Jurnal yang belum divalidasi
       </div>
       <div class="row">
         <div class="col-md-7">
@@ -42,7 +42,7 @@
                     <img :src="`${host}/api/files/${journal.collectionId}/${journal.id}/${journal.foto}`" :alt="journal.deskripsi" class="foto" />
                   </div>
                   <span v-if="journal.isValid" @click="handleValidasi(journal.id, journal.isValid)" class="hand-cursor"><span class="text-danger"><i class="bi bi-heart-fill"></i></span> Valid</span>
-                  <span v-else @click="handleValidasi(journal.id, journal.isValid)" class="hand-cursor"><span class="text-danger"><i class="bi bi-heart"></i></span> Validasi</span>
+                  <span v-else @click="handleValidasi(journal.id, journal.isValid)" class="hand-cursor"><span class="text-danger"><i class="bi bi-heart"></i></span> Valid</span>
                   <!-- <span class="fst-italic text-muted">memvalidasi...</span> -->
                 </div>
                 <!-- MODAL FOTO PREVIEW -->
