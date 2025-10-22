@@ -1,6 +1,6 @@
 {
   "name": "epkl4",
-  "version": "4.7.10",
+  "version": "4.7.11",
   "author": "Zul Hilmi",
   "dependencies": {
     "@neoconfetti/vue": "^2.2.1",
@@ -8,6 +8,7 @@
     "bootstrap": "5.2",
     "bootstrap-icons": "^1.13.1",
     "chart.js": "^4.5.0",
+    "compressorjs": "^1.2.1",
     "nuxt": "3.18",
     "pocketbase": "^0.21.5"
   },
