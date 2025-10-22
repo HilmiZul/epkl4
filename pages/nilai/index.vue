@@ -43,7 +43,7 @@
           </thead>
           <tbody>
             <tr v-if="isLoading">
-              <td colspan="4">
+              <td colspan="5">
                 <loading-placeholder row="1" col="12" />
                 <loading-placeholder row="1" col="12" />
                 <loading-placeholder row="1" col="12" />
