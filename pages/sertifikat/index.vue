@@ -4,7 +4,11 @@
       <span class="h4 quicksand fw-bold"><i class="bi bi-person-vcard-fill"></i> Sertifikat</span>
     </div>
     <div class="card-body small">
-      <div class="row">
+      <div class="p-4 text-center fs-4 text-muted">
+        <i class="bi bi-cone-striped fs-1"></i> <br>
+        Sedang dalam pengembangan
+      </div>
+      <!-- <div class="row">
         <div class="col-lg-3">
           <select @change="getKelasByProkel" v-model="form.prokel" class="form form-select">
             <option value="">&#8212; Program Keahlian &#8212;</option>
@@ -24,7 +28,7 @@
           </select>
           <div v-if="isLoaded" class="text-end pt-3"><button class="btn btn-success btn-sm border border-2 border-dark"><i class="bi bi-download"></i> Unduh</button></div>
         </div>
-      </div>
+      </div> -->
 
       <div v-if="isLoaded" class="row pt-3">
         <div class="col-md-12">
