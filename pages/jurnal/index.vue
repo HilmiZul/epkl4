@@ -12,15 +12,14 @@
         <div class="col-md-7">
           <div v-if="!isLoadingJournals" class="mb-2 text-end text-muted small">
             <span v-if="journals.totalItems" class="float-start">Halaman {{ journals.page }} dari {{ journals.totalPages }}</span>
-            Menampilkan
-            <span v-if="journals.items">{{ journals.items.length }}</span>  dari {{ journals.totalItems }} Jurnal
+            <span v-if="journals.totalItems">Menampilkan {{ journals.items.length }}  dari {{ journals.totalItems }} Jurnal</span>
           </div>
           <div class="row">
             <div class="col-md-12">
-              <div v-if="!isLoadingJournals" class="text-center text-muted fst-italic">
+              <div v-if="!isLoadingJournals" class="text-center text-muted">
                 <span v-if="journals.totalItems == 0">
                   <div class="fs-1 pt-5"><i class="bi bi-journals"></i></div>
-                  <div class="pb-5">Belum ada jurnal</div>
+                  <div class="pb-5 fw-bold">Belum ada jurnal</div>
                 </span>
               </div>
               <LoadingPlaceholder v-if="isLoadingJournals" col="12" row="1" />
@@ -68,10 +67,10 @@
                       <span v-if="journals.totalItems">Halaman {{ journals.page }} dari {{ journals.totalPages }}</span>
                     </div>
                   </div>
-                  <button :disabled="isMovingPage || journals.page < 2" @click="pagination(journals.page - 1, false)" class="btn btn-info me-2 border border-2 border-dark">
+                  <button v-if="journals.totalItems" :disabled="isMovingPage || journals.page < 2" @click="pagination(journals.page - 1, false)" class="btn btn-info me-2 border border-2 border-dark">
                     <i class="bi bi-arrow-left"></i> sebelumnya
                   </button>
-                  <button :disabled="isMovingPage || journals.page >= journals.totalPages" @click="pagination(journals.page + 1, false)" class="btn btn-info border border-2 border-dark">
+                  <button v-if="journals.totalItems" :disabled="isMovingPage || journals.page >= journals.totalPages" @click="pagination(journals.page + 1, false)" class="btn btn-info border border-2 border-dark">
                     lanjut <i class="bi bi-arrow-right"></i>
                   </button>
                 </div>
