@@ -55,11 +55,11 @@
                 <template v-slot:singleLabel="{ option }"><strong>{{ option.nama }} / {{ option.terisi }} dari {{ option.jumlah_kuota }}</strong></template>
               </multiselect>
             </div>
-            <button :disabled="isSending || form.iduka.length < 1" class="btn btn-success me-2 border border-2 border-dark">
+            <button :disabled="isSending || form.iduka.length < 1" class="btn btn-success me-2 mb-3 border border-2 border-dark">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>
-            <nuxt-link to="/pemetaan/pkl" class="btn btn-danger me-2 border border-2 border-dark">Kembali</nuxt-link>
+            <nuxt-link to="/pemetaan/pkl" class="btn btn-danger me-2 mb-3 border border-2 border-dark">Kembali</nuxt-link>
             <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small">Berhasil dipetakan ulang!</span>
           </form>
         </div>
