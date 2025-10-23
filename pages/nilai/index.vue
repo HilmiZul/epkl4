@@ -5,9 +5,9 @@
     </div>
     <div class="card-body small">
       <loading-placeholder v-if="isLoading" row="1" col="12" />
-      <div v-else-if="nilaiNotVerify?.length > 0" class="alert alert-warning fs-6">
+      <div v-else-if="nilaiNotValid?.length > 0" class="alert alert-warning fs-6">
         <i class="bi bi-info-circle"></i>
-        Ada {{ nilaiNotVerify.length }} nilai yang belum diverifikasi
+        Ada {{ nilaiNotValid.length }} nilai yang belum divalidasi
       </div>
       <div class="row">
         <div class="col-lg-6">
@@ -31,7 +31,7 @@
               <th width="50%" rowspan="2" class="align-content-center">Peserta</th>
               <th width="10%" rowspan="2" class="align-content-center">Kelas</th>
               <th width="10%" rowspan="2" class="align-content-center">Titip Serti.</th>
-              <th width="10%" rowspan="2" class="align-content-center">Verify</th>
+              <th width="5%" rowspan="2" class="align-content-center">Valid</th>
               <!-- <th colspan="4">Nilai</th> -->
             </tr>
             <!-- <tr>
@@ -51,10 +51,16 @@
                 <loading-placeholder row="1" col="12" />
               </td>
             </tr>
-            <tr v-else-if="nilai?.length < 1">
+            <tr v-else-if="keyword.length > 0 && nilai?.length < 1">
               <td colspan="5" class="text-center">
                 <div class="fs-1"><i class="bi bi-database-fill"></i></div>
-                <div class="pb-3">Data tidak ditemukan</div>
+                <div class="pb-3">Tidak ditemukan</div>
+              </td>
+            </tr>
+            <tr v-else-if="keyword.length < 1 && nilai?.length < 1">
+              <td colspan="5" class="text-center">
+                <div class="fs-1"><i class="bi bi-database-fill"></i></div>
+                <div class="pb-3">Belum ada nilai</div>
               </td>
             </tr>
             <tr v-else v-for="(n, i) in nilai" :key="i">
@@ -68,7 +74,7 @@
                 <span v-else><i class="bi bi-x-circle-fill text-danger"></i></span>
               </td>
               <td>
-                <span v-if="n.isVerify"><i class="bi bi-check-circle-fill text-success"></i></span>
+                <span v-if="n.isValid"><i class="bi bi-check-circle-fill text-success"></i></span>
                 <span v-else><i class="bi bi-x-circle-fill text-danger"></i></span>
               </td>
             </tr>
@@ -90,8 +96,8 @@ let prokel = user?.user.value.program_keahlian
 let nilai = ref()
 let isLoaded = ref(false)
 let isLoading = ref(true)
-let keyword = ref()
-let nilaiNotVerify = ref('')
+let keyword = ref('')
+let nilaiNotValid = ref('')
 if(role == 'tu') navigateTo('/404')
 
 async function getNilai(loading=true) {
@@ -102,7 +108,7 @@ async function getNilai(loading=true) {
   let res = await client.collection('nilai').getFullList({
     filter: `iduka.pembimbing_sekolah="${user_id}" ${filter}`,
     expand: "siswa, iduka, program_keahlian",
-    sort: "isVerify, siswa",
+    sort: "isValid, siswa",
   })
   if(res) {
     nilai.value = res
@@ -114,10 +120,10 @@ async function getNilaiByNotVerify() {
   isLoading.value = true
   client.autoCancellation(false)
   let res = await client.collection('nilai').getFullList({
-    filter: `iduka.pembimbing_sekolah="${user_id}" && isVerify=false`
+    filter: `iduka.pembimbing_sekolah="${user_id}" && isValid=false`
   })
   if(res) {
-    nilaiNotVerify.value = res
+    nilaiNotValid.value = res
     isLoading.value = false
   }
 }

@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-header">
       <loading-placeholder v-if="isLoading" row="1" col="6" />
-      <span v-else class="h4 fw-bold text-muted">Verifikasi Nilai / <span class="text-dark">{{ certificate.expand.siswa.nama }}</span></span>
+      <span v-else class="h4 fw-bold text-muted">Validasi Nilai / <span class="text-dark">{{ certificate.expand.siswa.nama }}</span></span>
       <!-- <span v-if="!isLoading" class="float-end">
         <nuxt-link v-if="!isCertificate" to="/nilai/tambah" class="btn btn-info btn-sm"><i class="bi bi-plus-lg"></i> Buat Baru</nuxt-link>
       </span> -->
@@ -36,7 +36,7 @@
                     <input v-model="form.nilai_elemen4" type="number" min="0" max="100" id="el_4" class="form form-control" required>
                   </div>
                   <div class="mb-4">
-                    <div class="badge bg-info fw-bold">Total: {{ form.nilai_elemen1 + form.nilai_elemen2 + form.nilai_elemen3 + form.nilai_elemen4 }}</div>
+                    <div class="badge bg-dark fw-bold p-2 fs-6">Total: {{ form.nilai_elemen1 + form.nilai_elemen2 + form.nilai_elemen3 + form.nilai_elemen4 }}</div>
                   </div>
                   <hr>
                   <!-- <div class="mb-4 form-check form-switch">
@@ -55,7 +55,7 @@
                     </div>
                   </div>
                   <div class="mb-4 form-check form-switch">
-                    <input v-model="form.isVerify" :checked="form.isVerify" class="form-check-input" type="checkbox" id="entrust" switch>
+                    <input v-model="form.isValid" :checked="form.isValid" class="form-check-input" type="checkbox" id="entrust" switch>
                     <label for="entrust">Tandai valid</label>
                   </div>
                   <button :disabled="isSending" class="btn btn-success me-2 border border-2 border-dark mb-4">
@@ -68,11 +68,27 @@
                 <div class="col-lg-6">
                   <div class="mb-4">
                     <div class="fw-bold pb-2"><i class="bi bi-image-fill"></i> Pratinjau Nilai Elemen</div>
-                    <img :src="`${host}/api/files/${certificate.collectionId}/${certificate.id}/${tempNilaiImg}`" alt="Foto jurnal nilai" width="100%" class="border border-2 border-dark mb-2">
+                    <img :src="`${host}/api/files/${certificate.collectionId}/${certificate.id}/${tempNilaiImg}`"
+                      data-bs-toggle="modal" data-bs-target="#preview-nilai"
+                      alt="Foto jurnal nilai" width="100%" class="border border-2 border-dark mb-2 hand-cursor">
                   </div>
                 </div>
               </div>
             </form>
+            <!-- Single Modal: Preview foto nilai -->
+            <div class="modal" id="preview-nilai">
+              <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content rounded-0 border border-3 border-dark shadow-lg text-muted">
+                  <div class="modal-header border-bottom border-3 border-dark bg-success rounded-0 fs-4 fw-bold">
+                    Preview
+                    <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
+                  </div>
+                  <div class="modal-body">
+                    <img :src="`${host}/api/files/${certificate.collectionId}/${certificate.id}/${tempNilaiImg}`" alt="preview" width="100%" />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -107,7 +123,7 @@ let form = ref({
   "nilai_elemen3": 0,
   "nilai_elemen4": 0,
   "logo": "",
-  "isVerify": ""
+  "isValid": ""
 })
 
 async function updateNilai() {
@@ -147,22 +163,6 @@ async function getNilai(loading=true, isCert=false) {
     isLoading.value = false
     isCertificate.value = false
   }
-}
-
-function compressFile(e) {
-  isErrorCompressOrExt.value = false
-  let file = e.target.files[0]
-  if(!file) return;
-  new Compressor(file, {
-    quality: 0.6,
-    success(result) {
-      form.value.foto_jurnal_nilai = result
-    },
-    error(err) {
-      console.error(err.message)
-      isErrorCompressOrExt.value = true
-    }
-  })
 }
 
 function compressFileLogo(e) {
