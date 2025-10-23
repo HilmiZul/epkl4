@@ -6,7 +6,7 @@
     <div class="card-body small">
       <div class="p-4 text-center fs-4 text-muted">
         <i class="bi bi-cone-striped fs-1"></i> <br>
-        Sedang dalam pengembangan
+        Belum ada sertifikat
       </div>
       <!-- <div class="row">
         <div class="col-lg-3">
