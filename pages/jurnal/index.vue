@@ -46,10 +46,11 @@
                   <!-- <span class="fst-italic text-muted">memvalidasi...</span> -->
                 </div>
                 <!-- MODAL FOTO PREVIEW -->
-                <div class="modal" :id="`foto-${journal.id}`" aria-hidden="true" tabindex="-1">
+                <div class="modal" :id="`foto-${journal.id}`" tabindex="-1" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered modal-xl">
                     <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-                      <div class="modal-header rounded-0 border-bottom border-3 border-dark">
+                      <div class="modal-header bg-success rounded-0 border-bottom border-3 border-dark fs-4 fw-bold">
+                        Preview
                         <button class="btn-close" data-bs-dismiss="modal" label="Close"></button>
                       </div>
                       <div class="modal-body p-0">
