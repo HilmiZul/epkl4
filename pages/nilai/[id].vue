@@ -77,7 +77,7 @@
             </form>
             <!-- Single Modal: Preview foto nilai -->
             <div class="modal" id="preview-nilai">
-              <div class="modal-dialog modal-dialog-centered modal-xl">
+              <div class="modal-dialog modal-dialog-centered modal-fullscreen">
                 <div class="modal-content rounded-0 border border-3 border-dark shadow-lg text-muted">
                   <div class="modal-header border-bottom border-3 border-dark bg-success rounded-0 fs-4 fw-bold">
                     Preview

@@ -46,8 +46,8 @@
                   <!-- <span class="fst-italic text-muted">memvalidasi...</span> -->
                 </div>
                 <!-- MODAL FOTO PREVIEW -->
-                <div class="modal" :id="`foto-${journal.id}`" tabindex="-1" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal" :id="`foto-${journal.id}`">
+                  <div class="modal-dialog modal-dialog-centered modal-fullscreen">
                     <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
                       <div class="modal-header bg-success rounded-0 border-bottom border-3 border-dark fs-4 fw-bold">
                         Preview
@@ -278,7 +278,7 @@ input.picker[type="date"]::-webkit-calendar-picker-indicator {
 }
 .foto-preview {
   width: 100%;
-  height: 100%;
+  /*height: 100%;*/
 }
 .jurnal-hover:hover {
   background-color: #f7fddd;
