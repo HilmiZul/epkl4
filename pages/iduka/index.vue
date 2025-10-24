@@ -57,7 +57,7 @@
                   <td class="fw-bold">
                     <nuxt-link :to="`/iduka/${company.id}`" class="link">{{ company.nama }}</nuxt-link>
                     <nuxt-link v-if="company.alamat" :to="`https://www.google.com/maps/search/?api=1&query=${company.nama} ${company.alamat}`" target="_blannk" class="hand-cursor ms-2 text-danger"><i class="bi bi-geo-alt-fill"></i></nuxt-link>
-                    <span v-if="company.catatan" @click="setModalCatatanById(company.id)" data-bs-toggle="modal" data-bs-target="#catatan" class="hand-cursor ms-3 text-warning"><i class="bi bi-stickies"></i></span>
+                    <span v-if="company.catatan" @click="setModalCatatanById(company.id, company.catatan)" data-bs-toggle="modal" data-bs-target="#catatan" class="hand-cursor ms-3 text-warning"><i class="bi bi-stickies"></i></span>
                   </td>
                   <td class="smallest">{{ company.wilayah.charAt(0).toUpperCase() + company.wilayah.slice(1) }} kota </td>
                   <td class="smallest">
@@ -67,7 +67,7 @@
                   <td class="smallest">{{ company.expand.pembimbing_sekolah?.nama }} </td>
                   <td class="smallest">
                     <!-- <button v-if="company.terisi < 1" class="btn btn-danger btn-sm border border-2 border-dark" data-bs-toggle="modal" :data-bs-target="`#iduka-${company.id}`"><i class="bi bi-trash3"></i></button> -->
-                    <button v-if="company.terisi < 1" @click="setModalDeleteById(company.id)" class="btn btn-danger btn-sm border border-2 border-dark" data-bs-toggle="modal" data-bs-target="#delete"><i class="bi bi-trash3"></i></button>
+                    <button v-if="company.terisi < 1" @click="setModalDeleteById(company.id, company.nama)" class="btn btn-danger btn-sm border border-2 border-dark" data-bs-toggle="modal" data-bs-target="#delete"><i class="bi bi-trash3"></i></button>
                     <button v-else class="btn btn-dark btn-sm" disabled><i class="bi bi-trash3"></i></button>
                   </td>
                 </tr>
@@ -104,19 +104,13 @@
           Peringatan!
         </div>
         <div class="modal-body">
-          <loading-placeholder v-if="isLoadingModalDelete" col="12" row="1" />
-          <span v-else>
-            Yakin mau hapus <strong>{{ company?.nama }}</strong> dari daftar IDUKA?
-          </span>
+          Yakin mau hapus <strong>{{ company_name }}</strong> dari daftar IDUKA?
         </div>
         <div class="modal-footer border-0 justify-content-center">
-          <loading-placeholder v-if="isLoadingModalDelete" col="12" row="1" />
-          <span v-else>
-            <button v-if="!isDeleted" class="btn btn-danger border border-2 border-dark me-2" data-bs-dismiss="modal" @click="hapusData(company?.id)" :disabled="isSending">
-              <span v-if="isSending">Sedang menghapus</span>
-              <span v-else>Hapus</span>
-            </button>
-          </span>
+          <button v-if="!isDeleted" class="btn btn-danger border border-2 border-dark me-2" data-bs-dismiss="modal" @click="hapusData(company_id)" :disabled="isSending">
+            <span v-if="isSending">Sedang menghapus</span>
+            <span v-else>Hapus</span>
+          </button>
           <button @click="() => { isDeleted = false; isSending = flase }" class="btn btn-light border border-2 border-dark" data-bs-dismiss="modal">Gajadi</button>
         </div>
       </div>
@@ -132,10 +126,8 @@
           <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body py-4">
-          <loading-placeholder v-if="isLoadingModalCatatan" col="12" row="1" />
-          <span v-else>
-            {{ catatan?.catatan }}
-          </span>
+          <!-- <loading-placeholder v-if="isLoadingModalCatatan" col="12" row="1" /> -->
+          {{ catatan_content }}
         </div>
       </div>
     </div>
@@ -162,8 +154,10 @@ let opsiWilayah = ref('')
 if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
 let perPage = 20
 let isMovingPage = ref(false)
-let company = ref('') // single data untuk render ke Modal Delete
-let catatan = ref('') // single data untuk render ke Modal Catatan
+let company_id = ref('') // single data untuk render ke Modal Delete
+let company_name = ref('')
+let catatan_id = ref('') // single data untuk render ke Modal Catatan
+let catatan_content = ref('')
 
 async function hapusData(id) {
   client.autoCancellation(false)
@@ -223,26 +217,30 @@ async function pagination(page, loading=true) {
 
 // ambil IDUKA dari id saat tombol delete dihapus
 // ini akan memuat single record yang akan dirender ke Modal
-async function setModalDeleteById(id) {
-  isLoadingModalDelete.value = true
-  client.autoCancellation(false)
-  let res = await client.collection('iduka').getOne(id, {})
-  if(res) {
-    company.value = res
-    isLoadingModalDelete.value = false
-  }
+async function setModalDeleteById(id, name) {
+  company_id.value = id
+  company_name.value = name
+  // isLoadingModalDelete.value = true
+  // client.autoCancellation(false)
+  // let res = await client.collection('iduka').getOne(id, {})
+  // if(res) {
+  //   company.value = res
+  //   isLoadingModalDelete.value = false
+  // }
 }
 
 // ambil IDUKA dari id saat tombol catatan ditekan
 // ini akan memuat single record yang akan dirender ke Modal catatan
-async function setModalCatatanById(id) {
-  isLoadingModalCatatan.value = true
-  client.autoCancellation(false)
-  let res = await client.collection('iduka').getOne(id, {})
-  if(res) {
-    catatan.value = res
-    isLoadingModalCatatan.value = false
-  }
+async function setModalCatatanById(id, content) {
+  catatan_id.value = id
+  catatan_content.value = content
+  // isLoadingModalCatatan.value = true
+  // client.autoCancellation(false)
+  // let res = await client.collection('iduka').getOne(id, {})
+  // if(res) {
+  //   catatan.value = res
+  //   isLoadingModalCatatan.value = false
+  // }
 }
 
 async function filterByWilayah() {

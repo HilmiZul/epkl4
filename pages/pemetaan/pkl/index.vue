@@ -72,7 +72,7 @@
                       <span v-else> {{ pemetaan.expand.iduka?.expand.pembimbing_sekolah?.nama }}</span>
                     </div>
                     <div v-if="pemetaan.status_acc_pkl" class="badge bg-success my-2"><i class="bi bi-patch-check"></i> Diterima</div>
-                    <div v-else-if="pemetaan.status_acc_pkl || role == 'admin' || role == 'jurusan'" @click="setModalKonfirmasiPenerimaan(pemetaan.iduka)" class="badge bg-warning hand-cursor my-2" data-bs-toggle="modal" data-bs-target="#konfirmasi-penerimaan">Konfirmasi penerimaan <i class="bi bi-person-fill-check"></i></div>
+                    <div v-else-if="pemetaan.status_acc_pkl || role == 'admin' || role == 'jurusan'" @click="setModalKonfirmasiPenerimaan(pemetaan.iduka, pemetaan.expand.iduka.nama)" class="badge bg-warning hand-cursor my-2" data-bs-toggle="modal" data-bs-target="#konfirmasi-penerimaan">Konfirmasi penerimaan <i class="bi bi-person-fill-check"></i></div>
                   </td>
                   <td class="py-1">
                     <nuxt-link v-if="role == 'admin' || role == 'jurusan'" :to="`/pemetaan/pkl/${pemetaan.id}`" class="link text-dark fw-bolder">
@@ -140,14 +140,10 @@
                   Konfrimasi Penerimaan
                 </div>
                 <div class="modal-body text-dark">
-                  <loading-placeholder v-if="isLoadingModalKonfirmasi" col="12" row="1" />
-                  <span v-else>
-                    Apakah <strong>{{ iduka_dari_pemetan?.expand.iduka.nama }}</strong> sudah konfirmasi menerima Peserta?
-                  </span>
+                  Apakah <strong>{{ iduka_nama }}</strong> sudah konfirmasi menerima Peserta?
                 </div>
                 <div class="modal-footer border-0 justify-content-center">
-                  <loading-placeholder v-if="isLoadingModalKonfirmasi" col="12" row="1" />
-                  <button v-else @click="handleAccPkl(iduka_dari_pemetan?.iduka)" class="btn btn-success border border-2 border-dark me-2" data-bs-dismiss="modal">Udah!</button>
+                  <button @click="handleAccPkl(iduka_id)" class="btn btn-success border border-2 border-dark me-2" data-bs-dismiss="modal">Udah!</button>
                   <button class="btn btn-light border border-2 border-dark" data-bs-dismiss="modal">belum</button>
                 </div>
               </div>
@@ -185,6 +181,8 @@ let cetakSurat = ref({
   opsi_jenis_surat: ''
 })
 let iduka_dari_pemetan = ref()
+let iduka_id = ref('') // single data untuk render ke Modal konfirmasi penerimaan
+let iduka_nama = ref('') // single data untuk render ke Modal konfirmasi penerimaan
 
 // setCetakSurat: mengambil ID IDUKA untuk ditetapkan kedalam cetakSurat.id_iduka
 // setJenisSurat: tte atau ttb untuk link cetak surat: /{opsi_jenis_surat}/{id_iduka}
@@ -197,18 +195,20 @@ function setJenisSurat() {
 
 // load single record dari pemetaan berdasarkan id `iduka`
 // set ke variable iduka
-async function setModalKonfirmasiPenerimaan(iduka) {
-  isLoadingModalKonfirmasi.value = true
-  client.autoCancellation(false)
-  if(iduka) {
-    let res = await client.collection('pemetaan').getFirstListItem(`iduka='${iduka}'`, {
-      expand: "iduka"
-    })
-    if(res) {
-      iduka_dari_pemetan.value = res
-      isLoadingModalKonfirmasi.value = false
-    }
-  }
+async function setModalKonfirmasiPenerimaan(id, nama) {
+  iduka_id.value = id
+  iduka_nama.value = nama
+  // isLoadingModalKonfirmasi.value = true
+  // client.autoCancellation(false)
+  // if(iduka) {
+  //   let res = await client.collection('pemetaan').getFirstListItem(`iduka='${iduka}'`, {
+  //     expand: "iduka"
+  //   })
+  //   if(res) {
+  //     iduka_dari_pemetan.value = res
+  //     isLoadingModalKonfirmasi.value = false
+  //   }
+  // }
 }
 
 async function getProkelForOption() {
