@@ -29,17 +29,10 @@
             <tr>
               <th width="3%" rowspan="2" class="align-content-center">#</th>
               <th width="50%" rowspan="2" class="align-content-center">Peserta</th>
-              <th width="10%" rowspan="2" class="align-content-center">Kelas</th>
-              <th width="10%" rowspan="2" class="align-content-center">Titip Serti.</th>
+              <th width="10%" rowspan="2" class="align-content-center">Skor</th>
+              <th width="10%" rowspan="2" class="align-content-center">Sertifikat</th>
               <th width="5%" rowspan="2" class="align-content-center">Valid</th>
-              <!-- <th colspan="4">Nilai</th> -->
             </tr>
-            <!-- <tr>
-              <th width="6%">1</th>
-              <th width="6%">2</th>
-              <th width="6%">3</th>
-              <th width="6%">4</th>
-            </tr> -->
           </thead>
           <tbody>
             <tr v-if="isLoading">
@@ -66,12 +59,13 @@
             <tr v-else v-for="(n, i) in nilai" :key="i">
               <td>{{ i+1 }}.</td>
               <td>
-                <nuxt-link :to="`/nilai/${n.id}`" class="link fw-bold">{{ n.expand.siswa.nama }}</nuxt-link>
+                <nuxt-link :to="`/nilai/${n.id}`" class="link fw-bold">{{ n.expand.siswa.nama }}</nuxt-link> <br>
+                <span class="text-muted small">{{ n.expand.siswa.kelas }}</span>
               </td>
-              <td>{{ n.expand.siswa.kelas }}</td>
+              <td>{{ n.nilai_elemen1 + n.nilai_elemen2 + n.nilai_elemen3 + n.nilai_elemen4 }}</td>
               <td>
-                <span v-if="n.isEntrust"><i class="bi bi-check-circle-fill text-success"></i></span>
-                <span v-else><i class="bi bi-x-circle-fill text-danger"></i></span>
+                <span v-if="n.isEntrust" class="badge bg-info">Ya</span>
+                <span v-else class="badge bg-success">Tidak</span>
               </td>
               <td>
                 <span v-if="n.isValid"><i class="bi bi-check-circle-fill text-success"></i></span>
