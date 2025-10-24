@@ -220,13 +220,6 @@ async function pagination(page, loading=true) {
 async function setModalDeleteById(id, name) {
   company_id.value = id
   company_name.value = name
-  // isLoadingModalDelete.value = true
-  // client.autoCancellation(false)
-  // let res = await client.collection('iduka').getOne(id, {})
-  // if(res) {
-  //   company.value = res
-  //   isLoadingModalDelete.value = false
-  // }
 }
 
 // ambil IDUKA dari id saat tombol catatan ditekan
@@ -234,13 +227,6 @@ async function setModalDeleteById(id, name) {
 async function setModalCatatanById(id, content) {
   catatan_id.value = id
   catatan_content.value = content
-  // isLoadingModalCatatan.value = true
-  // client.autoCancellation(false)
-  // let res = await client.collection('iduka').getOne(id, {})
-  // if(res) {
-  //   catatan.value = res
-  //   isLoadingModalCatatan.value = false
-  // }
 }
 
 async function filterByWilayah() {

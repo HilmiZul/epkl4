@@ -198,17 +198,6 @@ function setJenisSurat() {
 async function setModalKonfirmasiPenerimaan(id, nama) {
   iduka_id.value = id
   iduka_nama.value = nama
-  // isLoadingModalKonfirmasi.value = true
-  // client.autoCancellation(false)
-  // if(iduka) {
-  //   let res = await client.collection('pemetaan').getFirstListItem(`iduka='${iduka}'`, {
-  //     expand: "iduka"
-  //   })
-  //   if(res) {
-  //     iduka_dari_pemetan.value = res
-  //     isLoadingModalKonfirmasi.value = false
-  //   }
-  // }
 }
 
 async function getProkelForOption() {
