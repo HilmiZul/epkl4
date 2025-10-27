@@ -9,10 +9,11 @@
         <i class="bi bi-info-circle"></i> Ada <strong>{{ count_not_valid }}</strong> Jurnal yang belum divalidasi
       </div>
       <div class="row">
-        <div class="col-md-7">
-          <div v-if="!isLoadingJournals" class="mb-2 text-end text-muted small">
+        <div class="col-md-7 p-0">
+          <div v-if="!isLoadingJournals" class="mb-2 mx-3 text-end text-muted smallest">
             <span v-if="journals.totalItems" class="float-start">Halaman {{ journals.page }} dari {{ journals.totalPages }}</span>
-            <span v-if="journals.totalItems">Menampilkan {{ journals.items.length }}  dari {{ journals.totalItems }} Jurnal</span>
+            <span v-if="journals.totalItems"><span class="fw-bold">{{ journals.totalItems }}</span> Jurnal</span>
+            <!-- <span v-if="journals.totalItems">Menampilkan {{ journals.items.length }}  dari {{ journals.totalItems }} Jurnal</span> -->
           </div>
           <div class="row">
             <div class="col-md-12">
@@ -23,25 +24,25 @@
                 </span>
               </div>
               <LoadingPlaceholder v-if="isLoadingJournals" col="12" row="1" />
-              <div v-else v-for="journal in journals.items" :key="journal.id" class="card jurnal-hover">
+              <div v-else v-for="journal in journals.items" :key="journal.id" class="card jurnal-hover jurnal-item no-shadow">
                 <div class="card-body">
                   <div class="bookmark fs-2">
                     <div class="bookmark-icon text-danger" v-if="journal.expand.elemen.elemen == 'Lain-lain'"><i class="bi bi-bookmark-fill"></i></div>
                     <div class="bookmark-icon text-info" v-else><i class="bi bi-bookmark-fill"></i></div>
                   </div>
                   <div class="mt-3"><strong class="fs-6">{{ journal.expand.siswa.expand.siswa.nama }}</strong> &bull; {{ journal.expand.iduka.nama }}</div>
-                  <div class="my-2 smallest fw-bold">
+                  <div class="my-2 smallest fw-bold text-muted">
                     <span v-if="journal.expand.elemen.elemen == 'Lain-lain'">{{ journal.expand.elemen.elemen }}</span>
                     <span v-else>{{ journal.expand.elemen.elemen }}</span>
                   </div>
-                  <div class="text-muted smallest"><i class="bi bi-calendar2-date"></i> <span class="fst-italic">{{ journal.created }}</span></div>
+                  <div class="text-muted smallest"><i class="bi bi-calendar2-date"></i> {{ journal.created }}</div>
                   <article class="my-3 pre-text">
                     {{ journal.deskripsi }}
                   </article>
                   <div v-if="journal.foto" class="my-3 foto-container hand-cursor" data-bs-toggle="modal" :data-bs-target="`#foto-${journal.id}`">
                     <img :src="`${host}/api/files/${journal.collectionId}/${journal.id}/${journal.foto}`" :alt="journal.deskripsi" class="foto" />
                   </div>
-                  <span v-if="journal.isValid" @click="handleValidasi(journal.id, journal.isValid)" class="hand-cursor"><span class="text-danger"><i class="bi bi-heart-fill"></i></span> Valid</span>
+                  <span v-else-if="journal.isValid" @click="handleValidasi(journal.id, journal.isValid)" class="hand-cursor"><span class="text-danger"><i class="bi bi-heart-fill"></i></span> Valid</span>
                   <span v-else @click="handleValidasi(journal.id, journal.isValid)" class="hand-cursor"><span class="text-danger"><i class="bi bi-heart"></i></span> Valid</span>
                   <!-- <span class="fst-italic text-muted">memvalidasi...</span> -->
                 </div>
@@ -60,11 +61,11 @@
                   </div>
                 </div>
               </div>
-              <div class="row my-4 mb-4">
+              <div class="row my-4 mb-4 ms-1">
                 <div v-if="!isLoadingJournals" class="col-md-12">
-                  <div v-if="isMovingPage" class="text-muted small mb-2 fst-italic">sedang berpindah halaman</div>
+                  <div v-if="isMovingPage" class="text-muted smallest mb-2 fst-italic">sedang berpindah halaman</div>
                   <div v-else>
-                    <div v-if="journals || isMovingPage" class="text-muted small mb-2">
+                    <div v-if="journals || isMovingPage" class="text-muted smallest mb-2">
                       <span v-if="journals.totalItems">Halaman {{ journals.page }} dari {{ journals.totalPages }}</span>
                     </div>
                   </div>
@@ -281,7 +282,7 @@ input.picker[type="date"]::-webkit-calendar-picker-indicator {
   /*height: 100%;*/
 }
 .jurnal-hover:hover {
-  background-color: #f7fddd;
+  background-color: #f9f9f9;
 }
 .bg-danger {
   background-color: rgb(255, 99, 132) !important;
@@ -294,7 +295,14 @@ input.picker[type="date"]::-webkit-calendar-picker-indicator {
 }
 .bookmark .bookmark-icon {
   position: absolute;
-  top: -30px;
-  left: -5px;
+  top: -20px;
+  right: -5px;
+}
+.jurnal-item {
+  border: none !important;
+  border-bottom: 1px solid #000 !important
+}
+.no-shadow {
+  box-shadow: none !important;
 }
 </style>
