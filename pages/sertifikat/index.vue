@@ -4,9 +4,33 @@
       <span class="h4 quicksand fw-bold"><i class="bi bi-person-vcard-fill"></i> Sertifikat</span>
     </div>
     <div class="card-body small">
-      <div class="p-4 text-center fs-4 text-muted">
-        <i class="bi bi-cone-striped fs-1"></i> <br>
-        Belum ada sertifikat
+      <loading-placeholder v-if="isLoading" row="1" col="4" />
+      <div v-else class="row">
+        <div v-if="nilai.length > 0" class="col-lg-4">
+          <label for="peserta">Pilih Nama Peserta</label>
+          <multiselect
+            @update:modelValue="getNilaiById"
+            v-model="selectedPeserta"
+            :options="nilai"
+            :clear-on-select="true"
+            :custom-label="({expand}) => `${expand.siswa.nama}`"
+            track-by="expand"
+            label="expand"
+            id="peserta"
+            placeholder="Pilih untuk menampilkan disertifikat"
+            required>
+            <template v-slot:singleLabel="{ option }"><strong>{{ option.expand.siswa.nama }}</strong></template>
+          </multiselect>
+        </div>
+        <div v-else class="p-4 text-muted">
+          <div class="text-center fs-4">
+            <i class="bi bi-database fs-1"></i> <br>
+            Belum ada nilai
+          </div>
+          <div class="text-center">
+            Pastikan peserta didik sudah menyerahkan nilai dan divalidasi oleh Anda.
+          </div>
+        </div>
       </div>
       <!-- <div class="row">
         <div class="col-lg-3">
@@ -30,24 +54,100 @@
         </div>
       </div> -->
 
-      <div v-if="isLoaded" class="row pt-3">
+      <loading-placeholder v-if="isLoading" row="1" col="12" />
+      <div v-else-if="!isLoading && nilai.length > 0" class="row pt-3">
         <div class="col-md-12">
           <div class="container">
-            <div class="logo fw-bold">
-              [Logo IDUKA disini]
+            <div class="logo fw-bold text-muted">
+              <span v-if="isLoaded">
+                <img :src="`${host}/api/files/${sertifikat.collectionId}/${sertifikat.id}/${sertifikat.logo}`" :alt="sertifikat.expand.iduka.nama" class="logo-img" />
+              </span>
+              <span v-else class="logo-img">[Logo IDUKA]</span>
             </div>
-            <div class="title text-center">
-              Sertifikat Praktik Kerja Lapangan
+            <div class="title  mt-3 fw-bold text-center">
+              <span v-if="isLoaded">SERTIFIKAT</span>
+              <span v-else class="text-muted">[Template]</span>
+              <!-- <span v-if="isLoaded">{{ sertifikat.expand.iduka.nama }}</span>
+              <span v-else>[Nama IDUKA]</span> -->
             </div>
-            <div class="assignment text-center">
+            <div class="subtitle text-center">
+              Praktik Kerja Lapangan
+            </div>
+            <div class="nomor text-center text-muted">
+              <span v-if="isLoaded && sertifikat.nomor_sertifikat">Nomor: {{ sertifikat.nomor_sertifikat }}</span>
+            </div>
+            <div class="assignment text-center my-3">
               diberikan kepada
             </div>
-            <div class="person py-5 text-center">
-              {{ nama_peserta }}
+            <div class="person my-3 text-center">
+              <span v-if="isLoaded" class="fw-bold">{{ sertifikat.expand.siswa.nama }}</span>
+              <span v-else>[Nama Peserta Didik]</span>
             </div>
-            <div class="text text-center">
+            <div class="text mb-3 text-center">
               atas pencapaian melaksanakan Praktik Kerja Lapangan<br/>
-              selama 4 bulan dari .. sampai dengan .. April 2026.
+              selama 4 bulan dari {{ pengaturan?.rentang_pelaksanaan }}.
+            </div>
+            <table class="table table-bordered bg-white">
+              <thead>
+                <tr>
+                  <th>Elemen</th>
+                  <th>Nilai</th>
+                </tr>
+              </thead>
+              <tbody v-if="isLoaded">
+                <tr>
+                  <td>Internalisasi dan penerapan soft skills</td>
+                  <td class="text-center">{{ sertifikat.nilai_elemen1 }}</td>
+                </tr>
+                <tr>
+                  <td>Penerapan hard skills</td>
+                  <td class="text-center">{{ sertifikat.nilai_elemen2 }}</td>
+                </tr>
+                <tr>
+                  <td>Peningkatan dan pengembangan hard skills</td>
+                  <td class="text-center">{{ sertifikat.nilai_elemen3 }}</td>
+                </tr>
+                <tr>
+                  <td>Penyiapan Kemandirian Berwirausaha</td>
+                  <td class="text-center">{{ sertifikat.nilai_elemen4 }}</td>
+                </tr>
+                <tr class="fw-bold">
+                  <td class="text-end">Total</td>
+                  <td class="text-center">{{ sertifikat.nilai_elemen1 + sertifikat.nilai_elemen2 + sertifikat.nilai_elemen3 + sertifikat.nilai_elemen4 }}</td>
+                </tr>
+              </tbody>
+              <tbody v-else>
+                <tr>
+                  <td>Internalisasi dan penerapan soft skills</td>
+                  <td class="text-center">&#8212;</td>
+                </tr>
+                <tr>
+                  <td>Penerapan hard skills</td>
+                  <td class="text-center">&#8212;</td>
+                </tr>
+                <tr>
+                  <td>Peningkatan dan pengembangan hard skills</td>
+                  <td class="text-center">&#8212;</td>
+                </tr>
+                <tr>
+                  <td>Penyiapan Kemandirian Berwirausaha</td>
+                  <td class="text-center">&#8212;</td>
+                </tr>
+                <tr class="fw-bold">
+                  <td class="text-end">Total</td>
+                  <td class="text-center">&#8212;</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="row justify-content-center text-center">
+              <div class="col-lg-4">
+                <div class="titimangsa">Tasikmalaya, 18 April 2026</div>
+                <div v-if="isLoaded" class="ttd-pj">{{ sertifikat.pj_penandatangan }}</div>
+                <div v-else class="ttd-pj text-muted">[Jabatan]</div>
+                <div v-if="isLoaded" class="ttd-nama-pj fw-bold">{{ sertifikat.nama_pj_penandatangan }}</div>
+                <div v-else class="ttd-nama-pj fw-bold text-muted">[Jhon Doe]</div>
+                <div v-if="isLoaded && sertifikat.nomor_pegawai" class="text-muted">{{ sertifikat.nomor_pegawai }}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -59,6 +159,8 @@
 <script setup>
 definePageMeta({ middleware: 'auth' })
 useHead({ title: "Sertifikat — e-PKL / SMKN 4 Tasikmalaya." })
+const config = useRuntimeConfig()
+const host = config.public.apiBaseUrl+":"+config.public.apiPort
 let client = usePocketBaseClient()
 let user = usePocketBaseUser()
 let role = user?.user.value.role
@@ -72,8 +174,52 @@ let form = ref({
   kelas: '',
   siswa: ''
 })
-let nama_peserta = ref('')
+let pengaturan = ref()
+let nilai = ref('')
+let isLoading = ref(true)
+let selectedPeserta = ref()
+let sertifikat = ref({
+  "logo": "",
+  "iduka": "",
+  "siswa": "",
+  "nomor_sertifikat": "",
+  "nilai_elemen1": "",
+  "nilai_elemen2": "",
+  "nilai_elemen3": "",
+  "nilai_elemen4": "",
+  "pj_penandatangan": "",
+  "nama_pj_penandatangan": "",
+  "nomor_pegawai": "",
+})
 if(role == 'tu') navigateTo('/404')
+
+async function getNilai() {
+  isLoading.value = true
+  client.autoCancellation(false)
+  let res = await client.collection('nilai').getFullList({
+    filter: `program_keahlian="${prokel}" && iduka.pembimbing_sekolah="${user.user.value.id}" && isEntrust=True && isValid=True`,
+    expand: `siswa, program_keahlian, iduka`,
+  })
+  if(res) {
+    nilai.value = res
+    isLoading.value = false
+  }
+}
+
+function getNilaiById(value) {
+  isLoaded.value = true
+  sertifikat.value = value
+}
+
+async function getSetting() {
+  isLoading.value = true
+  client.autoCancellation(false)
+  let res = await client.collection('pengaturan').getOne("pt7b25ofddwhngp")
+  if(res) {
+    pengaturan.value = res
+    isLoading.value = false
+  }
+}
 
 let getKelasByProkel = (e) => {
   // form.value.prokel = e.target.value
@@ -111,20 +257,10 @@ async function getProkel() {
   }
 }
 
-async function getPemetaanBySiswa() {
-  isLoaded.value = false
-  client.autoCancellation(false)
-  let res_pemetaan = await client.collection('pemetaan').getFirstListItem(`siswa='${form.value.siswa}'`, {
-    expand: "iduka, siswa, program_keahlian"
-  })
-  if(res_pemetaan) {
-    isLoaded.value = true
-    nama_peserta.value = res_pemetaan.expand.siswa.nama
-  }
-}
-
 onMounted(() => {
   getProkel()
+  getNilai()
+  getSetting()
 })
 </script>
 
@@ -140,32 +276,65 @@ body {
   text-align: center;
 }
 .container {
-  border: 20px solid #b5d2ad;
+  /*border: 1pt solid #b5d2ad;*/
   width: 297mm !important;
   height: 210mm !important;
   display: table-cell;
-  vertical-align: middle;
+  background: transparent url('~/assets/img/bg-sertifikat.webp') no-repeat center center;
+  background-size: contain
+  /*vertical-align: middle;*/
 }
 .logo {
   font-size: large;
-  color: #b5d2ad;
+  position: relative;
+}
+.logo-img {
+  position: absolute;
+  top: 1em;
+  left: 0;
+  width: 170px;
 }
 
 .title {
-  color: #b5d2ad;
-  font-size: 48px;
-  margin: 20px;
+  color: #034b4d;
+  font-size: 40pt;
+}
+.subtitle {
+  color: #007d82;
+  font-size: 24pt;
 }
 .assignment {
-  margin: 20px;
+  color: #034b4d;
+  font-size: 12pt;
 }
 .person {
-  font-size: 20pt;
-  font-style: italic;
+  font-size: 24pt;
   margin: 0 auto;
   width: 400px;
+  color: #034b4d;
 }
 .text {
-  margin: 20px;
+  font-size: 12pt;
+}
+.nomor, .titimangsa {
+  font-size: 12pt;
+}
+.ttd-nama-pj {
+  font-size: 12pt;
+  margin-top: 90px;
+}
+.ttd-pj {
+  font-size: 12pt;
+}
+thead th {
+  padding: 5pt;
+  color: #fff;
+  text-align: center;
+  background-color: #007d82 !important;
+}
+table, th, tr, td {
+  padding: 4pt;
+  border-width: 1.5px !important;
+  border-color: #034b4d !important;
 }
 </style>
