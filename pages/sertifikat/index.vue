@@ -3,7 +3,7 @@
     <div class="card-header">
       <span class="h4 quicksand fw-bold"><i class="bi bi-person-vcard-fill"></i> Sertifikat</span>
     </div>
-    <div class="card-body small">
+    <div class="card-body">
       <loading-placeholder v-if="isLoading" row="1" col="4" />
       <div v-else class="row">
         <div v-if="nilai.length > 0" class="col-lg-4">
@@ -57,14 +57,15 @@
       <loading-placeholder v-if="isLoading" row="1" col="12" />
       <div v-else-if="!isLoading && nilai.length > 0" class="row pt-3">
         <div class="col-md-12">
+          <div class="mb-3 fw-bold">Pratinjau Sertifikat</div>
           <div class="container">
-            <div class="logo fw-bold text-muted">
+            <div class="logo fw-bold text-muted text-center mt-4">
               <span v-if="isLoaded">
                 <img :src="`${host}/api/files/${sertifikat.collectionId}/${sertifikat.id}/${sertifikat.logo}`" :alt="sertifikat.expand.iduka.nama" class="logo-img" />
               </span>
-              <span v-else class="logo-img">[Logo IDUKA]</span>
+              <span v-else class="logo-img mt-5">[Logo IDUKA]</span>
             </div>
-            <div class="title  mt-3 fw-bold text-center">
+            <div class="title mt-3 fw-bold text-center">
               <span v-if="isLoaded">SERTIFIKAT</span>
               <span v-else class="text-muted">[Template]</span>
               <!-- <span v-if="isLoaded">{{ sertifikat.expand.iduka.nama }}</span>
@@ -76,16 +77,44 @@
             <div class="nomor text-center text-muted">
               <span v-if="isLoaded && sertifikat.nomor_sertifikat">Nomor: {{ sertifikat.nomor_sertifikat }}</span>
             </div>
-            <div class="assignment text-center my-3">
+            <div class="assignment my-3 text-center">
               diberikan kepada
             </div>
-            <div class="person my-3 text-center">
+            <div class="person mb-2 text-center">
               <span v-if="isLoaded" class="fw-bold">{{ sertifikat.expand.siswa.nama }}</span>
               <span v-else>[Nama Peserta Didik]</span>
             </div>
-            <div class="text mb-3 text-center">
-              atas pencapaian melaksanakan Praktik Kerja Lapangan<br/>
-              selama 4 bulan dari {{ pengaturan?.rentang_pelaksanaan }}.
+            <div class="row justify-content-center">
+              <div class="col-md-8">
+                <table class="table_id">
+                  <tbody>
+                    <tr>
+                      <td width="35%">Nomor Induk Siswa</td>
+                      <td>:</td>
+                      <td v-if="isLoaded">{{ sertifikat.expand.siswa.nis }}</td>
+                      <td v-else>&#8212;</td>
+                    </tr>
+                    <tr>
+                      <td>Program Keahlian</td>
+                      <td>:</td>
+                      <td v-if="isLoaded">{{ sertifikat.expand.program_keahlian.alias }}</td>
+                      <td v-else>&#8212;</td>
+                    </tr>
+                    <tr>
+                      <td>Konsentrasi Keahlian</td>
+                      <td>:</td>
+                      <td v-if="isLoaded">{{ sertifikat.expand.program_keahlian.konsentrasi_keahlian }}</td>
+                      <td v-else>&#8212;</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="text my-3 text-center">
+              Telah mengikuti Praktik Kerja Lapangan di <span v-if="isLoaded">{{ sertifikat.expand.iduka.nama }}</span>. <br>
+              Dari {{ pengaturan?.rentang_pelaksanaan }} dengan hasil <br>
+              <div v-if="isLoaded" class="nilai-indeks fs-3 py-2">{{ nilai_indeks }}</div>
+              <div v-else class="nilai-indeks fs-3 py-2">[nilai indeks]</div>
             </div>
             <table class="table table-bordered bg-white">
               <thead>
@@ -178,6 +207,7 @@ let pengaturan = ref()
 let nilai = ref('')
 let isLoading = ref(true)
 let selectedPeserta = ref()
+let nilai_indeks = ref()
 let sertifikat = ref({
   "logo": "",
   "iduka": "",
@@ -209,6 +239,10 @@ async function getNilai() {
 function getNilaiById(value) {
   isLoaded.value = true
   sertifikat.value = value
+  let average = (value.nilai_elemen1 + value.nilai_elemen2 + value.nilai_elemen3 + value.nilai_elemen4) / 4
+  if(average >= 86) nilai_indeks.value = "Amat Baik"
+  else if(average >= 70) nilai_indeks.value = "Baik"
+  else nilai_indeks.value = "Kurang"
 }
 
 async function getSetting() {
@@ -276,9 +310,9 @@ body {
   text-align: center;
 }
 .container {
-  /*border: 1pt solid #b5d2ad;*/
-  width: 297mm !important;
-  height: 210mm !important;
+  border: 1pt solid #b5d2ad;
+  width: 210mm !important;
+  height: 297mm !important;
   display: table-cell;
   background: transparent url('~/assets/img/bg-sertifikat.webp') no-repeat center center;
   background-size: contain
@@ -286,35 +320,37 @@ body {
 }
 .logo {
   font-size: large;
-  position: relative;
+  /*position: relative;*/
 }
 .logo-img {
-  position: absolute;
+  /*position: absolute;
   top: 1em;
-  left: 0;
+  left: 0;*/
   width: 170px;
 }
 
 .title {
   color: #034b4d;
-  font-size: 40pt;
+  font-size: 35pt;
 }
 .subtitle {
   color: #007d82;
-  font-size: 24pt;
+  font-size: 20pt;
 }
 .assignment {
   color: #034b4d;
   font-size: 12pt;
 }
 .person {
-  font-size: 24pt;
+  font-size: 20pt;
   margin: 0 auto;
-  width: 400px;
   color: #034b4d;
 }
 .text {
   font-size: 12pt;
+}
+.nilai-indeks {
+  color: #034b4d;
 }
 .nomor, .titimangsa {
   font-size: 12pt;
@@ -336,5 +372,12 @@ table, th, tr, td {
   padding: 4pt;
   border-width: 1.5px !important;
   border-color: #034b4d !important;
+}
+.table_id tbody,
+.table_id tbody tr,
+.table_id tbody td {
+  border: none !important;
+  background-color: #fff;
+  padding: 2pt
 }
 </style>
