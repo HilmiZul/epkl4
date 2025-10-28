@@ -20,19 +20,19 @@
               <div class="row">
                 <div class="col-lg-6">
                   <div class="mb-4">
-                    <label for="el_1">Nilai Elemen 1</label>
+                    <label for="el_1">Nilai Elemen 1 <span class="text-danger">*</span></label>
                     <input v-model="form.nilai_elemen1" type="number" min="0" max="100" id="el_1" class="form form-control" required>
                   </div>
                   <div class="mb-4">
-                    <label for="el_2">Nilai Elemen 2</label>
+                    <label for="el_2">Nilai Elemen 2 <span class="text-danger">*</span></label>
                     <input v-model="form.nilai_elemen2" type="number" min="0" max="100" id="el_2" class="form form-control" required>
                   </div>
                   <div class="mb-4">
-                    <label for="el_3">Nilai Elemen 3</label>
+                    <label for="el_3">Nilai Elemen 3 <span class="text-danger">*</span></label>
                     <input v-model="form.nilai_elemen3" type="number" min="0" max="100" id="el_3" class="form form-control" required>
                   </div>
                   <div class="mb-4">
-                    <label for="el_4">Nilai Elemen 4</label>
+                    <label for="el_4">Nilai Elemen 4 <span class="text-danger">*</span></label>
                     <input v-model="form.nilai_elemen4" type="number" min="0" max="100" id="el_4" class="form form-control" required>
                   </div>
                   <div class="mb-4">
@@ -45,8 +45,20 @@
                   </div> -->
                   <div v-if="form.isEntrust">
                     <div class="mb-4">
-                      <label for="pj_penandatangan">Pejabat Penandatangan</label>
+                      <label for="pj_penandatangan">Pejabat Penandatangan <span class="text-danger">*</span></label>
                       <input v-model="form.pj_penandatangan" type="text" id="pj_penandatangan" class="form form-control" placeholder="Contoh: CEO, Direktur, Kepala Dinas..." required>
+                    </div>
+                    <div class="mb-4">
+                      <label for="nama_pj_penandatangan">Nama Pejabat Penandatangan <span class="text-danger">*</span></label>
+                      <input :disabled="form.pj_penandatangan < 1" v-model="form.nama_pj_penandatangan" type="text" id="nama_pj_penandatangan" class="form form-control" placeholder="Tulis mama lengkapnya..." required>
+                    </div>
+                    <div class="mb-4">
+                      <label for="nomor_pegawai">Nomor Pegawai</label>
+                      <input v-model="form.nomor_pegawai" type="text" id="nomor_pegawai" class="form form-control" placeholder="Kosongkan jika tidak ada">
+                    </div>
+                    <div class="mb-4">
+                      <label for="nomor_sertifikat">Nomor Sertifikat</label>
+                      <input v-model="form.nomor_sertifikat" type="text" id="nomor_sertifikat" class="form form-control" placeholder="Kosongkat jika tidak ada">
                     </div>
                     <div class="mb-4">
                       <label for="logo_iduka">Logo IDUKA</label>
@@ -123,7 +135,10 @@ let form = ref({
   "nilai_elemen3": 0,
   "nilai_elemen4": 0,
   "logo": "",
-  "isValid": ""
+  "isValid": "",
+  "nama_pj_penandatangan": "",
+  "nomor_sertifikat": "",
+  "nomor_pegawai": ""
 })
 
 async function updateNilai() {
