@@ -2,10 +2,7 @@
   <div class="card">
     <div class="card-header">
       <loading-placeholder v-if="isLoading" row="1" col="6" />
-      <span v-else class="h4 fw-bold text-muted">Validasi Nilai / <span class="text-dark">{{ certificate.expand.siswa.nama }}</span></span>
-      <!-- <span v-if="!isLoading" class="float-end">
-        <nuxt-link v-if="!isCertificate" to="/nilai/tambah" class="btn btn-info btn-sm"><i class="bi bi-plus-lg"></i> Buat Baru</nuxt-link>
-      </span> -->
+      <span v-else class="h4 fw-bold text-muted">Validasi / <span class="text-dark">{{ certificate.expand.siswa.nama }}</span></span>
     </div>
     <div class="card-body">
       <div v-if="isLoading" class="row py-3">
@@ -16,6 +13,9 @@
       <div v-else>
         <div v-if="isCertificate" class="row">
           <div class="col-lg-12">
+            <div v-if="form.isEntrust" class="alert alert-info">
+              <i class="bi bi-info-circle"></i> Peserta ini menitipkan <span class="fw-bold">Sertifikat</span> untuk dicetak di Sekolah.
+            </div>
             <form @submit.prevent="updateNilai">
               <div class="row">
                 <div class="col-lg-6">
@@ -78,8 +78,11 @@
                   <span v-if="isSaved" class="ms-2 mb-4 small fst-italic text-muted fw-bold">Berhasil diperbaharui!</span>
                 </div>
                 <div class="col-lg-6">
-                  <div class="mb-4">
-                    <div class="fw-bold pb-2"><i class="bi bi-image-fill"></i> Pratinjau Nilai Elemen</div>
+                  <div><i class="bi bi-buildings"></i> IDUKA</div>
+                  <div class="fw-bold text-dark">{{ certificate.expand.iduka.nama }}</div>
+                  <hr>
+                  <div class="my-4">
+                    <div class="fw-bold pb-2"><i class="bi bi-image-fill"></i> Foto Halaman Nilai</div>
                     <img :src="`${host}/api/files/${certificate.collectionId}/${certificate.id}/${tempNilaiImg}`"
                       data-bs-toggle="modal" data-bs-target="#preview-nilai"
                       alt="Foto jurnal nilai" width="100%" class="border border-2 border-dark mb-2 hand-cursor">
