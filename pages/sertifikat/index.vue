@@ -326,6 +326,7 @@ body {
   text-align: center;
 }
 .container {
+  border: 3pt solid #007d82;
   width: 210mm !important;
   height: 296mm !important;
   /*display: table-cell;*/
