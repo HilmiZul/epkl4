@@ -2,6 +2,9 @@
   <div class="card">
     <div class="card-header">
       <span class="h4 quicksand fw-bold"><i class="bi bi-person-vcard-fill"></i> Sertifikat</span>
+      <button v-if="isLoaded" @click="unduhPdf" class="btn btn-info btn-sm border border-2 border-dark float-end">
+        <i class="bi bi-download"></i> Unduh
+      </button>
     </div>
     <div class="card-body">
       <loading-placeholder v-if="isLoading" row="1" col="4" />
@@ -57,8 +60,7 @@
       <loading-placeholder v-if="isLoading" row="1" col="12" />
       <div v-else-if="!isLoading && nilai.length > 0" class="row pt-3">
         <div class="col-md-12">
-          <div class="mb-3 fw-bold">Pratinjau Sertifikat</div>
-          <div class="container">
+          <div ref="toPdf" class="container">
             <div class="logo fw-bold text-muted text-center mt-4">
               <span v-if="isLoaded">
                 <img :src="`${host}/api/files/${sertifikat.collectionId}/${sertifikat.id}/${sertifikat.logo}`" :alt="sertifikat.expand.iduka.nama" class="logo-img" />
@@ -80,8 +82,8 @@
             <div class="assignment my-3 text-center">
               diberikan kepada
             </div>
-            <div class="person mb-2 text-center">
-              <span v-if="isLoaded" class="fw-bold">{{ sertifikat.expand.siswa.nama }}</span>
+            <div class="person mb-3 text-center">
+              <span v-if="isLoaded" class="fw-bold border-bottom border-3 border-warning">{{ sertifikat.expand.siswa.nama }}</span>
               <span v-else>[Nama Peserta Didik]</span>
             </div>
             <div class="row justify-content-center">
@@ -186,6 +188,8 @@
 </template>
 
 <script setup>
+import html2pdf from 'html2pdf.js'
+
 definePageMeta({ middleware: 'auth' })
 useHead({ title: "Sertifikat — e-PKL / SMKN 4 Tasikmalaya." })
 const config = useRuntimeConfig()
@@ -221,6 +225,7 @@ let sertifikat = ref({
   "nama_pj_penandatangan": "",
   "nomor_pegawai": "",
 })
+let toPdf = ref(null) // var untuk nyimpen component yang downloadable PDF
 if(role == 'tu') navigateTo('/404')
 
 async function getNilai() {
@@ -252,6 +257,17 @@ async function getSetting() {
   if(res) {
     pengaturan.value = res
     isLoading.value = false
+  }
+}
+
+function unduhPdf() {
+  if(toPdf.value) {
+    html2pdf().set({
+      filename: `Sertifikat PKL - ${sertifikat.value.expand.siswa.nama} - XII.${sertifikat.value.expand.siswa.kelas}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    }).from(toPdf.value).save()
   }
 }
 
@@ -310,23 +326,24 @@ body {
   text-align: center;
 }
 .container {
-  border: 1pt solid #b5d2ad;
   width: 210mm !important;
-  height: 297mm !important;
-  display: table-cell;
+  height: 296mm !important;
+  /*display: table-cell;*/
   background: transparent url('~/assets/img/bg-sertifikat.webp') no-repeat center center;
   background-size: contain
   /*vertical-align: middle;*/
 }
 .logo {
   font-size: large;
+  height: 100px;
   /*position: relative;*/
 }
 .logo-img {
   /*position: absolute;
   top: 1em;
   left: 0;*/
-  width: 170px;
+  width: auto;
+  height: 100%;
 }
 
 .title {
@@ -370,7 +387,7 @@ thead th {
 }
 table, th, tr, td {
   padding: 4pt;
-  border-width: 1.5px !important;
+  border-width: 1pt !important;
   border-color: #034b4d !important;
 }
 .table_id tbody,
