@@ -63,9 +63,9 @@
           <div ref="toPdf" class="container">
             <div class="logo fw-bold text-muted text-center mt-4">
               <span v-if="isLoaded">
-                <img :src="`${host}/api/files/${sertifikat.collectionId}/${sertifikat.id}/${sertifikat.logo}`" :alt="sertifikat.expand.iduka.nama" class="logo-img" />
+                <img v-if="sertifikat.logo" :src="`${host}/api/files/${sertifikat.collectionId}/${sertifikat.id}/${sertifikat.logo}`" :alt="sertifikat.expand.iduka.nama" class="logo-img" />
+                <!-- <span v-else class="logo-img mt-5">[Logo IDUKA]</span> -->
               </span>
-              <span v-else class="logo-img mt-5">[Logo IDUKA]</span>
             </div>
             <div class="title mt-3 fw-bold text-center">
               <span v-if="isLoaded">SERTIFIKAT</span>
@@ -113,7 +113,7 @@
               </div>
             </div>
             <div class="text my-3 text-center">
-              Telah mengikuti Praktik Kerja Lapangan di <span v-if="isLoaded">{{ sertifikat.expand.iduka.nama }}</span>. <br>
+              Telah mengikuti Praktik Kerja Lapangan di <span v-if="isLoaded" class="fw-bold">{{ sertifikat.expand.iduka.nama }}</span> <span v-else>[IDUKA]</span>. <br>
               Dari {{ pengaturan?.rentang_pelaksanaan }} dengan hasil <br>
               <div v-if="isLoaded" class="nilai-indeks fs-3 py-2">{{ nilai_indeks }}</div>
               <div v-else class="nilai-indeks fs-3 py-2">[nilai indeks]</div>
