@@ -7,6 +7,10 @@
       </button>
     </div>
     <div class="card-body">
+      <div class="alert alert-info">
+        <i class="bi bi-info-circle"></i>
+        Berikut daftar peserta yang menitipkan Sertifikat ke Sekolah.
+      </div>
       <loading-placeholder v-if="isLoading" row="1" col="4" />
       <div v-else class="row">
         <div v-if="nilai.length > 0" class="col-lg-4">
