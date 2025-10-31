@@ -88,7 +88,7 @@ label {
   color: #030303;
   font-size: 1em;
   font-weight: 600;
-  letter-spacing: .05em;
+  letter-spacing: .03em;
   margin-bottom: .3em;
 }
 button.btn-grey {
