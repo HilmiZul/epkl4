@@ -1,3 +1,4 @@
+import { build } from 'nuxt'
 import pkg from './package.json'
 export default defineNuxtConfig({
   compatibilityDate: "2025-08-15",
@@ -35,4 +36,11 @@ export default defineNuxtConfig({
     UserAgent: '*',
     Disallow: '/'
   },
+  vite: {
+    build: {
+      // limit hasil build yg >= 700 dalam kB
+      // lieur warning wae lah
+      chunkSizeWarningLimit: 900
+    }
+  }
 })
