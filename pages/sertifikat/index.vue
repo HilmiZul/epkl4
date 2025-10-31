@@ -87,7 +87,7 @@
               diberikan kepada
             </div>
             <div class="person mb-3 text-center">
-              <span v-if="isLoaded" class="fw-bold border-bottom border-3 border-warning">{{ sertifikat.expand.siswa.nama }}</span>
+              <span v-if="isLoaded" class="fw-bold person-border">{{ sertifikat.expand.siswa.nama }}</span>
               <span v-else>[Nama Peserta Didik]</span>
             </div>
             <div class="row justify-content-center">
@@ -125,58 +125,59 @@
             <table class="table table-bordered bg-white">
               <thead>
                 <tr>
-                  <th>Elemen</th>
+                  <th width="3%">No.</th>
+                  <th>Komponen yang dinilai</th>
                   <th>Nilai</th>
                 </tr>
               </thead>
               <tbody v-if="isLoaded">
                 <tr>
+                  <td class="text-center">1.</td>
                   <td>Internalisasi dan penerapan soft skills</td>
                   <td class="text-center">{{ sertifikat.nilai_elemen1 }}</td>
                 </tr>
                 <tr>
+                  <td class="text-center">2.</td>
                   <td>Penerapan hard skills</td>
                   <td class="text-center">{{ sertifikat.nilai_elemen2 }}</td>
                 </tr>
                 <tr>
+                  <td class="text-center">3.</td>
                   <td>Peningkatan dan pengembangan hard skills</td>
                   <td class="text-center">{{ sertifikat.nilai_elemen3 }}</td>
                 </tr>
                 <tr>
+                  <td class="text-center">4.</td>
                   <td>Penyiapan Kemandirian Berwirausaha</td>
                   <td class="text-center">{{ sertifikat.nilai_elemen4 }}</td>
-                </tr>
-                <tr class="fw-bold">
-                  <td class="text-end">Total</td>
-                  <td class="text-center">{{ sertifikat.nilai_elemen1 + sertifikat.nilai_elemen2 + sertifikat.nilai_elemen3 + sertifikat.nilai_elemen4 }}</td>
                 </tr>
               </tbody>
               <tbody v-else>
                 <tr>
+                  <td class="text-center">1.</td>
                   <td>Internalisasi dan penerapan soft skills</td>
                   <td class="text-center">&#8212;</td>
                 </tr>
                 <tr>
+                  <td class="text-center">2.</td>
                   <td>Penerapan hard skills</td>
                   <td class="text-center">&#8212;</td>
                 </tr>
                 <tr>
+                  <td class="text-center">3.</td>
                   <td>Peningkatan dan pengembangan hard skills</td>
                   <td class="text-center">&#8212;</td>
                 </tr>
                 <tr>
+                  <td class="text-center">4.</td>
                   <td>Penyiapan Kemandirian Berwirausaha</td>
-                  <td class="text-center">&#8212;</td>
-                </tr>
-                <tr class="fw-bold">
-                  <td class="text-end">Total</td>
                   <td class="text-center">&#8212;</td>
                 </tr>
               </tbody>
             </table>
             <div class="row justify-content-center text-center">
               <div class="col-lg-4">
-                <div class="titimangsa">Tasikmalaya, 18 April 2026</div>
+                <div class="titimangsa">Tasikmalaya, 24 April 2026</div>
                 <div v-if="isLoaded" class="ttd-pj">{{ sertifikat.pj_penandatangan }}</div>
                 <div v-else class="ttd-pj text-muted">[Jabatan]</div>
                 <div v-if="isLoaded" class="ttd-nama-pj fw-bold">{{ sertifikat.nama_pj_penandatangan }}</div>
@@ -268,7 +269,7 @@ function unduhPdf() {
   if(toPdf.value) {
     html2pdf().set({
       filename: `Sertifikat PKL - ${sertifikat.value.expand.siswa.nama} - XII.${sertifikat.value.expand.siswa.kelas}.pdf`,
-      image: { type: 'jpeg', quality: 0.98 },
+      image: { type: 'jpeg', quality: 1 },
       html2canvas: { scale: 2, useCORS: true },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
     }).from(toPdf.value).save()
@@ -367,6 +368,11 @@ body {
   font-size: 20pt;
   margin: 0 auto;
   color: #034b4d;
+}
+.person-border {
+  border-bottom-width: 5px;
+  border-bottom-style: double;
+  border-bottom-color: #fed652;
 }
 .text {
   font-size: 12pt;
