@@ -59,9 +59,11 @@
                       <div class="col-lg-6">
                         <div class="my-4">
                           <div class="fw-bold pb-2"><i class="bi bi-image-fill"></i> Foto Halaman Nilai</div>
-                          <img :src="`${host}/api/files/${certificate.collectionId}/${certificate.id}/${tempNilaiImg}`"
+                          <div class="container-foto-nilai">
+                            <img :src="`${host}/api/files/${certificate.collectionId}/${certificate.id}/${tempNilaiImg}`"
                             data-bs-toggle="modal" data-bs-target="#preview-nilai"
-                            alt="Foto jurnal nilai" width="100%" class="border border-2 border-dark mb-2 hand-cursor">
+                            alt="Foto jurnal nilai" width="100%" class="border border-2 border-dark mb-2 hand-cursor foto-nilai">
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -275,5 +277,13 @@ onMounted(() => {
   border-top: 2px solid #000;
   border-right: 2px solid #000;
   border-radius: 0;
+}
+.container-foto-nilai {
+  width: 100%;
+  height: 200px;
+}
+.container-foto-nilai .foto-nilai {
+  height: 100%;
+  object-fit: cover;
 }
 </style>
