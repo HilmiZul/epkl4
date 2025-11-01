@@ -13,14 +13,20 @@
       <div v-else>
         <div v-if="isCertificate" class="row">
           <div class="col-lg-12">
-            <div v-if="form.isEntrust" class="alert alert-info">
+            <!-- <div v-if="form.isEntrust" class="alert alert-info">
               <i class="bi bi-info-circle"></i> Peserta ini menitipkan <span class="fw-bold">Sertifikat</span> untuk dicetak di Sekolah.
-            </div>
+            </div> -->
             <form @submit.prevent="updateNilai">
               <div class="row">
                 <div class="col-lg-12">
-                  <div class="fs-5"><i class="bi bi-buildings"></i> <span class="fw-bold text-dark">{{ certificate.expand.iduka.nama }}</span></div>
+                  <div class="fs-5 fw-bold"><i class="bi bi-buildings"></i>
+                    {{ certificate.expand.iduka.nama }}
+                    <span v-if="form.isEntrust" class="badge bg-info">Menitip Sertifikat</span>
+                  </div>
                   <hr>
+                </div>
+                <div class="col-lg-12">
+                  <div v-if="isSaved" class="alert alert-info"><i class="bi bi-info-circle"></i> Berhasil diperbaharui!</div>
                 </div>
                 <div class="col-lg-6">
                   <nav>
@@ -57,7 +63,7 @@
                         </div>
                       </div>
                       <div class="col-lg-6">
-                        <div class="my-4">
+                        <div class="mb-4">
                           <div class="fw-bold pb-2"><i class="bi bi-image-fill"></i> Foto Halaman Nilai</div>
                           <div class="container-foto-nilai">
                             <img :src="`${host}/api/files/${certificate.collectionId}/${certificate.id}/${tempNilaiImg}`"
@@ -134,7 +140,6 @@
                     <span v-else>Simpan</span>
                   </button>
                   <nuxt-link to="/nilai" class="btn btn-danger border border-2 border-dark mb-4">Kembali</nuxt-link>
-                  <span v-if="isSaved" class="ms-2 mb-4 small fst-italic text-muted fw-bold">Berhasil diperbaharui!</span>
                 </div>
 
               </div>
