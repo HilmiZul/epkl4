@@ -15,7 +15,7 @@
         </div>
         <div class="col align-content-center">
           <LoadingPlaceholder v-if="isLoading" col="12" row="1" />
-          <div v-else class="mb-3 text-grey float-end">{{ elements.length }} elemen</div>
+          <div v-else class="mb-3 text-grey float-end badge bg-success">{{ elements.length }} elemen</div>
         </div>
       </div>
       <div class="table-responsive">

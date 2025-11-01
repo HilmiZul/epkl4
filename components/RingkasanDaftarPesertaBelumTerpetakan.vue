@@ -10,7 +10,7 @@
     <table class="table table-striped border border-3 border-dark">
       <tbody>
         <tr v-for="(student,i) in students.items" :key="student.id">
-          <td width="3%">{{ i+1 }}.</td>
+          <td width="3%"><span class="badge bg-success">{{ i+1 }}</span></td>
           <td class="fw-bold">
             {{ student.nama }} <br>
           </td>

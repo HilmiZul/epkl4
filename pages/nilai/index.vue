@@ -20,7 +20,7 @@
         </div>
         <div class="col align-content-center">
           <LoadingPlaceholder v-if="isLoading" col="12" row="1" />
-          <div v-if="nilai" class="mb-3 text-grey float-end">{{ nilai.length }} nilai peserta</div>
+          <div v-if="nilai" class="mb-3 text-grey float-end badge bg-success">{{ nilai.length }} nilai peserta</div>
         </div>
       </div>
       <div class="table-responsive">
@@ -57,7 +57,7 @@
               </td>
             </tr>
             <tr v-else v-for="(n, i) in nilai" :key="i">
-              <td>{{ i+1 }}.</td>
+              <td class="align-content-center"><span class="badge bg-success">{{ i+1 }}</span></td>
               <td>
                 <nuxt-link :to="`/nilai/${n.id}`" class="link fw-bold">{{ n.expand.siswa.nama }}</nuxt-link> <br>
                 <span class="text-muted small">{{ n.expand.siswa.kelas }}</span>
