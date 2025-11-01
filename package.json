@@ -1,6 +1,6 @@
 {
   "name": "epkl4",
-  "version": "4.8.8",
+  "version": "4.8.9",
   "author": "Zul Hilmi",
   "dependencies": {
     "@neoconfetti/vue": "^2.2.1",
@@ -18,7 +18,7 @@
   "scripts": {
     "dev": "nuxt dev",
     "build": "nuxt build",
-    "preview": "nuxt preview"
+    "preview": "node .output/server/index.mjs"
   },
   "devDependencies": {
     "vue-multiselect": "^3.3.1"
