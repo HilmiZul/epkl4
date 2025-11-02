@@ -9,12 +9,12 @@
     </div>
     <table class="table table-striped border border-3 border-dark">
       <tbody>
-        <tr v-for="(student,i) in students.items" :key="student.id">
-          <td width="3%"><span class="badge bg-success">{{ i+1 }}</span></td>
-          <td class="fw-bold">
-            {{ student.nama }} <br>
+        <tr v-for="(s,i) in students.items" :key="s.id" class="fw-bold">
+          <td width="3%"><span class="badge text-dark">{{ i+1 }}</span></td>
+          <td>
+            {{ s.nama }} <br>
+            <span class="smallest text-muted">{{ s.kelas }}</span>
           </td>
-          <td width="15%">{{ student.kelas }}</td>
         </tr>
       </tbody>
     </table>
