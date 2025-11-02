@@ -19,7 +19,7 @@
               <li class="list-group-item"><i class="bi bi-emoji-smile"></i> Pembimbing</li>
             </nuxt-link>
             <nuxt-link v-if="role === 'admin' || role === 'jurusan'" to="/peserta" :activeClass="activeClass">
-              <li class="list-group-item"><i class="bi bi-person-fill"></i> Peserta Didik</li>
+              <li class="list-group-item"><i class="bi bi-person-fill"></i> Peserta Didik <span v-if="peserta.length > 0" class="badge rounded-5 text-dark float-end">{{ peserta.length }}</span></li>
             </nuxt-link>
             <nuxt-link v-if="role === 'admin' || role === 'jurusan'" to="/iduka" :activeClass="activeClass">
               <li class="list-group-item"><i class="bi bi-buildings-fill"></i> IDUKA</li>
@@ -34,13 +34,13 @@
               <li class="list-group-item"><i class="bi bi-people-fill"></i> Pemetaan Pembimbing</li>
             </nuxt-link> -->
             <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" to="/jurnal" :activeClass="activeClass">
-              <li class="list-group-item"><i class="bi bi-journals"></i> Jurnal Peserta</li>
+              <li class="list-group-item"><i class="bi bi-journals"></i> Jurnal Peserta <span v-if="jurnal.length > 0" class="badge rounded-5 text-dark float-end">{{ jurnal.length }}</span></li>
             </nuxt-link>
             <nuxt-link v-if="role === 'admin' || role === 'tu'" to="/pengaturan" :activeClass="activeClass">
               <li class="list-group-item"><i class="bi bi-sliders"></i> Pengaturan</li>
             </nuxt-link>
             <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role == 'guru'" to="/nilai" :activeClass="activeClass">
-              <li class="list-group-item"><i class="bi bi-patch-check"></i> Nilai</li>
+              <li class="list-group-item"><i class="bi bi-patch-check"></i> Nilai <span v-if="nilai.length > 0" class="badge rounded-5 text-dark float-end">{{ nilai.length }}</span></li>
             </nuxt-link>
             <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role == 'guru'" to="/sertifikat" :activeClass="activeClass">
               <li class="list-group-item"><i class="bi bi-person-vcard-fill"></i> Sertifikat</li>
@@ -83,18 +83,67 @@ import { vConfetti } from '@neoconfetti/vue'
 
 let user = usePocketBaseUser()
 let client = usePocketBaseClient()
-let prokel = ref({})
+let prokel = user.user.value.program_keahlian
 let nama = user?.user.value.nama
 let role = user?.user.value.role
 let username = user?.user.value.username
 let isConfetti = ref(false)
 let activeClass = ref('list-group-item-active')
+let nilai = ref('')
+let jurnal = ref('')
+let peserta = ref('')
 
 const moreConfetti = async () => {
   isConfetti.value = false
   await Promise.resolve()
   isConfetti.value = true
 }
+
+async function getNilai() {
+  client.autoCancellation(false)
+  let res = await client.collection('nilai').getFullList({
+    filter: `iduka.pembimbing_sekolah="${user.user.value.id}" && isValid=false`,
+  })
+  if(res) {
+    nilai.value = res
+  }
+}
+
+async function getJurnal() {
+  client.autoCancellation(false)
+  let res = await client.collection('jurnal').getFullList({
+    filter: "pembimbing='"+user.user.value.id+"' && isValid=false"
+  })
+  if(res) {
+    jurnal.value = res
+  }
+}
+
+async function getPeserta() {
+  client.autoCancellation(false)
+  let res = await client.collection('siswa').getFullList({
+    filter: `program_keahlian="${prokel}" && status_pemetaan_pkl=false`,
+  })
+  if(res) {
+    peserta.value = res
+  }
+}
+
+onMounted(() => {
+  getNilai()
+  getJurnal()
+  getPeserta()
+  client.autoCancellation(false)
+  client.collection('nilai').subscribe('*', function(e){
+    if(e.action == 'update' || e.action == 'create') getNilai()
+  },{})
+  client.collection('jurnal').subscribe('*', function(e){
+    if(e.action == 'update' || e.action == 'create') getJurnal()
+  },{})
+  client.collection('siswa').subscribe('*', function(e){
+    if(e.action == 'update') getPeserta()
+  },{})
+})
 </script>
 
 <style scoped>
