@@ -6,8 +6,7 @@
     <div class="card-body small">
       <loading-placeholder v-if="isLoading" row="1" col="12" />
       <div v-else-if="nilaiNotValid?.length > 0" class="alert alert-warning fs-6">
-        <i class="bi bi-info-circle"></i>
-        Ada <span class="fw-bold">{{ nilaiNotValid.length }}</span> nilai yang belum divalidasi
+        Ada <span class="fw-bold">{{ nilaiNotValid.length }}</span> Nilai yang belum divalidasi
       </div>
       <div class="row">
         <div class="col-lg-6">

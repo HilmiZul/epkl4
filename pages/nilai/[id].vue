@@ -26,7 +26,7 @@
                   <hr>
                 </div>
                 <div class="col-lg-12">
-                  <div v-if="isSaved" class="alert alert-info"><i class="bi bi-info-circle"></i> Berhasil diperbaharui!</div>
+                  <div v-if="isSaved" class="alert alert-info">Berhasil diperbaharui!</div>
                 </div>
                 <div class="col-lg-6">
                   <nav>

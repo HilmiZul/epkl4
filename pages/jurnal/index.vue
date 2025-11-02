@@ -6,7 +6,7 @@
     <div class="card-body">
       <loading-placeholder v-if="isLoadingJournals" col="12" row="1" />
       <div v-else-if="count_not_valid > 0" class="alert alert-warning">
-        <i class="bi bi-info-circle"></i> Ada <span class="fw-bold">{{ count_not_valid }}</span> Jurnal yang belum divalidasi
+        Ada <span class="fw-bold">{{ count_not_valid }}</span> Jurnal yang belum divalidasi
       </div>
       <div class="row">
         <div class="col-md-7 p-0">
