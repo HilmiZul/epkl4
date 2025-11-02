@@ -51,7 +51,7 @@
         </div>
         <div class="col align-content-center">
           <LoadingPlaceholder v-if="isLoading" col="12" row="1" />
-          <div v-else class="mb-3 text-grey float-end badge bg-success">{{ students.totalItems }} peserta</div>
+          <div v-else class="mb-3 text-grey float-end badge">{{ students.totalItems }} peserta</div>
         </div>
       </div>
       <!-- <div v-if="isLoading"><Loading /></div> -->
@@ -85,7 +85,7 @@
                   </td>
                 </tr>
                 <tr v-else v-for="(student,i) in students.items" :key="student.id">
-                  <td><span class="badge bg-success">{{ i+1 }}</span></td>
+                  <td><span class="badge text-dark">{{ i+1 }}</span></td>
                   <td class="fw-bold">
                     <nuxt-link :to="`/peserta/${student.id}`" class="link">{{ student.nama }}</nuxt-link>
                   </td>

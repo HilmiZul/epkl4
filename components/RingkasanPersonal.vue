@@ -58,7 +58,7 @@
                           <td class="text-muted fst-italic">Belum ada</td>
                         </tr>
                         <tr v-else v-for="(company,i) in iduka.items" :key="company.id" class="fw-bold">
-                          <td width="3%"><span class="badge bg-success">{{ i+1 }}</span></td>
+                          <td width="3%"><span class="badge text-dark">{{ i+1 }}</span></td>
                           <td>
                             {{ company.nama }} <br>
                             <nuxt-link :to="`https://www.google.com/maps/search/?api=1&query=${company.nama} ${company.alamat}`" target="_blank" class="link smallest text-muted">lihat peta <i class="bi bi-arrow-up-right"></i></nuxt-link>
@@ -104,7 +104,7 @@
                           <td class="text-muted fst-italic">Belum ada</td>
                         </tr>
                         <tr v-else v-for="(p,i) in pemetaan.items" :key="p.id" class="fw-bold">
-                          <td width="3%"><span class="badge bg-success">{{ i+1 }}</span></td>
+                          <td width="3%"><span class="badge text-dark">{{ i+1 }}</span></td>
                           <td>
                             {{ p.expand.siswa.nama }} <br>
                             <span class="smallest text-muted">{{ p.expand.siswa.kelas }}</span>

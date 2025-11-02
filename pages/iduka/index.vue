@@ -19,7 +19,7 @@
         </div>
         <div class="col align-content-center">
           <LoadingPlaceholder v-if="isLoading" col="12" row="1" />
-          <div v-else class="mb-3 text-grey float-end badge bg-success">{{ companies.totalItems }} IDUKA</div>
+          <div v-else class="mb-3 text-grey float-end badge">{{ companies.totalItems }} IDUKA</div>
         </div>
       </div>
       <div class="row">
@@ -53,11 +53,11 @@
                   </td>
                 </tr>
                 <tr v-else v-for="(company, i) in companies.items" :key="i">
-                  <td class="align-content-center"><span class="badge bg-success">{{ i+1 }}</span></td>
+                  <td><span class="badge text-dark">{{ i+1 }}</span></td>
                   <td class="fw-bold">
                     <nuxt-link :to="`/iduka/${company.id}`" class="link">{{ company.nama }}</nuxt-link>
-                    <nuxt-link v-if="company.alamat" :to="`https://www.google.com/maps/search/?api=1&query=${company.nama} ${company.alamat}`" target="_blannk" class="hand-cursor ms-2 text-danger"><i class="bi bi-geo-alt-fill"></i></nuxt-link>
-                    <span v-if="company.catatan" @click="setModalCatatanById(company.id, company.catatan)" data-bs-toggle="modal" data-bs-target="#catatan" class="hand-cursor ms-3 text-warning"><i class="bi bi-stickies"></i></span>
+                    <nuxt-link v-if="company.alamat" :to="`https://www.google.com/maps/search/?api=1&query=${company.nama} ${company.alamat}`" target="_blannk" class="hand-cursor ms-2 text-dark"><i class="bi bi-geo-alt-fill"></i></nuxt-link>
+                    <span v-if="company.catatan" @click="setModalCatatanById(company.id, company.catatan)" data-bs-toggle="modal" data-bs-target="#catatan" class="hand-cursor ms-3"><i class="bi bi-stickies"></i></span>
                   </td>
                   <td class="smallest">{{ company.wilayah.charAt(0).toUpperCase() + company.wilayah.slice(1) }} kota </td>
                   <td class="smallest">
