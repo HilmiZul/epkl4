@@ -191,6 +191,10 @@ a.link-footer {
 a.link-footer:hover {
   border-bottom: 1px solid #777777
 }
+a.link-non-underscore,
+a.link-non-underscore:hover {
+  text-decoration: none;
+}
 input[type="checkbox"]:checked {
   transform: scale(1.3);
   height: 1.2em;
