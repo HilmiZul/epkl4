@@ -44,19 +44,19 @@
                       <div class="col-lg-6">
                         <div class="mb-4">
                           <label for="el_1">Nilai Elemen 1 <span class="text-danger">*</span></label>
-                          <input v-model="form.nilai_elemen1" type="number" min="0" max="100" id="el_1" class="form form-control" required>
+                          <input v-model="form.nilai_elemen1" type="number" min="0" max="100" id="el_1" class="form form-control form-control-lg" required>
                         </div>
                         <div class="mb-4">
                           <label for="el_2">Nilai Elemen 2 <span class="text-danger">*</span></label>
-                          <input v-model="form.nilai_elemen2" type="number" min="0" max="100" id="el_2" class="form form-control" required>
+                          <input v-model="form.nilai_elemen2" type="number" min="0" max="100" id="el_2" class="form form-control form-control-lg" required>
                         </div>
                         <div class="mb-4">
                           <label for="el_3">Nilai Elemen 3 <span class="text-danger">*</span></label>
-                          <input v-model="form.nilai_elemen3" type="number" min="0" max="100" id="el_3" class="form form-control" required>
+                          <input v-model="form.nilai_elemen3" type="number" min="0" max="100" id="el_3" class="form form-control form-control-lg" required>
                         </div>
                         <div class="mb-4">
                           <label for="el_4">Nilai Elemen 4 <span class="text-danger">*</span></label>
-                          <input v-model="form.nilai_elemen4" type="number" min="0" max="100" id="el_4" class="form form-control" required>
+                          <input v-model="form.nilai_elemen4" type="number" min="0" max="100" id="el_4" class="form form-control form-control-lg" required>
                         </div>
                         <div class="mb-3">
                           <div class="badge bg-dark fw-bold p-2 fs-6">Total: {{ form.nilai_elemen1 + form.nilai_elemen2 + form.nilai_elemen3 + form.nilai_elemen4 }}</div>
@@ -80,15 +80,15 @@
                       <div class="col-lg-6">
                         <div class="mb-4">
                           <label for="sakit">Sakit <span class="text-danger">*</span></label>
-                          <input v-model="form.sakit" name="sakit" type="number" min="0" id="sakit" class="form form-control" required>
+                          <input v-model="form.sakit" name="sakit" type="number" min="0" id="sakit" class="form form-control form-control-lg" required>
                         </div>
                         <div class="mb-4">
                           <label for="izin">Izin <span class="text-danger">*</span></label>
-                          <input v-model="form.izin" type="number" min="0" id="izin" class="form form-control" required>
+                          <input v-model="form.izin" type="number" min="0" id="izin" class="form form-control form-control-lg" required>
                         </div>
                         <div class="mb-4">
                           <label for="tanpa_keterangan">Tanpa keterangan <span class="text-danger">*</span></label>
-                          <input v-model="form.tanpa_keterangan" type="number" min="0" id="tanpa_keterangan" class="form form-control" required>
+                          <input v-model="form.tanpa_keterangan" type="number" min="0" id="tanpa_keterangan" class="form form-control form-control-lg" required>
                         </div>
                       </div>
                     </div>
@@ -100,24 +100,24 @@
                       <div class="col-lg-6">
                         <div class="mb-4">
                           <label for="pj_penandatangan">Pejabat Penandatangan <span class="text-danger">*</span></label>
-                          <input v-model="form.pj_penandatangan" type="text" id="pj_penandatangan" class="form form-control" placeholder="Contoh: CEO, Direktur, Kepala Dinas..." required>
+                          <input v-model="form.pj_penandatangan" type="text" id="pj_penandatangan" class="form form-control form-control-lg" placeholder="Contoh: CEO, Direktur, Kepala Dinas..." required>
                         </div>
                         <div class="mb-4">
                           <label for="nama_pj_penandatangan">Nama Pejabat Penandatangan <span class="text-danger">*</span></label>
-                          <input :disabled="form.pj_penandatangan < 1" v-model="form.nama_pj_penandatangan" type="text" id="nama_pj_penandatangan" class="form form-control" placeholder="Tulis mama lengkapnya..." required>
+                          <input :disabled="form.pj_penandatangan < 1" v-model="form.nama_pj_penandatangan" type="text" id="nama_pj_penandatangan" class="form form-control form-control-lg" placeholder="Tulis mama lengkapnya..." required>
                         </div>
                         <div class="mb-4">
                           <label for="nomor_pegawai">Nomor Pegawai</label>
-                          <input v-model="form.nomor_pegawai" type="text" id="nomor_pegawai" class="form form-control" placeholder="Kosongkan jika tidak ada">
+                          <input v-model="form.nomor_pegawai" type="text" id="nomor_pegawai" class="form form-control form-control-lg" placeholder="Kosongkan jika tidak ada">
                         </div>
                         <div class="mb-4">
                           <label for="nomor_sertifikat">Nomor Sertifikat</label>
-                          <input v-model="form.nomor_sertifikat" type="text" id="nomor_sertifikat" class="form form-control" placeholder="Kosongkat jika tidak ada">
+                          <input v-model="form.nomor_sertifikat" type="text" id="nomor_sertifikat" class="form form-control form-control-lg" placeholder="Kosongkat jika tidak ada">
                         </div>
                         <div class="mb-4">
                           <label for="logo_iduka">Logo IDUKA</label>
                           <div v-if="tempLogoImg" class="my-2"><img :src="`${host}/api/files/${certificate.collectionId}/${certificate.id}/${tempLogoImg}`" alt="Foto jurnal nilai" width="70"></div>
-                          <input @change="compressFileLogo" class="form form-control" type="file" id="logo_iduka" accept="image/*" />
+                          <input @change="compressFileLogo" class="form form-control form-control-lg" type="file" id="logo_iduka" accept="image/*" />
                         </div>
                       </div>
                     </div>
