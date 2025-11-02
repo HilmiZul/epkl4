@@ -8,8 +8,11 @@
     </div>
     <div class="card-body">
       <div v-if="isLoaded || nilai.length > 0" class="alert alert-info">
-        <i class="bi bi-info-circle"></i>
-        Berikut daftar peserta yang menitipkan Sertifikat ke Sekolah.
+        <ul class="mb-0">
+          <li>Berikut daftar peserta yang menitipkan Sertifikat ke Sekolah.</li>
+          <li>Pilih nama peserta dan lakukan verifikasi pada preview Sertifikat.</li>
+          <li>Apabila sudah benar, klik tombol <span class="fw-bold">Unduh</span> diatas.</li>
+        </ul>
       </div>
       <loading-placeholder v-if="isLoading" row="1" col="4" />
       <div v-else class="row">
