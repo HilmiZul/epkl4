@@ -17,7 +17,7 @@
             <span class="fw-bold">{{ pemetaan.expand.siswa.nama }}</span> diterima PKL di <span class="fw-bold">{{ pemetaan.expand.iduka.nama }}</span>!
           </div>
           <div v-if="pemetaan?.status_acc_pkl" class="my-3">
-            <nuxt-link to="/pemetaan/pkl" class="btn btn-danger border border-2 border-dark"><i class="bi bi-arrow-left"></i> kembali</nuxt-link>
+            <nuxt-link to="/pemetaan/pkl" class="btn btn-light border border-2 border-dark"><i class="bi bi-arrow-left"></i> Kembali</nuxt-link>
           </div>
         </div>
         <div v-else class="col-md-6">
