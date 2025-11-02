@@ -72,7 +72,7 @@
                       <span v-else> {{ pemetaan.expand.iduka?.expand.pembimbing_sekolah?.nama }}</span>
                     </div>
                     <div v-if="pemetaan.status_acc_pkl" class="badge bg-success my-2"><i class="bi bi-patch-check"></i> Diterima</div>
-                    <div v-else-if="pemetaan.status_acc_pkl || role == 'admin' || role == 'jurusan'" @click="setModalKonfirmasiPenerimaan(pemetaan.iduka, pemetaan.expand.iduka.nama)" class="badge bg-warning hand-cursor my-2" data-bs-toggle="modal" data-bs-target="#konfirmasi-penerimaan">Konfirmasi penerimaan <i class="bi bi-person-fill-check"></i></div>
+                    <div v-else-if="pemetaan.status_acc_pkl || role == 'admin' || role == 'jurusan'" @click="setModalKonfirmasiPenerimaan(pemetaan.iduka, pemetaan.expand.iduka.nama)" class="badge bg-info hand-cursor my-2" data-bs-toggle="modal" data-bs-target="#konfirmasi-penerimaan">Konfirmasi penerimaan <i class="bi bi-person-fill-check"></i></div>
                   </td>
                   <td class="py-1">
                     <nuxt-link v-if="role == 'admin' || role == 'jurusan'" :to="`/pemetaan/pkl/${pemetaan.id}`" class="link text-dark fw-bolder">
@@ -136,14 +136,14 @@
           <div class="modal" id="konfirmasi-penerimaan" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-                <div class="modal-header rounded-0 h4 bg-warning fw-bold border-bottom border-3 border-dark">
+                <div class="modal-header rounded-0 h4 bg-info fw-bold border-bottom border-3 border-dark">
                   Konfrimasi Penerimaan
                 </div>
                 <div class="modal-body text-dark">
                   Apakah <strong>{{ iduka_nama }}</strong> sudah konfirmasi menerima Peserta?
                 </div>
                 <div class="modal-footer border-0 justify-content-center">
-                  <button @click="handleAccPkl(iduka_id)" class="btn btn-success border border-2 border-dark me-2" data-bs-dismiss="modal">Udah!</button>
+                  <button @click="handleAccPkl(iduka_id)" class="btn btn-info border border-2 border-dark me-2" data-bs-dismiss="modal">Udah!</button>
                   <button class="btn btn-light border border-2 border-dark" data-bs-dismiss="modal">belum</button>
                 </div>
               </div>
