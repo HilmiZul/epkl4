@@ -139,7 +139,7 @@
                     <span v-if="isSending">Sedang menyimpan</span>
                     <span v-else>Simpan</span>
                   </button>
-                  <nuxt-link to="/nilai" class="btn btn-danger border border-2 border-dark mb-4">Kembali</nuxt-link>
+                  <nuxt-link to="/nilai" class="btn btn-light border border-2 border-dark mb-4">Kembali</nuxt-link>
                 </div>
 
               </div>

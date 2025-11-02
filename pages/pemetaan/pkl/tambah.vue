@@ -70,7 +70,7 @@
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>
-            <nuxt-link to="/pemetaan/pkl" class="btn btn-danger me-2 mb-3 border border-2 border-dark">Kembali</nuxt-link>
+            <nuxt-link to="/pemetaan/pkl" class="btn btn-light me-2 mb-3 border border-2 border-dark">Kembali</nuxt-link>
             <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small mb-3">Berhasil terpetekan!</span>
           </form>
         </div>

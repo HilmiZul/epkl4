@@ -107,7 +107,7 @@
               <span v-if="isSending">Sedang menyimpan</span>
               <span v-else>Simpan</span>
             </button>
-            <nuxt-link class="btn btn-danger mb-4 border border-2 border-dark" to="/iduka">Kembali</nuxt-link>
+            <nuxt-link class="btn btn-light mb-4 border border-2 border-dark" to="/iduka">Kembali</nuxt-link>
             <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small">Berhasil tersimpan!</span>
             <span v-if="isFail" class="ms-2 fst-italic text-danger small">Terjadi error saat menyimpan!</span>
           </div>
