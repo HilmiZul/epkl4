@@ -5,24 +5,12 @@
     </div>
     <div class="card-body">
       <div class="row">
-        <div class="col-md-12">
-          <div class="alert alert-warning border-5 border-dark shadow-lg">
-            <div class="h5 quicksand">Perhatiin!</div>
-            <ul class="small">
-              <li>Guru pembimbing adalah Guru yang mengajar pada tingkat XII</li>
-              <li>Guru pembimbing termasuk Guru kejuruan</li>
-              <li>Guru pembimbing akan dipetakan saat pembuatan daftar IDUKA</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="row">
         <div class="col-md-6">
           <div v-if="isFail" class="alert alert-danger p-2">
             Terjadi error: {{ errMessage }}
           </div>
           <form @submit.prevent="buatPembimbingBaru">
-            <div class="my-4">
+            <div class="mb-4">
               <label for="username">Username</label>
               <input v-model="form.username" type="text" id="username" class="form form-control form-control-lg" placeholder="masukkan username" required autofocus>
             </div>
@@ -53,6 +41,15 @@
             <nuxt-link to="/pembimbing" class="btn btn-light border border-2 border-dark">Kembali</nuxt-link>
             <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small">Berhasil tersimpan!</span>
           </form>
+        </div>
+        <div class="col-md-6">
+          <div class="alert alert-info border-5 border-dark">
+            <ul class="mb-0">
+              <li>Guru pembimbing adalah Guru yang mengajar pada tingkat XII</li>
+              <li>Guru pembimbing termasuk Guru kejuruan</li>
+              <li>Guru pembimbing akan dipetakan saat pembuatan daftar IDUKA</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
