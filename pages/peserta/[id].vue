@@ -88,7 +88,7 @@
               <div class="modal" id="update-username">
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-                    <div class="modal-header rounded-0 bg-success border-bottom border-3 border-dark">
+                    <div class="modal-header rounded-0 bg-info border-bottom border-3 border-dark">
                       <span class="fs-4 fw-bold">Custom Username Peserta</span>
                       <button @click="() => usernameUpdated = false" class="btn-close" label="Close" data-bs-dismiss="modal"></button>
                     </div>
@@ -96,9 +96,9 @@
                       <form @submit.prevent="updateUsername">
                         <div class="mb-4">
                           <label for="username">Username</label>
-                          <input v-model="new_user_update" type="text" id="username" class="form form-control form-control-lg" placeholder="custom username minimal 3 karakter " required>
+                          <input v-model="new_user_update" type="text" id="username" class="form form-control form-control-lg" placeholder="min. 3 karakter tanpa spasi " required>
                         </div>
-                        <button :disabled="new_user_update.length < 3 || isUpdateUsername" class="btn btn-success border border-2 border-dark">
+                        <button :disabled="new_user_update.length < 3 || isUpdateUsername" class="btn btn-info border border-2 border-dark">
                           <span v-if="isUpdateUsername">Sedang menyimpan</span>
                           <span v-else>Simpan</span>
                         </button>
@@ -112,7 +112,7 @@
               <div class="modal" id="reset-password">
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-                    <div class="modal-header rounded-0 h4 bg-danger fw-bold border-bottom border-3 border-dark">
+                    <div class="modal-header rounded-0 h4 bg-info fw-bold border-bottom border-3 border-dark">
                       Reset Password
                     </div>
                     <div class="modal-body text-dark">
