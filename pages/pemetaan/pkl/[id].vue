@@ -66,9 +66,9 @@
         <div class="col-lg-6">
           <div class="row">
             <div v-if="!pemetaan.status_acc_pkl" class="col-md-12">
-              <div class="alert alert-warning border-5 border-dark shadow-lg">
+              <div class="alert alert-info border-5 border-dark">
                 <div class="h5 quicksand">Transfer Pemetaan</div>
-                <ul>
+                <ul class="mb-0">
                   <li>Tentukan wilayah luar/dalam kota</li>
                   <li>Pilih target IDUKA</li>
                 </ul>

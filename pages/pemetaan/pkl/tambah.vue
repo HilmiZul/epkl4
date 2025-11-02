@@ -75,9 +75,8 @@
           </form>
         </div>
         <div class="col-md-6">
-          <div class="alert alert-warning border-5 border-dark shadow-lg">
-            <div class="h5 quicksand">Perhatiin!</div>
-            <ul>
+          <div class="alert alert-info border-5 border-dark">
+            <ul class="mb-0">
               <li>IDUKA yang muncul hanya yang masih kosong</li>
               <li>Peserta didik yang muncul hanya yang sudah tuntas rapor dan belum terpetakan</li>
             </ul>
