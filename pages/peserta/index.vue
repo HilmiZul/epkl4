@@ -29,7 +29,45 @@
         </div>
       </div>
     </div>
-    <div class="card-body small">
+    <div class="card-body">
+      <div v-if="peserta_belum_pemetaan?.totalItems > 0" class="alert alert-warning">
+        Ada <span class="fw-bold">{{ peserta_belum_pemetaan.totalItems }}</span> yang belum pemetaan PKL. <span class="hand-cursor border-bottom border-2 border-dark" data-bs-toggle="modal" data-bs-target="#peserta-belum-pemetaan">Lihat</span>
+      </div>
+      <!-- Single modal: Peserta belum pemetaan -->
+      <div class="modal" id="peserta-belum-pemetaan">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
+            <div class="modal-header rounded-0 bg-warning fw-bold border-bottom border-3 border-dark">
+              <div class="fs-5">Peserta yang belum pemetaan</div>
+              <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+              <div class="text-muted">{{ peserta_belum_pemetaan?.totalItems }} peserta</div>
+              <table class="table table-striped border border-2 border-dark my-2">
+                <tbody>
+                  <tr v-for="(p,i) in peserta_belum_pemetaan.items" :key="p.id" class="fw-bold">
+                    <td width="3%"><span class="badge text-dark">{{ i+1 }}</span></td>
+                    <td>
+                      {{ p.nama }} <br>
+                      <span class="smallest text-muted">{{ p.kelas }}</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div v-if="peserta_belum_pemetaan || isMovingPage" class="text-muted small mb-2">
+                <span v-if="peserta_belum_pemetaan?.totalItems">Halaman {{ peserta_belum_pemetaan.page }} dari {{ peserta_belum_pemetaan.totalPages }}</span>
+              </div>
+              <button :disabled="isMovingPageModal || peserta_belum_pemetaan.page < 2" @click="paginationPesertaBelumPemetaan(peserta_belum_pemetaan.page - 1)" class="btn btn-info btn-sm me-2 border border-2 border-dark">
+                <i class="bi bi-arrow-left"></i> sebelumnya
+              </button>
+              <button :disabled="isMovingPageModal || peserta_belum_pemetaan.page >= peserta_belum_pemetaan.totalPages" @click="paginationPesertaBelumPemetaan(peserta_belum_pemetaan.page + 1)" class="btn btn-info btn-sm border border-2 border-dark">
+                lanjut <i class="bi bi-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="row">
         <!-- <div class="col-3">
           <select v-model="keyword" class="form form-control form-select">
@@ -85,7 +123,10 @@
                   </td>
                 </tr>
                 <tr v-else v-for="(student,i) in students.items" :key="student.id">
-                  <td><span class="badge text-dark">{{ i+1 }}</span></td>
+                  <td>
+                    <span v-if="student.status_pemetaan_pkl" class="badge text-dark">{{ i+1 }}</span>
+                    <span v-else class="badge bg-danger">{{ i+1 }}</span>
+                  </td>
                   <td class="fw-bold">
                     <nuxt-link :to="`/peserta/${student.id}`" class="link">{{ student.nama }}</nuxt-link>
                   </td>
@@ -148,7 +189,9 @@ let count_pemetaan = ref([]) // untuk menghitung jumlah pemetaan = jumlah pesert
 if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
 let perPage = 20
 let isMovingPage = ref(false)
+let isMovingPageModal = ref(false)
 let allStudent = ref([])
+let peserta_belum_pemetaan = ref('')
 
 const getStudents = async (loading=true) => {
   isLoading.value = loading
@@ -249,6 +292,26 @@ const buatAkunPeserta = async () => {
   }
 }
 
+async function getPesertaBelumPemetaan() {
+  client.autoCancellation(false)
+  let res = await client.collection('siswa').getList(1, 10, {
+    filter: `program_keahlian="${prokel}" && status_pemetaan_pkl=false`,
+  })
+  if(res) {
+    peserta_belum_pemetaan.value = res
+  }
+}
+async function paginationPesertaBelumPemetaan(page) {
+  isMovingPageModal.value = true
+  client.autoCancellation(false)
+  let res = await client.collection('siswa').getList(page, 10, {
+    filter: `program_keahlian="${prokel}" && status_pemetaan_pkl=false`,
+  })
+  if(res) {
+    peserta_belum_pemetaan.value = res
+    isMovingPageModal.value = false
+  }
+}
 // const studentsFiltered = computed(() => {
 //   return students.value.items.filter((i) => {
 //     return (
@@ -261,11 +324,13 @@ const buatAkunPeserta = async () => {
 onMounted(() => {
   getStudents()
   getUsers()
+  getPesertaBelumPemetaan()
   client.autoCancellation(false)
   client.collection('student_users').subscribe('*', function (e) {
-    if(e.action == 'create') {
-      getUsers()
-    }
+    if(e.action == 'create') getUsers()
+  }, {});
+  client.collection('siswa').subscribe('*', function (e) {
+    if(e.action == 'update') getPesertaBelumPemetaan()
   }, {});
 })
 </script>
