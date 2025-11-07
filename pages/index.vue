@@ -3,7 +3,7 @@
     <!-- ROLE: ADMIN & JURUSAN (MANAJEMEN) -->
     <div v-if="role == 'admin' || role == 'jurusan'" class="card">
       <div class="card-header">
-        <span class="h4 quicksand fw-bold"><i class="bi bi-pie-chart-fill"></i> Ringkasan</span>
+        <span class="h4 quicksand fw-bold"><i class="bi bi-pie-chart-fill"></i> Overview</span>
       </div>
       <div class="card-body">
         <ringkasan-notif-jurnal />

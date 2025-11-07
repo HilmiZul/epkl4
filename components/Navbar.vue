@@ -9,7 +9,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav fw-bold text-center">
           <li class="nav-item">
-            <nuxt-link  class="nav-link" to="/"><i class="bi bi-pie-chart-fill"></i> Ringkasan</nuxt-link>
+            <nuxt-link  class="nav-link" to="/"><i class="bi bi-pie-chart-fill"></i> Overview</nuxt-link>
           </li>
           <li v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" class="nav-item">
             <nuxt-link  class="nav-link" to="/elemen"><i class="bi bi-journal-bookmark-fill"></i> Elemen</nuxt-link>

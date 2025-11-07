@@ -10,7 +10,7 @@
         <nav>
           <ol class="list-group list-group-flush quicksand fw-bold">
             <nuxt-link to="/" :activeClass="activeClass">
-              <li class="list-group-item"><i class="bi bi-pie-chart-fill"></i> Ringkasan</li>
+              <li class="list-group-item"><i class="bi bi-pie-chart-fill"></i> Overview</li>
             </nuxt-link>
             <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" to="/elemen" :activeClass="activeClass">
               <li class="list-group-item"><i class="bi bi-journal-bookmark-fill"></i> Elemen</li>
