@@ -9,8 +9,8 @@
     <div class="card-body">
       <div v-if="isLoaded || nilai.length > 0" class="alert alert-info">
         <ul class="mb-0">
-          <li>Berikut daftar peserta yang menitipkan Sertifikat ke Sekolah.</li>
-          <li>Pilih nama peserta dan lakukan verifikasi pada preview Sertifikat.</li>
+          <li>Berikut daftar peserta yang menitipkan <span class="fw-bold">Sertifikat</span> ke Sekolah.</li>
+          <li>Pilih nama peserta untuk melihat pratinjau Sertifikat.</li>
           <li>Apabila sudah benar, klik tombol <span class="fw-bold">Unduh</span> diatas.</li>
         </ul>
       </div>
