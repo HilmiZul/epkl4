@@ -168,7 +168,7 @@
 <script setup>
 import Compressor from 'compressorjs'
 definePageMeta({ middleware: 'auth' })
-useHead({ title: "Nilai — e-PKL / SMKN 4 Tasikmalaya." })
+useHead({ title: "Validasi Nilai — e-PKL / SMKN 4 Tasikmalaya." })
 let user = usePocketBaseUser()
 let client = usePocketBaseClient()
 let config = useRuntimeConfig()

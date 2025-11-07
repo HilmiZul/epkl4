@@ -77,7 +77,7 @@
 
 <script setup>
 definePageMeta({ middleware: 'auth' })
-useHead({ title: "Sertifikat — e-PKL / SMKN 4 Tasikmalaya." })
+useHead({ title: "Nilai — e-PKL / SMKN 4 Tasikmalaya." })
 let client = usePocketBaseClient()
 let user = usePocketBaseUser()
 let user_id = user?.user.value.id
