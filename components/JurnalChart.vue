@@ -42,12 +42,12 @@ async function initChartData() {
       datasets: [{
         label: "Jumlah Jurnal",
         backgroundColor: [
-          'rgba(54, 162, 235, .5)',
-          'rgba(255, 99, 132, .5)',
-        ],
-        borderColor: [
           'rgb(54, 162, 235)',
           'rgb(255, 99, 132)',
+        ],
+        borderColor: [
+          'rgb(0, 0, 0)',
+          'rgb(0, 0, 0)',
         ],
         borderWidth: 2,
         data: [
