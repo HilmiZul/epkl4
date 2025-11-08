@@ -79,7 +79,7 @@
       <h5 class="fw-bold">Terkait Sertifikat</h5>
       <ul>
         <li>Guru Pembimbing berkewajiban mencetak Sertifikat dari peserta yang menitipkan.</li>
-        <li>Guru Pembimbing berkewajiban mengumpulkan dan menyerahkan Sertifikat yang sudah ditanda tangan oleh IDUKA bersangkutan.</li>
+        <li>Guru Pembimbing berkewajiban mengumpulkan dan menyerahkan Sertifikat yang sudah ditanda tangan oleh IDUKA bersangkutan kepada Panitia/HUBIN.</li>
       </ul>
       <h5 class="fw-bold">Terkait Rapor PKL</h5>
       <ul>
