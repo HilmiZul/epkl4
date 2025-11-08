@@ -23,7 +23,7 @@
     <!-- ROLE: GURU PEMBIMBING -->
     <div v-else-if="role == 'guru'" class="card">
       <div class="card-header">
-        <span class="h4 quicksand"><i class="bi bi-pie-chart-fill"></i> Ringkasan</span>
+        <span class="h4 quicksand fw-bold"><i class="bi bi-pie-chart-fill"></i> Overview</span>
       </div>
       <div class="card-body">
         <div class="row">
