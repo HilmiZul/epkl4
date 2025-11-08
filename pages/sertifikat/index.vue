@@ -34,7 +34,7 @@
         </div>
         <div v-else class="p-4 text-muted">
           <div class="text-center fs-4">
-            <i class="bi bi-database fs-1"></i> <br>
+            <i class="bi bi-database-fill fs-1"></i> <br>
             Belum ada nilai
           </div>
           <div class="text-center">
