@@ -1,10 +1,12 @@
 <template>
   <div class="row">
-    <div class="col-lg-12 text-center lexend-mega text-muted p-5">
-      <div class="align-content-center">
-        <i class="bi bi-hourglass-split fs-1"></i>
-        <h1 class="my-5">Logging out</h1>
-        <h5 class="quicksand">tunggu bentar...</h5>
+    <div class="col-lg-12 text-center lexend-mega text-muted">
+      <div class="card">
+        <div class="card-body">
+          <i class="bi bi-hourglass-split fs-1"></i>
+          <h1 class="my-5">Logging out</h1>
+          <h5 class="quicksand">tunggu bentar...</h5>
+        </div>
       </div>
     </div>
   </div>
