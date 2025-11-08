@@ -7,7 +7,7 @@
     </div>
     <div class="card-body text-dark">
       <p class="text-muted small">
-        Diperbaharui pada 29 September 2025
+        Diperbaharui pada 8 November 2025
       </p>
       <h5 class="fw-bold">Akun Anggota e-PKL</h5>
       <ul>
@@ -69,6 +69,23 @@
         </li>
         <li>Jurnal peserta akan diurutkan berdasarkan status yang belum valid.</li>
         <li>Guru Pembimbing dapat memfilter jurnal berdasarkan tanggal dan atau peserta didik.</li>
+      </ul>
+      <h5 class="fw-bold">Terkait Nilai</h5>
+      <ul>
+        <li>Guru Pembimbing berkewajiban mengingatkan peserta untuk menyerahkan nilai PKL.</li>
+        <li>Guru Pembimbing berkewajiban memeriksa dan memastikan data yang serahkan sesuai.</li>
+        <li>Guru Pembimbing berkewajiban memvalidasi nilai yang yang sudah diperiksa dan sesuai.</li>
+      </ul>
+      <h5 class="fw-bold">Terkait Sertifikat</h5>
+      <ul>
+        <li>Guru Pembimbing berkewajiban mencetak Sertifikat dari peserta yang menitipkan.</li>
+        <li>Guru Pembimbing berkewajiban mengumpulkan dan menyerahkan Sertifikat yang sudah ditanda tangan oleh IDUKA bersangkutan.</li>
+      </ul>
+      <h5 class="fw-bold">Terkait Rapor PKL</h5>
+      <ul>
+        <li>Guru Pembimbing memeriksa kembali nilai yang sudah divalidasi.</li>
+        <li>Guru Pembimbing berkewajiban mencetak Rapor peserta dan menandatangani.</li>
+        <li>Guru Pembimbing berkewajiban menyerahkan Rapor yang sudah ditanda tangan kepada Walikelas.</li>
       </ul>
     </div>
   </div>

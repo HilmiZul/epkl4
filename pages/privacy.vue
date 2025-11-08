@@ -7,7 +7,7 @@
     </div>
     <div class="card-body text-dark">
       <p class="text-muted small">
-        Diperbaharui pada 27 September 2025
+        Diperbaharui pada 8 November 2025
       </p>
       <p>
         Kebijakan Privasi ini bertujuan untuk membantu Anda memahami data yang kami kumpulkan. Dengan
@@ -27,6 +27,10 @@
       <p>
         Kami juga mengumpulkan dan menyimpan informasi IDUKA dari masing-masing program keahlian. Informasi ini
         kami kumpulkan dari kegiatan PKL sebelumnya sesuai dengan pembaharuan dari masing-masing program keahlian.
+      </p>
+      <div class="fw-bold">Informasi Nilai</div>
+      <p>
+        Kami juga mengumpulkan dan menyimpan nilai PKL yang dibuat/diajukan oleh peserta didik.
       </p>
       <h5 class="fw-bold text-grey">Bagaimana Kami Menggunakan Informasi Anda</h5>
       <p>
@@ -51,6 +55,7 @@
         Sebagai contoh, kami menyimpan <em>password</em> menggunakan mekanisme <em>hashing</em>, tidak dalam
         bentuk karakter asli. Selain itu kami membatasi akses terhadap semua informasi yang tersimpan pada
         aplikasi e-PKL, dengan kata lain hanya yang memiliki akun dan otoritas tertentu yang dapat mengakses informasi didalam aplikasi e-PKL.
+        Apabila seluruh/salah satu informasi terekspos dan disalahgunakan dengan/tanpa sengaja oleh Anda, maka itu menjadi tanggung jawab Anda.
         Kami tidak akan menggunakan informasi Anda untuk hal-hal lain diluar aplikasi e-PKL.
       </p>
     </div>
