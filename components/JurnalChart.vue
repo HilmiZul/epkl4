@@ -58,7 +58,7 @@ async function initChartData() {
     };
 
     const config = {
-      type: 'bar',
+      type: 'doughnut',
       data: data,
       options: {}
     }
