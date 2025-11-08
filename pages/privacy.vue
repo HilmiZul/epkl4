@@ -46,8 +46,11 @@
         pemetaan kepada peserta didik serta digunakan untuk analitik data.
       </p>
       <p>
-        Kami juga menggunakan jurnal harian peserta untuk mengelompokkan aktivitas harian yang sesuai dengan
+        Informasi Jurnal harian peserta Kami gunakan untuk mengelompokkan aktivitas harian yang sesuai dengan
         Elemen Mapel PKL serta digunakan untuk analitik data.
+      </p>
+      <p>
+        Kami juga menggunakan nilai PKL peserta untuk Sertifkat (bagi yang menitipkan) dan Rapor PKL.
       </p>
       <h5 class="fw-bold text-grey">Bagaimana Kami Menjaga Keamanan Informasi Anda</h5>
       <p>
