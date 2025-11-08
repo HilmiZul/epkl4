@@ -8,15 +8,7 @@
       <div v-else-if="count_not_valid > 0" class="alert alert-warning">
         Ada <span class="fw-bold">{{ count_not_valid }}</span> Jurnal yang belum divalidasi
       </div>
-      <!-- Menunggu jurnal termuat -->
-      <LoadingPlaceholder v-if="isLoadingJournals" col="12" row="1" />
-      <!-- is jurnal kosong? -->
-      <div v-else-if="!isLoadingJournals && journals?.totalItems == 0" class="text-center text-muted">
-        <div class="fs-1 pt-5"><i class="bi bi-journals"></i></div>
-        <div class="pb-5 fw-bold">Belum ada jurnal</div>
-      </div>
-      <!-- jurnal: ada jurnal -->
-      <div v-else class="row">
+      <div class="row">
         <div class="col-md-7 p-0">
           <div v-if="!isLoadingJournals" class="mb-2 mx-3 text-end text-muted smallest">
             <span v-if="journals.totalItems" class="float-start">Halaman {{ journals.page }} dari {{ journals.totalPages }}</span>
@@ -25,7 +17,14 @@
           </div>
           <div class="row">
             <div class="col-md-12">
-              <div v-for="journal in journals.items" :key="journal.id" class="card jurnal-hover jurnal-item no-shadow">
+              <!-- Menunggu jurnal termuat -->
+              <LoadingPlaceholder v-if="isLoadingJournals" col="12" row="1" />
+              <!-- is jurnal kosong? -->
+              <div v-else-if="!isLoadingJournals && journals?.totalItems == 0" class="text-center text-muted">
+                <div class="fs-1 pt-5"><i class="bi bi-journals"></i></div>
+                <div class="pb-5 fw-bold">Belum ada jurnal</div>
+              </div>
+              <div v-else v-for="journal in journals.items" :key="journal.id" class="card jurnal-hover jurnal-item no-shadow">
                 <div class="card-body">
                   <div class="bookmark fs-2">
                     <div class="bookmark-icon text-danger" v-if="journal.expand.elemen.elemen == 'Lain-lain'"><i class="bi bi-bookmark-fill"></i></div>
@@ -109,7 +108,7 @@ definePageMeta({ middleware: 'auth' })
 useHead({ title: "Jurnal Peserta — e-PKL / SMKN 4 Tasikmalaya." })
 const config = useRuntimeConfig()
 const host = config.public.apiBaseUrl+":"+config.public.apiPort
-let tanggal = ref()
+let tanggal = ref('')
 let user = usePocketBaseUser()
 let client = usePocketBaseClient()
 let prokel = user.user.value.program_keahlian
@@ -141,6 +140,14 @@ async function getJournals(loading=true) {
   })
   if(res) {
     journals.value = res
+
+    // count jurnal sesuai elemen
+    // count_sesuai.value = 0
+    // count_tidak_sesuai.value = 0
+    // for(let j of journals.value.items) {
+    //   j.expand.elemen.elemen == 'Lain-lain' ? count_tidak_sesuai.value += 1 : count_sesuai.value += 1
+    // }
+
     // konversi waktu UTC dari server ke full date lokal indo
     for(let i=0; i<journals.value.items.length; i++) {
       const date = new Date(journals.value.items[i].created);
@@ -168,6 +175,16 @@ async function pagination(page, loading=true) {
   })
   if(res) {
     journals.value = res
+
+    // count jurnal sesuai elemen
+    count_sesuai.value = 0
+    count_tidak_sesuai.value = 0
+    for(let j of journals.value.items) {
+      j.expand.elemen.elemen == 'Lain-lain' ? count_tidak_sesuai.value += 1 : count_sesuai.value += 1
+    }
+    console.log(count_sesuai.value)
+    console.log(count_tidak_sesuai.value)
+
     for(let i=0; i<journals.value.items.length; i++) {
       const date = new Date(journals.value.items[i].created);
       const options = {
