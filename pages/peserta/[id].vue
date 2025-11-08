@@ -98,11 +98,13 @@
                           <label for="username">Username</label>
                           <input v-model="new_user_update" type="text" id="username" class="form form-control form-control-lg" placeholder="min. 3 karakter tanpa spasi " required>
                         </div>
-                        <button :disabled="new_user_update.length < 3 || isUpdateUsername" class="btn btn-info border border-2 border-dark">
-                          <span v-if="isUpdateUsername">Sedang menyimpan</span>
-                          <span v-else>Simpan</span>
-                        </button>
-                        <span v-if="usernameUpdated" class="ms-2 fst-italic text-muted">Username berhasil diubah!</span>
+                        <div class="text-center">
+                          <button :disabled="new_user_update.length < 3 || isUpdateUsername" class="btn btn-info border border-2 border-dark">
+                            <span v-if="isUpdateUsername">Sedang menyimpan</span>
+                            <span v-else>Simpan</span>
+                          </button>
+                          <span v-if="usernameUpdated" class="ms-2 fst-italic text-muted">Username berhasil diubah!</span>
+                        </div>
                       </form>
                     </div>
                   </div>
@@ -116,7 +118,7 @@
                       Reset Password
                     </div>
                     <div class="modal-body text-dark">
-                      Hubungi Administrator untuk reset password peserta.
+                      Hubungi <span class="fw-bold">Administrator</span> untuk reset password peserta.
                     </div>
                     <div class="modal-footer border-0 justify-content-center">
                       <button class="btn border border-2 border-dark text-dark" data-bs-dismiss="modal">Baiklah</button>
