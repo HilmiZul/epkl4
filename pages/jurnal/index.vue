@@ -8,7 +8,15 @@
       <div v-else-if="count_not_valid > 0" class="alert alert-warning">
         Ada <span class="fw-bold">{{ count_not_valid }}</span> Jurnal yang belum divalidasi
       </div>
-      <div class="row">
+      <!-- Menunggu jurnal termuat -->
+      <LoadingPlaceholder v-if="isLoadingJournals" col="12" row="1" />
+      <!-- is jurnal kosong? -->
+      <div v-else-if="!isLoadingJournals && journals?.totalItems == 0" class="text-center text-muted">
+        <div class="fs-1 pt-5"><i class="bi bi-journals"></i></div>
+        <div class="pb-5 fw-bold">Belum ada jurnal</div>
+      </div>
+      <!-- jurnal: ada jurnal -->
+      <div v-else class="row">
         <div class="col-md-7 p-0">
           <div v-if="!isLoadingJournals" class="mb-2 mx-3 text-end text-muted smallest">
             <span v-if="journals.totalItems" class="float-start">Halaman {{ journals.page }} dari {{ journals.totalPages }}</span>
@@ -17,14 +25,7 @@
           </div>
           <div class="row">
             <div class="col-md-12">
-              <div v-if="!isLoadingJournals" class="text-center text-muted">
-                <span v-if="journals.totalItems == 0">
-                  <div class="fs-1 pt-5"><i class="bi bi-journals"></i></div>
-                  <div class="pb-5 fw-bold">Belum ada jurnal</div>
-                </span>
-              </div>
-              <LoadingPlaceholder v-if="isLoadingJournals" col="12" row="1" />
-              <div v-else v-for="journal in journals.items" :key="journal.id" class="card jurnal-hover jurnal-item no-shadow">
+              <div v-for="journal in journals.items" :key="journal.id" class="card jurnal-hover jurnal-item no-shadow">
                 <div class="card-body">
                   <div class="bookmark fs-2">
                     <div class="bookmark-icon text-danger" v-if="journal.expand.elemen.elemen == 'Lain-lain'"><i class="bi bi-bookmark-fill"></i></div>
@@ -98,12 +99,7 @@
           </div>
         </div>
       </div>
-      <!-- <div class="row">
-        <div class="col offset-md-4">
-          <Loading class="mt-5" />
-        </div>
-      </div> -->
-
+      <!-- ./jurnal -->
     </div>
   </div>
 </template>
