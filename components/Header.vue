@@ -4,7 +4,7 @@
       <div :class="classNameCol"> -->
         <div class="card mb-5 border border-2 border-dark bg-success">
           <div class="text-center py-1">
-            <span class="fs-1 lexend-mega">e-PKL<span class="text-info">.</span></span>
+            <span class="fs-1 lexend-mega">e-PKL<span class="text-info text-stroke">.</span></span>
           </div>
         </div>
         <!-- <div class="mb-4 quicksand text-muted">Pemetaan siswa Praktik Kerja Lapangan (PKL)</div> -->
@@ -36,5 +36,8 @@ let user = usePocketBaseUser()
 }
 .card.mb-5 {
   margin-bottom: 2em !important;
+}
+.dot-stroke {
+  -webkit-text-stroke: 2px #000;
 }
 </style>
