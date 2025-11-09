@@ -1,11 +1,11 @@
 <template>
   <div>
-    <footer class="my-4 text-muted text-center smallest">
+    <footer class="my-4 text-grey text-center small fw-bold">
       v{{ version }} <br>
       <nuxt-link class="hand-cursor link-footer" to="/privacy">Privacy</nuxt-link> |
       <nuxt-link class="hand-cursor link-footer" to="/terms">Terms</nuxt-link> <br>
       <!-- <span class="hand-cursor link-footer" data-bs-toggle="modal" data-bs-target="#terms">Terms</span> <br> -->
-      &copy;2018 - {{ year }} <span class="fw-bold hand-cursor link-footer" data-bs-toggle="modal" data-bs-target="#cooked">e-PKL</span>. <br>
+      &copy;2018 - {{ year }} <span class="hand-cursor link-footer" data-bs-toggle="modal" data-bs-target="#cooked">e-PKL</span>. <br>
     </footer>
     <!-- about e-PKL -->
     <div class="modal" id="cooked" tabindex="-1" aria-hidden="true">
