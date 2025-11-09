@@ -141,13 +141,6 @@ async function getJournals(loading=true) {
   if(res) {
     journals.value = res
 
-    // count jurnal sesuai elemen
-    // count_sesuai.value = 0
-    // count_tidak_sesuai.value = 0
-    // for(let j of journals.value.items) {
-    //   j.expand.elemen.elemen == 'Lain-lain' ? count_tidak_sesuai.value += 1 : count_sesuai.value += 1
-    // }
-
     // konversi waktu UTC dari server ke full date lokal indo
     for(let i=0; i<journals.value.items.length; i++) {
       const date = new Date(journals.value.items[i].created);
@@ -175,15 +168,6 @@ async function pagination(page, loading=true) {
   })
   if(res) {
     journals.value = res
-
-    // count jurnal sesuai elemen
-    count_sesuai.value = 0
-    count_tidak_sesuai.value = 0
-    for(let j of journals.value.items) {
-      j.expand.elemen.elemen == 'Lain-lain' ? count_tidak_sesuai.value += 1 : count_sesuai.value += 1
-    }
-    console.log(count_sesuai.value)
-    console.log(count_tidak_sesuai.value)
 
     for(let i=0; i<journals.value.items.length; i++) {
       const date = new Date(journals.value.items[i].created);
