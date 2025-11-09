@@ -6,7 +6,10 @@
         <i class="bi bi-download"></i> Unduh
       </button>
     </div>
-    <div class="card-body">
+    <div v-if="$device.isMobileOrTablet" class="card-body">
+      <div class="alert alert-warning">Silahkan gunakan komputer/laptop!</div>
+    </div>
+    <div v-else class="card-body">
       <div v-if="isLoaded || nilai.length > 0" class="alert alert-info">
         <ul class="mb-0">
           <li>Berikut daftar peserta yang menitipkan <span class="fw-bold">Sertifikat</span> ke Sekolah.</li>
