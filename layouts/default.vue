@@ -7,6 +7,7 @@
       <div class="col-lg-9">
         <slot />
       </div>
+      <NavFixedBottom v-if="$device.isMobile" />
       <Footer class="footer-mobile-view" />
     </div>
   </div>
