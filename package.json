@@ -4,6 +4,7 @@
   "author": "Zul Hilmi",
   "dependencies": {
     "@neoconfetti/vue": "^2.2.1",
+    "@nuxtjs/device": "^3.2.4",
     "@nuxtjs/robots": "^5.5.5",
     "bootstrap": "5.2",
     "bootstrap-icons": "^1.13.1",
