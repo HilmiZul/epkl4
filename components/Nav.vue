@@ -45,6 +45,9 @@
             <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role == 'guru'" to="/sertifikat" :activeClass="activeClass">
               <li class="list-group-item"><i class="bi bi-person-vcard-fill"></i> Sertifikat</li>
             </nuxt-link>
+            <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role == 'guru'" to="/rapor" :activeClass="activeClass">
+              <li class="list-group-item"><i class="bi bi-book"></i> Rapor</li>
+            </nuxt-link>
             <nuxt-link to="/ubah-password" :activeClass="activeClass">
               <li class="list-group-item"><i class="bi bi-key"></i> Ubah Password</li>
             </nuxt-link>
