@@ -32,6 +32,7 @@
                   <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                       <button @click="() => isSaved = false" class="nav-link active" id="nilai-tab" data-bs-toggle="tab" data-bs-target="#nav-nilai" type="button" role="tab" aria-controls="nav-nilai" aria-selected="true">Nilai</button>
+                      <button @click="() => isSaved = false" class="nav-link" id="presensi-tab" data-bs-toggle="tab" data-bs-target="#nav-deskripsi" type="button" role="tab" aria-controls="nav-deskripsi" aria-selected="false">Deskripsi</button>
                       <button @click="() => isSaved = false" class="nav-link" id="presensi-tab" data-bs-toggle="tab" data-bs-target="#nav-presensi" type="button" role="tab" aria-controls="nav-presensi" aria-selected="false">Kehadiran</button>
                       <button @click="() => isSaved = false" v-if="form.isEntrust" class="nav-link" id="sertifikat-tab" data-bs-toggle="tab" data-bs-target="#nav-sertifikat" type="button" role="tab" aria-controls="nav-sertifikat" aria-selected="false">Sertifikat</button>
                     </div>
@@ -69,6 +70,50 @@
                             <img :src="`${host}/api/files/${certificate.collectionId}/${certificate.id}/${tempNilaiImg}`"
                             data-bs-toggle="modal" data-bs-target="#preview-nilai"
                             alt="Foto jurnal nilai" width="100%" class="border border-2 border-dark mb-2 hand-cursor foto-nilai">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- pane: deskripsi -->
+                  <div class="tab-pane fade show" id="nav-deskripsi" role="tabpanel" aria-labelledby="nav-nilai-tab" tabindex="0">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="mb-4">
+                          <label for="des_1">Deskripsi 1 <span class="text-danger">*</span></label>
+                          <textarea v-model="form.deskripsi_elemen1" id="des_1" rows="5" class="form form-control" placeholder="Contoh: Peserta didik sudah..." required></textarea>
+                        </div>
+                        <div class="mb-4">
+                          <label for="des_1">Deskripsi 2 <span class="text-danger">*</span></label>
+                          <textarea v-model="form.deskripsi_elemen2" id="des_2" rows="5" class="form form-control" placeholder="Contoh: Peserta didik sudah..." required></textarea>
+                        </div>
+                        <div class="mb-4">
+                          <label for="des_1">Deskripsi 3 <span class="text-danger">*</span></label>
+                          <textarea v-model="form.deskripsi_elemen3" id="des_3" rows="5" class="form form-control" placeholder="Contoh: Peserta didik sudah..." required></textarea>
+                        </div>
+                        <div class="mb-4">
+                          <label for="des_4">Deskripsi 4 <span class="text-danger">*</span></label>
+                          <textarea v-model="form.deskripsi_elemen4" id="des_4" rows="5" class="form form-control" placeholder="Contoh: Peserta didik sudah..." required></textarea>
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="fw-bold">Elemen PKL</div>
+                        <loading-placeholder v-if="isLoadingElemen" row="1" col="6" />
+                        <div v-else v-for="(el, i) in elemens" :key="el.id" class="accordion accordion-flush border border-3 border-dark mt-2 mb-3" id="accorElemen">
+                          <div class="accordion-item">
+                            <h2 class="accordion-header">
+                              <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" :data-bs-target="`#elemen-${el.id}`" aria-expanded="false" :aria-controls="`elemen-${el.id}`">
+                                <span class="badge text-dark me-2">{{ i+1 }}</span> {{ el.elemen }}
+                              </button>
+                            </h2>
+                            <div :id="`elemen-${el.id}`" class="accordion-collapse collapse" data-bs-parent="#accorElemen">
+                              <div class="accordion-body">
+                                <div class="fw-bold">Capaian Pembelajaran</div>
+                                <p>{{ el.cp }}</p>
+                                <div class="fw-bold">Tujuan</div>
+                                <p class="pre-text">{{ el.tujuan }}</p>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -135,7 +180,8 @@
                     <input v-model="form.isValid" :checked="form.isValid" class="form-check-input" type="checkbox" id="entrust" switch>
                     <label for="entrust">Tandai valid</label>
                   </div>
-                  <button :disabled="isSending" class="btn btn-success me-2 border border-2 border-dark mb-4">
+                  <button :disabled="isSending || form.deskripsi_elemen1.length < 12 || form.deskripsi_elemen2.length < 12 || form.deskripsi_elemen3.length < 12 || form.deskripsi_elemen4.length < 12 || form.pj_penandatangan.length < 3 || form.nama_pj_penandatangan.length < 3"
+                    class="btn btn-success me-2 border border-2 border-dark mb-4">
                     <span v-if="isSending">Sedang menyimpan</span>
                     <span v-else>Simpan</span>
                   </button>
@@ -175,6 +221,7 @@ let config = useRuntimeConfig()
 let host = config.public.apiBaseUrl+":"+config.public.apiPort
 let route = useRoute()
 let isLoading = ref(true)
+let isLoadingElemen = ref(true)
 let isSending = ref(false)
 let isSaved = ref(false)
 let isError = ref(false)
@@ -186,6 +233,7 @@ let siswa_id = user.user.value.siswa
 let certificate = ref()
 let tempLogoImg = ref()
 let tempNilaiImg = ref()
+let elemens = ref('')
 let form = ref({
   "nilai_elemen1": 0,
   "nilai_elemen2": 0,
@@ -199,6 +247,10 @@ let form = ref({
   "sakit": "",
   "izin": "",
   "tanpa_keterangan": "",
+  "deskripsi_elemen1": "",
+  "deskripsi_elemen2": "",
+  "deskripsi_elemen3": "",
+  "deskripsi_elemen4": "",
 })
 
 async function updateNilai() {
@@ -254,8 +306,21 @@ function compressFileLogo(e) {
   })
 }
 
+async function getElemen() {
+  isLoadingElemen.value = true
+  client.autoCancellation(false)
+  let res = await client.collection('elemen_cp').getFullList({
+    filter: `program_keahlian="${prokel}" && elemen!="Lain-lain"`
+  })
+  if(res) {
+    elemens.value = res
+    isLoadingElemen.value = false
+  }
+}
+
 onMounted(() => {
   getNilai()
+  getElemen()
   client.autoCancellation(false)
   client.collection('nilai').subscribe('*', function(e) {
     // getNilai params:
@@ -290,5 +355,11 @@ onMounted(() => {
 .container-foto-nilai .foto-nilai {
   height: 100%;
   object-fit: cover;
+}
+.pre-text {
+  white-space: pre-wrap;
+}
+.accordion .accordion-header .accordion-button {
+  box-shadow: none !important;
 }
 </style>
