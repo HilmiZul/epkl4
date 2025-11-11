@@ -16,7 +16,7 @@
             </div>
           </form>
         </div>
-        <div v-if="role == 'tu'" class="col-lg-3">
+        <div v-if="role == 'tu' || role == 'wakasek'" class="col-lg-3">
           <div class="my-3 mt-0">
             <select v-model="selectedProkel" @change="getPemetaan" class="form form-select form-select-lg">
               <option value="">Semua Jurusan</option>
@@ -39,7 +39,7 @@
                   <!-- <th width="2%">#</th> -->
                   <th>IDUKA</th>
                   <th width="45%">Peserta</th>
-                  <th v-if="role != 'guru'" width="10%">Surat</th>
+                  <th v-if="role == 'jurusan' || role == 'tu' || role == 'admin'" width="10%">Surat</th>
                 </tr>
               </thead>
               <tbody>
@@ -81,7 +81,7 @@
                     <span v-else class="fw-bold">{{ pemetaan.expand.siswa.nama }}</span>
                     <div class="mt-1 text-muted smallest">{{ pemetaan.expand.siswa.kelas }}</div>
                   </td>
-                  <td v-if="pemetaan.showIduka && role != 'guru'" :rowspan="pemetaan.idukaRowspan" class="align-middle text-center">
+                  <td v-if="pemetaan.showIduka && (role == 'jurusan' || role == 'tu' || role == 'admin')" :rowspan="pemetaan.idukaRowspan" class="align-middle text-center">
                     <button v-if="!pemetaan.status_acc_pkl" @click="setCetakSurat(pemetaan.iduka)" class="btn btn-light btn-sm border border-2 border-dark" data-bs-toggle="modal" data-bs-target="#cetak"><i class="bi bi-printer"></i> Cetak</button>
                     <!-- <div class="mb-2"><nuxt-link v-if="!pemetaan.status_acc_pkl" :to="`/pemetaan/pkl/surat/cetak/tte/${pemetaan.iduka}`" target="_blank" class="btn btn-light btn-sm smallest"><i class="bi bi-qr-code"></i> TTE</nuxt-link></div>
                     <nuxt-link v-if="!pemetaan.status_acc_pkl" :to="`/pemetaan/pkl/surat/cetak/non-tte/${pemetaan.iduka}`" target="_blank" class="btn btn-light btn-sm smallest"><i class="bi bi-pencil-square"></i> TTB</nuxt-link> -->
@@ -201,7 +201,7 @@ async function setModalKonfirmasiPenerimaan(id, nama) {
 }
 
 async function getProkelForOption() {
-  if(role == 'tu') {
+  if(role == 'tu' || role == 'wakasek') {
     let res_prokel = await client.collection('program_keahlian').getFullList({
       sort: "created"
     })
@@ -247,7 +247,7 @@ async function getPemetaan() {
 
   // filterQuery dikosongkan untuk role: TU tanpa keyword pencarian
   // atau dengan opsi filter prokel
-  if(role == 'tu') {
+  if(role == 'tu' || role == 'wakasek') {
     filterQuery = ""
     searchActive = ""
     if(keyword.value != '' && selectedProkel.value != '') {
