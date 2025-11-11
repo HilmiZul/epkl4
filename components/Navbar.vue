@@ -20,7 +20,7 @@
           <li v-if="role === 'admin' || role === 'jurusan'" class="nav-item">
             <nuxt-link class="nav-link" to="/peserta"><i class="bi bi-person-fill"></i> Peserta Didik</nuxt-link>
           </li>
-          <li v-if="role === 'admin' || role === 'jurusan'" class="nav-item">
+          <li v-if="role === 'admin' || role === 'jurusan' || role === 'wakasek'" class="nav-item">
             <nuxt-link class="nav-link" to="/iduka"><i class="bi bi-buildings-fill"></i> IDUKA</nuxt-link>
           </li>
           <li  class="nav-item">
