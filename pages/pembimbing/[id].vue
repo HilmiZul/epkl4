@@ -20,6 +20,10 @@
               <input v-model="form.nama" :disabled="isLoading" type="text" id="nama" class="form form-control form-control-lg" placeholder="masukkan nama Guru Pembimbing" required>
             </div>
             <div class="my-4">
+              <label for="nip">NIP</label>
+              <input v-model="form.nip" :disabled="isLoading" type="text" id="nip" class="form form-control form-control-lg" placeholder="kosongkan jika tidak ada">
+            </div>
+            <div class="my-4">
               <label for="role">Role</label>
               <select v-model="form.role" :disabled="isLoading" id="role" class="form form-control form-select form-select-lg" required>
                 <option disabled value="">—</option>
