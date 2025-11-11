@@ -180,7 +180,7 @@
                     <input v-model="form.isValid" :checked="form.isValid" class="form-check-input" type="checkbox" id="entrust" switch>
                     <label for="entrust">Tandai valid</label>
                   </div>
-                  <button :disabled="isSending || form.deskripsi_elemen1.length < 12 || form.deskripsi_elemen2.length < 12 || form.deskripsi_elemen3.length < 12 || form.deskripsi_elemen4.length < 12 || form.pj_penandatangan.length < 3 || form.nama_pj_penandatangan.length < 3"
+                  <button :disabled="isSending || form.deskripsi_elemen1.length < 12 || form.deskripsi_elemen2.length < 12 || form.deskripsi_elemen3.length < 12 || form.deskripsi_elemen4.length < 12"
                     class="btn btn-success me-2 border border-2 border-dark mb-4">
                     <span v-if="isSending">Sedang menyimpan</span>
                     <span v-else>Simpan</span>
