@@ -136,7 +136,7 @@ async function getNilai() {
 function getNilaiById(value) {
   isLoaded.value = true
   sertifikat.value = value
-  let average = (value.nilai_elemen1 + value.nilai_elemen2 + value.nilai_elemen3 + value.nilai_elemen4) / 4
+  let average = (value?.nilai_elemen1 + value?.nilai_elemen2 + value?.nilai_elemen3 + value?.nilai_elemen4) / 4
   if(average >= 86) nilai_indeks.value = "Amat Baik"
   else if(average >= 70) nilai_indeks.value = "Baik"
   else nilai_indeks.value = "Kurang"
