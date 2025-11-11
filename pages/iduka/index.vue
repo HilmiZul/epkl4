@@ -41,7 +41,7 @@
                   <th width="10%">Wilayah</th>
                   <th width="6%">Terisi</th>
                   <th width="17%">Pembimbing</th>
-                  <th width="5%">Hapus</th>
+                  <th v-if="role == 'admin' || role == 'jurusan'" width="5%">Hapus</th>
                 </tr>
               </thead>
               <tbody>
@@ -63,7 +63,8 @@
                 <tr v-else v-for="(company, i) in companies.items" :key="i">
                   <td><span class="badge text-dark">{{ i+1 }}</span></td>
                   <td class="fw-bold">
-                    <nuxt-link :to="`/iduka/${company.id}`" class="link">{{ company.nama }}</nuxt-link>
+                    <nuxt-link v-if="role == 'admin' || role == 'jurusan'" :to="`/iduka/${company.id}`" class="link">{{ company.nama }}</nuxt-link>
+                    <span v-else>{{ company.nama }}</span>
                     <nuxt-link v-if="company.alamat" :to="`https://www.google.com/maps/search/?api=1&query=${company.nama} ${company.alamat}`" target="_blannk" class="hand-cursor ms-2 text-dark"><i class="bi bi-geo-alt-fill"></i></nuxt-link>
                     <span v-if="company.catatan" @click="setModalCatatanById(company.id, company.catatan)" data-bs-toggle="modal" data-bs-target="#catatan" class="hand-cursor ms-3"><i class="bi bi-stickies"></i></span>
                   </td>
@@ -73,7 +74,7 @@
                     <span v-else class="badge bg-danger">Penuh</span>
                   </td>
                   <td class="smallest">{{ company.expand.pembimbing_sekolah?.nama }} </td>
-                  <td class="smallest">
+                  <td v-if="role == 'admin' || role == 'jurusan'" class="smallest">
                     <!-- <button v-if="company.terisi < 1" class="btn btn-danger btn-sm border border-2 border-dark" data-bs-toggle="modal" :data-bs-target="`#iduka-${company.id}`"><i class="bi bi-trash3"></i></button> -->
                     <button v-if="company.terisi < 1" @click="setModalDeleteById(company.id, company.nama)" class="btn btn-danger btn-sm border border-2 border-dark" data-bs-toggle="modal" data-bs-target="#delete"><i class="bi bi-trash3"></i></button>
                     <button v-else class="btn btn-dark btn-sm" disabled><i class="bi bi-trash3"></i></button>
