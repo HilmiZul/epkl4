@@ -17,6 +17,14 @@
             </div>
           </form>
         </div>
+        <div v-if="role == 'tu' || role == 'wakasek'" class="col-lg-3">
+          <div class="my-3 mt-0">
+            <select v-model="selectedProkel" @change="getCompanies" class="form form-select form-select-lg">
+              <option value="">Semua Jurusan</option>
+              <option v-for="p in opsiProkel" :key="p.id" :value="p.id">{{ p.nama }}</option>
+            </select>
+          </div>
+        </div>
         <div class="col align-content-center">
           <LoadingPlaceholder v-if="isLoading" col="12" row="1" />
           <div v-else class="mb-3 text-grey float-end badge">{{ companies.totalItems }} IDUKA</div>
@@ -151,13 +159,15 @@ let isDeleted = ref(false)
 let keyword = ref('')
 let prokel = user.user.value.program_keahlian
 let opsiWilayah = ref('')
-if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
+if(role == 'tu' && role == 'guru') navigateTo('/404')
 let perPage = 20
 let isMovingPage = ref(false)
 let company_id = ref('') // single data untuk render ke Modal Delete
 let company_name = ref('')
 let catatan_id = ref('') // single data untuk render ke Modal Catatan
 let catatan_content = ref('')
+let opsiProkel = ref([])
+let selectedProkel = ref('')
 
 async function hapusData(id) {
   client.autoCancellation(false)
@@ -186,9 +196,25 @@ async function searchByKeyword() {
 async function getCompanies() {
   isLoading.value = true
   let searchFilter = ''
+  let filterQuery = `program_keahlian = "${user.user.value.program_keahlian}"`
   if(keyword.value != '') searchFilter = " && nama~'"+keyword.value+"'"
+
+  // filter by role
+  if(role == 'wakasek') {
+    filterQuery = ''
+    searchFilter = ''
+    if(keyword.value != '' && selectedProkel.value != '') {
+      filterQuery = `program_keahlian="${selectedProkel.value}"`
+      searchFilter = ` && (nama~"${keyword.value}" || pembimbing_sekolah.nama~"${keyword.value}")`
+    } else if(keyword.value != '') {
+      searchFilter = `nama~"${keyword.value}" || pembimbing_sekolah.nama~"${keyword.value}"`
+    } else if(selectedProkel.value != '') {
+      filterQuery = `program_keahlian="${selectedProkel.value}"`
+    }
+  }
+
   let data = await client.collection('iduka').getList(1, perPage, {
-    filter: 'program_keahlian = "' + user.user.value.program_keahlian + '"' + searchFilter,
+    filter: filterQuery + searchFilter,
     expand: "program_keahlian, pembimbing_sekolah",
     sort: 'terisi, -wilayah, nama'
   })
@@ -202,8 +228,24 @@ async function getCompanies() {
 async function pagination(page, loading=true) {
   isLoading.value = loading
   isMovingPage.value = true
+  let searchFilter = ''
+  let filterQuery = `program_keahlian = "${user.user.value.program_keahlian}"`
+
+  // filter by role
+  if(role == 'wakasek') {
+    filterQuery = ''
+    if(keyword.value != '' && selectedProkel.value != '') {
+      filterQuery = `program_keahlian="${selectedProkel.value}"`
+      searchFilter = ` && (iduka.nama~"${keyword.value}" || siswa.nama~"${keyword.value}")`
+    } else if(keyword.value != '') {
+      searchFilter = `iduka.nama~"${keyword.value}" || siswa.nama~"${keyword.value}"`
+    } else if(selectedProkel.value != '') {
+      filterQuery = `program_keahlian="${selectedProkel.value}"`
+    }
+  }
+
   let data = await client.collection('iduka').getList(page, perPage, {
-    filter: 'program_keahlian = "' + user.user.value.program_keahlian + '"',
+    filter: filterQuery + searchFilter,
     expand: "program_keahlian, pembimbing_sekolah",
     sort: 'terisi, -wilayah, nama'
   })
@@ -249,6 +291,15 @@ async function filterByWilayah() {
   }
 }
 
+async function getProkelForOption() {
+  if(role == 'admin' || role == 'jurusan' || role == 'wakasek') {
+    let res_prokel = await client.collection('program_keahlian').getFullList({
+      sort: "created"
+    })
+    if(res_prokel) opsiProkel.value = res_prokel
+  }
+}
+
 // const companies = computed(() => {
 //   return companies.value.items.filter((i) => {
 //     return (
@@ -260,6 +311,7 @@ async function filterByWilayah() {
 
 onMounted(() => {
   getCompanies()
+  getProkelForOption()
   client.autoCancellation(false)
   client.collection('iduka').subscribe('*', function(e) {
     if(e.action == 'delete') getCompanies()
