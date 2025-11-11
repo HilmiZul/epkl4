@@ -319,7 +319,7 @@ async function pagination(page, loading=true) {
   let searchActive = ''
   // atur filter berdasarkan role: `tu` atau selain `tu`
   let filterQuery = "program_keahlian='"+prokel+"' && iduka.pembimbing_sekolah='"+user.user.value.id+"'"
-  if(role == 'tu') {
+  if(role == 'tu' || role == 'wakasek') {
     filterQuery = ""
     searchActive = ""
     if(keyword.value != '' && selectedProkel.value != '') {
