@@ -2,9 +2,9 @@
   <div class="container">
     <div class="logo fw-bold text-muted text-center mt-4 align-content-center">
       <span v-if="props.isLoaded">
-        <img v-if="props.sertifikat.logo"
-          :src="`${host}/api/files/${props.sertifikat.collectionId}/${props.sertifikat.id}/${props.sertifikat.logo}`"
-          :alt="props.sertifikat.expand.iduka.nama" class="logo-img" />
+        <img v-if="props.sertifikat?.logo"
+          :src="`${host}/api/files/${props.sertifikat?.collectionId}/${props.sertifikat?.id}/${props.sertifikat?.logo}`"
+          :alt="props.sertifikat?.expand.iduka.nama" class="logo-img" />
       </span>
       <span v-else class="logo-img mt-5">[Logo IDUKA]</span>
     </div>
@@ -17,14 +17,14 @@
       Praktik Kerja Lapangan
     </div>
     <div class="nomor text-center text-muted">
-      <span v-if="props.isLoaded && props.sertifikat.nomor_sertifikat">Nomor: {{ props.sertifikat.nomor_sertifikat }}</span>
+      <span v-if="props.isLoaded && props.sertifikat?.nomor_sertifikat">Nomor: {{ props.sertifikat?.nomor_sertifikat }}</span>
       <span v-else>[Nomor: _____]</span>
     </div>
     <div class="assignment my-3 text-center">
       diberikan kepada
     </div>
     <div class="person mb-3 text-center">
-      <span v-if="props.isLoaded" class="fw-bold person-border">{{ props.sertifikat.expand.siswa.nama }}</span>
+      <span v-if="props.isLoaded" class="fw-bold person-border">{{ props.sertifikat?.expand.siswa.nama }}</span>
       <span v-else>[Nama Peserta Didik]</span>
     </div>
     <div class="row justify-content-center">
@@ -34,19 +34,19 @@
             <tr>
               <td width="35%">Nomor Induk Siswa</td>
               <td>:</td>
-              <td v-if="props.isLoaded">{{ props.sertifikat.expand.siswa.nis }}</td>
+              <td v-if="props.isLoaded">{{ props.sertifikat?.expand.siswa.nis }}</td>
               <td v-else>&#8212;</td>
             </tr>
             <tr>
               <td>Program Keahlian</td>
               <td>:</td>
-              <td v-if="props.isLoaded">{{ props.sertifikat.expand.program_keahlian.alias }}</td>
+              <td v-if="props.isLoaded">{{ props.sertifikat?.expand.program_keahlian.alias }}</td>
               <td v-else>&#8212;</td>
             </tr>
             <tr>
               <td>Konsentrasi Keahlian</td>
               <td>:</td>
-              <td v-if="props.isLoaded">{{ props.sertifikat.expand.program_keahlian.konsentrasi_keahlian }}</td>
+              <td v-if="props.isLoaded">{{ props.sertifikat?.expand.program_keahlian.konsentrasi_keahlian }}</td>
               <td v-else>&#8212;</td>
             </tr>
           </tbody>
@@ -54,7 +54,7 @@
       </div>
     </div>
     <div class="text my-3 text-center">
-      Telah mengikuti Praktik Kerja Lapangan di <span v-if="props.isLoaded" class="fw-bold">{{ props.sertifikat.expand.iduka.nama }}</span> <span v-else>[IDUKA]</span>. <br>
+      Telah mengikuti Praktik Kerja Lapangan di <span v-if="props.isLoaded" class="fw-bold">{{ props.sertifikat?.expand.iduka.nama }}</span> <span v-else>[IDUKA]</span>. <br>
       Dari {{ pengaturan?.rentang_pelaksanaan }} dengan hasil <br>
       <div v-if="props.isLoaded" class="nilai-indeks fs-3 py-2">{{ props.nilai_indeks }}</div>
       <div v-else class="nilai-indeks fs-3 py-2">[nilai indeks]</div>
@@ -71,22 +71,26 @@
         <tr>
           <td class="text-center">1.</td>
           <td>Internalisasi dan penerapan soft skills</td>
-          <td class="text-center">{{ props.sertifikat.nilai_elemen1 }}</td>
+          <td v-if="props.isLoaded" class="text-center">{{ props.sertifikat?.nilai_elemen1 }}</td>
+          <td v-else>&#8212;</td>
         </tr>
         <tr>
           <td class="text-center">2.</td>
           <td>Penerapan hard skills</td>
-          <td class="text-center">{{ props.sertifikat.nilai_elemen2 }}</td>
+          <td v-if="props.isLoaded" class="text-center">{{ props.sertifikat?.nilai_elemen2 }}</td>
+          <td v-else>&#8212;</td>
         </tr>
         <tr>
           <td class="text-center">3.</td>
           <td>Peningkatan dan pengembangan hard skills</td>
-          <td class="text-center">{{ props.sertifikat.nilai_elemen3 }}</td>
+          <td v-if="props.isLoaded" class="text-center">{{ props.sertifikat?.nilai_elemen3 }}</td>
+          <td v-else>&#8212;</td>
         </tr>
         <tr>
           <td class="text-center">4.</td>
           <td>Penyiapan Kemandirian Berwirausaha</td>
-          <td class="text-center">{{ props.sertifikat.nilai_elemen4 }}</td>
+          <td v-if="props.isLoaded" class="text-center">{{ props.sertifikat?.nilai_elemen4 }}</td>
+          <td v-else>&#8212;</td>
         </tr>
       </tbody>
       <tbody v-else>
@@ -115,11 +119,11 @@
     <div class="row justify-content-center text-center">
       <div class="col-lg-4">
         <div class="titimangsa">Tasikmalaya, 24 April 2026</div>
-        <div v-if="props.isLoaded" class="ttd-pj">{{ props.sertifikat.pj_penandatangan }}</div>
+        <div v-if="props.isLoaded" class="ttd-pj">{{ props.sertifikat?.pj_penandatangan }}</div>
         <div v-else class="ttd-pj text-muted">[Jabatan]</div>
-        <div v-if="props.isLoaded" class="ttd-nama-pj fw-bold">{{ props.sertifikat.nama_pj_penandatangan }}</div>
+        <div v-if="props.isLoaded" class="ttd-nama-pj fw-bold">{{ props.sertifikat?.nama_pj_penandatangan }}</div>
         <div v-else class="ttd-nama-pj fw-bold text-muted">[Jhon Doe]</div>
-        <div v-if="props.isLoaded && props.sertifikat.nomor_pegawai" class="text-muted">{{ props.sertifikat.nomor_pegawai }}</div>
+        <div v-if="props.isLoaded && props.sertifikat?.nomor_pegawai" class="text-muted">{{ props.sertifikat?.nomor_pegawai }}</div>
         <div v-else class="text-muted">[Nomor Pegawai]</div>
       </div>
     </div>
@@ -136,20 +140,6 @@ let role = user?.user.value.role
 let prokel = user?.user.value.program_keahlian
 let isLoaded = ref(false)
 let pengaturan = ref()
-let nilai = ref('')
-let sertifikat = ref({
-  "logo": "",
-  "iduka": "",
-  "siswa": "",
-  "nomor_sertifikat": "",
-  "nilai_elemen1": "",
-  "nilai_elemen2": "",
-  "nilai_elemen3": "",
-  "nilai_elemen4": "",
-  "pj_penandatangan": "",
-  "nama_pj_penandatangan": "",
-  "nomor_pegawai": "",
-})
 
 async function getSetting() {
   client.autoCancellation(false)
