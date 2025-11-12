@@ -31,6 +31,13 @@
               <label for="nisn">NISN (temp)</label>
               <input v-model="form.nisn" :disabled="isLoading || isLoadingSave" type="text" class="form form-control form-control-lg" placeholder="NISN sebenarnya!" required>
             </div> -->
+            <div class="mb-4">
+              <label for="walikelas">Walikelas</label>
+              <select v-model="form.walikelas" class="form form-select form-select-lg" id="walikelas">
+                <option value="">- Pilih -</option>
+                <option v-for="w in walikelas" :key="w.id" :value="w.id">{{ w.expand.rombel.nama }} &#8212; {{ w.nama }}</option>
+              </select>
+            </div>
             <div class="my-4 form-check form-switch">
               <input v-model="form.status_rapot" :checked="form.status_rapot" :disabled="isLoading || isLoadingSave" class="form-check-input" type="checkbox" id="checkRapor" switch>
               <label class="form-check-label" for="checkRapor">
@@ -192,7 +199,9 @@ let form = ref({
   kelas: '',
   status_rapot: false,
   status_pemetaan_pkl: false,
+  walikelas: '',
 })
+let walikelas = ref('')
 let new_user_update = ref('')
 if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
 
@@ -205,6 +214,7 @@ async function simpanPerubahan() {
       status_rapot: form.value.status_rapot,
       nis: form.value.nis,
       nisn: form.value.nisn,
+      walikelas: form.value.walikelas
     })
     if(data) {
       isLoading.value = false
@@ -288,8 +298,19 @@ async function updateUsername() {
   }
 }
 
+async function getWalikelas() {
+  let res = await client.collection('walikelas').getFullList({
+    filter: `program_keahlian="${prokel}"`,
+    expand: `rombel`
+  })
+  if(res) {
+    walikelas.value = res
+  }
+}
+
 onMounted(() => {
   getStudentById()
+  getWalikelas()
   client.collection('siswa').subscribe('*', function (e) {
     if(e.action == 'update') getStudentById(false)
   }, {});
