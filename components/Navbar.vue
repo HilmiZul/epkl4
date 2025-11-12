@@ -41,9 +41,9 @@
           <li v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" class="nav-item">
             <nuxt-link class="nav-link" to="/nilai"><i class="bi bi-patch-check"></i> Nilai</nuxt-link>
           </li>
-          <li v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" class="nav-item">
+          <!-- <li v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" class="nav-item">
             <nuxt-link class="nav-link" to="/sertifikat"><i class="bi bi-person-vcard-fill"></i> Setifikat</nuxt-link>
-          </li>
+          </li> -->
           <li class="nav-item">
             <nuxt-link class="nav-link" to="/ubah-password"><i class="bi bi-key"></i> Ubah Password</nuxt-link>
           </li>
