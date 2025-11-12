@@ -128,6 +128,7 @@
                     <span v-else class="badge bg-danger">{{ i+1 }}</span>
                   </td>
                   <td class="fw-bold">
+                    <span v-if="student.walikelas" class="text-danger me-2">W</span>
                     <nuxt-link :to="`/peserta/${student.id}`" class="link">{{ student.nama }}</nuxt-link>
                   </td>
                   <!-- <td>{{ student.pembimbing }}</td> -->
