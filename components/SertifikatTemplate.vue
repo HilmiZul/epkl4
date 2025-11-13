@@ -121,7 +121,7 @@
         <div v-if="props.isLoaded" class="ttd-pj">{{ props.sertifikat?.pj_penandatangan }}</div>
         <div v-else class="ttd-pj text-muted">[Jabatan]</div>
         <div v-if="props.isLoaded" class="ttd-nama-pj fw-bold">{{ props.sertifikat?.nama_pj_penandatangan }}</div>
-        <div v-else class="ttd-nama-pj fw-bold text-muted">[Jhon Doe]</div>
+        <div v-else class="ttd-nama-pj fw-bold text-muted">[Nama Penandatangan]</div>
         <div v-if="props.isLoaded && props.sertifikat?.nomor_pegawai" class="text-muted">{{ props.sertifikat?.nomor_pegawai }}</div>
       </div>
     </div>
