@@ -14,9 +14,9 @@
             </div>
             <div class="mb-4">
               <label for="nip">NIP</label>
-              <input v-model="form.nip" :disabled="form.nama.length < 3" type="text" id="nip" class="form form-control form-control-lg" placeholder="kosongkan jika tidak ada">
+              <input v-model="form.nip" :disabled="form.nama.length < 4" type="text" id="nip" class="form form-control form-control-lg" placeholder="kosongkan jika tidak ada">
             </div>
-            <button :disabled="isSending || form.nama.length < 8" class="btn btn-success me-2 border border-2 border-dark">
+            <button :disabled="isSending || form.nama.length < 4" class="btn btn-success me-2 border border-2 border-dark">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>
