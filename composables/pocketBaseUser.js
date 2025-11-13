@@ -12,6 +12,7 @@ export const usePocketBaseUser = () => {
       username: client.authStore.model.username,
       email: client.authStore.model.email,
       nama: client.authStore.model.nama,
+      nip: client.authStore.model.nip,
       role: client.authStore.model.role,
       program_keahlian: client.authStore.model.program_keahlian,
       status_pemetaan: client.authStore.model.status_pemetaan,
