@@ -7,11 +7,16 @@
       <div class="col-lg-9">
         <slot />
       </div>
-      <NavFixedBottom v-if="$device.isMobile" />
+      <NavFixedBottom v-if="$device.isMobile && (role == 'jurusan' || role == 'guru')" />
       <Footer class="footer-mobile-view" />
     </div>
   </div>
 </template>
+
+<script setup>
+let user = usePocketBaseUser()
+let role = user?.user.value.role
+</script>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Mega:wght@700&display=swap');
