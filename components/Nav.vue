@@ -115,7 +115,7 @@ async function getNilai() {
 async function getJurnal() {
   client.autoCancellation(false)
   let res = await client.collection('jurnal').getFullList({
-    filter: "pembimbing='"+user.user.value.id+"' && isValid=false"
+    filter: "iduka.pembimbing_sekolah='"+user.user.value.id+"' && isValid=false"
   })
   if(res) {
     jurnal.value = res
@@ -145,6 +145,9 @@ onMounted(() => {
   },{})
   client.collection('siswa').subscribe('*', function(e){
     if(e.action == 'update') getPeserta()
+  },{})
+  client.collection('iduka').subscribe('*', function(e){
+    if(e.action == 'update') getJurnal()
   },{})
 })
 </script>
