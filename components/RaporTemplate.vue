@@ -161,10 +161,14 @@
         <br>
         <div>Wali Kelas</div>
         <br><br><br><br>
-        <div v-if="props.isLoaded" class="fw-bold">{{ props.rapor?.expand.siswa.expand.walikelas.nama }}</div>
-        <div v-else class="fw-bold">[Nama walikelas]</div>
-        <div v-if="props.isLoaded">NIP. {{ props.rapor?.expand.siswa.expand.walikelas.nip }}</div>
-        <div v-else>NIP. [Nomor Pegawai]</div>
+        <div v-if="props.isLoaded" class="fw-bold">
+          <span v-if="props.rapor?.expand.siswa.walikelas">{{ props.rapor?.expand.siswa.expand.walikelas.nama }}</span>
+          <span v-else>[Nama walikelas]</span>
+        </div>
+        <div v-if="props.isLoaded">NIP.
+          <span v-if="props.rapor?.expand.siswa.walikelas">{{ props.rapor?.expand.siswa.expand.walikelas.nip }}</span>
+          <span v-else>[Nomor Pegawai]</span>
+        </div>
       </div>
       <div class="col-lg-4">
         <div>Tasikmalaya, 24 April 2026</div>
