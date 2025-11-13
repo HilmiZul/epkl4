@@ -11,6 +11,9 @@
           <li class="nav-item">
             <nuxt-link  class="nav-link" to="/"><i class="bi bi-pie-chart-fill"></i> Overview</nuxt-link>
           </li>
+          <li class="nav-item">
+            <nuxt-link  class="nav-link" to="/personalisasi"><i class="bi bi-person"></i> Personalisasi</nuxt-link>
+          </li>
           <li v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" class="nav-item">
             <nuxt-link  class="nav-link" to="/elemen"><i class="bi bi-journal-bookmark-fill"></i> Elemen</nuxt-link>
           </li>

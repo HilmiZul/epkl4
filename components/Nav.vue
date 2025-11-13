@@ -12,6 +12,9 @@
             <nuxt-link to="/" :activeClass="activeClass">
               <li class="list-group-item"><i class="bi bi-pie-chart-fill"></i> Overview</li>
             </nuxt-link>
+            <nuxt-link to="/personalisasi" v-if="role ==='admin' || role === 'jurusan' || role === 'guru'" :activeClass="activeClass">
+              <li class="list-group-item"><i class="bi bi-person"></i> Personalisasi</li>
+            </nuxt-link>
             <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" to="/elemen" :activeClass="activeClass">
               <li class="list-group-item"><i class="bi bi-journal-bookmark-fill"></i> Elemen</li>
             </nuxt-link>
@@ -148,6 +151,9 @@ onMounted(() => {
   },{})
   client.collection('iduka').subscribe('*', function(e){
     if(e.action == 'update') getJurnal()
+  },{})
+  client.collection('teacher_users').subscribe('*', function(e){
+    if(e.action == 'update') user?.user.value
   },{})
 })
 </script>
