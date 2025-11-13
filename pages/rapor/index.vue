@@ -77,7 +77,7 @@ async function getNilai() {
   client.autoCancellation(false)
   let res = await client.collection('nilai').getFullList({
     filter: `iduka.pembimbing_sekolah="${user?.user.value.id}" && program_keahlian="${prokel}" && isValid=true`,
-    expand: `iduka, iduka.pembimbing_sekolah, siswa, program_keahlian`,
+    expand: `iduka, iduka.pembimbing_sekolah, siswa, siswa.walikelas, program_keahlian`,
     sort: `-siswa.nama`
   })
   if(res) {
