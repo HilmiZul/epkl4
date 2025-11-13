@@ -163,20 +163,28 @@
         <br><br><br><br>
         <div v-if="props.isLoaded" class="fw-bold">
           <span v-if="props.rapor?.expand.siswa.walikelas">{{ props.rapor?.expand.siswa.expand.walikelas.nama }}</span>
-          <span v-else>[Nama walikelas]</span>
+          <span v-else>-</span>
         </div>
+        <div v-else class="fw-bold">[Nama Wali Kelas]</div>
         <div v-if="props.isLoaded">NIP.
           <span v-if="props.rapor?.expand.siswa.walikelas">{{ props.rapor?.expand.siswa.expand.walikelas.nip }}</span>
-          <span v-else>[Nomor Pegawai]</span>
+          <span v-else>-</span>
         </div>
+        <div v-else>NIP. [Nomor Pegawai]</div>
       </div>
       <div class="col-lg-4">
         <div>Tasikmalaya, 24 April 2026</div>
         <div>Guru Pembimbing PKL</div>
         <br><br><br><br>
-        <div v-if="props.isLoaded" class="fw-bold">{{ props.rapor?.expand.iduka.expand.pembimbing_sekolah.nama }}</div>
+        <div v-if="props.isLoaded" class="fw-bold">
+          <span v-if="props.rapor?.iduka">{{ props.rapor?.expand.iduka.expand.pembimbing_sekolah.nama }}</span>
+          <span v-else>-</span>
+        </div>
         <div v-else class="fw-bold">[Nama Pembimbing]</div>
-        <div v-if="props.isLoaded">NIP. {{ props.rapor?.expand.iduka.expand.pembimbing_sekolah.nip }}</div>
+        <div v-if="props.isLoaded">NIP.
+          <span v-if="props.rapor?.iduka">{{ props.rapor?.expand.iduka.expand.pembimbing_sekolah.nip }}</span>
+          <span v-else>-</span>
+        </div>
         <div v-else>NIP. [Nomor Pegawai]</div>
       </div>
     </div>
