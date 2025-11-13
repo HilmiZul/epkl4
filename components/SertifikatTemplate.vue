@@ -18,7 +18,6 @@
     </div>
     <div class="nomor text-center text-muted">
       <span v-if="props.isLoaded && props.sertifikat?.nomor_sertifikat">Nomor: {{ props.sertifikat?.nomor_sertifikat }}</span>
-      <span v-else>[Nomor: _____]</span>
     </div>
     <div class="assignment my-3 text-center">
       diberikan kepada
@@ -124,7 +123,6 @@
         <div v-if="props.isLoaded" class="ttd-nama-pj fw-bold">{{ props.sertifikat?.nama_pj_penandatangan }}</div>
         <div v-else class="ttd-nama-pj fw-bold text-muted">[Jhon Doe]</div>
         <div v-if="props.isLoaded && props.sertifikat?.nomor_pegawai" class="text-muted">{{ props.sertifikat?.nomor_pegawai }}</div>
-        <div v-else class="text-muted">[Nomor Pegawai]</div>
       </div>
     </div>
   </div>
