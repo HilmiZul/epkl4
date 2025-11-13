@@ -33,6 +33,7 @@ definePageMeta({ middleware: 'auth' })
 useHead({ title: 'Personalisasi — e-PKL / SMKN 4 Tasikmalaya'})
 let user = usePocketBaseUser()
 let client = usePocketBaseClient()
+let role = user?.user.value.role
 let isSaved = ref(false)
 let isSending = ref(false)
 let isLoading = ref(true)
@@ -41,6 +42,7 @@ let form = ref({
   nama: user?.user.value.nama,
   nip: user?.user.value.nip,
 })
+if(role != 'jurusan' && role != 'admin' && role != 'guru') navigateTo('/404')
 
 async function updatePersonal() {
   isSending.value = true

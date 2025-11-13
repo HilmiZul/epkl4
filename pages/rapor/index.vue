@@ -65,6 +65,8 @@ useHead({ title: "Rapor — e-PKL / SMKN 4 Tasikmalaya." })
 let user = usePocketBaseUser()
 let client = usePocketBaseClient()
 let prokel = user?.user.value.program_keahlian
+let role = user?.user.value.role
+if(role != 'jurusan' && role != 'admin' && role != 'guru') navigateTo('/404')
 let isLoaded = ref(false)
 let isLoading = ref(true)
 let semua_nilai = ref('')

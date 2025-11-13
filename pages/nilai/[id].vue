@@ -219,6 +219,8 @@ let user = usePocketBaseUser()
 let client = usePocketBaseClient()
 let config = useRuntimeConfig()
 let host = config.public.apiBaseUrl+":"+config.public.apiPort
+let role = user?.user.value.role
+if(role != 'jurusan' && role != 'admin' && role != 'guru') navigateTo('/404')
 let route = useRoute()
 let isLoading = ref(true)
 let isLoadingElemen = ref(true)

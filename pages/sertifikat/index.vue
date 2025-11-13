@@ -118,7 +118,7 @@ let sertifikat = ref({
   "nomor_pegawai": "",
 })
 let toPdf = ref(null) // var untuk nyimpen component yang downloadable PDF
-if(role == 'tu') navigateTo('/404')
+if(role != 'jurusan' && role != 'admin' && role != 'guru') navigateTo('/404')
 
 async function getNilai() {
   isLoading.value = true

@@ -89,7 +89,7 @@ let isLoading = ref(true)
 let keyword = ref('')
 let nilaiNotValid = ref('')
 let count_entrust = ref('')
-if(role == 'tu') navigateTo('/404')
+if(role != 'jurusan' && role != 'admin' && role != 'guru') navigateTo('/404')
 
 async function getNilai(loading=true) {
   isLoading.value = loading
