@@ -125,11 +125,11 @@ let isMovingPage = ref(false)
 
 async function getJournals(loading=true) {
   isLoadingJournals.value = loading
-  let queryFilter = "pembimbing='"+user.user.value.id+"'"
-  if(tanggal.value && opsiPeserta.value) queryFilter = "pembimbing='"+user.user.value.id+"' && created~'"+tanggal.value+"' && siswa.siswa.id='"+opsiPeserta.value+"'"
-  else if(tanggal.value) queryFilter = "pembimbing='"+user.user.value.id+"' && created~'"+tanggal.value+"'"
-  else if(opsiPeserta.value) queryFilter = "pembimbing='"+user.user.value.id+"' && siswa.siswa.id='"+opsiPeserta.value+"'"
-  else queryFilter = "pembimbing='"+user.user.value.id+"'"
+  let queryFilter = "iduka.pembimbing_sekolah='"+user.user.value.id+"'"
+  if(tanggal.value && opsiPeserta.value) queryFilter = "iduka.pembimbing_sekolah='"+user.user.value.id+"' && created~'"+tanggal.value+"' && siswa.siswa.id='"+opsiPeserta.value+"'"
+  else if(tanggal.value) queryFilter = "iduka.pembimbing_sekolah='"+user.user.value.id+"' && created~'"+tanggal.value+"'"
+  else if(opsiPeserta.value) queryFilter = "iduka.pembimbing_sekolah='"+user.user.value.id+"' && siswa.siswa.id='"+opsiPeserta.value+"'"
+  else queryFilter = "iduka.pembimbing_sekolah='"+user.user.value.id+"'"
   if(user.user.value.role == 'admin') queryFilter = ""
 
   client.autoCancellation(false)
@@ -157,8 +157,8 @@ async function getJournals(loading=true) {
 async function pagination(page, loading=true) {
   isLoadingJournals.value = loading
   isMovingPage.value = true
-  let queryFilter = "pembimbing='"+user.user.value.id+"'"
-  if(tanggal.value) queryFilter = "pembimbing='"+user.user.value.id+"' && created~'"+tanggal.value+"'"
+  let queryFilter = "iduka.pembimbing_sekolah='"+user.user.value.id+"'"
+  if(tanggal.value) queryFilter = "iduka.pembimbing_sekolah='"+user.user.value.id+"' && created~'"+tanggal.value+"'"
   if(user.user.value.role == 'admin') queryFilter = ""
   client.autoCancellation(false)
   let res = await client.collection('jurnal').getList(page, perPage, {
@@ -194,7 +194,7 @@ async function getJournalCountNotValid(loading=true) {
   isLoadingJournals.value = loading
   client.autoCancellation(false)
   let res = await client.collection('jurnal').getFullList({
-    filter: "pembimbing='"+user.user.value.id+"' && isValid=false"
+    filter: "iduka.pembimbing_sekolah='"+user.user.value.id+"' && isValid=false"
   })
   if(res) {
     isLoadingJournals.value = false
@@ -206,11 +206,11 @@ async function getJournalCountSesuaiElemen(loading=true) {
   isLoadingJournals.value = loading
   client.autoCancellation(false)
   let res_count_sesuai = await client.collection('jurnal').getFullList({
-    filter: "pembimbing='"+user.user.value.id+"' && elemen.elemen!='Lain-lain'",
+    filter: "iduka.pembimbing_sekolah='"+user.user.value.id+"' && elemen.elemen!='Lain-lain'",
     expand: "elemen"
   })
   let res_count_tidak_sesuai = await client.collection('jurnal').getFullList({
-    filter: "pembimbing='"+user.user.value.id+"' && elemen.elemen='Lain-lain'",
+    filter: "iduka.pembimbing_sekolah='"+user.user.value.id+"' && elemen.elemen='Lain-lain'",
     expand: "elemen"
   })
   if(res_count_sesuai && res_count_tidak_sesuai) {
