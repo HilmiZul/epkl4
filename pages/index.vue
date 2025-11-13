@@ -44,7 +44,7 @@
         <div class="row">
           <div class="col-md-6">
             <nuxt-link to="/pemetaan/pkl" class="link border-0">
-              <div class="card">
+              <div class="card mb-3">
                 <div class="card-body bg-info">
                   <h2 v-if="!isLoading" class="fs-bold">{{ jumlah_pemetaan.length }}</h2>
                   <h4 v-else>
