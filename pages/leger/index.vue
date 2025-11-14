@@ -52,17 +52,17 @@
                 <tr v-else v-for="(n, i) in nilai" :key="i" class="border-bottom border-2 border-dark">
                   <td width="3%">
                     <span v-if="n.isValid" class="badge text-dark">{{ i+1 }}</span>
-                    <nuxt-link v-else :to="`/nilai/${n.id}`"><span class="badge bg-danger">{{ i+1 }}</span></nuxt-link>
+                    <nuxt-link v-else :to="`/leger/${n.id}`"><span class="badge bg-danger">{{ i+1 }}</span></nuxt-link>
                   </td>
                   <td>
-                    <nuxt-link :to="`/nilai/${n.id}`" class="link fw-bold">{{ n.expand.siswa.nama }}</nuxt-link> <br>
+                    <nuxt-link :to="`/leger/${n.id}`" class="link fw-bold">{{ n.expand.siswa.nama }}</nuxt-link> <br>
                     <div class="text-muted fw-bold mt-2">{{ n.expand.siswa.kelas }}</div>
                     <div v-if="n.isEntrust" class="text-muted">
                       <i class="bi bi-person-vcard-fill"></i> Titip Sertifikat
                     </div>
                     <div class="text-muted">
                       <span v-if="n.isValid"><i class="bi bi-check-circle-fill"></i> Valid</span>
-                      <nuxt-link v-else :to="`/nilai/${n.id}`" class="link-non-underscore"><span class="text-danger"><i class="bi bi-x-circle-fill"></i> Belum validasi</span></nuxt-link>
+                      <nuxt-link v-else :to="`/leger/${n.id}`" class="link-non-underscore"><span class="text-danger"><i class="bi bi-x-circle-fill"></i> Belum validasi</span></nuxt-link>
                     </div>
                   </td>
                 </tr>
