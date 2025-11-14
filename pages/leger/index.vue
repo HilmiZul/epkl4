@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand fw-bold"><i class="bi bi-patch-check"></i> Nilai</span>
+      <span class="h4 quicksand fw-bold"><i class="bi bi-patch-check"></i> Leger</span>
     </div>
     <div class="card-body small">
       <loading-placeholder v-if="isLoading" row="1" col="12" />
@@ -77,7 +77,7 @@
 
 <script setup>
 definePageMeta({ middleware: 'auth' })
-useHead({ title: "Nilai — e-PKL / SMKN 4 Tasikmalaya." })
+useHead({ title: "Leger Nilai — e-PKL / SMKN 4 Tasikmalaya." })
 let client = usePocketBaseClient()
 let user = usePocketBaseUser()
 let user_id = user?.user.value.id
