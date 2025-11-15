@@ -21,8 +21,8 @@
               <LoadingPlaceholder v-if="isLoadingJournals" col="12" row="1" />
               <!-- is jurnal kosong? -->
               <div v-else-if="!isLoadingJournals && journals?.totalItems == 0" class="text-center text-muted">
-                <div class="fs-1 pt-5"><i class="bi bi-journals"></i></div>
-                <div class="pb-5 fw-bold">Belum ada jurnal</div>
+                <div class="pt-5"><i class="bi bi-database-fill fs-1"></i></div>
+                <div class="fs-4">Belum ada jurnal</div>
               </div>
               <div v-else v-for="journal in journals.items" :key="journal.id" class="card jurnal-hover jurnal-item no-shadow">
                 <div class="card-body">
