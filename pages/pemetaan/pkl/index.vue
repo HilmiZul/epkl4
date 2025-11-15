@@ -61,7 +61,11 @@
                 <tr v-else v-for="(pemetaan) in newMapping" :key="pemetaan.id">
                   <!-- <td >{{ i+1 }}.</td> -->
                   <td v-if="pemetaan.showIduka" :rowspan="pemetaan.idukaRowspan">
-                    <span class="text-grey me-2"><i class="bi bi-building"></i></span><nuxt-link :to="`https://www.google.com/maps/search/?api=1&query=${pemetaan.expand.iduka.nama} ${pemetaan.expand.iduka.alamat}`" class="link" target="_blank"><span class="fw-bold">{{ pemetaan.expand.iduka.nama }}</span> <sup><i class="bi bi-arrow-up-right"></i></sup></nuxt-link>
+                    <span @click="setModalIdukaById(pemetaan.id, pemetaan)" data-bs-toggle="modal" data-bs-target="#pratinjau-iduka" class="link hand-cursor fw-bold">{{ pemetaan.expand.iduka.nama }} <i class="bi bi-arrow-up-right-square"></i></span>
+                    <!-- <span class="text-grey me-2"><i class="bi bi-building"></i></span><nuxt-link :to="`https://www.google.com/maps/search/?api=1&query=${pemetaan.expand.iduka.nama} ${pemetaan.expand.iduka.alamat}`" class="link" target="_blank"><span class="fw-bold">{{ pemetaan.expand.iduka.nama }}</span> <sup><i class="bi bi-arrow-up-right"></i></sup></nuxt-link> -->
+                    <div class="small text-grey mt-2">
+                      <nuxt-link :to="`https://www.google.com/maps/search/?api=1&query=${pemetaan.expand.iduka.nama} ${pemetaan.expand.iduka.alamat}`" class="link" target="_blank">Lihat peta <i class="bi bi-arrow-up-right"></i></nuxt-link>
+                    </div>
                     <div class="small text-grey mt-2">
                       <i class="bi bi-geo-alt me-2"></i>{{ pemetaan.expand.iduka.wilayah.charAt(0).toUpperCase() + pemetaan.expand.iduka.wilayah.slice(1) }} kota
                     </div>
@@ -150,6 +154,29 @@
             </div>
           </div>
 
+          <!-- Single Modal: Pratinjau / Quick preview -->
+          <div class="modal" id="pratinjau-iduka" aria-hidden="true" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
+                <div class="modal-header rounded-0 bg-info fw-bold border-bottom border-3 border-dark">
+                  <div class="fs-4">Pratinjau IDUKA</div>
+                  <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
+                </div>
+                <div v-if="pratinjau_iduka" class="modal-body py-3">
+                  <div v-if="pratinjau_iduka.expand.iduka.wilayah == 'dalam'" class="mb-3 badge bg-dark">{{ pratinjau_iduka.expand.iduka.wilayah.charAt(0).toUpperCase() + pratinjau_iduka.expand.iduka.wilayah.slice(1) }} kota</div>
+                  <div v-else class="mb-3 badge text-dark">{{ pratinjau_iduka.expand.iduka.wilayah.charAt(0).toUpperCase() + pratinjau_iduka.expand.iduka.wilayah.slice(1) }} kota</div>
+                  <!-- <loading-placeholder v-if="isLoadingModalCatatan" col="12" row="1" /> -->
+                  <div class="fw-bold">Nama </div>
+                  <p>{{ pratinjau_iduka.expand.iduka.nama }}</p>
+                  <div class="fw-bold">Alamat</div>
+                  <p>{{ pratinjau_iduka.expand.iduka.alamat }}</p>
+                  <div class="fw-bold">Pembimbing</div>
+                  <p v-if="pratinjau_iduka.expand.iduka.pembimbing_sekolah">{{ pratinjau_iduka.expand.iduka.expand.pembimbing_sekolah.nama }}</p>
+                  <p v-else>&#8212;</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -183,6 +210,7 @@ let cetakSurat = ref({
 let iduka_dari_pemetan = ref()
 let iduka_id = ref('') // single data untuk render ke Modal konfirmasi penerimaan
 let iduka_nama = ref('') // single data untuk render ke Modal konfirmasi penerimaan
+let pratinjau_iduka = ref('')
 
 // setCetakSurat: mengambil ID IDUKA untuk ditetapkan kedalam cetakSurat.id_iduka
 // setJenisSurat: tte atau ttb untuk link cetak surat: /{opsi_jenis_surat}/{id_iduka}
@@ -191,6 +219,9 @@ function setCetakSurat(iduka) {
 }
 function setJenisSurat() {
   cetakSurat.value.opsi_jenis_surat = cetakSurat.value.opsi_jenis_surat
+}
+async function setModalIdukaById(id, content) {
+  pratinjau_iduka.value = content
 }
 
 // load single record dari pemetaan berdasarkan id `iduka`
