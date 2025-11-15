@@ -41,7 +41,7 @@
             Belum ada nilai
           </div>
           <div class="text-center">
-            Pastikan peserta didik sudah menyerahkan nilai dan divalidasi oleh Anda.
+            Pastikan peserta sudah menyerahkan nilai dan divalidasi oleh Anda.
           </div>
         </div>
       </div>

@@ -39,8 +39,8 @@
             </tr>
             <tr v-else-if="elementsFiltered.length < 1">
               <td colspan="3" class="text-center">
-                <div class="fs-1"><i class="bi bi-database-fill"></i></div>
-                <div class="pb-3">Data tidak ditemukan</div>
+                <div class="text-muted"><i class="bi bi-database-fill fs-1"></i></div>
+                <div class="pb-3 text-muted">Data belum ada/tidak ditemukan</div>
               </td>
             </tr>
             <tr v-else v-for="e in elementsFiltered" :key="e.id">

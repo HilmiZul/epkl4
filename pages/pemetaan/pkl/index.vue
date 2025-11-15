@@ -11,8 +11,8 @@
         <div class="col-lg-6">
           <form @submit.prevent="getPemetaan">
             <div class="my-3 mt-0 input-group">
-              <input v-model="keyword" :disabled="mapping?.totalItems < 1" type="search" class="form form-control form-control-lg" placeholder="🔎 Cari nama IDUKA / peserta" />
-              <button :disabled="mapping?.totalItems < 1" class="btn btn-info ms-2 border border-2 border-dark">Cari</button>
+              <input v-model="keyword" type="search" class="form form-control form-control-lg" placeholder="🔎 Cari nama IDUKA / peserta" />
+              <button class="btn btn-info ms-2 border border-2 border-dark">Cari</button>
             </div>
           </form>
         </div>
@@ -52,10 +52,10 @@
                     <LoadingPlaceholder col="12" row="1" />
                   </td>
                 </tr>
-                <tr v-else-if="mapping && mapping.totalItems < 1" class="text-center my-5">
+                <tr v-else-if="mapping && mapping.totalItems < 1" class="text-center text-muted my-5">
                   <td colspan="3">
-                    <div class="fs-1"><i class="bi bi-database-fill"></i></div>
-                    <div class="pb-3">Data tidak ditemukan</div>
+                    <div><i class="bi bi-database-fill fs-1"></i></div>
+                    <div class="pb-3">Data belum ada/tidak ditemukan</div>
                   </td>
                 </tr>
                 <tr v-else v-for="(pemetaan) in newMapping" :key="pemetaan.id">
