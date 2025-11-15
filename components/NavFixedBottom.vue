@@ -21,7 +21,7 @@
           </nuxt-link>
         </li>
         <li class="nav-item me-2">
-          <nuxt-link class="nav-link text-dark" href="/nilai">
+          <nuxt-link class="nav-link text-dark" href="/leger">
             <i class="bi bi-patch-check fs-2"></i> <br>
             <!-- <span class="smallest">Nilai</span> -->
           </nuxt-link>

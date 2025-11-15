@@ -42,7 +42,7 @@
             <nuxt-link class="nav-link" to="/pengaturan"><i class="bi bi-sliders"></i> Pengaturan</nuxt-link>
           </li>
           <li v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" class="nav-item">
-            <nuxt-link class="nav-link" to="/nilai"><i class="bi bi-patch-check"></i> Nilai</nuxt-link>
+            <nuxt-link class="nav-link" to="/leger"><i class="bi bi-patch-check"></i> Leger</nuxt-link>
           </li>
           <!-- <li v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" class="nav-item">
             <nuxt-link class="nav-link" to="/sertifikat"><i class="bi bi-person-vcard-fill"></i> Setifikat</nuxt-link>
