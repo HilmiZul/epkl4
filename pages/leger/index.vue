@@ -37,13 +37,7 @@
                     <loading-placeholder row="1" col="12" />
                   </td>
                 </tr>
-                <tr v-else-if="keyword.length > 0 && nilai?.length < 1">
-                  <td colspan="5" class="text-center">
-                    <div class="fs-1"><i class="bi bi-database-fill"></i></div>
-                    <div class="pb-3">Tidak ditemukan</div>
-                  </td>
-                </tr>
-                <tr v-else-if="keyword.length < 1 && nilai?.length < 1">
+                <tr v-else-if="nilai?.length < 1">
                   <td colspan="5" class="text-center text-muted">
                     <div class="fs-1"><i class="bi bi-database-fill"></i></div>
                     <div class="fs-4">Belum ada nilai</div>
