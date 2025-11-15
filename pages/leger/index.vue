@@ -12,8 +12,8 @@
         <div class="col-lg-6">
           <form @submit.prevent="getNilai">
             <div class="my-3 mt-0 input-group">
-              <input v-model="keyword" :disabled="nilai?.length < 1" type="search" class="form form-control form-control-lg" placeholder="🔎 Cari nama peserta" />
-              <button :disabled="nilai?.length < 1" class="btn btn-info ms-2 border border-2 border-dark">Cari</button>
+              <input v-model="keyword" type="search" class="form form-control form-control-lg" placeholder="🔎 Cari nama peserta" />
+              <button class="btn btn-info ms-2 border border-2 border-dark">Cari</button>
             </div>
           </form>
         </div>
