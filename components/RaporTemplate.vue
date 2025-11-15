@@ -78,7 +78,7 @@
           <th>Deskripsi</th>
         </tr>
       </thead>
-      <tbody class="smallest">
+      <tbody class="smalle">
         <tr>
           <td class="text-center">1.</td>
           <td>Menerapkan soft skills yang dibutuhkan dalam dunia kerja</td>
@@ -143,7 +143,7 @@
     </div>
 
     <div class="row justify-content-end mb-2 me-1 smallest">
-      <div class="col-md-5 border border-1 border-dark">
+      <div class="col-md-4 border border-1 border-dark">
         Dengan memperhatikan kriteria kelulusan peserta didik dari satuan pendidikan maka ditetapkan:
         <span v-if="props.isLoaded" class="fw-bold">LULUS/<s>TIDAK LULUS</s></span>
         <span v-else>&#8212;</span>
@@ -257,7 +257,7 @@ body {
   /*border: 1pt solid #000;*/
   width: 210mm !important;
   height: 330mm !important;
-  font-family: "Lora", sans-serif !important;
+  font-family: "Times New Roman", sans-serif !important;
   /*display: table-cell;*/
   /*vertical-align: middle;*/
 }
@@ -297,8 +297,8 @@ thead th {
   background-color: #fff !important;
 }
 table, th, tr, td {
-  padding: 3pt;
-  border-width: 1pt !important;
+  padding: 1pt;
+  border-width: .9pt !important;
   border-color: #000 !important;
 }
 .table_id tbody,
