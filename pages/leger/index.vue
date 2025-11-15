@@ -41,7 +41,7 @@
                   <td colspan="5" class="text-center text-muted">
                     <div class="fs-1"><i class="bi bi-database-fill"></i></div>
                     <div class="fs-4">Belum ada nilai</div>
-                    <div class="pb-3">Nilai akan muncul apabila masa PKL selesai & peserta menyerehkan nilai.</div>
+                    <div class="pb-3">Nilai akan tampil apabila masa PKL selesai & peserta menyerehkan nilai.</div>
                   </td>
                 </tr>
                 <tr v-else v-for="(n, i) in nilai" :key="i" class="border-bottom border-2 border-dark">
