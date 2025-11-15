@@ -34,7 +34,7 @@
           <div class="col-md-3">
             <div class="mb-3">
               <div v-if="role == 'admin' || role == 'jurusan'" class="text-muted hand-cursor" data-bs-toggle="modal" data-bs-target="#relasi-iduka">
-                Relasi IDUKA <i class="bi bi-arrow-up-right"></i>
+                Relasi IDUKA <i class="bi bi-arrow-up-right-square"></i>
               </div>
               <div v-else class="text-muted">Relasi IDUKA</div>
               <LoadingPlaceholder v-if="isLoading" row="1" col="6" />
@@ -80,7 +80,7 @@
           <div class="col-md-3">
             <div class="mb-3">
               <div v-if="role == 'admin' || role == 'jurusan'" class="text-muted hand-cursor" data-bs-toggle="modal" data-bs-target="#relasi-peserta">
-                Relasi Peserta <i class="bi bi-arrow-up-right"></i>
+                Relasi Peserta <i class="bi bi-arrow-up-right-square"></i>
               </div>
               <div v-else class="text-muted">Relasi Peserta</div>
               <LoadingPlaceholder v-if="isLoading" row="1" col="6" />
