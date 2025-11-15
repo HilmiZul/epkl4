@@ -37,7 +37,7 @@
       <ul>
         <li>
           Berdasarkan keputusan <nuxt-link to="https://kurikulum.kemdikbud.go.id/file/1687442514_manage_file.pdf" target="_blank">Kepala Badan Standar, Kurikulum, dan Asesmen Pendidikan (BSKAP)</nuxt-link>
-          Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi yang mendasari hukum utama mengatur elemen Capaian Pembelajaran untuk mata pelajaran
+          Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi yang mengatur elemen Capaian Pembelajaran untuk mata pelajaran
           PKK dan PKL dalam kurikulum merdeka.
         </li>
         <li>Elemen berisi CP dan tujuan dari mata pelajaran PKL.</li>
