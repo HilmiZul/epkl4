@@ -7,7 +7,7 @@
     </div>
     <div class="card-body text-dark">
       <p class="text-muted small">
-        Diperbaharui pada 8 November 2025
+        Diperbaharui pada 15 November 2025
       </p>
       <h5 class="fw-bold">Akun Anggota e-PKL</h5>
       <ul>
@@ -35,9 +35,14 @@
       </ul>
       <h5 class="fw-bold">Terkait Elemen</h5>
       <ul>
-        <li>Elemen berisi CP dan tujuan dari Mapel PKL.</li>
+        <li>
+          Berdasarkan keputusan <nuxt-link to="https://kurikulum.kemdikbud.go.id/file/1687442514_manage_file.pdf" target="_blank">Kepala Badan Standar, Kurikulum, dan Asesmen Pendidikan (BSKAP)</nuxt-link>
+          Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi yang mendasari hukum utama mengatur elemen Capaian Pembelajaran untuk mata pelajaran
+          PKK dan PKL dalam kurikulum merdeka.
+        </li>
+        <li>Elemen berisi CP dan tujuan dari mata pelajaran PKL.</li>
         <li>Dilarang keras mengubah Elemen default yang sudah ada pada aplikasi e-PKL.</li>
-        <li>Setiap Kepala Program Keahlian wajib mengisi poin-poin elemen sesuai program keahlian.</li>
+        <li>Setiap Kepala Program Keahlian wajib mengisi poin-poin elemen yang telah disusun bersama Kurikulum.</li>
         <li>Elemen ini akan digunakan oleh peserta didik untuk mengisi Jurnal Harian.</li>
       </ul>
       <h5 class="fw-bold">Terkait Jurnal Harian</h5>
@@ -83,7 +88,11 @@
       </ul>
       <h5 class="fw-bold">Terkait Rapor PKL</h5>
       <ul>
-        <li>Guru Pembimbing memeriksa kembali nilai yang sudah divalidasi.</li>
+        <li>
+          Berdasarkan keputusan <nuxt-link to="https://kurikulum.kemdikbud.go.id/file/1687442514_manage_file.pdf" target="_blank">Kepala Badan Standar, Kurikulum, dan Asesmen Pendidikan (BSKAP)</nuxt-link>
+          Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi, bahwa hasil asesmen disampaikan dalam rapor dengan mencantumkan keterangan industri tentang kinerja secara keseluruhan
+          berdasarkan jurnal PKL, sertifikat atau surat keterangan PKL dari dunia kerja.
+        </li>
         <li>Guru Pembimbing berkewajiban mencetak Rapor peserta dan menandatangani.</li>
         <li>Guru Pembimbing berkewajiban menyerahkan Rapor yang sudah ditanda tangan kepada Walikelas.</li>
       </ul>
