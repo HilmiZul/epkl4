@@ -65,8 +65,8 @@
                   <td class="fw-bold">
                     <nuxt-link v-if="role == 'admin' || role == 'jurusan'" :to="`/iduka/${company.id}`" class="link">{{ company.nama }}</nuxt-link>
                     <span v-else>{{ company.nama }}</span>
-                    <nuxt-link v-if="company.alamat" :to="`https://www.google.com/maps/search/?api=1&query=${company.nama} ${company.alamat}`" target="_blannk" class="hand-cursor ms-2 text-dark"><i class="bi bi-geo-alt-fill"></i></nuxt-link>
-                    <span v-if="company.catatan" @click="setModalCatatanById(company.id, company.catatan)" data-bs-toggle="modal" data-bs-target="#catatan" class="hand-cursor ms-3"><i class="bi bi-stickies"></i></span>
+                    <!-- <nuxt-link v-if="(role == 'admin' || role == 'jurusan') && company.alamat" :to="`https://www.google.com/maps/search/?api=1&query=${company.nama} ${company.alamat}`" target="_blannk" class="hand-cursor ms-2 text-dark"><i class="bi bi-geo-alt-fill"></i></nuxt-link> -->
+                    <span @click="setModalCatatanById(company.id, company)" data-bs-toggle="modal" data-bs-target="#catatan" class="hand-cursor ms-3"><i class="bi bi-stickies"></i></span>
                   </td>
                   <td class="smallest">{{ company.wilayah.charAt(0).toUpperCase() + company.wilayah.slice(1) }} kota </td>
                   <td class="smallest">
@@ -126,17 +126,28 @@
     </div>
   </div>
 
-  <!-- Single Modal: Catatan -->
+  <!-- Single Modal: Pratinjau / Quick preview -->
   <div class="modal" id="catatan" aria-hidden="true" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-        <div class="modal-header rounded-0 bg-warning fw-bold border-bottom border-3 border-dark">
-          <div class="fs-4">Catatan</div>
+        <div class="modal-header rounded-0 bg-info fw-bold border-bottom border-3 border-dark">
+          <div class="fs-4">Pratinjau IDUKA</div>
           <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
         </div>
-        <div class="modal-body py-4">
+        <div v-if="pratinjau_iduka" class="modal-body py-3">
+          <div v-if="pratinjau_iduka.wilayah == 'dalam'" class="mb-3 badge bg-dark">{{ pratinjau_iduka.wilayah.charAt(0).toUpperCase() + pratinjau_iduka.wilayah.slice(1) }} kota</div>
+          <div v-else class="mb-3 badge text-dark">{{ pratinjau_iduka.wilayah.charAt(0).toUpperCase() + pratinjau_iduka.wilayah.slice(1) }} kota</div>
           <!-- <loading-placeholder v-if="isLoadingModalCatatan" col="12" row="1" /> -->
-          {{ catatan_content }}
+          <div class="fw-bold">Nama </div>
+          <p>{{ pratinjau_iduka.nama }}</p>
+          <div class="fw-bold">Alamat</div>
+          <p>{{ pratinjau_iduka.alamat }}</p>
+          <div class="fw-bold">Pembimbing</div>
+          <p v-if="pratinjau_iduka.pembimbing_sekolah">{{ pratinjau_iduka.expand.pembimbing_sekolah.nama }}</p>
+          <p v-else>&#8212;</p>
+          <div class="fw-bold">Catatan</div>
+          <p v-if="pratinjau_iduka.catatan">{{ pratinjau_iduka.catatan }}</p>
+          <p v-else>&#8212;</p>
         </div>
       </div>
     </div>
@@ -160,13 +171,13 @@ let isDeleted = ref(false)
 let keyword = ref('')
 let prokel = user.user.value.program_keahlian
 let opsiWilayah = ref('')
-if(role == 'tu' && role == 'guru') navigateTo('/404')
+if(role == 'guru') navigateTo('/404')
 let perPage = 20
 let isMovingPage = ref(false)
 let company_id = ref('') // single data untuk render ke Modal Delete
 let company_name = ref('')
 let catatan_id = ref('') // single data untuk render ke Modal Catatan
-let catatan_content = ref('')
+let pratinjau_iduka = ref('')
 let opsiProkel = ref([])
 let selectedProkel = ref('')
 
@@ -201,7 +212,7 @@ async function getCompanies() {
   if(keyword.value != '') searchFilter = " && nama~'"+keyword.value+"'"
 
   // filter by role
-  if(role == 'wakasek') {
+  if(role == 'wakasek' || role == 'tu') {
     filterQuery = ''
     searchFilter = ''
     if(keyword.value != '' && selectedProkel.value != '') {
@@ -233,7 +244,7 @@ async function pagination(page, loading=true) {
   let filterQuery = `program_keahlian = "${user.user.value.program_keahlian}"`
 
   // filter by role
-  if(role == 'wakasek') {
+  if(role == 'wakasek' || role == 'tu') {
     filterQuery = ''
     if(keyword.value != '' && selectedProkel.value != '') {
       filterQuery = `program_keahlian="${selectedProkel.value}"`
@@ -269,7 +280,7 @@ async function setModalDeleteById(id, name) {
 // ini akan memuat single record yang akan dirender ke Modal catatan
 async function setModalCatatanById(id, content) {
   catatan_id.value = id
-  catatan_content.value = content
+  pratinjau_iduka.value = content
 }
 
 async function filterByWilayah() {
@@ -293,7 +304,7 @@ async function filterByWilayah() {
 }
 
 async function getProkelForOption() {
-  if(role == 'admin' || role == 'jurusan' || role == 'wakasek') {
+  if(role == 'admin' || role == 'jurusan' || role == 'wakasek' || role == 'tu') {
     let res_prokel = await client.collection('program_keahlian').getFullList({
       sort: "created"
     })
