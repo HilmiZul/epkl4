@@ -24,7 +24,7 @@
             <nuxt-link v-if="role === 'admin' || role === 'jurusan'" to="/peserta" :activeClass="activeClass">
               <li class="list-group-item"><i class="bi bi-person-fill"></i> Peserta Didik <span v-if="peserta.length > 0" class="badge rounded-5 text-dark float-end">{{ peserta.length }}</span></li>
             </nuxt-link>
-            <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role === 'wakasek'" to="/iduka" :activeClass="activeClass">
+            <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role === 'wakasek' || role === 'tu'" to="/iduka" :activeClass="activeClass">
               <li class="list-group-item"><i class="bi bi-buildings-fill"></i> IDUKA</li>
             </nuxt-link>
             <nuxt-link to="/pemetaan/pkl" :activeClass="activeClass">
