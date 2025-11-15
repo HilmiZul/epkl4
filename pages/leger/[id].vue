@@ -30,11 +30,11 @@
                 </div>
                 <div class="col-lg-6">
                   <nav>
-                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                      <button @click="() => isSaved = false" class="nav-link active" id="nilai-tab" data-bs-toggle="tab" data-bs-target="#nav-nilai" type="button" role="tab" aria-controls="nav-nilai" aria-selected="true">Nilai</button>
-                      <button @click="() => isSaved = false" class="nav-link" id="presensi-tab" data-bs-toggle="tab" data-bs-target="#nav-deskripsi" type="button" role="tab" aria-controls="nav-deskripsi" aria-selected="false">Deskripsi</button>
-                      <button @click="() => isSaved = false" class="nav-link" id="presensi-tab" data-bs-toggle="tab" data-bs-target="#nav-presensi" type="button" role="tab" aria-controls="nav-presensi" aria-selected="false">Kehadiran</button>
-                      <button @click="() => isSaved = false" v-if="form.isEntrust" class="nav-link" id="sertifikat-tab" data-bs-toggle="tab" data-bs-target="#nav-sertifikat" type="button" role="tab" aria-controls="nav-sertifikat" aria-selected="false">Sertifikat</button>
+                    <div class="nav nav-tabs small" id="nav-tab" role="tablist">
+                      <button @click="() => isSaved = false" class="nav-link p-2 active" id="nilai-tab" data-bs-toggle="tab" data-bs-target="#nav-nilai" type="button" role="tab" aria-controls="nav-nilai" aria-selected="true">Nilai</button>
+                      <button @click="() => isSaved = false" class="nav-link p-2" id="presensi-tab" data-bs-toggle="tab" data-bs-target="#nav-deskripsi" type="button" role="tab" aria-controls="nav-deskripsi" aria-selected="false">Deskripsi</button>
+                      <button @click="() => isSaved = false" class="nav-link p-2" id="presensi-tab" data-bs-toggle="tab" data-bs-target="#nav-presensi" type="button" role="tab" aria-controls="nav-presensi" aria-selected="false">Kehadiran</button>
+                      <button @click="() => isSaved = false" v-if="form.isEntrust" class="nav-link p-2" id="sertifikat-tab" data-bs-toggle="tab" data-bs-target="#nav-sertifikat" type="button" role="tab" aria-controls="nav-sertifikat" aria-selected="false">Sertifikat</button>
                     </div>
                   </nav>
                 </div>
@@ -349,6 +349,7 @@ onMounted(() => {
   border-top: 2px solid #000;
   border-right: 2px solid #000;
   border-radius: 0;
+  background-color: #efefef;
 }
 .container-foto-nilai {
   width: 100%;
