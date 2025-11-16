@@ -26,7 +26,7 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="table-responsive">
-            <table class="table table-hover">
+            <table class="table">
               <tbody>
                 <tr v-if="isLoading">
                   <td colspan="5">
@@ -57,7 +57,7 @@
                     </div>
                     <div class="text-muted small">
                       <span v-if="n.isValid"><i class="bi bi-check-circle-fill"></i> Valid</span>
-                      <span v-else class="text-danger"><i class="bi bi-check-circle-fill"></i> Belum divalidasi</span>
+                      <span v-else class="text-danger"><i class="bi bi-dash-circle-fill"></i> Belum divalidasi</span>
                     </div>
                     <nuxt-link v-if="n.isValid" :to="`/leger/${n.id}`" class="mt-2 btn btn-info btn-sm border border-2 border-dark">Lihat <i class="bi bi-arrow-right"></i></nuxt-link>
                     <nuxt-link v-else :to="`/leger/${n.id}`" class="mt-2 btn btn-danger btn-sm border border-2 border-dark">Validasi sekarang <i class="bi bi-arrow-right"></i></nuxt-link>
