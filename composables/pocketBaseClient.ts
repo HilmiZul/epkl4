@@ -1,3 +1,4 @@
+import { useRuntimeConfig } from 'nuxt/app';
 import PocketBase from 'pocketbase';
 
 const config = useRuntimeConfig()
