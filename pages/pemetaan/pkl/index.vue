@@ -67,7 +67,7 @@
                       <i class="bi bi-globe-asia-australia me-2"></i><nuxt-link :to="`https://www.google.com/maps/search/?api=1&query=${pemetaan.expand.iduka.nama} ${pemetaan.expand.iduka.alamat}`" class="link" target="_blank">Buka peta <i class="bi bi-arrow-up-right"></i></nuxt-link>
                     </div>
                     <div class="small text-grey">
-                      <i class="bi bi-pin-map me-2"></i>{{ pemetaan.expand.iduka.wilayah.charAt(0).toUpperCase() + pemetaan.expand.iduka.wilayah.slice(1) }} kota
+                      <i class="bi bi-geo-alt me-2"></i>{{ pemetaan.expand.iduka.wilayah.charAt(0).toUpperCase() + pemetaan.expand.iduka.wilayah.slice(1) }} kota
                     </div>
                     <span v-if="pemetaan.expand.iduka.terisi < pemetaan.expand.iduka.jumlah_kuota" class="text-grey small"><i class="bi bi-ui-checks-grid me-2"></i>Terisi: <span class="text-dark fw-semibold">{{ pemetaan.expand.iduka.terisi }} dari {{ pemetaan.expand.iduka.jumlah_kuota }}</span></span>
                     <span v-else class="text-grey small"><i class="bi bi-people me-2"></i>{{ pemetaan.expand.iduka.terisi }} peserta</span>
