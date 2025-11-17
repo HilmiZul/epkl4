@@ -61,17 +61,21 @@
                 <tr v-else v-for="(pemetaan) in newMapping" :key="pemetaan.id">
                   <!-- <td >{{ i+1 }}.</td> -->
                   <td v-if="pemetaan.showIduka" :rowspan="pemetaan.idukaRowspan">
-                    <span @click="setModalIdukaById(pemetaan.id, pemetaan)" data-bs-toggle="modal" data-bs-target="#pratinjau-iduka" class="link hand-cursor fw-bold">{{ pemetaan.expand.iduka.nama }}</span>
+                    <span class="fw-bold">{{ pemetaan.expand.iduka.nama }}</span>
                     <!-- <span class="text-grey me-2"><i class="bi bi-building"></i></span><nuxt-link :to="`https://www.google.com/maps/search/?api=1&query=${pemetaan.expand.iduka.nama} ${pemetaan.expand.iduka.alamat}`" class="link" target="_blank"><span class="fw-bold">{{ pemetaan.expand.iduka.nama }}</span> <sup><i class="bi bi-arrow-up-right"></i></sup></nuxt-link> -->
-                    <div class="small text-grey mt-2">
+                    <div class="small text-grey mt-2 mb-1">
+                      <i class="bi bi-geo-alt me-2"></i><nuxt-link :to="`https://www.google.com/maps/search/?api=1&query=${pemetaan.expand.iduka.nama} ${pemetaan.expand.iduka.alamat}`" class="link" target="_blank">{{ pemetaan.expand.iduka.wilayah.charAt(0).toUpperCase() + pemetaan.expand.iduka.wilayah.slice(1) }} kota <i class="bi bi-arrow-up-right"></i></nuxt-link>
+                    </div>
+                    <div class="small text-grey mb-1">
+                      <span @click="setModalIdukaById(pemetaan.id, pemetaan)" data-bs-toggle="modal" data-bs-target="#pratinjau-iduka" class="link hand-cursor"><i class="bi bi-chat-right-text me-2"></i>Pratinjau IDUKA</span>
+                      <!-- <i class="bi bi-globe-asia-australia me-2"></i><nuxt-link :to="`https://www.google.com/maps/search/?api=1&query=${pemetaan.expand.iduka.nama} ${pemetaan.expand.iduka.alamat}`" class="link" target="_blank">Buka peta <i class="bi bi-arrow-up-right"></i></nuxt-link> -->
+                    </div>
+                    <!-- <div class="small text-grey">
                       <i class="bi bi-globe-asia-australia me-2"></i><nuxt-link :to="`https://www.google.com/maps/search/?api=1&query=${pemetaan.expand.iduka.nama} ${pemetaan.expand.iduka.alamat}`" class="link" target="_blank">Buka peta <i class="bi bi-arrow-up-right"></i></nuxt-link>
-                    </div>
-                    <div class="small text-grey">
-                      <i class="bi bi-geo-alt me-2"></i>{{ pemetaan.expand.iduka.wilayah.charAt(0).toUpperCase() + pemetaan.expand.iduka.wilayah.slice(1) }} kota
-                    </div>
-                    <span v-if="pemetaan.expand.iduka.terisi < pemetaan.expand.iduka.jumlah_kuota" class="text-grey small"><i class="bi bi-ui-checks-grid me-2"></i>Terisi: <span class="text-dark fw-semibold">{{ pemetaan.expand.iduka.terisi }} dari {{ pemetaan.expand.iduka.jumlah_kuota }}</span></span>
-                    <span v-else class="text-grey small"><i class="bi bi-people me-2"></i>{{ pemetaan.expand.iduka.terisi }} peserta</span>
-                    <div class="small fst-italitc text-grey"><i class="bi bi-person-workspace me-2"></i>
+                    </div> -->
+                    <div v-if="pemetaan.expand.iduka.terisi < pemetaan.expand.iduka.jumlah_kuota" class="text-grey small mb-1"><i class="bi bi-ui-checks-grid me-2"></i>Terisi: <span class="text-dark fw-semibold">{{ pemetaan.expand.iduka.terisi }} dari {{ pemetaan.expand.iduka.jumlah_kuota }}</span></div>
+                    <div v-else class="text-grey small"><i class="bi bi-people me-2"></i>{{ pemetaan.expand.iduka.terisi }} peserta</div>
+                    <div class="small fst-italitc text-grey mb-1"><i class="bi bi-person-workspace me-2"></i>
                       <span v-if="pemetaan.expand.iduka?.pembimbing_sekolah == '-' || pemetaan.expand.iduka?.pembimbing_sekolah == ''">&#8212;</span>
                       <span v-else> {{ pemetaan.expand.iduka?.expand.pembimbing_sekolah?.nama }}</span>
                     </div>

@@ -36,8 +36,8 @@
             <table class="table table-hover table-striped table-bordereless">
               <thead>
                 <tr>
-                  <th width="2%">#</th>
-                  <th width="60%">Nama</th>
+                  <!-- <th width="2%">#</th> -->
+                  <th width="60%" colspan="2">Nama</th>
                   <th width="10%">Wilayah</th>
                   <th width="6%">Terisi</th>
                   <th width="17%">Pembimbing</th>
@@ -61,12 +61,14 @@
                   </td>
                 </tr>
                 <tr v-else v-for="(company, i) in companies.items" :key="i">
-                  <td><span class="badge text-dark">{{ i+1 }}</span></td>
+                  <td>
+                    <!-- <span class="badge text-dark">{{ i+1 }}</span> -->
+                    <span @click="setModalCatatanById(company.id, company)" data-bs-toggle="modal" data-bs-target="#catatan" class="hand-cursor"><i class="bi bi-chat-right-text"></i></span>
+                  </td>
                   <td class="fw-bold">
                     <nuxt-link v-if="role == 'admin' || role == 'jurusan'" :to="`/iduka/${company.id}`" class="link">{{ company.nama }}</nuxt-link>
                     <span v-else>{{ company.nama }}</span>
                     <!-- <nuxt-link v-if="(role == 'admin' || role == 'jurusan') && company.alamat" :to="`https://www.google.com/maps/search/?api=1&query=${company.nama} ${company.alamat}`" target="_blannk" class="hand-cursor ms-2 text-dark"><i class="bi bi-geo-alt-fill"></i></nuxt-link> -->
-                    <span @click="setModalCatatanById(company.id, company)" data-bs-toggle="modal" data-bs-target="#catatan" class="hand-cursor ms-2"><i class="bi bi-search"></i></span>
                   </td>
                   <td class="smallest">{{ company.wilayah.charAt(0).toUpperCase() + company.wilayah.slice(1) }} kota </td>
                   <td class="smallest">
