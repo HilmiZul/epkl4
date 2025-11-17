@@ -66,7 +66,7 @@
                     <div class="small text-grey mt-2 mb-1">
                       <i class="bi bi-geo-alt me-2"></i><nuxt-link :to="`https://www.google.com/maps/search/?api=1&query=${pemetaan.expand.iduka.nama} ${pemetaan.expand.iduka.alamat}`" class="link" target="_blank">{{ pemetaan.expand.iduka.wilayah.charAt(0).toUpperCase() + pemetaan.expand.iduka.wilayah.slice(1) }} kota <i class="bi bi-arrow-up-right"></i></nuxt-link>
                     </div>
-                    <div class="small text-grey mb-1">
+                    <div v-if="role == 'tu'" class="small text-grey mb-1">
                       <span @click="setModalIdukaById(pemetaan.id, pemetaan)" data-bs-toggle="modal" data-bs-target="#pratinjau-iduka" class="link hand-cursor"><i class="bi bi-chat-right-text me-2"></i>Pratinjau IDUKA</span>
                       <!-- <i class="bi bi-globe-asia-australia me-2"></i><nuxt-link :to="`https://www.google.com/maps/search/?api=1&query=${pemetaan.expand.iduka.nama} ${pemetaan.expand.iduka.alamat}`" class="link" target="_blank">Buka peta <i class="bi bi-arrow-up-right"></i></nuxt-link> -->
                     </div>
