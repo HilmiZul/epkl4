@@ -37,7 +37,7 @@
         <div v-else class="p-4 text-muted">
           <div class="text-center fs-4">
             <i class="bi bi-database-fill fs-1"></i> <br>
-            Belum ada nilai
+            Belum tersedia
           </div>
           <div class="text-center">
             Pastikan peserta sudah menyerahkan nilai dan divalidasi oleh Anda.

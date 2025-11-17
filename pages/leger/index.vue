@@ -34,7 +34,7 @@
           </div>
           <div v-else-if="nilai?.length < 1" class="text-center text-muted my-3">
             <div class="fs-1"><i class="bi bi-database-fill"></i></div>
-            <div class="fs-4">Belum ada nilai</div>
+            <div class="fs-4">Belum tersedia</div>
             <div class="pb-3">Nilai akan tampil apabila masa PKL selesai & peserta menyerehkan nilai.</div>
           </div>
           <ul v-else v-for="(n, i) in nilai" :key="i" class="list-group list-group-flush">
