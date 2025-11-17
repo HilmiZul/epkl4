@@ -259,4 +259,14 @@ input[type="checkbox"]:not(:checked) {
   left: 0;
   z-index: 1;
 }
+.list-group-item:hover {
+  background-color: #f9f9f9;
+}
+ul li,
+ul.list-group,
+ul.list-group > a,
+ul.list-group > a:hover {
+  text-decoration: none;
+  border: none !important
+}
 </style>
