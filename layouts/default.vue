@@ -156,7 +156,7 @@ table th {
   color: #fff;
 }
 .table-responsive {
-  height: 600px;
+  /*height: 600px;*/
   overflow-x: auto;
   overflow-y: auto;
   border: 2px solid #000
@@ -252,5 +252,11 @@ input[type="checkbox"]:not(:checked) {
 }
 .badge {
   border: 1.8px solid #000 !important
+}
+.sticky {
+  position: sticky !important;
+  top: 1rem;
+  left: 0;
+  z-index: 1;
 }
 </style>
