@@ -4,7 +4,10 @@
       <loading-placeholder v-if="isLoading" row="1" col="6" />
       <span v-else class="h4 fw-bold text-muted">Validasi / <span class="text-dark">{{ certificate.expand.siswa.nama }}</span></span>
     </div>
-    <div class="card-body">
+    <div v-if="$device.isMobileOrTablet" class="card-body">
+      <div class="alert alert-warning">Silahkan gunakan komputer/laptop!</div>
+    </div>
+    <div v-else class="card-body">
       <div v-if="isLoading" class="row py-3">
         <div class="col-lg-12">
           <loading-placeholder row="1" col="12" />
@@ -32,7 +35,7 @@
                   <nav>
                     <div class="nav nav-tabs small" id="nav-tab" role="tablist">
                       <button @click="() => isSaved = false" class="nav-link p-2 active" id="nilai-tab" data-bs-toggle="tab" data-bs-target="#nav-nilai" type="button" role="tab" aria-controls="nav-nilai" aria-selected="true">Nilai</button>
-                      <button @click="() => isSaved = false" class="nav-link p-2" id="presensi-tab" data-bs-toggle="tab" data-bs-target="#nav-deskripsi" type="button" role="tab" aria-controls="nav-deskripsi" aria-selected="false">Deskripsi</button>
+                      <!-- <button @click="() => isSaved = false" class="nav-link p-2" id="presensi-tab" data-bs-toggle="tab" data-bs-target="#nav-deskripsi" type="button" role="tab" aria-controls="nav-deskripsi" aria-selected="false">Deskripsi</button> -->
                       <button @click="() => isSaved = false" class="nav-link p-2" id="presensi-tab" data-bs-toggle="tab" data-bs-target="#nav-presensi" type="button" role="tab" aria-controls="nav-presensi" aria-selected="false">Kehadiran</button>
                       <button @click="() => isSaved = false" v-if="form.isEntrust" class="nav-link p-2" id="sertifikat-tab" data-bs-toggle="tab" data-bs-target="#nav-sertifikat" type="button" role="tab" aria-controls="nav-sertifikat" aria-selected="false">Sertifikat</button>
                     </div>
@@ -41,29 +44,83 @@
                 <div class="tab-content pt-3" id="nav-tabContent">
                   <!-- pane: nilai -->
                   <div class="tab-pane fade show active" id="nav-nilai" role="tabpanel" aria-labelledby="nav-nilai-tab" tabindex="0">
+                    <div data-bs-toggle="modal" data-bs-target="#preview-nilai" class="mb-4 mt-2 fw-bold pb-2">
+                      <span class="hand-cursor border-bottom border-2 border-dark"><i class="bi bi-image-fill"></i> Lihat foto nilai</span>
+                    </div>
                     <div class="row">
                       <div class="col-lg-6">
                         <div class="mb-4">
                           <label for="el_1">Nilai Elemen 1 <span class="text-danger">*</span></label>
                           <input v-model="form.nilai_elemen1" type="number" min="0" max="100" id="el_1" class="form form-control form-control-lg" required>
+                          <textarea v-model="deskripsi_temp1" readonly class="form form-control" cols="30" rows="6" placeholder="pratinjau deskripsi..."></textarea>
                         </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <label for="" class="mb-2">Deskripsi Elemen 1</label>
+                        <div v-for="(e,i) in deskripsi.elemen1" :key="i" class="mb-1 form-check">
+                          <label :for="`${i}-${e}`" class="fw-normal">{{ e }}
+                            <input v-model="deskripsi_temp1" :value="e" class="form-check-input" type="checkbox" :id="`${i}-${e}`">
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-lg-6">
                         <div class="mb-4">
                           <label for="el_2">Nilai Elemen 2 <span class="text-danger">*</span></label>
                           <input v-model="form.nilai_elemen2" type="number" min="0" max="100" id="el_2" class="form form-control form-control-lg" required>
+                          <textarea v-model="deskripsi_temp2" readonly class="form form-control" cols="30" rows="6" placeholder="pratinjau deskripsi..."></textarea>
                         </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <label for="" class="mb-2">Deskripsi Elemen 2</label>
+                        <div v-for="(e,i) in deskripsi.elemen2" :key="i" class="mb-1 form-check">
+                          <label :for="`${i}-${e}`" class="fw-normal">{{ e }}
+                            <input v-model="deskripsi_temp2" :value="e" class="form-check-input" type="checkbox" :id="`${i}-${e}`">
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-lg-6">
                         <div class="mb-4">
                           <label for="el_3">Nilai Elemen 3 <span class="text-danger">*</span></label>
                           <input v-model="form.nilai_elemen3" type="number" min="0" max="100" id="el_3" class="form form-control form-control-lg" required>
+                          <textarea v-model="deskripsi_temp3" readonly class="form form-control" cols="30" rows="6" placeholder="pratinjau deskripsi..."></textarea>
                         </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <label for="" class="mb-2">Deskripsi Elemen 3</label>
+                        <div v-for="(e,i) in deskripsi.elemen3" :key="i" class="mb-1 form-check">
+                          <label :for="`${i}-${e}`" class="fw-normal">{{ e }}
+                            <input v-model="deskripsi_temp3" :value="e" class="form-check-input" type="checkbox" :id="`${i}-${e}`">
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-lg-6">
                         <div class="mb-4">
                           <label for="el_4">Nilai Elemen 4 <span class="text-danger">*</span></label>
                           <input v-model="form.nilai_elemen4" type="number" min="0" max="100" id="el_4" class="form form-control form-control-lg" required>
+                          <textarea v-model="deskripsi_temp4" readonly class="form form-control" cols="30" rows="6" placeholder="pratinjau deskripsi..."></textarea>
                         </div>
                         <div class="mb-3">
                           <div class="badge bg-dark fw-bold p-2 fs-6">Total: {{ form.nilai_elemen1 + form.nilai_elemen2 + form.nilai_elemen3 + form.nilai_elemen4 }}</div>
                         </div>
                       </div>
                       <div class="col-lg-6">
+                        <label for="" class="mb-2">Deskripsi Elemen 4</label>
+                        <div v-for="(e,i) in deskripsi.elemen4" :key="i" class="mb-1 form-check">
+                          <label :for="`${i}-${e}`" class="fw-normal">{{ e }}
+                            <input v-model="deskripsi_temp4" :value="e" class="form-check-input" type="checkbox" :id="`${i}-${e}`">
+                          </label>
+                        </div>
+                      </div>
+                      <!-- <div class="col-lg-6">
                         <div class="mb-4">
                           <div class="fw-bold pb-2"><i class="bi bi-image-fill"></i> Foto Halaman Nilai</div>
                           <div class="container-foto-nilai">
@@ -72,11 +129,11 @@
                             alt="Foto jurnal nilai" width="100%" class="border border-2 border-dark mb-2 hand-cursor foto-nilai">
                           </div>
                         </div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                   <!-- pane: deskripsi -->
-                  <div class="tab-pane fade show" id="nav-deskripsi" role="tabpanel" aria-labelledby="nav-nilai-tab" tabindex="0">
+                  <!-- <div class="tab-pane fade show" id="nav-deskripsi" role="tabpanel" aria-labelledby="nav-nilai-tab" tabindex="0">
                     <div class="row">
                       <div class="col-lg-6">
                         <div class="mb-4">
@@ -118,7 +175,7 @@
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                   <!-- pane: kehadiran -->
                   <div class="tab-pane fade" id="nav-presensi" role="tabpanel" aria-labelledby="nav-presensi-tab" tabindex="0">
                     <div class="row">
@@ -180,7 +237,7 @@
                     <input v-model="form.isValid" :checked="form.isValid" class="form-check-input" type="checkbox" id="entrust" switch>
                     <label for="entrust">Tandai valid</label>
                   </div>
-                  <button :disabled="isSending || form.deskripsi_elemen1.length < 12 || form.deskripsi_elemen2.length < 12 || form.deskripsi_elemen3.length < 12 || form.deskripsi_elemen4.length < 12"
+                  <button :disabled="isSending"
                     class="btn btn-success me-2 border border-2 border-dark mb-4">
                     <span v-if="isSending">Sedang menyimpan</span>
                     <span v-else>Simpan</span>
@@ -249,16 +306,33 @@ let form = ref({
   "sakit": "",
   "izin": "",
   "tanpa_keterangan": "",
-  "deskripsi_elemen1": "",
-  "deskripsi_elemen2": "",
-  "deskripsi_elemen3": "",
-  "deskripsi_elemen4": "",
+  "deskripsi_elemen1": '',
+  "deskripsi_elemen2": '',
+  "deskripsi_elemen3": '',
+  "deskripsi_elemen4": '',
 })
+let deskripsi = ref({
+  elemen1: [],
+  elemen2: [],
+  elemen3: [],
+  elemen4: [],
+})
+// variable temporary untuk menghimpun deskripsi sementara
+// ini dilakukan untuk menghindari null yang disebabkan oleh tipe data JSON dari BE
+// deskripsi_temp{i} diinisialisasi dengan [] kosong
+let deskripsi_temp1 = ref([])
+let deskripsi_temp2 = ref([])
+let deskripsi_temp3 = ref([])
+let deskripsi_temp4 = ref([])
 
 async function updateNilai() {
   isSending.value = true
   isSaved.value = false
   try {
+    form.value.deskripsi_elemen1 = deskripsi_temp1.value
+    form.value.deskripsi_elemen2 = deskripsi_temp2.value
+    form.value.deskripsi_elemen3 = deskripsi_temp3.value
+    form.value.deskripsi_elemen4 = deskripsi_temp4.value
     let res = await client.collection('nilai').update(route.params.id, form.value)
     if(res) {
       isSending.value = false
@@ -285,6 +359,12 @@ async function getNilai(loading=true, isCert=false) {
       form.value = res
       tempLogoImg.value = certificate.value.logo
       tempNilaiImg.value = certificate.value.foto_jurnal_nilai
+      // memindahkan nilai deskripsi_elemen{i} ke variable temporary
+      // sebelum di assign, divalidasi terlebih dahulu agar tidak terjadi null dengan mengganti ke default [] kosong
+      deskripsi_temp1.value = form.value.deskripsi_elemen1 || []
+      deskripsi_temp2.value = form.value.deskripsi_elemen2 || []
+      deskripsi_temp3.value = form.value.deskripsi_elemen3 || []
+      deskripsi_temp4.value = form.value.deskripsi_elemen4 || []
       isLoading.value = false
       isCertificate.value = true
     }
@@ -317,6 +397,20 @@ async function getElemen() {
   if(res) {
     elemens.value = res
     isLoadingElemen.value = false
+    for (let i = 0; i < elemens.value.length; i++) {
+      if(elemens.value[i].elemen == 'Internalisasi dan penerapan soft skills') {
+        deskripsi.value.elemen1.push(elemens.value[i].tujuan)
+      }
+      else if(elemens.value[i].elemen == 'Penerapan hard skills') {
+        deskripsi.value.elemen2.push(elemens.value[i].tujuan)
+      }
+      else if(elemens.value[i].elemen == 'Peningkatan dan pengembangan hard skills') {
+        deskripsi.value.elemen3.push(elemens.value[i].tujuan)
+      }
+      else if(elemens.value[i].elemen == 'Penyiapan Kemandirian Berwirausaha') {
+        deskripsi.value.elemen4.push(elemens.value[i].tujuan)
+      }
+    }
   }
 }
 
