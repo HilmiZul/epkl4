@@ -19,6 +19,7 @@
                 <option value="Penerapan hard skills">Penerapan hard skills</option>
                 <option value="Peningkatan dan pengembangan hard skills">Peningkatan dan pengembangan hard skills</option>
                 <option value="Penyiapan Kemandirian Berwirausaha">Penyiapan Kemandirian Berwirausaha</option>
+                <option value="Lain-lain">Lain-lain</option>
               </select>
             </div>
             <div class="my-4">
