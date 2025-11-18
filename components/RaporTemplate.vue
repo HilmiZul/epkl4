@@ -84,7 +84,7 @@
           <td>Menerapkan soft skills yang dibutuhkan dalam dunia kerja</td>
           <td v-if="props.isLoaded" class="text-center">{{ props.rapor?.nilai_elemen1 }}</td>
           <td v-else class="text-center">&#8212;</td>
-          <td v-if="props.isLoaded" class="text-justify">{{ props.rapor?.deskripsi_elemen1 }}</td>
+          <td v-if="props.isLoaded && props.rapor" class="text-justify">{{ props.rapor?.deskripsi_elemen1?.toString() }}</td>
           <td v-else class="text-center">&#8212;</td>
         </tr>
         <tr>
@@ -92,7 +92,7 @@
           <td>Menerapkan norma, POS, dan K3LH yang ada pada dunia kerja</td>
           <td v-if="props.isLoaded" class="text-center">{{ props.rapor?.nilai_elemen2 }}</td>
           <td v-else class="text-center">&#8212;</td>
-          <td v-if="props.isLoaded" class="text-justify">{{ props.rapor?.deskripsi_elemen2 }}</td>
+          <td v-if="props.isLoaded && props.rapor" class="text-justify">{{ props.rapor?.deskripsi_elemen2?.toString() }}</td>
           <td v-else class="text-center">&#8212;</td>
         </tr>
         <tr>
@@ -100,7 +100,7 @@
           <td>Menerapkan kompetensi teknis yang sudah dipelajari di sekolah dan/atau baru dipelajari pada dunia kerja</td>
           <td v-if="props.isLoaded" class="text-center">{{ props.rapor?.nilai_elemen3 }}</td>
           <td v-else class="text-center">&#8212;</td>
-          <td v-if="props.isLoaded" class="text-justify">{{ props.rapor?.deskripsi_elemen3 }}</td>
+          <td v-if="props.isLoaded && props.rapor" class="text-justify">{{ props.rapor?.deskripsi_elemen3?.toString() }}</td>
           <td v-else class="text-center">&#8212;</td>
         </tr>
         <tr>
@@ -108,7 +108,7 @@
           <td>Memahami alur bisnis dunia kerja tempat PKL</td>
           <td v-if="props.isLoaded" class="text-center">{{ props.rapor?.nilai_elemen4 }}</td>
           <td v-else class="text-center">&#8212;</td>
-          <td v-if="props.isLoaded" class="text-justify">{{ props.rapor?.deskripsi_elemen4 }}</td>
+          <td v-if="props.isLoaded && props.rapor" class="text-justify">{{ props.rapor?.deskripsi_elemen4?.toString() }}</td>
           <td v-else class="text-center">&#8212;</td>
         </tr>
       </tbody>
