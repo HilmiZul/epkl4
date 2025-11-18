@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary bg-white border-top border-bottom border-3 border-dark mb-3 sticky">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary bg-white border-top border-bottom border-3 border-dark mb-3">
     <div class="container-fluid">
       <nuxt-link v-if="user" class="navbar-brand fw-bold text-muted small" to="/">Halo, <span class="text-dark">{{ username.toUpperCase() }}</span>!</nuxt-link>
       <button class="navbar-toggler rounded-0 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
