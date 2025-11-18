@@ -13,7 +13,13 @@
           <form @submit.prevent="updateElemenCp">
             <div class="mb-4">
               <label for="elemen">Elemen</label>
-              <input v-model="form.elemen" :disabled="isLoading" type="text" id="elemen" class="form form-control form-control-lg" placeholder="ketik elemen mapel PKL disini" required>
+              <select v-model="form.elemen" class="form form-select form-select-lg" id="elemen" required>
+                <option value="">&#8212; Pilih Elemen &#8212;</option>
+                <option value="Internalisasi dan penerapan soft skills">Internalisasi dan penerapan soft skills</option>
+                <option value="Penerapan hard skills">Penerapan hard skills</option>
+                <option value="Peningkatan dan pengembangan hard skills">Peningkatan dan pengembangan hard skills</option>
+                <option value="Penyiapan Kemandirian Berwirausaha">Penyiapan Kemandirian Berwirausaha</option>
+              </select>
             </div>
             <div class="my-4">
               <label for="cp">Capaian Pembelajaran</label>
