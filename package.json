@@ -1,6 +1,6 @@
 {
   "name": "epkl4",
-  "version": "4.11.0",
+  "version": "4.11.1",
   "author": "Zul Hilmi",
   "dependencies": {
     "@neoconfetti/vue": "^2.2.1",
