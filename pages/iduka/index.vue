@@ -55,9 +55,13 @@
                   </td>
                 </tr>
                 <tr v-else-if="companies && companies.totalItems < 1" class="text-center my-5">
-                  <td colspan="6">
+                  <td v-if="searchActivated" colspan="6">
+                    <div class="text-muted"><i class="bi bi-search fs-1"></i></div>
+                    <div class="pb-3 text-muted">Pencarian tidak ditemukan</div>
+                  </td>
+                  <td v-else colspan="6">
                     <div class="text-muted"><i class="bi bi-database-fill fs-1"></i></div>
-                    <div class="pb-3 text-muted">Data belum ada/tidak ditemukan</div>
+                    <div class="pb-3 text-muted">IDUKA belum tersedia</div>
                   </td>
                 </tr>
                 <tr v-else v-for="(company, i) in companies.items" :key="i">
@@ -182,6 +186,7 @@ let catatan_id = ref('') // single data untuk render ke Modal Catatan
 let pratinjau_iduka = ref('')
 let opsiProkel = ref([])
 let selectedProkel = ref('')
+let searchActivated = ref(false)
 
 async function hapusData(id) {
   client.autoCancellation(false)
@@ -211,16 +216,23 @@ async function getCompanies() {
   isLoading.value = true
   let searchFilter = ''
   let filterQuery = `program_keahlian = "${user.user.value.program_keahlian}"`
-  if(keyword.value != '') searchFilter = " && nama~'"+keyword.value+"'"
+  if(keyword.value != '') {
+    searchActivated.value = true
+    searchFilter = " && nama~'"+keyword.value+"'"
+  } else {
+    searchActivated.value = false
+  }
 
   // filter by role
   if(role == 'wakasek' || role == 'tu') {
     filterQuery = ''
     searchFilter = ''
     if(keyword.value != '' && selectedProkel.value != '') {
+      searchActivated.value =true
       filterQuery = `program_keahlian="${selectedProkel.value}"`
       searchFilter = ` && (nama~"${keyword.value}" || pembimbing_sekolah.nama~"${keyword.value}")`
     } else if(keyword.value != '') {
+      searchActivated.value = true
       searchFilter = `nama~"${keyword.value}" || pembimbing_sekolah.nama~"${keyword.value}"`
     } else if(selectedProkel.value != '') {
       filterQuery = `program_keahlian="${selectedProkel.value}"`
@@ -249,9 +261,11 @@ async function pagination(page, loading=true) {
   if(role == 'wakasek' || role == 'tu') {
     filterQuery = ''
     if(keyword.value != '' && selectedProkel.value != '') {
+      searchActivated.value = true
       filterQuery = `program_keahlian="${selectedProkel.value}"`
       searchFilter = ` && (iduka.nama~"${keyword.value}" || siswa.nama~"${keyword.value}")`
     } else if(keyword.value != '') {
+      searchActivated.value = true
       searchFilter = `iduka.nama~"${keyword.value}" || siswa.nama~"${keyword.value}"`
     } else if(selectedProkel.value != '') {
       filterQuery = `program_keahlian="${selectedProkel.value}"`

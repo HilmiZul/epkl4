@@ -53,9 +53,13 @@
                   </td>
                 </tr>
                 <tr v-else-if="mapping && mapping.totalItems < 1" class="text-center text-muted my-5">
-                  <td colspan="3">
+                  <td v-if="searchActivated" colspan="3">
+                    <div><i class="bi bi-search fs-1"></i></div>
+                    <div class="pb-3">Pencarian tidak ditemukan</div>
+                  </td>
+                  <td v-else colspan="3">
                     <div><i class="bi bi-database-fill fs-1"></i></div>
-                    <div class="pb-3">Data belum ada/tidak ditemukan</div>
+                    <div class="pb-3">Pemetaan belum tersedia</div>
                   </td>
                 </tr>
                 <tr v-else v-for="(pemetaan) in newMapping" :key="pemetaan.id">
@@ -216,6 +220,7 @@ let iduka_id = ref('') // single data untuk render ke Modal konfirmasi penerimaa
 let iduka_nama = ref('') // single data untuk render ke Modal konfirmasi penerimaan
 let pratinjau_iduka = ref('')
 let isCopy = ref(false)
+let searchActivated = ref(false)
 
 // setCetakSurat: mengambil ID IDUKA untuk ditetapkan kedalam cetakSurat.id_iduka
 // setJenisSurat: tte atau ttb untuk link cetak surat: /{opsi_jenis_surat}/{id_iduka}
@@ -286,7 +291,12 @@ async function handleAccPkl(iduka) {
 async function getPemetaan() {
   isLoading.value = true
   let searchActive = ''
-  if(keyword.value != '') searchActive = " && (iduka.nama~'"+keyword.value+"' || siswa.nama~'"+keyword.value+"')"
+  if(keyword.value != '') {
+    searchActivated.value = true
+    searchActive = " && (iduka.nama~'"+keyword.value+"' || siswa.nama~'"+keyword.value+"')"
+  } else {
+    searchActivated.value = false
+  }
   // atur filter berdasarkan role: `tu` atau selain `tu`
   let filterQuery = "program_keahlian='"+prokel+"' && iduka.pembimbing_sekolah='"+user.user.value.id+"'"
 
@@ -296,10 +306,12 @@ async function getPemetaan() {
     filterQuery = ""
     searchActive = ""
     if(keyword.value != '' && selectedProkel.value != '') {
+      searchActivated.value = true
       filterQuery = "program_keahlian='"+selectedProkel.value+"'"
       searchActive = " && (iduka.nama~'"+keyword.value+"' || siswa.nama~'"+keyword.value+"')"
     }
     else if(keyword.value != '') {
+      searchActivated.value = true
       searchActive = "iduka.nama~'"+keyword.value+"' || siswa.nama~'"+keyword.value+"'"
     }
     else if(selectedProkel.value != '') {

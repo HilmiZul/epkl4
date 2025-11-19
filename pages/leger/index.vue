@@ -8,7 +8,7 @@
       <div v-else-if="nilaiNotValid?.length > 0" class="alert alert-warning fs-6">
         Ada <span class="fw-bold">{{ nilaiNotValid.length }}</span> Nilai yang belum divalidasi
       </div>
-      <div v-if="nilai?.length > 0" class="row">
+      <div class="row">
         <div class="col-lg-6">
           <form @submit.prevent="getNilai">
             <div class="my-3 mt-0 input-group">
@@ -33,9 +33,15 @@
             <loading-placeholder row="1" col="12" />
           </div>
           <div v-else-if="nilai?.length < 1" class="text-center text-muted my-3">
-            <div class="fs-1"><i class="bi bi-database-fill"></i></div>
-            <div class="fs-4">Belum tersedia</div>
-            <div class="pb-3">Nilai akan tampil apabila masa PKL selesai & peserta menyerehkan nilai.</div>
+            <span v-if="searchActived">
+              <div class="fs-1"><i class="bi bi-search"></i></div>
+              <div class="fs-4">Pencarian tidak ditemukan</div>
+            </span>
+            <span v-else>
+              <div class="fs-1"><i class="bi bi-database-fill"></i></div>
+              <div class="fs-4">Belum tersedia</div>
+              <div class="pb-3">Nilai akan tampil apabila masa PKL selesai & peserta menyerehkan nilai.</div>
+            </span>
           </div>
           <ul v-else v-for="(n, i) in nilai" :key="i" class="list-group list-group-flush">
             <nuxt-link :to="`/leger/${n.id}`" class="fw-bold">
@@ -108,12 +114,18 @@ let isLoading = ref(true)
 let keyword = ref('')
 let nilaiNotValid = ref('')
 let count_entrust = ref('')
+let searchActived = ref(false)
 if(role != 'jurusan' && role != 'admin' && role != 'guru') navigateTo('/404')
 
 async function getNilai(loading=true) {
   isLoading.value = loading
   let filter = ''
-  if(keyword.value) filter = ` && siswa.nama~"${keyword.value}"`
+  if(keyword.value) {
+    searchActived.value = true
+    filter = ` && siswa.nama~"${keyword.value}"`
+  } else {
+    searchActived.value = false
+  }
   client.autoCancellation(false)
   let res = await client.collection('nilai').getFullList({
     filter: `iduka.pembimbing_sekolah="${user_id}" ${filter}`,

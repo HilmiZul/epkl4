@@ -117,9 +117,13 @@
                   </td>
                 </tr>
                 <tr v-else-if="!isLoading && students.totalItems < 1" class="text-center my-5">
-                  <td colspan="5">
+                  <td v-if="searchActivated" colspan="5">
+                    <div class="text-muted"><i class="bi bi-search fs-1"></i></div>
+                    <div class="pb-3 text-muted">Pencarian tidak ditemukan</div>
+                  </td>
+                  <td v-else colspan="5">
                     <div class="text-muted"><i class="bi bi-database-fill fs-1"></i></div>
-                    <div class="pb-3 text-muted">Data belum ada/tidak ditemukan</div>
+                    <div class="pb-3 text-muted">Peserta belum tersedia</div>
                   </td>
                 </tr>
                 <tr v-else v-for="(student,i) in students.items" :key="student.id">
@@ -193,11 +197,17 @@ let isMovingPage = ref(false)
 let isMovingPageModal = ref(false)
 let allStudent = ref([])
 let peserta_belum_pemetaan = ref('')
+let searchActivated = ref(false)
 
 const getStudents = async (loading=true) => {
   isLoading.value = loading
   let searchFilter = ''
-  if(keyword.value != '') searchFilter = " && nama~'"+keyword.value+"'"
+  if(keyword.value != '') {
+    searchActivated.value = true
+    searchFilter = " && nama~'"+keyword.value+"'"
+  } else {
+    searchActivated.value = false
+  }
   client.autoCancellation(false)
   const res_student = await client
     .collection('siswa')

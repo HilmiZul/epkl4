@@ -43,7 +43,7 @@
             <tr v-else-if="itemFiltered.length < 1" class="text-center my-5">
               <td colspan="4">
                 <div class="text-muted"><i class="bi bi-database-fill fs-1"></i></div>
-                <div class="pb-3 text-muted">Data belum ada/tidak ditemukan</div>
+                <div class="pb-3 text-muted">Pembimbing belum tersedia/tidak ditemukan</div>
               </td>
             </tr>
             <tr v-else v-for="(pembimbing,i) in itemFiltered" :key="pembimbing.id">

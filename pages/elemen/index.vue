@@ -48,11 +48,11 @@
             <tr v-else-if="elementsFiltered.length < 1">
               <td v-if="role == 'admin' || role == 'jurusan'" colspan="4" class="text-center">
                 <div class="text-muted"><i class="bi bi-database-fill fs-1"></i></div>
-                <div class="pb-3 text-muted">Data belum ada/tidak ditemukan</div>
+                <div class="pb-3 text-muted">Elemen belum tersedia/tidak ditemukan</div>
               </td>
               <td v-else colspan="3" class="text-center">
                 <div class="text-muted"><i class="bi bi-database-fill fs-1"></i></div>
-                <div class="pb-3 text-muted">Data belum ada/tidak ditemukan</div>
+                <div class="pb-3 text-muted">Elemen belum tersedia/tidak ditemukan</div>
               </td>
             </tr>
             <tr v-else v-for="e in elementsFiltered" :key="e.id">
