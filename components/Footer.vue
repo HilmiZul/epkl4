@@ -5,10 +5,11 @@
       <nuxt-link class="hand-cursor link-footer" to="/privacy">Privacy</nuxt-link> |
       <nuxt-link class="hand-cursor link-footer" to="/terms">Terms</nuxt-link> <br>
       <!-- <span class="hand-cursor link-footer" data-bs-toggle="modal" data-bs-target="#terms">Terms</span> <br> -->
-      &copy;2018 - {{ year }} <span class="hand-cursor link-footer" data-bs-toggle="modal" data-bs-target="#cooked">e-PKL</span>. <br>
+      <!-- &copy;2018 - {{ year }} <span class="hand-cursor link-footer" data-bs-toggle="modal" data-bs-target="#cooked">e-PKL</span>. <br> -->
+      &copy;2018 - {{ year }} <nuxt-link class="hand-cursor link-footer" to="/cookedby">e-PKL</nuxt-link>.
     </footer>
     <!-- about e-PKL -->
-    <div class="modal" id="cooked" tabindex="-1" aria-hidden="true">
+    <!-- <div class="modal" id="cooked">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content rounded-0 border border-3 border-dark shadow-lg text-muted">
           <div class="modal-header border-bottom border-3 border-dark bg-success rounded-0">
@@ -35,7 +36,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- /about e-PKL -->
   </div>
 
@@ -44,9 +45,7 @@
 <script setup>
 let config = useRuntimeConfig()
 let version = config.public.appVersion
-let author = config.public.author
 let year = new Date().getFullYear()
-let user = usePocketBaseUser()
 </script>
 
 <style scoped>
