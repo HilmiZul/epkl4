@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand fw-bold"><i class="bi bi-person"></i> Personalisasi</span>
+      <span class="h4 quicksand fw-bold"><i class="bi bi-person-fill"></i> Personalisasi</span>
     </div>
     <div class="card-body">
       <div class="row">

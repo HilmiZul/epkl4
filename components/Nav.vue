@@ -14,7 +14,7 @@
                 <li class="list-group-item"><i class="bi bi-pie-chart-fill"></i> Overview</li>
               </nuxt-link>
               <nuxt-link to="/personalisasi" v-if="role ==='admin' || role === 'jurusan' || role === 'guru'" :activeClass="activeClass">
-                <li class="list-group-item"><i class="bi bi-person"></i> Personalisasi</li>
+                <li class="list-group-item"><i class="bi bi-person-fill"></i> Personalisasi</li>
               </nuxt-link>
               <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" to="/elemen" :activeClass="activeClass">
                 <li class="list-group-item"><i class="bi bi-journal-bookmark-fill"></i> Elemen</li>
@@ -23,7 +23,7 @@
                 <li class="list-group-item"><i class="bi bi-emoji-smile"></i> Pembimbing</li>
               </nuxt-link>
               <nuxt-link v-if="role === 'admin' || role === 'jurusan'" to="/peserta" :activeClass="activeClass">
-                <li class="list-group-item"><i class="bi bi-person-fill"></i> Peserta Didik <span v-if="peserta.length > 0" class="badge rounded-5 text-dark float-end">{{ peserta.length }}</span></li>
+                <li class="list-group-item"><i class="bi bi-people-fill"></i> Peserta Didik <span v-if="peserta.length > 0" class="badge rounded-5 text-dark float-end">{{ peserta.length }}</span></li>
               </nuxt-link>
               <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role === 'wakasek' || role === 'tu'" to="/iduka" :activeClass="activeClass">
                 <li class="list-group-item"><i class="bi bi-buildings-fill"></i> IDUKA</li>
