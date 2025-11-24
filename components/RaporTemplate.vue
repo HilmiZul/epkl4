@@ -101,7 +101,10 @@
           <td v-if="props.isLoaded" class="text-center">{{ props.rapor?.nilai_elemen3 }}</td>
           <td v-else class="text-center">&#8212;</td>
           <td v-if="props.isLoaded && props.rapor" class="text-justify">
-            Peserta didik sudah mampu menerapkan kompetensi teknis yang sudah dipelajari di sekolah dan/ atau baru dipelajari di dunia kerja dengan Baik,
+            Peserta didik sudah mampu menerapkan kompetensi teknis yang sudah dipelajari di sekolah dan/ atau baru dipelajari di dunia kerja dengan
+            <span v-if="props.rapor?.nilai_elemen3 >= 86">Amat Baik</span>
+            <span v-else-if="props.rapor?.nilai_elemen3 >= 70">Baik</span>
+            <span v-else>Cukup terampil</span>,
             {{ props.rapor?.deskripsi_elemen3?.toString() }}
           </td>
           <td v-else class="text-center">&#8212;</td>
@@ -112,7 +115,10 @@
           <td v-if="props.isLoaded" class="text-center">{{ props.rapor?.nilai_elemen4 }}</td>
           <td v-else class="text-center">&#8212;</td>
           <td v-if="props.isLoaded && props.rapor" class="text-justify">
-            Peserta didik telah mampu membekali kemandiriannya dengan Baik,
+            Peserta didik telah mampu membekali kemandiriannya dengan
+            <span v-if="props.rapor?.nilai_elemen4 >= 86">Amat Baik</span>
+            <span v-else-if="props.rapor?.nilai_elemen4 >= 70">Baik</span>
+            <span v-else>Cukup terampil</span>,,
             {{ props.rapor?.deskripsi_elemen4?.toString() }}
           </td>
           <td v-else class="text-center">&#8212;</td>
