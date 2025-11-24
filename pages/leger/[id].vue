@@ -16,9 +16,6 @@
       <div v-else>
         <div v-if="isCertificate" class="row">
           <div class="col-lg-12">
-            <!-- <div v-if="form.isEntrust" class="alert alert-info">
-              <i class="bi bi-info-circle"></i> Peserta ini menitipkan <span class="fw-bold">Sertifikat</span> untuk dicetak di Sekolah.
-            </div> -->
             <form @submit.prevent="updateNilai">
               <div class="row">
                 <div class="col-lg-12">
@@ -29,7 +26,7 @@
                   <hr>
                 </div>
                 <div class="col-lg-12">
-                  <div v-if="isSaved" class="alert alert-info">Berhasil diperbaharui!</div>
+                  <div v-if="isSaved" class="alert alert-success">Berhasil diperbaharui!</div>
                 </div>
                 <div class="col-lg-6">
                   <nav>
@@ -44,56 +41,71 @@
                 <div class="tab-content pt-3" id="nav-tabContent">
                   <!-- pane: nilai -->
                   <div class="tab-pane fade show active" id="nav-nilai" role="tabpanel" aria-labelledby="nav-nilai-tab" tabindex="0">
-                    <div data-bs-toggle="modal" data-bs-target="#preview-nilai" class="mb-4 mt-2 fw-bold pb-2">
-                      <span class="hand-cursor border-bottom border-2 border-dark"><i class="bi bi-image-fill"></i> Lihat foto nilai</span>
+                    <!-- <div class="alert alert-info mb-3">
+                      <div class="fw-bold">Perhatikan!</div>
+                      <ul class="mb-0 px-3">
+                        <li>Pilih deksripsi disebalah kanan untuk masing-masing item elemen</li>
+                        <li>Sesuaikan deskripsi dengan ....</li>
+                        <li>text writing ini minta kepada kurikulum...</li>
+                      </ul>
+                    </div> -->
+                    <div data-bs-toggle="modal" data-bs-target="#preview-nilai" class="mb-4 mt-2">
+                      <span class="hand-cursor fw-bold text-muted border-bottom border-1 border-dark"><i class="bi bi-eye-fill"></i> Lihat foto nilai</span>
                     </div>
                     <div class="row">
                       <div class="col-lg-6">
                         <div class="mb-4">
-                          <label for="el_1">Nilai Elemen 1 <span class="text-danger">*</span></label>
+                          <label for="el_1">Menerapkan soft skills yang dibutuhkan dalam dunia kerja <span class="text-danger">*</span></label>
                           <input v-model="form.nilai_elemen1" type="number" min="0" max="100" id="el_1" class="form form-control form-control-lg" required>
-                          <textarea v-model="deskripsi_temp1" readonly class="form form-control" cols="30" rows="6" placeholder="pratinjau deskripsi..."></textarea>
+                          <textarea v-model="form.deskripsi_elemen1" class="form form-control" cols="30" rows="6" placeholder="pratinjau deskripsi..."></textarea>
                         </div>
                       </div>
                       <div class="col-lg-6">
-                        <label for="" class="mb-2">Deskripsi Elemen 1</label>
-                        <div v-for="(e,i) in deskripsi.elemen1" :key="i" class="mb-1 form-check">
+                        <div class="text-muted">
+                          <div class="fw-bold">Deskripsi default</div>
+                          Peserta didik sudah memiliki soft skill dengan Amat Baik dalam menunjukkan integritas, memiliki etos kerja, menunjukkan kemandirian, menunjukkan kerjasama dan menunjukkan kepedulian sosial dan lingkungan
+                        </div>
+                        <!-- <div v-for="(e,i) in deskripsi.elemen1" :key="i" class="mb-1 form-check">
                           <label :for="`${i}-${e}`" class="fw-normal">{{ e }}
                             <input v-model="deskripsi_temp1" :value="e" class="form-check-input" type="checkbox" :id="`${i}-${e}`">
                           </label>
-                        </div>
+                        </div> -->
                       </div>
                     </div>
                     <hr>
                     <div class="row">
                       <div class="col-lg-6">
                         <div class="mb-4">
-                          <label for="el_2">Nilai Elemen 2 <span class="text-danger">*</span></label>
+                          <label for="el_2">Menerapkan norma, POS, dan K3LH yang ada pada dunia kerja <span class="text-danger">*</span></label>
                           <input v-model="form.nilai_elemen2" type="number" min="0" max="100" id="el_2" class="form form-control form-control-lg" required>
-                          <textarea v-model="deskripsi_temp2" readonly class="form form-control" cols="30" rows="6" placeholder="pratinjau deskripsi..."></textarea>
+                          <textarea v-model="form.deskripsi_elemen2" class="form form-control" cols="30" rows="6" placeholder="pratinjau deskripsi..."></textarea>
                         </div>
                       </div>
                       <div class="col-lg-6">
-                        <label for="" class="mb-2">Deskripsi Elemen 2</label>
-                        <div v-for="(e,i) in deskripsi.elemen2" :key="i" class="mb-1 form-check">
+                        <div class="text-muted">
+                          <div class="fw-bold">Deskripsi default</div>
+                          Peserta didik sudah mampu menerapkan norma, POS dan K3LH dengan Amat Baik pada penggunaan APD dengan tertib dan benar dan melaksanakan pekerjaan sesuai POS
+                        </div>
+                        <!-- <div v-for="(e,i) in deskripsi.elemen2" :key="i" class="mb-1 form-check">
                           <label :for="`${i}-${e}`" class="fw-normal">{{ e }}
                             <input v-model="deskripsi_temp2" :value="e" class="form-check-input" type="checkbox" :id="`${i}-${e}`">
                           </label>
-                        </div>
+                        </div> -->
                       </div>
                     </div>
                     <hr>
                     <div class="row">
                       <div class="col-lg-6">
                         <div class="mb-4">
-                          <label for="el_3">Nilai Elemen 3 <span class="text-danger">*</span></label>
+                          <label for="el_3">Menerapkan kompetensi teknis yang sudah dipelajari di sekolah dan/atau baru dipelajari pada dunia kerja <span class="text-danger">*</span></label>
                           <input v-model="form.nilai_elemen3" type="number" min="0" max="100" id="el_3" class="form form-control form-control-lg" required>
                           <textarea v-model="deskripsi_temp3" readonly class="form form-control" cols="30" rows="6" placeholder="pratinjau deskripsi..."></textarea>
                         </div>
                       </div>
                       <div class="col-lg-6">
-                        <label for="" class="mb-2">Deskripsi Elemen 3</label>
-                        <div v-for="(e,i) in deskripsi.elemen3" :key="i" class="mb-1 form-check">
+                        <label for="" class="mb-2 text-muted">Pilih sesuai capaian peserta</label>
+                        <div v-for="(e,i) in deskripsi.elemen2" :key="i" class="mb-1 form-check">
+                          <!-- <li>{{ e }}</li> -->
                           <label :for="`${i}-${e}`" class="fw-normal">{{ e }}
                             <input v-model="deskripsi_temp3" :value="e" class="form-check-input" type="checkbox" :id="`${i}-${e}`">
                           </label>
@@ -104,7 +116,7 @@
                     <div class="row">
                       <div class="col-lg-6">
                         <div class="mb-4">
-                          <label for="el_4">Nilai Elemen 4 <span class="text-danger">*</span></label>
+                          <label for="el_4">Memahami alur bisnis dunia kerja tempat PKL <span class="text-danger">*</span></label>
                           <input v-model="form.nilai_elemen4" type="number" min="0" max="100" id="el_4" class="form form-control form-control-lg" required>
                           <textarea v-model="deskripsi_temp4" readonly class="form form-control" cols="30" rows="6" placeholder="pratinjau deskripsi..."></textarea>
                         </div>
@@ -113,8 +125,9 @@
                         </div>
                       </div>
                       <div class="col-lg-6">
-                        <label for="" class="mb-2">Deskripsi Elemen 4</label>
+                        <label for="" class="mb-2">Pilih sesuai capaian peserta</label>
                         <div v-for="(e,i) in deskripsi.elemen4" :key="i" class="mb-1 form-check">
+                          <!-- <li>{{ e }}</li> -->
                           <label :for="`${i}-${e}`" class="fw-normal">{{ e }}
                             <input v-model="deskripsi_temp4" :value="e" class="form-check-input" type="checkbox" :id="`${i}-${e}`">
                           </label>
@@ -243,6 +256,7 @@
                     <span v-else>Simpan</span>
                   </button>
                   <nuxt-link to="/leger" class="btn btn-light border border-2 border-dark mb-4">Kembali</nuxt-link>
+                  <span v-if="isSaved" class="align-content-center text-muted ms-2">Berhasil diperbaharui!</span>
                 </div>
 
               </div>
@@ -306,8 +320,8 @@ let form = ref({
   "sakit": "",
   "izin": "",
   "tanpa_keterangan": "",
-  "deskripsi_elemen1": '',
-  "deskripsi_elemen2": '',
+  "deskripsi_elemen1": "",
+  "deskripsi_elemen2": "",
   "deskripsi_elemen3": '',
   "deskripsi_elemen4": '',
 })
@@ -320,8 +334,8 @@ let deskripsi = ref({
 // variable temporary untuk menghimpun deskripsi sementara
 // ini dilakukan untuk menghindari null yang disebabkan oleh tipe data JSON dari BE
 // deskripsi_temp{i} diinisialisasi dengan [] kosong
-let deskripsi_temp1 = ref([])
-let deskripsi_temp2 = ref([])
+// let deskripsi_temp1 = ref([])
+// let deskripsi_temp2 = ref([])
 let deskripsi_temp3 = ref([])
 let deskripsi_temp4 = ref([])
 
@@ -329,8 +343,8 @@ async function updateNilai() {
   isSending.value = true
   isSaved.value = false
   try {
-    form.value.deskripsi_elemen1 = deskripsi_temp1.value
-    form.value.deskripsi_elemen2 = deskripsi_temp2.value
+    // form.value.deskripsi_elemen1 = deskripsi_temp1.value
+    // form.value.deskripsi_elemen2 = deskripsi_temp2.value
     form.value.deskripsi_elemen3 = deskripsi_temp3.value
     form.value.deskripsi_elemen4 = deskripsi_temp4.value
     let res = await client.collection('nilai').update(route.params.id, form.value)
@@ -359,10 +373,14 @@ async function getNilai(loading=true, isCert=false) {
       form.value = res
       tempLogoImg.value = certificate.value.logo
       tempNilaiImg.value = certificate.value.foto_jurnal_nilai
+      if(form.value.deskripsi_elemen1 == '')
+      form.value.deskripsi_elemen1 = "Peserta didik sudah memiliki soft skill dengan Amat Baik dalam menunjukkan integritas, memiliki etos kerja, menunjukkan kemandirian, menunjukkan kerjasama dan menunjukkan kepedulian sosial dan lingkungan"
+      if(form.value.deskripsi_elemen2 == '')
+      form.value.deskripsi_elemen2 = "Peserta didik sudah mampu menerapkan norma, POS dan K3LH dengan Amat Baik pada penggunaan APD dengan tertib dan benar dan melaksanakan pekerjaan sesuai POS"
       // memindahkan nilai deskripsi_elemen{i} ke variable temporary
       // sebelum di assign, divalidasi terlebih dahulu agar tidak terjadi null dengan mengganti ke default [] kosong
-      deskripsi_temp1.value = form.value.deskripsi_elemen1 || []
-      deskripsi_temp2.value = form.value.deskripsi_elemen2 || []
+      // deskripsi_temp1.value = form.value.deskripsi_elemen1 || []
+      // deskripsi_temp2.value = form.value.deskripsi_elemen2 || []
       deskripsi_temp3.value = form.value.deskripsi_elemen3 || []
       deskripsi_temp4.value = form.value.deskripsi_elemen4 || []
       isLoading.value = false
@@ -411,6 +429,10 @@ async function getElemen() {
         deskripsi.value.elemen4.push(elemens.value[i].tujuan)
       }
     }
+    // gabungin tujuan hardskill el 2 dan 3 (pengembangan)
+    // lalu deskripsi.elemen2 di looping di Peningkatan dan Pengembangan hardskill
+    deskripsi.value.elemen2 = deskripsi.value.elemen2.concat(deskripsi.value.elemen3)
+
   }
 }
 
