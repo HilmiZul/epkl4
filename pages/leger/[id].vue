@@ -103,7 +103,7 @@
                         </div>
                       </div>
                       <div class="col-lg-6">
-                        <label for="" class="mb-2 text-muted">Pilih sesuai capaian peserta</label>
+                        <label for="" class="mb-2 text-muted fw-bold">Pilih sesuai capaian peserta</label>
                         <div v-for="(e,i) in deskripsi.elemen2" :key="i" class="mb-1 form-check">
                           <!-- <li>{{ e }}</li> -->
                           <label :for="`${i}-${e}`" class="fw-normal">{{ e }}
@@ -125,7 +125,7 @@
                         </div>
                       </div>
                       <div class="col-lg-6">
-                        <label for="" class="mb-2">Pilih sesuai capaian peserta</label>
+                        <label for="" class="mb-2 text-muted fw-bold">Pilih sesuai capaian peserta</label>
                         <div v-for="(e,i) in deskripsi.elemen4" :key="i" class="mb-1 form-check">
                           <!-- <li>{{ e }}</li> -->
                           <label :for="`${i}-${e}`" class="fw-normal">{{ e }}
