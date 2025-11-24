@@ -100,7 +100,10 @@
           <td>Menerapkan kompetensi teknis yang sudah dipelajari di sekolah dan/atau baru dipelajari pada dunia kerja</td>
           <td v-if="props.isLoaded" class="text-center">{{ props.rapor?.nilai_elemen3 }}</td>
           <td v-else class="text-center">&#8212;</td>
-          <td v-if="props.isLoaded && props.rapor" class="text-justify">{{ props.rapor?.deskripsi_elemen3?.toString() }}</td>
+          <td v-if="props.isLoaded && props.rapor" class="text-justify">
+            Peserta didik sudah mampu menerapkan kompetensi teknis yang sudah dipelajari di sekolah dan/ atau baru dipelajari di dunia kerja dengan Baik,
+            {{ props.rapor?.deskripsi_elemen3?.toString() }}
+          </td>
           <td v-else class="text-center">&#8212;</td>
         </tr>
         <tr>
@@ -108,7 +111,10 @@
           <td>Memahami alur bisnis dunia kerja tempat PKL</td>
           <td v-if="props.isLoaded" class="text-center">{{ props.rapor?.nilai_elemen4 }}</td>
           <td v-else class="text-center">&#8212;</td>
-          <td v-if="props.isLoaded && props.rapor" class="text-justify">{{ props.rapor?.deskripsi_elemen4?.toString() }}</td>
+          <td v-if="props.isLoaded && props.rapor" class="text-justify">
+            Peserta didik telah mampu membekali kemandiriannya dengan Baik,
+            {{ props.rapor?.deskripsi_elemen4?.toString() }}
+          </td>
           <td v-else class="text-center">&#8212;</td>
         </tr>
       </tbody>
