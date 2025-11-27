@@ -57,13 +57,16 @@
                         <div class="mb-4">
                           <label for="el_1">Menerapkan soft skills yang dibutuhkan dalam dunia kerja <span class="text-danger">*</span></label>
                           <input v-model="form.nilai_elemen1" type="number" min="0" max="100" id="el_1" class="form form-control form-control-lg" required>
-                          <textarea v-model="form.deskripsi_elemen1" class="form form-control" cols="30" rows="6" placeholder="pratinjau deskripsi..."></textarea>
+                          <textarea v-model="form.deskripsi_elemen1" class="form form-control" cols="30" rows="6" placeholder="salin deskripsi disamping..."></textarea>
                         </div>
                       </div>
                       <div class="col-lg-6">
                         <div class="text-muted">
-                          <div class="fw-bold">Deskripsi default</div>
-                          Peserta didik sudah memiliki soft skill dengan Amat Baik dalam menunjukkan integritas, memiliki etos kerja, menunjukkan kemandirian, menunjukkan kerjasama dan menunjukkan kepedulian sosial dan lingkungan
+                          <div class="fw-bold">Pilih deskripsi sesuai capaian</div>
+                          Peserta didik sudah memiliki dan
+                          <span v-for="(e,i) in deskripsi.elemen1" :key="i">
+                            {{ e }}<span v-if="i < deskripsi.elemen1.length-1">, </span>
+                          </span>
                         </div>
                         <!-- <div v-for="(e,i) in deskripsi.elemen1" :key="i" class="mb-1 form-check">
                           <label :for="`${i}-${e}`" class="fw-normal">{{ e }}
@@ -78,13 +81,16 @@
                         <div class="mb-4">
                           <label for="el_2">Menerapkan norma, POS, dan K3LH yang ada pada dunia kerja <span class="text-danger">*</span></label>
                           <input v-model="form.nilai_elemen2" type="number" min="0" max="100" id="el_2" class="form form-control form-control-lg" required>
-                          <textarea v-model="form.deskripsi_elemen2" class="form form-control" cols="30" rows="6" placeholder="pratinjau deskripsi..."></textarea>
+                          <textarea v-model="form.deskripsi_elemen2" class="form form-control" cols="30" rows="6" placeholder="salin deskripsi disamping..."></textarea>
                         </div>
                       </div>
                       <div class="col-lg-6">
                         <div class="text-muted">
-                          <div class="fw-bold">Deskripsi default</div>
-                          Peserta didik sudah mampu menerapkan norma, POS dan K3LH dengan Amat Baik pada penggunaan APD dengan tertib dan benar dan melaksanakan pekerjaan sesuai POS
+                          <div class="fw-bold">Pilih deskripsi sesuai capaian</div>
+                          Peserta didik sudah mampu
+                          <span v-for="(e,i) in deskripsi.elemen1" :key="i">
+                            {{ e }}<span v-if="i < deskripsi.elemen1.length-1">, </span>
+                          </span>
                         </div>
                         <!-- <div v-for="(e,i) in deskripsi.elemen2" :key="i" class="mb-1 form-check">
                           <label :for="`${i}-${e}`" class="fw-normal">{{ e }}
@@ -103,7 +109,7 @@
                         </div>
                       </div>
                       <div class="col-lg-6">
-                        <label for="" class="mb-2 text-muted fw-bold">Pilih sesuai capaian peserta</label>
+                        <label for="" class="mb-2 text-muted fw-bold">Pilih deskripsi sesuai capaian</label>
                         <div v-for="(e,i) in deskripsi.elemen2" :key="i" class="mb-1 form-check">
                           <!-- <li>{{ e }}</li> -->
                           <label :for="`${i}-${e}`" class="fw-normal">{{ e }}
@@ -125,7 +131,7 @@
                         </div>
                       </div>
                       <div class="col-lg-6">
-                        <label for="" class="mb-2 text-muted fw-bold">Pilih sesuai capaian peserta</label>
+                        <label for="" class="mb-2 text-muted fw-bold">Pilih deskripsi sesuai capaian</label>
                         <div v-for="(e,i) in deskripsi.elemen4" :key="i" class="mb-1 form-check">
                           <!-- <li>{{ e }}</li> -->
                           <label :for="`${i}-${e}`" class="fw-normal">{{ e }}
@@ -334,8 +340,8 @@ let deskripsi = ref({
 // variable temporary untuk menghimpun deskripsi sementara
 // ini dilakukan untuk menghindari null yang disebabkan oleh tipe data JSON dari BE
 // deskripsi_temp{i} diinisialisasi dengan [] kosong
-// let deskripsi_temp1 = ref([])
-// let deskripsi_temp2 = ref([])
+let deskripsi_temp1 = ref([])
+let deskripsi_temp2 = ref([])
 let deskripsi_temp3 = ref([])
 let deskripsi_temp4 = ref([])
 
@@ -373,10 +379,11 @@ async function getNilai(loading=true, isCert=false) {
       form.value = res
       tempLogoImg.value = certificate.value.logo
       tempNilaiImg.value = certificate.value.foto_jurnal_nilai
-      if(form.value.deskripsi_elemen1 == '')
-      form.value.deskripsi_elemen1 = "Peserta didik sudah memiliki soft skill dengan Amat Baik dalam menunjukkan integritas, memiliki etos kerja, menunjukkan kemandirian, menunjukkan kerjasama dan menunjukkan kepedulian sosial dan lingkungan"
-      if(form.value.deskripsi_elemen2 == '')
-      form.value.deskripsi_elemen2 = "Peserta didik sudah mampu menerapkan norma, POS dan K3LH dengan Amat Baik pada penggunaan APD dengan tertib dan benar dan melaksanakan pekerjaan sesuai POS"
+      // if(form.value.deskripsi_elemen1 == '')
+      // form.value.deskripsi_elemen1 = "Peserta didik sudah memiliki soft skill dengan Amat Baik dalam menunjukkan integritas, memiliki etos kerja, menunjukkan kemandirian, menunjukkan kerjasama dan menunjukkan kepedulian sosial dan lingkungan"
+      // if(form.value.deskripsi_elemen2 == '')
+      // form.value.deskripsi_elemen2 = "Peserta didik sudah mampu menerapkan norma, POS dan K3LH dengan Amat Baik pada penggunaan APD dengan tertib dan benar dan melaksanakan pekerjaan sesuai POS"
+
       // memindahkan nilai deskripsi_elemen{i} ke variable temporary
       // sebelum di assign, divalidasi terlebih dahulu agar tidak terjadi null dengan mengganti ke default [] kosong
       // deskripsi_temp1.value = form.value.deskripsi_elemen1 || []
