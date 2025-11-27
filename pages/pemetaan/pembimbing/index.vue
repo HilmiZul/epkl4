@@ -1,20 +1,20 @@
 <template>
   <div class="card shadow-lg">
     <div class="card-header">
-      <span class="h4 quicksand text-grey"><i class="bi bi-people-fill"></i> Pemetaan Pembimbing</span>
+      <span class="h4 quicksand fw-bold"><i class="bi bi-diagram-3-fill"></i> Pemetaan Pembimbing</span>
       <div v-if="isPembimbingAvailable.length > 0" class="float-end">
-        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/pemetaan/pembimbing/tambah" class="btn btn-info"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
+        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/pemetaan/pembimbing/tambah" class="btn btn-info btn-sm border border-2 border-dark"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
       </div>
     </div>
     <div class="card-body">
       <div class="row">
         <div class="col-lg-6">
           <div class="my-3 mt-0">
-            <input @input="searchByKeyword" v-model="keyword" type="search" class="form form-control" placeholder="🔎 Cari nama pembimbing">
+            <input @input="searchByKeyword" v-model="keyword" type="search" class="form form-control form-control-lg" placeholder="🔎 Cari nama pembimbing">
           </div>
         </div>
         <div class="col align-content-center">
-          <div class="mb-3 text-grey float-end">{{ mapping.length }} pemetaan</div>
+          <div class="mb-3 text-grey float-end badge text-dark">{{ mapping.length }} pemetaan</div>
         </div>
       </div>
       <div class="row">
@@ -36,10 +36,10 @@
                   <td colspan="3">Data tidak ditemukan</td>
                 </tr>
                 <tr v-for="(pemetaan, i) in mapping" :key="pemetaan.id">
-                  <td>{{ i+1 }}.</td>
+                  <td><span class="badge text-dark">{{ i+1 }}</span></td>
                   <td>
-                    <nuxt-link :to="`/pemetaan/pembimbing/${pemetaan.id}`" class="link">{{ pemetaan.expand.pembimbing.nama }}</nuxt-link>
-                    <p v-if="pemetaan.siswa.length > 0" class="my-2 fst-italic text-muted">{{ pemetaan.siswa.length }} peserta didik</p>
+                    <nuxt-link :to="`/pemetaan/pembimbing/${pemetaan.id}`" class="link fw-bold">{{ pemetaan.expand.pembimbing.nama }}</nuxt-link>
+                    <p v-if="pemetaan.siswa.length > 0" class="my-2 small text-muted">{{ pemetaan.siswa.length }} peserta</p>
                   </td>
                   <td>
                     <table class="table">
@@ -48,27 +48,29 @@
                           <td class="text-danger">Belum dipasangkan dengan peserta didik</td>
                         </tr>
                         <tr v-for="(student,i) in pemetaan.expand.siswa" :key="student.id">
-                          <td width="2%">{{ i+1 }}.</td>
-                          <td>{{ student.nama }}</td>
-                          <td>{{ student.kelas }}</td>
-                          <td width="17%"><button class="btn btn-danger" data-bs-toggle="modal" :data-bs-target="`#student-${student.id}`">hapus</button></td>
+                          <td width="2%"><span class="badge text-dark">{{ i+1 }}</span></td>
+                          <td>
+                            <div class="fw-bold">{{ student.nama }}</div>
+                            <div class="text-muted fw-bold small">{{ student.kelas }}</div>
+                          </td>
+                          <td width="17%"><button class="btn btn-danger border border-2 border-dark" data-bs-toggle="modal" :data-bs-target="`#student-${student.id}`">hapus</button></td>
                           <!-- modal confirm: apakah ingin mengapus siswa terpilih dari pemetaan guru ini? -->
-                          <!-- <div class="modal" :id="`student-${student.id}`" aria-hidden="true">
+                          <div class="modal" :id="`student-${student.id}`" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                               <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
                                 <div class="modal-header rounded-0 h4 bg-danger quicksand">
                                   Hapus dari Pembimbing
                                 </div>
                                 <div class="modal-body text-dark">
-                                  Hapus {{ student.nama }} dari daftar bimbingan {{ pemetaan.expand.pembimbing.nama }}?
+                                  Hapus <span class="fw-bold">{{ student.nama }}</span> dari daftar bimbingan <span class="fw-bold">{{ pemetaan.expand.pembimbing.nama }}</span>?
                                 </div>
                                 <div class="modal-footer">
-                                  <button @click="hapusPesertaDariBimbingan(pemetaan.id, student.id)" class="btn btn-danger" data-bs-dismiss="modal">Hapus</button>
-                                  <button class="btn btn-light" data-bs-dismiss="modal">Gajadi</button>
+                                  <button @click="hapusPesertaDariBimbingan(pemetaan.id, student.id)" class="btn btn-danger border border-2 border-dark" data-bs-dismiss="modal">Hapus</button>
+                                  <button class="btn btn-light border border-2 border-dark" data-bs-dismiss="modal">Gajadi</button>
                                 </div>
                               </div>
                             </div>
-                          </div> -->
+                          </div>
                         </tr>
                       </tbody>
                     </table>
