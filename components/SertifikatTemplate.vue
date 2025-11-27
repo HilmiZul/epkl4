@@ -69,25 +69,25 @@
       <tbody v-if="props.isLoaded">
         <tr>
           <td class="text-center">1.</td>
-          <td>Internalisasi dan penerapan soft skills</td>
+          <td>Menerapkan soft skills yang dibutuhkan dalam dunia kerja</td>
           <td v-if="props.isLoaded" class="text-center">{{ props.sertifikat?.nilai_elemen1 }}</td>
           <td v-else>&#8212;</td>
         </tr>
         <tr>
           <td class="text-center">2.</td>
-          <td>Penerapan hard skills</td>
+          <td>Menerapkan norma, POS, dan K3LH yang ada pada dunia kerja</td>
           <td v-if="props.isLoaded" class="text-center">{{ props.sertifikat?.nilai_elemen2 }}</td>
           <td v-else>&#8212;</td>
         </tr>
         <tr>
           <td class="text-center">3.</td>
-          <td>Peningkatan dan pengembangan hard skills</td>
+          <td>Menerapkan kompetensi teknis yang sudah dipelajari di sekolah dan/atau baru dipelajari pada dunia kerja</td>
           <td v-if="props.isLoaded" class="text-center">{{ props.sertifikat?.nilai_elemen3 }}</td>
           <td v-else>&#8212;</td>
         </tr>
         <tr>
           <td class="text-center">4.</td>
-          <td>Penyiapan Kemandirian Berwirausaha</td>
+          <td>Memahami alur bisnis dunia kerja tempat PKL</td>
           <td v-if="props.isLoaded" class="text-center">{{ props.sertifikat?.nilai_elemen4 }}</td>
           <td v-else>&#8212;</td>
         </tr>
@@ -95,22 +95,22 @@
       <tbody v-else>
         <tr>
           <td class="text-center">1.</td>
-          <td>Internalisasi dan penerapan soft skills</td>
+          <td>Menerapkan soft skills yang dibutuhkan dalam dunia kerja</td>
           <td class="text-center">&#8212;</td>
         </tr>
         <tr>
           <td class="text-center">2.</td>
-          <td>Penerapan hard skills</td>
+          <td>Menerapkan norma, POS, dan K3LH yang ada pada dunia kerja</td>
           <td class="text-center">&#8212;</td>
         </tr>
         <tr>
           <td class="text-center">3.</td>
-          <td>Peningkatan dan pengembangan hard skills</td>
+          <td>Menerapkan kompetensi teknis yang sudah dipelajari di sekolah dan/atau baru dipelajari pada dunia kerja</td>
           <td class="text-center">&#8212;</td>
         </tr>
         <tr>
           <td class="text-center">4.</td>
-          <td>Penyiapan Kemandirian Berwirausaha</td>
+          <td>Memahami alur bisnis dunia kerja tempat PKL</td>
           <td class="text-center">&#8212;</td>
         </tr>
       </tbody>
