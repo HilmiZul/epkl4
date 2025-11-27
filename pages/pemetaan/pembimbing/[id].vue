@@ -81,6 +81,7 @@ let curr_students = ref([])
 let form = ref({
   siswa: []
 })
+if(role == 'guru' || role == 'tu') navigateTo('/404')
 
 async function updatePemetaan() {
   isSending.value = true
@@ -98,6 +99,7 @@ async function updatePemetaan() {
     form.value.siswa = []
     isSending.value = false
     isSaved.value = true
+    navigateTo('/pemetaan/pembimbing')
   }
 }
 

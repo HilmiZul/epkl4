@@ -1,21 +1,9 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand text-muted">Pemetaan Pembimbing / <span class="text-grey">Tambah baru</span></span>
+      <span class="h4 quicksand fw-bold"><span class="text-muted">Pemetaan Pembimbing /</span> Tambah baru</span>
     </div>
     <div class="card-body">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="alert alert-warning border-5 border-dark shadow-lg">
-            <div class="h5 quicksand">Perhatiin!</div>
-            <ul class="small">
-              <li>Jumlah siswa sesuai rasio....</li>
-              <li>Jumlah siswa sesuai rasio....</li>
-            </ul>
-            {{ form.siswa.length }}
-          </div>
-        </div>
-      </div>
       <div class="row">
         <div class="col-md-6">
           <form @submit.prevent="buatPemetaan">
@@ -97,6 +85,7 @@ let form = ref({
   siswa: [],
   program_keahlian: ''
 })
+if(role == 'guru' || role == 'tu') navigateTo('/404')
 
 function addStudentToModel(newTag) {
   siswa.value
@@ -112,7 +101,6 @@ async function buatPemetaan() {
   isSending.value = true
   isSaved.value = false
   form.value.siswa = tempStudents
-  console.log(form.value)
   let data = await client.collection('pemetaan_pembimbing').create(form.value)
   // ubah status pemetaan guru dan siswa
   await client.collection('teacher_users').update(form.value.pembimbing, { status_pemetaan:true })

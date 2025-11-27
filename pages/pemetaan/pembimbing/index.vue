@@ -8,6 +8,15 @@
     </div>
     <div class="card-body">
       <div class="row">
+        <div class="col-lg-12">
+          <div class="alert alert-info pb-0">
+            <ul>
+              <li>Fitur ini masih dalam tahap pengembangan</li>
+              <li>Daftar berikut digunakan untuk pemenuhan rasio</li>
+              <li>Pembimbing/yang bertanggung jawab terhadap IDUKA tetap satu Guru pembimbing, tidak akan beririsan</li>
+            </ul>
+          </div>
+        </div>
         <div class="col-lg-6">
           <div class="my-3 mt-0">
             <input @input="searchByKeyword" v-model="keyword" type="search" class="form form-control form-control-lg" placeholder="🔎 Cari nama pembimbing">
@@ -20,10 +29,10 @@
       <div class="row">
         <div class="col-md-12">
           <div class="table-responsive">
-            <table class="table table-borderless table-striped table-hover">
+            <table class="table table-borderless table-striped">
               <thead>
                 <tr>
-                  <th width="2%">#</th>
+                  <!-- <th width="2%">#</th> -->
                   <th>Pembimbing</th>
                   <th>Peserta Didik</th>
                 </tr>
@@ -35,11 +44,11 @@
                 <tr v-else-if="mapping.length < 1" class="text-center">
                   <td colspan="3">Data tidak ditemukan</td>
                 </tr>
-                <tr v-for="(pemetaan, i) in mapping" :key="pemetaan.id">
-                  <td><span class="badge text-dark">{{ i+1 }}</span></td>
+                <tr v-for="(pemetaan) in mapping" :key="pemetaan.id">
+                  <!-- <td><span class="badge text-dark">{{ i+1 }}</span></td> -->
                   <td>
                     <nuxt-link :to="`/pemetaan/pembimbing/${pemetaan.id}`" class="link fw-bold">{{ pemetaan.expand.pembimbing.nama }}</nuxt-link>
-                    <p v-if="pemetaan.siswa.length > 0" class="my-2 small text-muted">{{ pemetaan.siswa.length }} peserta</p>
+                    <p v-if="pemetaan.siswa.length > 0" class="my-2 small text-muted"><i class="bi bi-people"></i> {{ pemetaan.siswa.length }} peserta</p>
                   </td>
                   <td>
                     <table class="table">
@@ -47,30 +56,13 @@
                         <tr v-if="pemetaan.siswa.length < 1">
                           <td class="text-danger">Belum dipasangkan dengan peserta didik</td>
                         </tr>
-                        <tr v-for="(student,i) in pemetaan.expand.siswa" :key="student.id">
-                          <td width="2%"><span class="badge text-dark">{{ i+1 }}</span></td>
+                        <tr v-for="(student) in pemetaan.expand.siswa" :key="student.id">
+                          <!-- <td width="2%"><span class="badge text-dark">{{ i+1 }}</span></td> -->
                           <td>
                             <div class="fw-bold">{{ student.nama }}</div>
                             <div class="text-muted fw-bold small">{{ student.kelas }}</div>
                           </td>
-                          <td width="17%"><button class="btn btn-danger border border-2 border-dark" data-bs-toggle="modal" :data-bs-target="`#student-${student.id}`">hapus</button></td>
-                          <!-- modal confirm: apakah ingin mengapus siswa terpilih dari pemetaan guru ini? -->
-                          <div class="modal" :id="`student-${student.id}`" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                              <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
-                                <div class="modal-header rounded-0 h4 bg-danger quicksand">
-                                  Hapus dari Pembimbing
-                                </div>
-                                <div class="modal-body text-dark">
-                                  Hapus <span class="fw-bold">{{ student.nama }}</span> dari daftar bimbingan <span class="fw-bold">{{ pemetaan.expand.pembimbing.nama }}</span>?
-                                </div>
-                                <div class="modal-footer">
-                                  <button @click="hapusPesertaDariBimbingan(pemetaan.id, student.id)" class="btn btn-danger border border-2 border-dark" data-bs-dismiss="modal">Hapus</button>
-                                  <button class="btn btn-light border border-2 border-dark" data-bs-dismiss="modal">Gajadi</button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                          <td width="17%"><button @click="setModalHapusPemetaan(student.id, student.nama, pemetaan.expand.pembimbing.nama, pemetaan.id)" class="btn btn-danger border border-2 border-dark" data-bs-toggle="modal" data-bs-target="#hapus-pemetaan"><i class="bi bi-trash"></i></button></td>
                         </tr>
                       </tbody>
                     </table>
@@ -78,6 +70,23 @@
                 </tr>
               </tbody>
             </table>
+          </div>
+          <!-- Single Modal confirm: apakah ingin mengapus siswa terpilih dari pemetaan guru ini? -->
+          <div class="modal" id="hapus-pemetaan" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
+                <div class="modal-header rounded-0 h4 bg-danger quicksand">
+                  Hapus dari Pembimbing
+                </div>
+                <div class="modal-body text-dark">
+                  Hapus <span class="fw-bold">{{ siswaNama }}</span> dari daftar bimbingan <span class="fw-bold">{{ pembimbingNama }}</span>?
+                </div>
+                <div class="modal-footer">
+                  <button @click="hapusPesertaDariBimbingan(pemetaanId, siswaId)" class="btn btn-danger border border-2 border-dark" data-bs-dismiss="modal">Hapus</button>
+                  <button class="btn btn-light border border-2 border-dark" data-bs-dismiss="modal">Gajadi</button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -97,6 +106,11 @@ let isLoading = ref(true)
 let keyword = ref('')
 let isPembimbingAvailable = ref([])
 let curr_students = ref([])
+let siswaId = ref('')
+let siswaNama = ref('')
+let pembimbingNama = ref('')
+let pemetaanId = ref('')
+if(role == 'guru' || role == 'tu') navigateTo('/404')
 
 async function hapusPesertaDariBimbingan(id_pemetaan, id_siswa) {
   client.autoCancellation(false)
@@ -143,6 +157,13 @@ async function getPemetaanPembimbing() {
       curr_students.value.push(res_pemetaan[i].expand.siswa)
     }
   }
+}
+
+function setModalHapusPemetaan(getSiswaId, getSiswaNama, getPembimbingNama, getPemetaanId) {
+  siswaId.value = getSiswaId
+  siswaNama.value = getSiswaNama
+  pembimbingNama.value = getPembimbingNama
+  pemetaanId.value = getPemetaanId
 }
 
 async function searchByKeyword() {
