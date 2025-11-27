@@ -7,7 +7,7 @@
     </div>
     <div class="card-body text-dark">
       <p class="text-muted small">
-        Diperbaharui pada 15 November 2025
+        Diperbaharui pada 27 November 2025
       </p>
       <h5 class="fw-bold">Akun Anggota e-PKL</h5>
       <ul>
@@ -81,11 +81,6 @@
         <li>Guru Pembimbing berkewajiban memeriksa dan memastikan data yang serahkan sesuai.</li>
         <li>Guru Pembimbing berkewajiban memvalidasi nilai yang yang sudah diperiksa dan sesuai.</li>
       </ul>
-      <h5 class="fw-bold">Terkait Sertifikat</h5>
-      <ul>
-        <li>Guru Pembimbing berkewajiban mencetak Sertifikat dari peserta yang menitipkan.</li>
-        <li>Guru Pembimbing berkewajiban mengumpulkan dan menyerahkan Sertifikat yang sudah ditanda tangan oleh IDUKA bersangkutan kepada Panitia/HUBIN.</li>
-      </ul>
       <h5 class="fw-bold">Terkait Rapor PKL</h5>
       <ul>
         <li>
@@ -95,6 +90,12 @@
         </li>
         <li>Guru Pembimbing berkewajiban mencetak Rapor peserta dan menandatangani.</li>
         <li>Guru Pembimbing berkewajiban menyerahkan Rapor yang sudah ditanda tangan kepada Walikelas.</li>
+      </ul>
+      <h5 class="fw-bold">Terkait Sertifikat</h5>
+      <ul>
+        <li>Sertifikat bersifat <span class="fw-bold border-bottom border-2 border-dark">opsional</span>. Guru Pembimbing bertanggungjawab apabila IDUKA menitipkan sertifikat untuk dicetak disekolah.</li>
+        <li>Guru Pembimbing mengumpulkan dan menyerahkan Sertifikat yang sudah ditanda tangan oleh IDUKA bersangkutan kepada Panitia/HUBIN.</li>
+        <li>Guru Pembimbing memindai sertifikat dan mengunggahnya ke Drive Kurikulum.</li>
       </ul>
     </div>
   </div>
