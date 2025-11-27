@@ -49,7 +49,7 @@
               <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role == 'guru'" to="/rapor" :activeClass="activeClass">
                 <li class="list-group-item"><i class="bi bi-book"></i> Rapor</li>
               </nuxt-link>
-              <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role == 'guru'" to="/sertifikat" :activeClass="activeClass">
+              <nuxt-link v-if="isEntrustCertificate && (role === 'admin' || role === 'jurusan' || role == 'guru')" to="/sertifikat" :activeClass="activeClass">
                 <li class="list-group-item"><i class="bi bi-person-vcard-fill"></i> Sertifikat</li>
               </nuxt-link>
               <nuxt-link to="/ubah-password" :activeClass="activeClass">
@@ -100,6 +100,7 @@ let activeClass = ref('list-group-item-active')
 let nilai = ref('')
 let jurnal = ref('')
 let peserta = ref('')
+let isEntrustCertificate = ref(false)
 
 const moreConfetti = async () => {
   isConfetti.value = false
@@ -137,13 +138,31 @@ async function getPeserta() {
   }
 }
 
+async function isIdukaEntrustCertificate() {
+  client.autoCancellation(false)
+  let res = await client.collection('nilai').getFullList({
+    filter: `iduka.pembimbing_sekolah="${user?.user.value.id}" && isEntrust=true && isValid=true`,
+    expand: `siswa`,
+    sort: "isValid, siswa",
+  })
+  if(res.length > 0) {
+    isEntrustCertificate.value = true
+  } else {
+    isEntrustCertificate.value = false
+  }
+}
+
 onMounted(() => {
   getNilai()
   getJurnal()
   getPeserta()
+  isIdukaEntrustCertificate()
   client.autoCancellation(false)
   client.collection('nilai').subscribe('*', function(e){
-    if(e.action == 'update' || e.action == 'create') getNilai()
+    if(e.action == 'update' || e.action == 'create') {
+      getNilai()
+      isIdukaEntrustCertificate()
+    }
   },{})
   client.collection('jurnal').subscribe('*', function(e){
     if(e.action == 'update' || e.action == 'create') getJurnal()
