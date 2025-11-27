@@ -84,7 +84,12 @@
           <td>Menerapkan soft skills yang dibutuhkan dalam dunia kerja</td>
           <td v-if="props.isLoaded" class="text-center">{{ props.rapor?.nilai_elemen1 }}</td>
           <td v-else class="text-center">&#8212;</td>
-          <td v-if="props.isLoaded && props.rapor" class="text-justify">{{ props.rapor?.deskripsi_elemen1?.toString() }}</td>
+          <td v-if="props.isLoaded && props.rapor" class="text-justify">
+            {{ props.rapor?.deskripsi_elemen1?.toString() }} dengan
+            <span v-if="props.rapor?.nilai_elemen1 >= 86">Amat Baik</span>
+            <span v-else-if="props.rapor?.nilai_elemen1 >= 70">Baik</span>
+            <span v-else>Cukup terampil</span>
+          </td>
           <td v-else class="text-center">&#8212;</td>
         </tr>
         <tr>
@@ -92,7 +97,12 @@
           <td>Menerapkan norma, POS, dan K3LH yang ada pada dunia kerja</td>
           <td v-if="props.isLoaded" class="text-center">{{ props.rapor?.nilai_elemen2 }}</td>
           <td v-else class="text-center">&#8212;</td>
-          <td v-if="props.isLoaded && props.rapor" class="text-justify">{{ props.rapor?.deskripsi_elemen2?.toString() }}</td>
+          <td v-if="props.isLoaded && props.rapor" class="text-justify">
+            {{ props.rapor?.deskripsi_elemen2?.toString() }} dengan
+            <span v-if="props.rapor?.nilai_elemen2 >= 86">Amat Baik</span>
+            <span v-else-if="props.rapor?.nilai_elemen2 >= 70">Baik</span>
+            <span v-else>Cukup terampil</span>
+          </td>
           <td v-else class="text-center">&#8212;</td>
         </tr>
         <tr>
