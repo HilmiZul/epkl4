@@ -102,7 +102,7 @@
                   </td>
                   <td class="smallest">{{ company.expand.pembimbing_sekolah?.nama }} </td>
                   <td v-if="role == 'admin' || role == 'jurusan'" class="smallest">
-                    <button v-if="company.terisi < 1" class="btn btn-danger btn-sm border border-2 border-dark" data-bs-toggle="modal" :data-bs-target="`#iduka-${company.id}`"><i class="bi bi-trash3"></i></button>
+                    <button v-if="company.terisi < 1" @click="setModalDeleteById(company.id, company.nama)" class="btn btn-danger btn-sm border border-2 border-dark" data-bs-toggle="modal" data-bs-target="#delete"><i class="bi bi-trash3"></i></button>
                     <button v-else class="btn btn-sm btn-disabled" disabled><i class="bi bi-trash3"></i></button>
                   </td>
                 </tr>
