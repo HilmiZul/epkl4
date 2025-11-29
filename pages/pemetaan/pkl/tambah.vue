@@ -66,7 +66,7 @@
                 <template v-slot:singleLabel="{ option }"><strong>{{ option.nama }} — {{ option.kelas }}</strong></template>
               </multiselect>
             </div>
-            <button :disabled="isSending || form.iduka.length < 1 || form.siswa.length < 1" class="btn btn-success me-2 mb-3 border border-2 border-dark">
+            <button :disabled="isSending" class="btn btn-success me-2 mb-3 border border-2 border-dark">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>
