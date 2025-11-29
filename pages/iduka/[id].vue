@@ -16,6 +16,7 @@
           </div>
         </div>
       </div> -->
+      <div v-if="form.isArchive" class="badge bg-danger fw-bold mb-3 me-3">Arsip</div>
       <form @submit.prevent="updateIduka" class="form-horizontal">
         <div class="row">
           <!-- <div class="col-md-12"><div v-if="isSaved" class="my-3 alert alert-success border-2 border-success py-2"><i class="bi bi-check-circle"></i> Berhasil tersimpan!</div></div> -->
@@ -45,8 +46,8 @@
                 <input :disabled="isLoading" v-model="form.email" type="email" id="email" class="form form-control form-control-lg" placeholder="(biasanya) email juga ada" required>
               </div>
             </div>
-          </div>
-          <div class="col-md-6">
+          <!-- </div>
+          <div class="col-md-6"> -->
             <div class="form-group">
               <div class="mb-4">
                 <label for="kuota">Jumlah Kuota Peserta</label>
@@ -77,19 +78,30 @@
               </div>
             </div>
           </div>
-          <!-- <div class="col-md-6">
+          <div class="col-md-6">
             <LoadingPlaceholder v-if="isLoading" col="3" row="1" />
-            <div v-else class="mt-4 mb-1">Terisi:
-              <span v-if="form.terisi < form.jumlah_kuota">{{ form.terisi }} dari {{ form.jumlah_kuota }}</span>
+            <div v-else class="mb-1">Terisi:
+              <span v-if="form.terisi < form.jumlah_kuota" class="fw-bold">{{ form.terisi }} dari {{ form.jumlah_kuota }}</span>
               <span v-else class="badge bg-danger mb-1">Penuh</span>
             </div>
             <div class="alert shadow-lg">
               <LoadingPlaceholder v-if="isLoading" col="12" row="2" />
-              <table v-else class="table small border-0">
+              <div v-else class="small">
+                <div v-if="mapping.length < 1 || isLoading" class="text-center">
+                  <nuxt-link to="/pemetaan/pkl/tambah" class="btn btn-info btn-sm border border-2 border-dark">Petakan sekarang <i class="bi bi-arrow-up-right"></i></nuxt-link>
+                </div>
+                <ul v-else v-for="p in mapping" :key="p.id" class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <div class="fw-bold">{{ p.expand.siswa.nama }}</div>
+                    <span class="text-muted">{{ p.expand.siswa.kelas }}</span>
+                  </li>
+                </ul>
+              </div>
+              <!-- <table v-else class="table small border-0">
                 <tbody>
                   <tr v-if="mapping.length < 1 || isLoading">
                     <td colspan="2" class="text-center">
-                      <nuxt-link to="/pemetaan/pkl/tambah" class="btn btn-info">Petakan sekarang <i class="bi bi-arrow-up-right"></i></nuxt-link>
+                      <nuxt-link to="/pemetaan/pkl/tambah" class="btn btn-info btn-sm border border-2 border-dark">Petakan sekarang <i class="bi bi-arrow-up-right"></i></nuxt-link>
                     </td>
                   </tr>
                   <tr v-else v-for="p in mapping" :key="p.id">
@@ -97,12 +109,12 @@
                     <td>{{ p.expand.siswa.kelas }}</td>
                   </tr>
                   </tbody>
-              </table>
+              </table> -->
             </div>
-          </div> -->
+          </div>
         </div>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-12">
             <button :disabled="isSending || isLoading" class="btn btn-success me-2 mb-4 border border-2 border-dark">
               <span v-if="isSending">Sedang menyimpan</span>
               <span v-else>Simpan</span>
@@ -113,6 +125,8 @@
           </div>
         </div>
       </form>
+      <button v-if="form.terisi < 1 && !form.isArchive" @click="handleArchive(true, route.params.id)" class="btn btn-dark btn-sm border border-2 border-dark float-end"><i class="bi bi-archive"></i> Arsipkan</button>
+      <button v-if="form.isArchive" @click="handleArchive(false, route.params.id)" class="btn btn-dark btn-sm border border-2 border-dark float-end"><i class="bi bi-archive"></i> Buka arsip</button>
     </div>
   </div>
 </template>
@@ -200,6 +214,14 @@ async function getPembimbingSekolah(loading=true) {
   if(data) {
     isLoading.value = false
     teachers.value = data
+  }
+}
+
+async function handleArchive(archiveStatus, id) {
+  client.autoCancellation(false)
+  let res = await client.collection('iduka').update(id, { isArchive: archiveStatus })
+  if(res) {
+    navigateTo('/iduka')
   }
 }
 
