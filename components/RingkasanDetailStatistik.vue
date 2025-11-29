@@ -108,7 +108,9 @@ async function countPeserta() {
 
 async function countIduka(wilayah) {
   isLoading.value = true
-  let res = await client.collection('iduka').getFullList({ filter: "program_keahlian='"+prokel+"' && wilayah='"+wilayah+"'" })
+  let res = await client.collection('iduka').getFullList({
+    filter: `program_keahlian="${prokel}" && wilayah="${wilayah}" && isArchive=false`
+  })
   if(res) {
     isLoading.value = false
     if(wilayah == 'dalam') count_iduka_dalam.value = res.length
@@ -119,7 +121,7 @@ async function countIduka(wilayah) {
 async function countTerserap(wilayah) {
   isLoading.value = true
   let res = await client.collection('pemetaan').getFullList({
-    filter: "program_keahlian='"+prokel+"' && iduka.wilayah='"+wilayah+"'",
+    filter: `program_keahlian="${prokel}" && iduka.wilayah="${wilayah}" && iduka.isArchive=false`,
     expand: "iduka"
   })
   if(res) {

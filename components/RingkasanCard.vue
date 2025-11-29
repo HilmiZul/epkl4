@@ -114,7 +114,7 @@ async function countPembimbing() {
 async function countIduka() {
   isLoadingIduka.value = true
   let res_iduka = await client.collection('iduka').getFullList({
-    filter: "program_keahlian='"+prokel+"'"
+    filter: `program_keahlian="${prokel}" && isArchive=false`
   })
   if(res_iduka) {
     isLoadingIduka.value = false
