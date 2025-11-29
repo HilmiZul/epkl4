@@ -26,7 +26,7 @@
                   <hr>
                 </div>
                 <div class="col-lg-12">
-                  <div v-if="isSaved" class="alert alert-success">Berhasil diperbaharui!</div>
+                  <div v-if="isSaved" class="alert alert-success">Berhasil tersimpan!</div>
                 </div>
                 <div class="col-lg-6">
                   <nav>
@@ -262,7 +262,7 @@
                     <span v-else>Simpan</span>
                   </button>
                   <nuxt-link to="/leger" class="btn btn-light border border-2 border-dark mb-4">Kembali</nuxt-link>
-                  <span v-if="isSaved" class="align-content-center text-muted ms-2">Berhasil diperbaharui!</span>
+                  <span v-if="isSaved" class="align-content-center text-muted ms-2">Berhasil tersimpan!</span>
                 </div>
 
               </div>

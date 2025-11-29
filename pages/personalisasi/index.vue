@@ -20,7 +20,7 @@
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>
-            <span v-if="isSaved" class="ms-2 mb-3"><em>Berhasil diperbaharui!</em></span>
+            <span v-if="isSaved" class="ms-2 mb-3"><em>Berhasil tersimpan!</em></span>
           </form>
         </div>
       </div>
