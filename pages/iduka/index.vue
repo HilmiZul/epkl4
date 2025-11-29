@@ -17,6 +17,15 @@
             </div>
           </form>
         </div>
+        <div v-if="role == 'admin' || role == 'jurusan'" class="col-lg-3">
+          <div class="my-3 mt-0">
+            <select v-model="selectedArchive" @change="getCompanies" class="form form-select form-select-lg">
+              <option value="semua">Semua</option>
+              <option value="arsip">Arsip</option>
+              <option value="hide">Sembunyikan Arsip</option>
+            </select>
+          </div>
+        </div>
         <div v-if="role == 'tu' || role == 'wakasek'" class="col-lg-3">
           <div class="my-3 mt-0">
             <select v-model="selectedProkel" @change="getCompanies" class="form form-select form-select-lg">
@@ -37,7 +46,7 @@
               <thead>
                 <tr>
                   <!-- <th width="2%">#</th> -->
-                  <th width="60%" colspan="2">Nama</th>
+                  <th width="60%">Nama</th>
                   <th width="10%">Wilayah</th>
                   <th width="6%">Terisi</th>
                   <th width="17%">Pembimbing</th>
@@ -65,11 +74,9 @@
                   </td>
                 </tr>
                 <tr v-else v-for="(company, i) in companies.items" :key="i">
-                  <td>
-                    <!-- <span class="badge text-dark">{{ i+1 }}</span> -->
-                    <span @click="setModalCatatanById(company.id, company)" data-bs-toggle="modal" data-bs-target="#catatan" class="hand-cursor"><i class="bi bi-chat-right-text"></i></span>
-                  </td>
                   <td class="fw-bold">
+                    <span @click="setModalCatatanById(company.id, company)" data-bs-toggle="modal" data-bs-target="#catatan" class="hand-cursor me-3"><i class="bi bi-chat-right-text"></i></span>
+                    <span v-if="company.isArchive" class="text-danger me-1">&bull;</span>
                     <nuxt-link v-if="role == 'admin' || role == 'jurusan'" :to="`/iduka/${company.id}`" class="link">{{ company.nama }}</nuxt-link>
                     <span v-else>{{ company.nama }}</span>
                     <!-- <nuxt-link v-if="(role == 'admin' || role == 'jurusan') && company.alamat" :to="`https://www.google.com/maps/search/?api=1&query=${company.nama} ${company.alamat}`" target="_blannk" class="hand-cursor ms-2 text-dark"><i class="bi bi-geo-alt-fill"></i></nuxt-link> -->
@@ -81,9 +88,8 @@
                   </td>
                   <td class="smallest">{{ company.expand.pembimbing_sekolah?.nama }} </td>
                   <td v-if="role == 'admin' || role == 'jurusan'" class="smallest">
-                    <!-- <button v-if="company.terisi < 1" class="btn btn-danger btn-sm border border-2 border-dark" data-bs-toggle="modal" :data-bs-target="`#iduka-${company.id}`"><i class="bi bi-trash3"></i></button> -->
-                    <button v-if="company.terisi < 1" @click="setModalDeleteById(company.id, company.nama)" class="btn btn-danger btn-sm border border-2 border-dark" data-bs-toggle="modal" data-bs-target="#delete"><i class="bi bi-trash3"></i></button>
-                    <button v-else class="btn btn-dark btn-sm" disabled><i class="bi bi-trash3"></i></button>
+                    <button v-if="company.terisi < 1" class="btn btn-danger btn-sm border border-2 border-dark" data-bs-toggle="modal" :data-bs-target="`#iduka-${company.id}`"><i class="bi bi-trash3"></i></button>
+                    <button v-else class="btn btn-sm btn-disabled" disabled><i class="bi bi-trash3"></i></button>
                   </td>
                 </tr>
               </tbody>
@@ -136,8 +142,8 @@
   <div class="modal" id="catatan" aria-hidden="true" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-        <div class="modal-header rounded-0 bg-info fw-bold border-bottom border-3 border-dark">
-          <div class="fs-4">Pratinjau IDUKA</div>
+        <div class="modal-header bg-info rounded-0 fw-bold border-bottom border-3 border-dark">
+          <div class="fs-4">Pratinjau <span v-if="pratinjau_iduka.isArchive" class="text-grey">(Arsip)</span></div>
           <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
         </div>
         <div v-if="pratinjau_iduka" class="modal-body py-3">
@@ -154,6 +160,10 @@
           <div class="fw-bold">Catatan</div>
           <p v-if="pratinjau_iduka.catatan">{{ pratinjau_iduka.catatan }}</p>
           <p v-else>&#8212;</p>
+        </div>
+        <div v-if="pratinjau_iduka.terisi < 1" class="modal-footer border-0">
+          <button v-if="!pratinjau_iduka.isArchive" @click="handleArchive(true,pratinjau_iduka.id)" class="btn btn-dark border border-2 border-dark" data-bs-dismiss="modal"><i class="bi bi-archive"></i> Arsipkan</button>
+          <button v-else @click="handleArchive(false,pratinjau_iduka.id)" class="btn btn-dark border border-2 border-dark" data-bs-dismiss="modal"><i class="bi bi-archive"></i> Buka arsip</button>
         </div>
       </div>
     </div>
@@ -186,6 +196,7 @@ let catatan_id = ref('') // single data untuk render ke Modal Catatan
 let pratinjau_iduka = ref('')
 let opsiProkel = ref([])
 let selectedProkel = ref('')
+let selectedArchive = ref('semua')
 let searchActivated = ref(false)
 
 async function hapusData(id) {
@@ -212,15 +223,27 @@ async function searchByKeyword() {
   }
 }
 
-async function getCompanies() {
-  isLoading.value = true
+async function getCompanies(loading=true) {
+  isLoading.value = loading
   let searchFilter = ''
   let filterQuery = `program_keahlian = "${user.user.value.program_keahlian}"`
   if(keyword.value != '') {
     searchActivated.value = true
-    searchFilter = " && nama~'"+keyword.value+"'"
+    if(selectedArchive.value == 'arsip') {
+      searchFilter = ` && nama~"${keyword.value}" && isArchive=true`
+    } else if(selectedArchive.value == 'hide') {
+      searchFilter = ` && nama~"${keyword.value}" && isArchive=false`
+    } else {
+      searchFilter = ` && nama~"${keyword.value}"`
+    }
   } else {
     searchActivated.value = false
+    if(selectedArchive.value == 'arsip') {
+      searchFilter = ` && isArchive=true`
+    }
+    else if(selectedArchive.value == 'hide') {
+      searchFilter = ` && isArchive=false`
+    }
   }
 
   // filter by role
@@ -256,6 +279,13 @@ async function pagination(page, loading=true) {
   isMovingPage.value = true
   let searchFilter = ''
   let filterQuery = `program_keahlian = "${user.user.value.program_keahlian}"`
+  // filter by arsip
+  if(selectedArchive.value == 'arsip') {
+    searchFilter = ` && isArchive=true`
+  }
+  else if(selectedArchive.value == 'hide') {
+    searchFilter = ` && isArchive=false`
+  }
 
   // filter by role
   if(role == 'wakasek' || role == 'tu') {
@@ -297,6 +327,11 @@ async function setModalDeleteById(id, name) {
 async function setModalCatatanById(id, content) {
   catatan_id.value = id
   pratinjau_iduka.value = content
+}
+
+async function handleArchive(archiveStatus, id) {
+  client.autoCancellation(false)
+  await client.collection('iduka').update(id, { isArchive: archiveStatus })
 }
 
 async function filterByWilayah() {
@@ -342,7 +377,7 @@ onMounted(() => {
   getProkelForOption()
   client.autoCancellation(false)
   client.collection('iduka').subscribe('*', function(e) {
-    if(e.action == 'delete') getCompanies()
+    if(e.action == 'delete' || e.action == 'update') getCompanies(false)
   },{})
 })
 </script>
