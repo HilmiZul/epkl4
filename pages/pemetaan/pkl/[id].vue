@@ -57,7 +57,7 @@
                 <template v-slot:singleLabel="{ option }"><strong>{{ option.nama }} / {{ option.terisi }} dari {{ option.jumlah_kuota }}</strong></template>
               </multiselect>
             </div>
-            <button :disabled="isSending || form.iduka.length < 1" class="btn btn-success me-2 mb-3 border border-2 border-dark">
+            <button :disabled="isSending" class="btn btn-success me-2 mb-3 border border-2 border-dark">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>
@@ -87,8 +87,8 @@
             <h5 class="fw-bold">Danger Zone!</h5>
             <p class="mb-0">Apabila Pemetaan ini dihapus, maka harus buat pemetaan ulang!</p>
             <p class="pt-0">Usahakan <strong>TIDAK</strong> menghapus/memindahkan peserta ini apabila sudah diterima.</p>
-            <button class="btn btn-danger border border-2 border-dark" data-bs-toggle="modal" :data-bs-target="`#pemetaan-${route.params.id}`">Hapus</button>
-            <div class="modal" :id="`pemetaan-${route.params.id}`" aria-hidden="true">
+            <button class="btn btn-danger border border-2 border-dark" data-bs-toggle="modal" :data-bs-target="`#pemetaan-${pemetaanId}`">Hapus</button>
+            <div class="modal" :id="`pemetaan-${pemetaanId}`" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
                   <div class="modal-header rounded-0 h4 bg-danger fw-bold border-bottom border-3 border-dark">
@@ -132,6 +132,7 @@ let form = ref({
   iduka: '',
 })
 let wilayah = ref(['dalam', 'luar'])
+let pemetaanId = route.params.id
 
 async function hapusData(id) {
   try {
@@ -168,7 +169,7 @@ async function updatePemetaan() {
     // console.log("lama: "+updateTerisi_lama)
     // console.log("baru: "+updateTerisi_baru)
     client.autoCancellation(false)
-    let data = await client.collection("pemetaan").update(route.params.id, form.value)
+    let data = await client.collection("pemetaan").update(pemetaanId, form.value)
     // -1 kolom `terisi` iduka lama
     // +1 kolom `terisi` iduka baru
     await client.collection("iduka").update(pemetaan.value.iduka, { terisi: updateTerisi_lama })
@@ -191,8 +192,8 @@ async function updatePemetaan() {
 async function getSingleMapping(loading=true) {
   isLoading.value = loading
   client.autoCancellation(false)
-  let data = await client.collection("pemetaan").getOne(route.params.id, {
-    filter: "program_keahlian='"+prokel+"'",
+  let data = await client.collection("pemetaan").getOne(pemetaanId, {
+    filter: `program_keahlian="${prokel}"`,
     expand: "iduka, siswa"
   })
   if(data) {
@@ -208,7 +209,7 @@ async function getCompanies() {
   if(pemetaan.value) {
     let data = await client.collection("iduka")
       .getFullList({
-        filter: "wilayah='"+selectWilayah.value+"' && program_keahlian='"+prokel+"' && id!='"+pemetaan.value.iduka+"' && terisi < jumlah_kuota",
+        filter: `wilayah="${selectWilayah.value}" && program_keahlian="${prokel}" && id!="${pemetaan.value.iduka}" && terisi < jumlah_kuota && isArchive=false`,
       })
     if(data) {
       isLoadingCompanies.value = false
