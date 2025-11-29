@@ -36,7 +36,10 @@
         </div>
         <div class="col align-content-center">
           <LoadingPlaceholder v-if="isLoading" col="12" row="1" />
-          <div v-else class="mb-3 text-grey float-end badge">{{ companies.totalItems }} IDUKA</div>
+          <span v-else>
+            <div v-if="arsip" class="mb-3 ms-1 bg-dark float-end badge">{{ arsip }} Arsip</div>
+            <div class="mb-3 text-grey float-end badge">{{ companies.totalItems }} IDUKA</div>
+          </span>
         </div>
       </div>
       <div class="row">
@@ -199,6 +202,7 @@ let opsiProkel = ref([])
 let selectedProkel = ref('')
 let selectedArchive = ref('semua')
 let searchActivated = ref(false)
+let arsip = ref(0)
 
 async function hapusData(id) {
   client.autoCancellation(false)
@@ -335,6 +339,16 @@ async function handleArchive(archiveStatus, id) {
   await client.collection('iduka').update(id, { isArchive: archiveStatus })
 }
 
+async function getCompaniesArchived() {
+  client.autoCancellation(false)
+  let res = await client.collection('iduka').getFullList({
+    filter: `program_keahlian="${prokel}" && isArchive=true`
+  })
+  if(res) {
+    arsip.value = res.length
+  }
+}
+
 async function filterByWilayah() {
   isLoading.value = true
   if(opsiWilayah.value.length > 0) {
@@ -376,9 +390,13 @@ async function getProkelForOption() {
 onMounted(() => {
   getCompanies()
   getProkelForOption()
+  getCompaniesArchived()
   client.autoCancellation(false)
   client.collection('iduka').subscribe('*', function(e) {
-    if(e.action == 'delete' || e.action == 'update') getCompanies(false)
+    if(e.action == 'delete' || e.action == 'update') {
+      getCompanies(false)
+      getCompaniesArchived()
+    }
   },{})
 })
 </script>
