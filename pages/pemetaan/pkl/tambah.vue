@@ -145,7 +145,7 @@ async function getCompanies() {
   client.autoCancellation(false)
   let data = await client.collection("iduka")
     .getFullList({
-      filter: "wilayah='"+selectWilayah.value+"' && program_keahlian='"+prokel+"' && terisi < jumlah_kuota",
+      filter: `wilayah="${selectWilayah.value}" && program_keahlian="${prokel}" && terisi < jumlah_kuota && isArchive=false`,
     })
   if(data) {
     isLoadingCompanies.value = false
