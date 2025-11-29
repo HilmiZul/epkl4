@@ -9,6 +9,16 @@
     </div>
     <div class="card-body small">
       <div class="row">
+        <div class="col-lg-12">
+          <div class="alert alert-info alert-dismissible">
+            <div class="fs-5 fw-bold"><i class="bi bi-lightbulb-fill"></i> Ada yang baru!</div>
+            Sekarang Anda dapat mengarsipkan IDUKA yang tidak terisi dan memfilternya. Klik icon <i class="bi bi-chat-right-text"></i> lalu klik tombol <span class="fw-bold">Arsipkan</span>. <br>
+            IDUKA yang diarsipkan tidak dapat diisi/petakan. Untuk membukanya, klik lagi icon <i class="bi bi-chart-right-text"></i> lalu klik tombol <span class="fw-bold">Buka arsip</span>.
+            <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-lg-6">
           <form @submit.prevent="getCompanies">
             <div class="my-3 mt-0 input-group">

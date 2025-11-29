@@ -6,6 +6,12 @@
         <span class="h4 quicksand fw-bold"><i class="bi bi-pie-chart-fill"></i> Overview</span>
       </div>
       <div class="card-body">
+        <div class="alert alert-info alert-dismissible small">
+          <div class="fs-5 fw-bold"><i class="bi bi-lightbulb-fill"></i> Ada yang baru!</div>
+          Sekarang Anda dapat mengarsipkan IDUKA yang tidak terisi dan memfilternya. Klik icon <i class="bi bi-chat-right-text"></i> lalu klik tombol <span class="fw-bold">Arsipkan</span>. <br>
+          IDUKA yang diarsipkan tidak dapat diisi/petakan. Untuk membukanya, klik lagi icon <i class="bi bi-chart-right-text"></i> lalu klik tombol <span class="fw-bold">Buka arsip</span>.
+          <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <ringkasan-notif-jurnal />
         <ringkasan-personal />
         <!-- <ringkasan-fyi v-if="role == 'admin' || role == 'jurusan'" /> -->
