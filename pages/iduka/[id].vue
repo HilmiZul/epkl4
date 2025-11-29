@@ -16,7 +16,12 @@
           </div>
         </div>
       </div> -->
-      <div v-if="form.isArchive" class="badge bg-danger fw-bold mb-3 me-3">Arsip</div>
+      <div class="mb-3">
+        <span v-if="form.isArchive" class="badge bg-dark fw-bold me-2">Arsip</span>
+        <button v-if="form.terisi < 1 && !form.isArchive" @click="handleArchive(true, route.params.id)" class="btn btn-light btn-sm border border-2 border-dark"><i class="bi bi-archive"></i> Arsipkan</button>
+        <button v-if="form.isArchive" @click="handleArchive(false, route.params.id)" class="btn btn-light btn-sm border border-2 border-dark"><i class="bi bi-archive"></i> Buka arsip</button>
+      </div>
+      <hr>
       <form @submit.prevent="updateIduka" class="form-horizontal">
         <div class="row">
           <!-- <div class="col-md-12"><div v-if="isSaved" class="my-3 alert alert-success border-2 border-success py-2"><i class="bi bi-check-circle"></i> Berhasil tersimpan!</div></div> -->
@@ -78,7 +83,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6">
+          <div v-if="!form.isArchive" class="col-md-6">
             <LoadingPlaceholder v-if="isLoading" col="3" row="1" />
             <div v-else class="mb-1">Terisi:
               <span v-if="form.terisi < form.jumlah_kuota" class="fw-bold">{{ form.terisi }} dari {{ form.jumlah_kuota }}</span>
@@ -125,8 +130,6 @@
           </div>
         </div>
       </form>
-      <button v-if="form.terisi < 1 && !form.isArchive" @click="handleArchive(true, route.params.id)" class="btn btn-dark btn-sm border border-2 border-dark float-end"><i class="bi bi-archive"></i> Arsipkan</button>
-      <button v-if="form.isArchive" @click="handleArchive(false, route.params.id)" class="btn btn-dark btn-sm border border-2 border-dark float-end"><i class="bi bi-archive"></i> Buka arsip</button>
     </div>
   </div>
 </template>
@@ -222,10 +225,7 @@ async function getPembimbingSekolah(loading=true) {
 // FE memeriksa dulu apakah udah terisi atau belom
 async function handleArchive(archiveStatus, id) {
   client.autoCancellation(false)
-  let res = await client.collection('iduka').update(id, { isArchive: archiveStatus })
-  if(res) {
-    navigateTo('/iduka')
-  }
+  await client.collection('iduka').update(id, { isArchive: archiveStatus })
 }
 
 // async function TempgetPembimbing() {
