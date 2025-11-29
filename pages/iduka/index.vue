@@ -91,7 +91,10 @@
                   <td class="fw-bold">
                     <span @click="setModalCatatanById(company.id, company)" data-bs-toggle="modal" data-bs-target="#catatan" class="hand-cursor me-3"><i class="bi bi-chat-right-text"></i></span>
                     <span v-if="company.isArchive" class="text-danger me-1">&bull;</span>
-                    <nuxt-link v-if="role == 'admin' || role == 'jurusan'" :to="`/iduka/${company.id}`" class="link">{{ company.nama }}</nuxt-link>
+                    <nuxt-link v-if="role == 'admin' || role == 'jurusan'" :to="`/iduka/${company.id}`" class="link">
+                      <span v-if="company.isArchive" class="text-muted">{{ company.nama }}</span>
+                      <span v-else>{{ company.nama }}</span>
+                    </nuxt-link>
                     <span v-else>{{ company.nama }}</span>
                     <!-- <nuxt-link v-if="(role == 'admin' || role == 'jurusan') && company.alamat" :to="`https://www.google.com/maps/search/?api=1&query=${company.nama} ${company.alamat}`" target="_blannk" class="hand-cursor ms-2 text-dark"><i class="bi bi-geo-alt-fill"></i></nuxt-link> -->
                   </td>
