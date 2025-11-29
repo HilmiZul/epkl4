@@ -16,12 +16,15 @@
           </div>
         </div>
       </div> -->
-      <div class="mb-3">
+      <div v-if="isLoadingArchive" class="mb-3">
+        <loading-placeholder row="1" col="3" />
+      </div>
+      <div v-else class="mb-3">
         <span v-if="form.isArchive" class="badge bg-dark fw-bold me-2">Arsip</span>
         <button v-if="form.terisi < 1 && !form.isArchive" @click="handleArchive(true, route.params.id)" class="btn btn-light btn-sm border border-2 border-dark"><i class="bi bi-archive"></i> Arsipkan</button>
         <button v-if="form.isArchive" @click="handleArchive(false, route.params.id)" class="btn btn-light btn-sm border border-2 border-dark"><i class="bi bi-archive"></i> Buka arsip</button>
       </div>
-      <hr>
+      <hr v-if="form.terisi < 1">
       <form @submit.prevent="updateIduka" class="form-horizontal">
         <div class="row">
           <!-- <div class="col-md-12"><div v-if="isSaved" class="my-3 alert alert-success border-2 border-success py-2"><i class="bi bi-check-circle"></i> Berhasil tersimpan!</div></div> -->
@@ -166,6 +169,7 @@ let form = ref({
   catatan: "",
   pembimbing: ""
 })
+let isLoadingArchive = ref(false)
 if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
 
 async function updateIduka() {
@@ -224,8 +228,12 @@ async function getPembimbingSekolah(loading=true) {
 // IDUKA yang kosong belum terisi sama sekali, bisa diarsipin
 // FE memeriksa dulu apakah udah terisi atau belom
 async function handleArchive(archiveStatus, id) {
+  isLoadingArchive.value = true
   client.autoCancellation(false)
-  await client.collection('iduka').update(id, { isArchive: archiveStatus })
+  let res = await client.collection('iduka').update(id, { isArchive: archiveStatus })
+  if(res) {
+    isLoadingArchive.value = false
+  }
 }
 
 // async function TempgetPembimbing() {
