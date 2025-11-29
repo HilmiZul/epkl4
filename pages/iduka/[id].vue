@@ -217,6 +217,9 @@ async function getPembimbingSekolah(loading=true) {
   }
 }
 
+// handleArchive
+// IDUKA yang kosong belum terisi sama sekali, bisa diarsipin
+// FE memeriksa dulu apakah udah terisi atau belom
 async function handleArchive(archiveStatus, id) {
   client.autoCancellation(false)
   let res = await client.collection('iduka').update(id, { isArchive: archiveStatus })

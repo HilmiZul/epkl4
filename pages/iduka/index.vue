@@ -73,6 +73,7 @@
                     <div class="pb-3 text-muted">IDUKA belum tersedia</div>
                   </td>
                 </tr>
+                <!-- tanda merah menandakan IDUKA yang diarsipkan -->
                 <tr v-else v-for="(company, i) in companies.items" :key="i">
                   <td class="fw-bold">
                     <span @click="setModalCatatanById(company.id, company)" data-bs-toggle="modal" data-bs-target="#catatan" class="hand-cursor me-3"><i class="bi bi-chat-right-text"></i></span>
