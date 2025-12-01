@@ -213,7 +213,7 @@ let catatan_id = ref('') // single data untuk render ke Modal Catatan
 let pratinjau_iduka = ref('')
 let opsiProkel = ref([])
 let selectedProkel = ref('')
-let selectedArchive = ref('semua')
+let selectedArchive = ref('hide')
 let searchActivated = ref(false)
 let arsip = ref(0)
 
