@@ -8,7 +8,7 @@
       </span>
     </div>
     <div class="card-body small">
-      <div class="row">
+      <div v-if="role == 'admin' || role == 'jurusan'" class="row">
         <div class="col-lg-12">
           <div class="alert alert-info alert-dismissible">
             <div class="fs-5 fw-bold"><i class="bi bi-lightbulb-fill"></i> Ada yang baru!</div>
@@ -90,7 +90,7 @@
                 <tr v-else v-for="(company, i) in companies.items" :key="i">
                   <td class="fw-bold">
                     <span @click="setModalCatatanById(company.id, company)" data-bs-toggle="modal" data-bs-target="#catatan" class="hand-cursor me-3"><i class="bi bi-chat-right-text"></i></span>
-                    <span v-if="company.isArchive" class="text-danger me-1">&bull;</span>
+                    <span v-if="(role == 'admin' || role == 'jurusan') && company.isArchive" class="text-danger me-1">&bull;</span>
                     <nuxt-link v-if="role == 'admin' || role == 'jurusan'" :to="`/iduka/${company.id}`" class="link">
                       <span v-if="company.isArchive" class="text-muted">{{ company.nama }}</span>
                       <span v-else>{{ company.nama }}</span>
@@ -178,7 +178,7 @@
           <p v-if="pratinjau_iduka.catatan">{{ pratinjau_iduka.catatan }}</p>
           <p v-else>&#8212;</p>
         </div>
-        <div v-if="pratinjau_iduka.terisi < 1" class="modal-footer border-0">
+        <div v-if="(role == 'admin' || role == 'jurusan') && pratinjau_iduka.terisi < 1" class="modal-footer border-0">
           <button v-if="!pratinjau_iduka.isArchive" @click="handleArchive(true,pratinjau_iduka.id)" class="btn btn-dark border border-2 border-dark" data-bs-dismiss="modal"><i class="bi bi-archive"></i> Arsipkan</button>
           <button v-else @click="handleArchive(false,pratinjau_iduka.id)" class="btn btn-dark border border-2 border-dark" data-bs-dismiss="modal"><i class="bi bi-archive"></i> Buka arsip</button>
         </div>
@@ -266,17 +266,17 @@ async function getCompanies(loading=true) {
 
   // filter by role
   if(role == 'wakasek' || role == 'tu') {
-    filterQuery = ''
+    filterQuery = 'terisi > 0 '
     searchFilter = ''
     if(keyword.value != '' && selectedProkel.value != '') {
       searchActivated.value =true
-      filterQuery = `program_keahlian="${selectedProkel.value}"`
+      filterQuery = `program_keahlian="${selectedProkel.value}" && terisi > 0 `
       searchFilter = ` && (nama~"${keyword.value}" || pembimbing_sekolah.nama~"${keyword.value}")`
     } else if(keyword.value != '') {
       searchActivated.value = true
       searchFilter = `nama~"${keyword.value}" || pembimbing_sekolah.nama~"${keyword.value}"`
     } else if(selectedProkel.value != '') {
-      filterQuery = `program_keahlian="${selectedProkel.value}"`
+      filterQuery = `program_keahlian="${selectedProkel.value}" && terisi > 0 `
     }
   }
 
