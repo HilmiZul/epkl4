@@ -296,7 +296,7 @@ async function pagination(page, loading=true) {
   isLoading.value = loading
   isMovingPage.value = true
   let searchFilter = ''
-  let filterQuery = `program_keahlian = "${user.user.value.program_keahlian}"`
+  let filterQuery = `program_keahlian = "${user.user.value.program_keahlian}" && terisi > 0 `
   // filter by arsip
   if(selectedArchive.value == 'arsip') {
     searchFilter = ` && isArchive=true`
