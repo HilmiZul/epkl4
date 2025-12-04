@@ -310,13 +310,13 @@ async function pagination(page, loading=true) {
     filterQuery = ''
     if(keyword.value != '' && selectedProkel.value != '') {
       searchActivated.value = true
-      filterQuery = `program_keahlian="${selectedProkel.value}"`
+      filterQuery = `program_keahlian="${selectedProkel.value}" && terisi > 0 `
       searchFilter = ` && (iduka.nama~"${keyword.value}" || siswa.nama~"${keyword.value}")`
     } else if(keyword.value != '') {
       searchActivated.value = true
       searchFilter = `iduka.nama~"${keyword.value}" || siswa.nama~"${keyword.value}"`
     } else if(selectedProkel.value != '') {
-      filterQuery = `program_keahlian="${selectedProkel.value}"`
+      filterQuery = `program_keahlian="${selectedProkel.value}" && terisi > 0 `
     }
   }
 
