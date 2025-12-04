@@ -321,7 +321,7 @@ async function pagination(page, loading=true) {
     } else if(keyword.value != '') {
       searchActivated.value = true
       filterQuery = `isArchive=false && `
-      searchFilter = `iduka.nama~"${keyword.value}" || siswa.nama~"${keyword.value}"`
+      searchFilter = `nama~"${keyword.value}" || pembimbing_sekolah.nama~"${keyword.value}"`
     } else if(selectedProkel.value != '') {
       filterQuery = `program_keahlian="${selectedProkel.value}" && isArchive=false`
     } else {
