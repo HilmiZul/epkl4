@@ -61,8 +61,9 @@
                   <!-- <th width="2%">#</th> -->
                   <th width="60%">Nama</th>
                   <th width="10%">Wilayah</th>
-                  <th width="6%">Terisi</th>
-                  <th width="17%">Pembimbing</th>
+                  <th v-if="role == 'admin' || role == 'jurusan'" width="6%">Terisi</th>
+                  <th v-if="role == 'admin' || role == 'jurusan'" width="17%">Pembimbing</th>
+                  <th v-if="role == 'wakasek' || role == 'tu'" width="17%">Program Keahlian</th>
                   <th v-if="role == 'admin' || role == 'jurusan'" width="5%">Hapus</th>
                 </tr>
               </thead>
@@ -99,11 +100,12 @@
                     <!-- <nuxt-link v-if="(role == 'admin' || role == 'jurusan') && company.alamat" :to="`https://www.google.com/maps/search/?api=1&query=${company.nama} ${company.alamat}`" target="_blannk" class="hand-cursor ms-2 text-dark"><i class="bi bi-geo-alt-fill"></i></nuxt-link> -->
                   </td>
                   <td class="smallest">{{ company.wilayah.charAt(0).toUpperCase() + company.wilayah.slice(1) }} kota </td>
-                  <td class="smallest">
+                  <td v-if="role == 'admin' || role == 'jurusan'" class="smallest">
                     <span v-if="company.terisi < company.jumlah_kuota">{{ company.terisi }} / {{ company.jumlah_kuota }}</span>
                     <span v-else class="badge bg-danger">Penuh</span>
                   </td>
-                  <td class="smallest">{{ company.expand.pembimbing_sekolah?.nama }} </td>
+                  <td v-if="role == 'admin' || role == 'jurusan'" class="smallest">{{ company.expand.pembimbing_sekolah?.nama }} </td>
+                  <td v-if="role == 'wakasek' || role == 'tu'" class="smallest">{{ company.expand.program_keahlian?.nama }} </td>
                   <td v-if="role == 'admin' || role == 'jurusan'" class="smallest">
                     <button v-if="company.terisi < 1" @click="setModalDeleteById(company.id, company.nama)" class="btn btn-danger btn-sm border border-2 border-dark" data-bs-toggle="modal" data-bs-target="#delete"><i class="bi bi-trash3"></i></button>
                     <button v-else class="btn btn-sm btn-disabled" disabled><i class="bi bi-trash3"></i></button>
@@ -266,24 +268,27 @@ async function getCompanies(loading=true) {
 
   // filter by role
   if(role == 'wakasek' || role == 'tu') {
-    filterQuery = 'terisi > 0 '
+    filterQuery = ''
     searchFilter = ''
     if(keyword.value != '' && selectedProkel.value != '') {
       searchActivated.value =true
-      filterQuery = `program_keahlian="${selectedProkel.value}" && terisi > 0 `
+      filterQuery = `program_keahlian="${selectedProkel.value}" && isArchive=false`
       searchFilter = ` && (nama~"${keyword.value}" || pembimbing_sekolah.nama~"${keyword.value}")`
     } else if(keyword.value != '') {
       searchActivated.value = true
+      filterQuery = `isArchive=false && `
       searchFilter = `nama~"${keyword.value}" || pembimbing_sekolah.nama~"${keyword.value}"`
     } else if(selectedProkel.value != '') {
-      filterQuery = `program_keahlian="${selectedProkel.value}" && terisi > 0 `
+      filterQuery = `program_keahlian="${selectedProkel.value}" && isArchive=false`
+    } else {
+      filterQuery = `isArchive=false`
     }
   }
 
   let data = await client.collection('iduka').getList(1, perPage, {
     filter: filterQuery + searchFilter,
     expand: "program_keahlian, pembimbing_sekolah",
-    sort: 'terisi, -wilayah, nama'
+    sort: 'program_keahlian, terisi, -wilayah, nama'
   })
   if (data) {
     isLoading.value = false
@@ -296,7 +301,7 @@ async function pagination(page, loading=true) {
   isLoading.value = loading
   isMovingPage.value = true
   let searchFilter = ''
-  let filterQuery = `program_keahlian = "${user.user.value.program_keahlian}" && terisi > 0 `
+  let filterQuery = `program_keahlian = "${user.user.value.program_keahlian}"`
   // filter by arsip
   if(selectedArchive.value == 'arsip') {
     searchFilter = ` && isArchive=true`
@@ -308,22 +313,26 @@ async function pagination(page, loading=true) {
   // filter by role
   if(role == 'wakasek' || role == 'tu') {
     filterQuery = ''
+    searchFilter = ''
     if(keyword.value != '' && selectedProkel.value != '') {
       searchActivated.value = true
-      filterQuery = `program_keahlian="${selectedProkel.value}" && terisi > 0 `
+      filterQuery = `program_keahlian="${selectedProkel.value}" && isArchive=false`
       searchFilter = ` && (iduka.nama~"${keyword.value}" || siswa.nama~"${keyword.value}")`
     } else if(keyword.value != '') {
       searchActivated.value = true
+      filterQuery = `isArchive=false && `
       searchFilter = `iduka.nama~"${keyword.value}" || siswa.nama~"${keyword.value}"`
     } else if(selectedProkel.value != '') {
-      filterQuery = `program_keahlian="${selectedProkel.value}" && terisi > 0 `
+      filterQuery = `program_keahlian="${selectedProkel.value}" && isArchive=false`
+    } else {
+      filterQuery = `isArchive=false`
     }
   }
 
   let data = await client.collection('iduka').getList(page, perPage, {
     filter: filterQuery + searchFilter,
     expand: "program_keahlian, pembimbing_sekolah",
-    sort: 'terisi, -wilayah, nama'
+    sort: 'program_keahlian, terisi, -wilayah, nama'
   })
   if (data) {
     companies.value = data
