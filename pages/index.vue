@@ -94,10 +94,16 @@
         </div>
         <div class="row mt-4">
           <div class="col-md-12">
+            <h4 class="fw-bold">Statistik IDUKA</h4>
+          </div>
+          <ringkasan-stat-iduka />
+        </div>
+        <div class="row mt-4">
+          <div class="col-md-12">
             <h4 class="fw-bold">Statistik Peserta</h4>
           </div>
+          <ringkasan-stat-per-jurusan />
         </div>
-        <ringkasan-stat-per-jurusan />
       </div>
     </div>
   </div>
@@ -147,7 +153,7 @@ async function getIduka() {
   isLoadingIduka.value = true
   client.autoCancellation(false)
   let res_iduka = await client.collection('iduka').getList(1,1, {
-    filter: `isArchive=false && terisi > 0 `
+    filter: `isArchive=false`
   })
   if(res_iduka) {
     jumlah_iduka.value = res_iduka.totalItems

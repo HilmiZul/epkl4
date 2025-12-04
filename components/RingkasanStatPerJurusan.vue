@@ -1,143 +1,141 @@
 <template>
-  <div class="row my-4">
-    <!-- PPLG -->
-    <div class="col-md-3">
-      <div class="card mb-4">
-        <div class="card-header fw-bold">PPLG</div>
-        <div class="card-body">
-          <table class="table">
-            <tbody>
-              <tr>
-                <td>Jumlah Peserta</td>
-                <td>: {{ pplg_jumlah_peserta }}</td>
-              </tr>
-              <tr>
-                <td>Sudah diterima</td>
-                <td>: {{ pplg_jumlah_diterima }}</td>
-              </tr>
-              <tr>
-                <td>Belum diterima</td>
-                <td>: {{ pplg_jumlah_belum_diterima }}</td>
-              </tr>
-              <tr>
-                <td>Belum pemetaan</td>
-                <td>: {{ pplg_jumlah_belum_pemetaan }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+  <!-- PPLG -->
+  <div class="col-md-3">
+    <div class="card mb-4">
+      <div class="card-header fw-bold">PPLG</div>
+      <div class="card-body">
+        <table class="table">
+          <tbody>
+            <tr>
+              <td>Jumlah Peserta</td>
+              <td>: {{ pplg_jumlah_peserta }}</td>
+            </tr>
+            <tr>
+              <td>Sudah diterima</td>
+              <td>: {{ pplg_jumlah_diterima }}</td>
+            </tr>
+            <tr>
+              <td>Belum diterima</td>
+              <td>: {{ pplg_jumlah_belum_diterima }}</td>
+            </tr>
+            <tr>
+              <td>Belum pemetaan</td>
+              <td>: {{ pplg_jumlah_belum_pemetaan }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-    <!-- TKJ -->
-    <div class="col-md-3">
-      <div class="card mb-4">
-        <div class="card-header fw-bold">TJKT</div>
-        <div class="card-body">
-          <table class="table">
-            <tbody>
-              <tr>
-                <td>Jumlah Peserta</td>
-                <td>: {{ tkj_jumlah_peserta }}</td>
-              </tr>
-              <tr>
-                <td>Sudah diterima</td>
-                <td>: {{ tkj_jumlah_diterima }}</td>
-              </tr>
-              <tr>
-                <td>Belum diterima</td>
-                <td>: {{ tkj_jumlah_belum_diterima }}</td>
-              </tr>
-              <tr>
-                <td>Belum pemetaan</td>
-                <td>: {{ tkj_jumlah_belum_pemetaan }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+  </div>
+  <!-- TKJ -->
+  <div class="col-md-3">
+    <div class="card mb-4">
+      <div class="card-header fw-bold">TJKT</div>
+      <div class="card-body">
+        <table class="table">
+          <tbody>
+            <tr>
+              <td>Jumlah Peserta</td>
+              <td>: {{ tkj_jumlah_peserta }}</td>
+            </tr>
+            <tr>
+              <td>Sudah diterima</td>
+              <td>: {{ tkj_jumlah_diterima }}</td>
+            </tr>
+            <tr>
+              <td>Belum diterima</td>
+              <td>: {{ tkj_jumlah_belum_diterima }}</td>
+            </tr>
+            <tr>
+              <td>Belum pemetaan</td>
+              <td>: {{ tkj_jumlah_belum_pemetaan }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-    <!-- TSM-->
-    <div class="col-md-3">
-      <div class="card mb-4">
-        <div class="card-header fw-bold">TSM</div>
-        <div class="card-body">
-          <table class="table">
-            <tbody>
-              <tr>
-                <td>Jumlah Peserta</td>
-                <td>: {{ tsm_jumlah_peserta }}</td>
-              </tr>
-              <tr>
-                <td>Sudah diterima</td>
-                <td>: {{ tsm_jumlah_diterima }}</td>
-              </tr>
-              <tr>
-                <td>Belum diterima</td>
-                <td>: {{ tsm_jumlah_belum_diterima }}</td>
-              </tr>
-              <tr>
-                <td>Belum pemetaan</td>
-                <td>: {{ tsm_jumlah_belum_pemetaan }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+  </div>
+  <!-- TSM-->
+  <div class="col-md-3">
+    <div class="card mb-4">
+      <div class="card-header fw-bold">TSM</div>
+      <div class="card-body">
+        <table class="table">
+          <tbody>
+            <tr>
+              <td>Jumlah Peserta</td>
+              <td>: {{ tsm_jumlah_peserta }}</td>
+            </tr>
+            <tr>
+              <td>Sudah diterima</td>
+              <td>: {{ tsm_jumlah_diterima }}</td>
+            </tr>
+            <tr>
+              <td>Belum diterima</td>
+              <td>: {{ tsm_jumlah_belum_diterima }}</td>
+            </tr>
+            <tr>
+              <td>Belum pemetaan</td>
+              <td>: {{ tsm_jumlah_belum_pemetaan }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-    <!-- DKV -->
-    <div class="col-md-3">
-      <div class="card mb-4">
-        <div class="card-header fw-bold">DKV</div>
-        <div class="card-body">
-          <table class="table">
-            <tbody>
-              <tr>
-                <td>Jumlah Peserta</td>
-                <td>: {{ dkv_jumlah_peserta }}</td>
-              </tr>
-              <tr>
-                <td>Sudah diterima</td>
-                <td>: {{ dkv_jumlah_diterima }}</td>
-              </tr>
-              <tr>
-                <td>Belum diterima</td>
-                <td>: {{ dkv_jumlah_belum_diterima }}</td>
-              </tr>
-              <tr>
-                <td>Belum pemetaan</td>
-                <td>: {{ dkv_jumlah_belum_pemetaan }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+  </div>
+  <!-- DKV -->
+  <div class="col-md-3">
+    <div class="card mb-4">
+      <div class="card-header fw-bold">DKV</div>
+      <div class="card-body">
+        <table class="table">
+          <tbody>
+            <tr>
+              <td>Jumlah Peserta</td>
+              <td>: {{ dkv_jumlah_peserta }}</td>
+            </tr>
+            <tr>
+              <td>Sudah diterima</td>
+              <td>: {{ dkv_jumlah_diterima }}</td>
+            </tr>
+            <tr>
+              <td>Belum diterima</td>
+              <td>: {{ dkv_jumlah_belum_diterima }}</td>
+            </tr>
+            <tr>
+              <td>Belum pemetaan</td>
+              <td>: {{ dkv_jumlah_belum_pemetaan }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-    <!-- TOI-->
-    <div class="col-md-3">
-      <div class="card mb-4">
-        <div class="card-header fw-bold">TOI</div>
-        <div class="card-body">
-          <table class="table">
-            <tbody>
-              <tr>
-                <td>Jumlah Peserta</td>
-                <td>: {{ toi_jumlah_peserta }}</td>
-              </tr>
-              <tr>
-                <td>Sudah diterima</td>
-                <td>: {{ toi_jumlah_diterima }}</td>
-              </tr>
-              <tr>
-                <td>Belum diterima</td>
-                <td>: {{ toi_jumlah_belum_diterima }}</td>
-              </tr>
-              <tr>
-                <td>Belum pemetaan</td>
-                <td>: {{ toi_jumlah_belum_pemetaan }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+  </div>
+  <!-- TOI-->
+  <div class="col-md-3">
+    <div class="card mb-4">
+      <div class="card-header fw-bold">TOI</div>
+      <div class="card-body">
+        <table class="table">
+          <tbody>
+            <tr>
+              <td>Jumlah Peserta</td>
+              <td>: {{ toi_jumlah_peserta }}</td>
+            </tr>
+            <tr>
+              <td>Sudah diterima</td>
+              <td>: {{ toi_jumlah_diterima }}</td>
+            </tr>
+            <tr>
+              <td>Belum diterima</td>
+              <td>: {{ toi_jumlah_belum_diterima }}</td>
+            </tr>
+            <tr>
+              <td>Belum pemetaan</td>
+              <td>: {{ toi_jumlah_belum_pemetaan }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
