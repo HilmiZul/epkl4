@@ -171,11 +171,18 @@
           <!-- <loading-placeholder v-if="isLoadingModalCatatan" col="12" row="1" /> -->
           <div class="fw-bold">Nama </div>
           <p>{{ pratinjau_iduka.nama }}</p>
+
           <div class="fw-bold">Alamat</div>
           <p>{{ pratinjau_iduka.alamat }}</p>
+
           <div class="fw-bold">Pembimbing</div>
           <p v-if="pratinjau_iduka.pembimbing_sekolah">{{ pratinjau_iduka.expand.pembimbing_sekolah.nama }}</p>
           <p v-else>&#8212;</p>
+
+          <div class="fw-bold">Instruktur</div>
+          <p v-if="pratinjau_iduka.pembimbing_iduka">{{ pratinjau_iduka.pembimbing_iduka }}</p>
+          <p v-else>&#8212;</p>
+
           <div class="fw-bold">Catatan</div>
           <p v-if="pratinjau_iduka.catatan">{{ pratinjau_iduka.catatan }}</p>
           <p v-else>&#8212;</p>
