@@ -115,7 +115,7 @@
             <span v-if="props.rapor?.nilai_elemen3 >= 86">Amat Baik</span>
             <span v-else-if="props.rapor?.nilai_elemen3 >= 70">Baik</span>
             <span v-else>Cukup terampil</span>,
-            {{ props.rapor?.deskripsi_elemen3?.toString() }}
+            {{ props.rapor?.deskripsi_elemen3?.toString().replaceAll(',', ', ') }}
           </td>
           <td v-else class="text-center">&#8212;</td>
         </tr>
@@ -129,7 +129,7 @@
             <span v-if="props.rapor?.nilai_elemen4 >= 86">Amat Baik</span>
             <span v-else-if="props.rapor?.nilai_elemen4 >= 70">Baik</span>
             <span v-else>Cukup terampil</span>,
-            {{ props.rapor?.deskripsi_elemen4?.toString() }}
+            {{ props.rapor?.deskripsi_elemen4?.toString().replaceAll(',', ', ') }}
           </td>
           <td v-else class="text-center">&#8212;</td>
         </tr>
