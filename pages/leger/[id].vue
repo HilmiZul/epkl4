@@ -63,7 +63,7 @@
                       <div class="col-lg-6">
                         <div class="text-muted">
                           <div class="fw-bold">Pilih deskripsi sesuai capaian</div>
-                          Peserta didik sudah memiliki dan
+                          Peserta didik telah memiliki dan
                           <span v-for="(e,i) in deskripsi.elemen1" :key="i">
                             {{ e }}<span v-if="i < deskripsi.elemen1.length-1">, </span>
                           </span>
@@ -87,7 +87,7 @@
                       <div class="col-lg-6">
                         <div class="text-muted">
                           <div class="fw-bold">Pilih deskripsi sesuai capaian</div>
-                          Peserta didik sudah mampu
+                          Peserta didik telah mampu
                           <span v-for="(e,i) in deskripsi.elemen1" :key="i">
                             {{ e }}<span v-if="i < deskripsi.elemen1.length-1">, </span>
                           </span>
