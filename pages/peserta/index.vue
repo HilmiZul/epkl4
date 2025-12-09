@@ -11,7 +11,7 @@
       <div class="modal" id="buat-akun-peserta" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-            <div class="modal-header rounded-0 h4 bg-info border-bottom border-3 border-dark">
+            <div class="modal-header rounded-0 h4 bg-info border-bottom border-3 border-dark fw-bold">
               Buat akun Peserta
             </div>
             <div class="modal-body">
