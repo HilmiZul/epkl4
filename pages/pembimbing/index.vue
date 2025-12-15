@@ -11,7 +11,7 @@
         <div class="col-lg-6">
           <div class="my-3 mt-0">
             <!-- <input type="search" @input="searchByKeyword" v-model="keyword" class="form form-control" placeholder="🔎 Cari nama atau NIP..." /> -->
-            <input v-if="role == 'wakasek'" type="search" v-model="keyword" class="form form-control form-control-lg" placeholder="🔎 Cari username/nama/program keahlian" />
+            <input v-if="role == 'wakasek' || role == 'tu'" type="search" v-model="keyword" class="form form-control form-control-lg" placeholder="🔎 Cari username/nama/program keahlian" />
             <input v-else type="search" v-model="keyword" class="form form-control form-control-lg" placeholder="🔎 Cari username / nama" />
           </div>
         </div>
@@ -28,7 +28,7 @@
               <th width="2%">#</th>
               <th width="15%">Username</th>
               <th>Nama</th>
-              <th v-if="role == 'wakasek'" width="15%">Program Keahlian</th>
+              <th v-if="role == 'wakasek' || role == 'tu'" width="15%">Program Keahlian</th>
               <th v-else width="15%">Role</th>
             </tr>
           </thead>
@@ -51,12 +51,15 @@
             <tr v-else v-for="(pembimbing,i) in itemFiltered" :key="pembimbing.id">
               <td><span class="badge text-dark">{{ i+1 }}</span></td>
               <td>{{ pembimbing.username }}</td>
-              <td class="fw-bold"><nuxt-link :to="`/pembimbing/${pembimbing.id}`" class="link">{{ pembimbing.nama }}</nuxt-link></td>
+              <td class="fw-bold">
+                <nuxt-link v-if="role == 'jurusan'" :to="`/pembimbing/${pembimbing.id}`" class="link">{{ pembimbing.nama }}</nuxt-link>
+                <span v-else class="fw-bold">{{ pembimbing.nama }}</span>
+              </td>
               <!-- <td>
                 <span v-if="pembimbing.status_pemetaan" class="badge bg-success">Sudah</span>
                 <span v-else class="badge bg-danger">Belum</span>
               </td> -->
-              <td v-if="role == 'wakasek'">
+              <td v-if="role == 'wakasek' || role == 'tu'">
                 {{ pembimbing.expand.program_keahlian.nama }}
               </td>
               <td v-else>
@@ -108,7 +111,7 @@ let isDeleted = ref(false)
 let role = user.user.value.role
 let prokel = user.user.value.program_keahlian
 let keyword = ref('')
-if(role != 'jurusan' && role != 'admin' && role != 'wakasek') navigateTo('/404')
+if(role != 'jurusan' && role != 'admin' && role != 'wakasek' && role != 'tu') navigateTo('/404')
 
 // async function hapusData(id) {
   // isLoading.value = true
@@ -137,7 +140,7 @@ async function getPembimbingByProkel() {
   // filter & sort berdasarkan role `wakasek` aja
   let filterQuery = `program_keahlian="${prokel}" && role!="admin"`
   let sorting = `-role, nama`
-  if(role == 'wakasek') {
+  if(role == 'wakasek' || role == 'tu') {
     filterQuery = `role!="wakasek" && role!="admin" && role!="tu"`
     sorting = `program_keahlian.nama, nama`
   }
