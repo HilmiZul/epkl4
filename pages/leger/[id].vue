@@ -63,10 +63,11 @@
                       <div class="col-lg-6">
                         <div class="text-muted">
                           <div class="fw-bold">Pilih deskripsi sesuai capaian</div>
-                          Peserta didik telah memiliki dan
+                          Peserta didik sudah memiliki soft skill dalam menunjukkan integritas, memiliki etos kerja, menunjukkan kemandirian, menunjukkan kerjasama dan menunjukkan kepedulian sosial dan lingkungan
+                          <!-- Peserta didik telah memiliki dan
                           <span v-for="(e,i) in deskripsi.elemen1" :key="i">
                             {{ e }}<span v-if="i < deskripsi.elemen1.length-1">, </span>
-                          </span>
+                          </span> -->
                         </div>
                         <!-- <div v-for="(e,i) in deskripsi.elemen1" :key="i" class="mb-1 form-check">
                           <label :for="`${i}-${e}`" class="fw-normal">{{ e }}
@@ -87,10 +88,11 @@
                       <div class="col-lg-6">
                         <div class="text-muted">
                           <div class="fw-bold">Pilih deskripsi sesuai capaian</div>
-                          Peserta didik telah mampu
+                          Peserta didik sudah mampu menerapkan norma, POS dan K3LH pada penggunaan APD dengan tertib dan benar dan melaksanakan pekerjaan sesuai POS
+                          <!-- Peserta didik telah mampu
                           <span v-for="(e,i) in deskripsi.elemen1" :key="i">
                             {{ e }}<span v-if="i < deskripsi.elemen1.length-1">, </span>
-                          </span>
+                          </span> -->
                         </div>
                         <!-- <div v-for="(e,i) in deskripsi.elemen2" :key="i" class="mb-1 form-check">
                           <label :for="`${i}-${e}`" class="fw-normal">{{ e }}
@@ -386,8 +388,8 @@ async function getNilai(loading=true, isCert=false) {
 
       // memindahkan nilai deskripsi_elemen{i} ke variable temporary
       // sebelum di assign, divalidasi terlebih dahulu agar tidak terjadi null dengan mengganti ke default [] kosong
-      // deskripsi_temp1.value = form.value.deskripsi_elemen1 || []
-      // deskripsi_temp2.value = form.value.deskripsi_elemen2 || []
+      deskripsi_temp1.value = form.value.deskripsi_elemen1
+      deskripsi_temp2.value = form.value.deskripsi_elemen2
       deskripsi_temp3.value = form.value.deskripsi_elemen3 || []
       deskripsi_temp4.value = form.value.deskripsi_elemen4 || []
       isLoading.value = false
