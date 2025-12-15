@@ -94,7 +94,13 @@
         </div>
         <div class="row mt-4">
           <div class="col-md-12">
-            <h4 class="fw-bold">Statistik IDUKA</h4>
+            <h4 class="fw-bold"><span class="text-muted"><i class="bi bi-people-fill"></i> Statistik</span> Pembimbing</h4>
+          </div>
+          <ringkasan-stat-pembimbing />
+        </div>
+        <div class="row mt-4">
+          <div class="col-md-12">
+            <h4 class="fw-bold"><span class="text-muted"><i class="bi bi-building-fill"></i> Statistik</span> IDUKA</h4>
           </div>
           <ringkasan-stat-iduka />
         </div>
