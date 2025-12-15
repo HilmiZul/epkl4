@@ -93,18 +93,18 @@
           </div>
         </div>
         <div class="row mt-4">
-          <div class="col-md-12">
+          <div class="col-md-6">
             <h4 class="fw-bold"><span class="text-muted"><i class="bi bi-people-fill"></i> Statistik</span> Pembimbing</h4>
+            <ringkasan-stat-pembimbing />
           </div>
-          <ringkasan-stat-pembimbing />
-        </div>
-        <div class="row mt-4">
-          <div class="col-md-12">
+        <!-- </div>
+        <div class="row mt-4"> -->
+          <div class="col-md-6">
             <h4 class="fw-bold"><span class="text-muted"><i class="bi bi-building-fill"></i> Statistik</span> IDUKA</h4>
+            <ringkasan-stat-iduka />
           </div>
-          <ringkasan-stat-iduka />
         </div>
-        <div class="row mt-4">
+        <div class="row mt-4 justify-content-center">
           <div class="col-md-12">
             <h4 class="fw-bold">Statistik Peserta</h4>
           </div>
