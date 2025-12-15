@@ -11,7 +11,8 @@
         <div class="col-lg-6">
           <div class="my-3 mt-0">
             <!-- <input type="search" @input="searchByKeyword" v-model="keyword" class="form form-control" placeholder="🔎 Cari nama atau NIP..." /> -->
-            <input type="search" v-model="keyword" class="form form-control form-control-lg" placeholder="🔎 Cari username / nama" />
+            <input v-if="role == 'wakasek'" type="search" v-model="keyword" class="form form-control form-control-lg" placeholder="🔎 Cari username/nama/program keahlian" />
+            <input v-else type="search" v-model="keyword" class="form form-control form-control-lg" placeholder="🔎 Cari username / nama" />
           </div>
         </div>
         <div class="col align-content-center">
@@ -27,7 +28,8 @@
               <th width="2%">#</th>
               <th width="15%">Username</th>
               <th>Nama</th>
-              <th width="15%">Role</th>
+              <th v-if="role == 'wakasek'" width="15%">Program Keahlian</th>
+              <th v-else width="15%">Role</th>
             </tr>
           </thead>
           <tbody>
@@ -54,7 +56,10 @@
                 <span v-if="pembimbing.status_pemetaan" class="badge bg-success">Sudah</span>
                 <span v-else class="badge bg-danger">Belum</span>
               </td> -->
-              <td>
+              <td v-if="role == 'wakasek'">
+                {{ pembimbing.expand.program_keahlian.nama }}
+              </td>
+              <td v-else>
                 <span v-if="pembimbing.role == 'jurusan'">Manajemen</span>
                 <span v-else>Guru Pembimbing</span>
               </td>
@@ -103,7 +108,7 @@ let isDeleted = ref(false)
 let role = user.user.value.role
 let prokel = user.user.value.program_keahlian
 let keyword = ref('')
-if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
+if(role != 'jurusan' && role != 'admin' && role != 'wakasek') navigateTo('/404')
 
 // async function hapusData(id) {
   // isLoading.value = true
@@ -128,11 +133,20 @@ if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navig
 
 async function getPembimbingByProkel() {
   isLoading.value = true
+
+  // filter & sort berdasarkan role `wakasek` aja
+  let filterQuery = `program_keahlian="${prokel}" && role!="admin"`
+  let sorting = `-role, nama`
+  if(role == 'wakasek') {
+    filterQuery = `role!="wakasek" && role!="admin" && role!="tu"`
+    sorting = `program_keahlian.nama, nama`
+  }
+
   client.autoCancellation(false)
   let data = await client.collection('teacher_users').getFullList({
-    filter: "program_keahlian='"+prokel+"' && role!='admin'",
+    filter: filterQuery,
     expand: "program_keahlian",
-    sort: '-role, nama'
+    sort: sorting
   })
   if(data) {
     isLoading.value = false
@@ -159,7 +173,8 @@ const itemFiltered = computed(() => {
     return (
       i.username.toLowerCase().includes(keyword.value.toLowerCase()) ||
       i.nama.toLowerCase().includes(keyword.value.toLowerCase()) ||
-      i.role.toLowerCase().includes(keyword.value.toLowerCase())
+      i.role.toLowerCase().includes(keyword.value.toLowerCase()) ||
+      i.expand.program_keahlian.nama.toLowerCase().includes(keyword.value.toLowerCase())
     )
   })
 })
