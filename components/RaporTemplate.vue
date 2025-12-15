@@ -111,11 +111,11 @@
           <td v-if="props.isLoaded" class="text-center">{{ props.rapor?.nilai_elemen3 }}</td>
           <td v-else class="text-center">&#8212;</td>
           <td v-if="props.isLoaded && props.rapor" class="text-justify">
-            Peserta didik telah mampu menerapkan kompetensi teknis yang sudah dipelajari di sekolah dan/ atau baru dipelajari di dunia kerja dengan
+            Peserta didik telah mampu menerapkan kompetensi teknis yang sudah dipelajari di sekolah dan/ atau baru dipelajari di dunia kerja,
+            {{ props.rapor?.deskripsi_elemen3?.toString().replaceAll(',', ', ') }} dengan
             <span v-if="props.rapor?.nilai_elemen3 >= 86">amat baik</span>
             <span v-else-if="props.rapor?.nilai_elemen3 >= 70">baik</span>
-            <span v-else>Cukup terampil</span>,
-            {{ props.rapor?.deskripsi_elemen3?.toString().replaceAll(',', ', ') }}
+            <span v-else>Cukup terampil</span>
           </td>
           <td v-else class="text-center">&#8212;</td>
         </tr>
@@ -125,11 +125,11 @@
           <td v-if="props.isLoaded" class="text-center">{{ props.rapor?.nilai_elemen4 }}</td>
           <td v-else class="text-center">&#8212;</td>
           <td v-if="props.isLoaded && props.rapor" class="text-justify">
-            Peserta didik telah mampu membekali kemandiriannya dengan
+            Peserta didik telah mampu membekali kemandiriannya,
+            {{ props.rapor?.deskripsi_elemen4?.toString().replaceAll(',', ', ') }} dengan
             <span v-if="props.rapor?.nilai_elemen4 >= 86">amat baik</span>
             <span v-else-if="props.rapor?.nilai_elemen4 >= 70">baik</span>
-            <span v-else>Cukup terampil</span>,
-            {{ props.rapor?.deskripsi_elemen4?.toString().replaceAll(',', ', ') }}
+            <span v-else>Cukup terampil</span>
           </td>
           <td v-else class="text-center">&#8212;</td>
         </tr>
