@@ -22,7 +22,7 @@
               </multiselect>
             </div>
             <div class="my-3">
-              <label for="pembimbing">Peserta didik (pilih lebih dari satu)</label>
+              <label for="siswa">Peserta didik (pilih lebih dari satu)</label>
               <multiselect
                 v-model="form.siswa"
                 :options="students"
@@ -30,7 +30,7 @@
                 :close-on-search="false"
                 :clear-on-select="false"
                 :custom-label="({nama, kelas}) => `${nama} - ${kelas}`"
-                id="pembimbing"
+                id="siswa"
                 placeholder="Pilih lebih dari satu"
                 label="nama"
                 track-by="nama"
