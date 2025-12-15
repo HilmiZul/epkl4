@@ -19,7 +19,7 @@
               <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" to="/elemen" :activeClass="activeClass">
                 <li class="list-group-item"><i class="bi bi-journal-bookmark-fill"></i> Elemen</li>
               </nuxt-link>
-              <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role === 'wakasek'" to="/pembimbing" :activeClass="activeClass">
+              <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role === 'wakasek' || role == 'tu'" to="/pembimbing" :activeClass="activeClass">
                 <li class="list-group-item"><i class="bi bi-emoji-smile"></i> Pembimbing</li>
               </nuxt-link>
               <nuxt-link v-if="role === 'admin' || role === 'jurusan'" to="/peserta" :activeClass="activeClass">
