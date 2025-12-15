@@ -3,29 +3,29 @@
     <thead>
       <tr>
         <th>Program Keahlian</th>
-        <th>Total</th>
+        <th width="20%">Total</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td class="fw-bold">PPLG</td>
-        <td>{{ totalPembimbing.pplg }}</td>
+        <td>{{ totalPembimbing.pplg }} <sup>orang</sup></td>
       </tr>
       <tr>
         <td class="fw-bold">TJKT</td>
-        <td>{{ totalPembimbing.tjkt }}</td>
+        <td>{{ totalPembimbing.tjkt }} <sup>orang</sup></td>
       </tr>
       <tr>
         <td class="fw-bold">TSM</td>
-        <td>{{ totalPembimbing.tsm  }}</td>
+        <td>{{ totalPembimbing.tsm  }} <sup>orang</sup></td>
       </tr>
       <tr>
         <td class="fw-bold">DKV</td>
-        <td>{{ totalPembimbing.dkv  }}</td>
+        <td>{{ totalPembimbing.dkv  }} <sup>orang</sup></td>
       </tr>
       <tr>
         <td class="fw-bold">TOI</td>
-        <td>{{ totalPembimbing.toi  }}</td>
+        <td>{{ totalPembimbing.toi  }} <sup>orang</sup></td>
       </tr>
     </tbody>
   </table>
