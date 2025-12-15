@@ -1,36 +1,34 @@
 <template>
-  <div class="col-lg-12">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Program Keahlian</th>
-          <th>Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="fw-bold">PPLG</td>
-          <td>{{ totalPembimbing.pplg }}</td>
-        </tr>
-        <tr>
-          <td class="fw-bold">TJKT</td>
-          <td>{{ totalPembimbing.tjkt }}</td>
-        </tr>
-        <tr>
-          <td class="fw-bold">TSM</td>
-          <td>{{ totalPembimbing.tsm  }}</td>
-        </tr>
-        <tr>
-          <td class="fw-bold">DKV</td>
-          <td>{{ totalPembimbing.dkv  }}</td>
-        </tr>
-        <tr>
-          <td class="fw-bold">TOI</td>
-          <td>{{ totalPembimbing.toi  }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Program Keahlian</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="fw-bold">PPLG</td>
+        <td>{{ totalPembimbing.pplg }}</td>
+      </tr>
+      <tr>
+        <td class="fw-bold">TJKT</td>
+        <td>{{ totalPembimbing.tjkt }}</td>
+      </tr>
+      <tr>
+        <td class="fw-bold">TSM</td>
+        <td>{{ totalPembimbing.tsm  }}</td>
+      </tr>
+      <tr>
+        <td class="fw-bold">DKV</td>
+        <td>{{ totalPembimbing.dkv  }}</td>
+      </tr>
+      <tr>
+        <td class="fw-bold">TOI</td>
+        <td>{{ totalPembimbing.toi  }}</td>
+      </tr>
+    </tbody>
+  </table>
 </template>
 
 <script setup>

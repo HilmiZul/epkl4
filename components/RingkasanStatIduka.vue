@@ -1,48 +1,46 @@
 <template>
-  <div class="col-lg-12">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Program Keahlian</th>
-          <th>Dalam Kota</th>
-          <th>Luar Kota</th>
-          <th>Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="fw-bold">PPLG</td>
-          <td>{{ jumlahDalamKota.pplg }}</td>
-          <td>{{ jumlahLuarKota.pplg }}</td>
-          <td>{{ jumlahDalamKota.pplg + jumlahLuarKota.pplg }}</td>
-        </tr>
-        <tr>
-          <td class="fw-bold">TJKT</td>
-          <td>{{ jumlahDalamKota.tjkt }}</td>
-          <td>{{ jumlahLuarKota.tjkt }}</td>
-          <td>{{ jumlahDalamKota.tjkt + jumlahLuarKota.tjkt }}</td>
-        </tr>
-        <tr>
-          <td class="fw-bold">TSM</td>
-          <td>{{ jumlahDalamKota.tsm }}</td>
-          <td>{{ jumlahLuarKota.tsm }}</td>
-          <td>{{ jumlahDalamKota.tsm + jumlahLuarKota.tsm }}</td>
-        </tr>
-        <tr>
-          <td class="fw-bold">DKV</td>
-          <td>{{ jumlahDalamKota.dkv }}</td>
-          <td>{{ jumlahLuarKota.dkv }}</td>
-          <td>{{ jumlahDalamKota.dkv + jumlahLuarKota.dkv }}</td>
-        </tr>
-        <tr>
-          <td class="fw-bold">TOI</td>
-          <td>{{ jumlahDalamKota.toi }}</td>
-          <td>{{ jumlahLuarKota.toi }}</td>
-          <td>{{ jumlahDalamKota.toi + jumlahLuarKota.toi }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Program Keahlian</th>
+        <th>Dalam Kota</th>
+        <th>Luar Kota</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="fw-bold">PPLG</td>
+        <td>{{ jumlahDalamKota.pplg }}</td>
+        <td>{{ jumlahLuarKota.pplg }}</td>
+        <td>{{ jumlahDalamKota.pplg + jumlahLuarKota.pplg }}</td>
+      </tr>
+      <tr>
+        <td class="fw-bold">TJKT</td>
+        <td>{{ jumlahDalamKota.tjkt }}</td>
+        <td>{{ jumlahLuarKota.tjkt }}</td>
+        <td>{{ jumlahDalamKota.tjkt + jumlahLuarKota.tjkt }}</td>
+      </tr>
+      <tr>
+        <td class="fw-bold">TSM</td>
+        <td>{{ jumlahDalamKota.tsm }}</td>
+        <td>{{ jumlahLuarKota.tsm }}</td>
+        <td>{{ jumlahDalamKota.tsm + jumlahLuarKota.tsm }}</td>
+      </tr>
+      <tr>
+        <td class="fw-bold">DKV</td>
+        <td>{{ jumlahDalamKota.dkv }}</td>
+        <td>{{ jumlahLuarKota.dkv }}</td>
+        <td>{{ jumlahDalamKota.dkv + jumlahLuarKota.dkv }}</td>
+      </tr>
+      <tr>
+        <td class="fw-bold">TOI</td>
+        <td>{{ jumlahDalamKota.toi }}</td>
+        <td>{{ jumlahLuarKota.toi }}</td>
+        <td>{{ jumlahDalamKota.toi + jumlahLuarKota.toi }}</td>
+      </tr>
+    </tbody>
+  </table>
 </template>
 
 <script setup>
