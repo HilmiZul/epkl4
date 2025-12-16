@@ -48,46 +48,61 @@
       </div>
       <div class="card-body">
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-3">
+            <nuxt-link to="/pembimbing" class="link border-0">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <h2 v-if="!isLoading" class="fw-bold">{{ jumlah_pembimbing }}</h2>
+                  <h4 v-else>
+                    <p class="placeholder-glow">
+                      <span class="placeholder col-6"></span>
+                    </p>
+                  </h4>
+                  <span class="fw-bold text-muted">Pembimbing</span>
+                </div>
+              </div>
+            </nuxt-link>
+          </div>
+          <div class="col-md-3">
             <nuxt-link to="/iduka" class="link border-0">
               <div class="card mb-3">
-                <div class="card-body bg-warning">
-                  <h2 v-if="!isLoading" class="fs-bold">{{ jumlah_iduka }}</h2>
+                <div class="card-body">
+                  <h2 v-if="!isLoading" class="fw-bold">{{ jumlah_iduka }}</h2>
                   <h4 v-else>
                     <p class="placeholder-glow">
                       <span class="placeholder col-6"></span>
                     </p>
                   </h4>
-                  <span class="medium">Semua IDUKA</span>
+                  <span class="fw-bold text-muted">IDUKA</span>
                 </div>
               </div>
             </nuxt-link>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <nuxt-link to="/pemetaan/pkl" class="link border-0">
               <div class="card mb-3">
-                <div class="card-body bg-info">
-                  <h2 v-if="!isLoading" class="fs-bold">{{ jumlah_pemetaan.length }}</h2>
+                <div class="card-body">
+                  <h2 v-if="!isLoading" class="fw-bold">{{ jumlah_pemetaan.length }}</h2>
                   <h4 v-else>
                     <p class="placeholder-glow">
                       <span class="placeholder col-6"></span>
                     </p>
                   </h4>
-                  <span class="medium">Semua Pemetaan</span>
+                  <span class="fw-bold text-muted">Pemetaan</span>
                 </div>
               </div>
             </nuxt-link>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <div class="card">
-              <div class="card-body bg-success">
-                <h2 v-if="!isLoadingPeserta" class="fs-bold">{{ jumlah_peserta }}</h2>
+              <div class="card-body">
+                <h2 v-if="!isLoadingPeserta" class="fw-bold">{{ jumlah_peserta }}</h2>
                 <h4 v-else>
                   <p class="placeholder-glow">
                     <span class="placeholder col-6"></span>
                   </p>
                 </h4>
-                <span class="medium">Semua Peserta</span>
+                <span class="fw-bold text-muted">Peserta</span>
               </div>
             </div>
           </div>
@@ -131,9 +146,11 @@ let role = user?.user.value.role
 let isLoading = ref(true)
 let isLoadingPeserta = ref(true)
 let isLoadingIduka = ref(true)
+let isLoadingPembimbing = ref(true)
 let jumlah_pemetaan = ref([])
 let jumlah_peserta = ref(0)
 let jumlah_iduka = ref(0)
+let jumlah_pembimbing = ref(0)
 
 async function getInfo() {
   isLoading.value = true
@@ -167,9 +184,22 @@ async function getIduka() {
   }
 }
 
+async function getPembimbing() {
+  isLoadingPembimbing.value = true
+  client.autoCancellation(false)
+  let res = await client.collection('teacher_users').getList(1,1, {
+    filter: `role="jurusan" || role="guru"`
+  })
+  if(res) {
+    jumlah_pembimbing.value = res.totalItems
+    isLoadingPembimbing.value = false
+  }
+}
+
 onMounted(() => {
   getInfo()
   getPeserta()
   getIduka()
+  getPembimbing()
 })
 </script>
