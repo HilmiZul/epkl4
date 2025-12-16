@@ -1,8 +1,9 @@
 # Changelog
 
 ### 4.13.7 (15 Desember 2025)
-- Show stats Pembimbing and IDUKA for some role
-- Allowed some role to access Pembimbing and IDUKA
+- Patch & Improvement:
+  - Show stats Pembimbing and IDUKA for some role
+  - Allowed some role to access Pembimbing and IDUKA
 
 ### 4.13.5 (8 Desember 2025)
 - Improvement: filter info relasi IDUKA
