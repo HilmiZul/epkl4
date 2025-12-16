@@ -121,7 +121,7 @@
         </div>
         <div class="row mt-4 justify-content-center">
           <div class="col-md-12">
-            <h4 class="fw-bold text-muted"><i class="bi bi-people-fill"></i> Statistik Peserta</h4>
+            <h4 class="fw-bold text-muted"><i class="bi bi-diagram-3-fill"></i> Statistik Pemetaan</h4>
           </div>
           <ringkasan-stat-per-jurusan />
         </div>
