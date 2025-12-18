@@ -42,8 +42,10 @@
                   <div v-if="journal.foto" class="my-3 foto-container hand-cursor" data-bs-toggle="modal" :data-bs-target="`#foto-${journal.id}`">
                     <img :src="`${host}/api/files/${journal.collectionId}/${journal.id}/${journal.foto}`" :alt="journal.deskripsi" class="foto" />
                   </div>
-                  <span v-if="journal.isValid" @click="handleValidasi(journal.id, journal.isValid)" class="hand-cursor"><span class="text-danger"><i class="bi bi-heart-fill"></i></span> Valid</span>
-                  <span v-else @click="handleValidasi(journal.id, journal.isValid)" class="hand-cursor"><span class="text-danger"><i class="bi bi-heart"></i></span> Valid</span>
+                  <div class="fs-5">
+                    <span v-if="journal.isValid" @click="handleValidasi(journal.id, journal.isValid)" class="hand-cursor text-muted"><span class="text-danger"><i class="bi bi-heart-fill"></i></span></span>
+                    <span v-else @click="handleValidasi(journal.id, journal.isValid)" class="hand-cursor"><span class="text-danger"><i class="bi bi-heart"></i></span></span>
+                  </div>
                   <!-- <span class="fst-italic text-muted">memvalidasi...</span> -->
                 </div>
                 <!-- MODAL FOTO PREVIEW -->
