@@ -378,7 +378,7 @@ async function getCompaniesArchived() {
   }
 }
 
-async function filterByWilayah() {
+/*async function filterByWilayah() {
   isLoading.value = true
   if(opsiWilayah.value.length > 0) {
     client.autoCancellation(false)
@@ -396,7 +396,7 @@ async function filterByWilayah() {
   } else {
     getCompanies()
   }
-}
+}*/
 
 async function getProkelForOption() {
   if(role == 'admin' || role == 'jurusan' || role == 'wakasek' || role == 'tu') {
