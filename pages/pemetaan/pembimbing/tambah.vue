@@ -7,7 +7,7 @@
       <div class="row">
         <div class="col-md-6">
           <form @submit.prevent="buatPemetaan">
-            <div class="my-3">
+            <div class="mb-4">
               <label for="pembimbing">Pembimbing (pilih satu)</label>
               <multiselect
                 v-model="form.pembimbing"
@@ -21,7 +21,7 @@
                 <template v-slot:singleLabel="{ option }"><strong>{{ option.nama }}</strong></template>
               </multiselect>
             </div>
-            <div class="my-3">
+            <div class="mb-4">
               <label for="siswa">Peserta didik (pilih lebih dari satu)</label>
               <multiselect
                 v-model="form.siswa"
@@ -29,6 +29,7 @@
                 :multiple="true"
                 :close-on-search="false"
                 :clear-on-select="false"
+                :disabled="!form.pembimbing"
                 :custom-label="({nama, kelas}) => `${nama} - ${kelas}`"
                 id="siswa"
                 placeholder="Pilih lebih dari satu"
@@ -54,13 +55,24 @@
                 </template>
               </multiselect> -->
             </div>
-            <button :disabled="isSending || form.siswa.length < 1 || form.pembimbing.length < 1" class="btn btn-success me-2 border border-2 border-dark">
+            <button :disabled="isSending || !form.siswa || !form.pembimbing" class="btn btn-success me-2 border border-2 border-dark">
               <span v-if="isSending">Sedang memetakan</span>
               <span v-else>Simpan</span>
             </button>
             <nuxt-link to="/pemetaan/pembimbing" class="btn btn-light me-2 border border-2 border-dark">Kembali</nuxt-link>
             <em v-if="isSaved" class="text-muted">Berhasil tersimpan!</em>
           </form>
+        </div>
+        <div class="col-md-6">
+          <div v-if="form.pembimbing">
+            <div class="text-muted mb-3"><span class="fw-bold">{{ form.pembimbing?.nama }}</span> membimbing {{ form.siswa.length }} peserta:</div>
+            <ul v-for="(s,i) in form.siswa" :key="s.id" class="list-group list-group-flush">
+              <li class="list-group-item ps-0">
+                <span class="badge text-dark">{{ i + 1 }}</span>
+                {{ s.nama }} <button @click="()=>form.siswa.splice(i, 1)" class="border-0 bg-transparent float-end">X</button>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
