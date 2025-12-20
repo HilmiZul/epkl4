@@ -60,7 +60,7 @@
                           <!-- <td width="2%"><span class="badge text-dark">{{ i+1 }}</span></td> -->
                           <td>
                             <div class="fw-bold">{{ student.nama }}</div>
-                            <div class="text-muted fw-bold small">{{ student.kelas }}</div>
+                            <div class="text-muted small">{{ student.kelas }}</div>
                           </td>
                           <td width="17%"><button @click="setModalHapusPemetaan(student.id, student.nama, pemetaan.expand.pembimbing.nama, pemetaan.id)" class="btn btn-danger border border-2 border-dark" data-bs-toggle="modal" data-bs-target="#hapus-pemetaan"><i class="bi bi-trash"></i></button></td>
                         </tr>
@@ -171,7 +171,7 @@ async function searchByKeyword() {
   client.autoCancellation(false)
   if(keyword.value.length > 0) {
     let data = await client.collection('pemetaan_pembimbing').getFullList({
-      filter: "program_keahlian='"+prokel+"' && pembimbing.nama~'"+keyword.value+"'",
+      filter: `program_keahlian="${prokel}" && pembimbing.nama~"${keyword.value}"`,
       expand: "pembimbing, siswa, program_keahlian",
       sort: "pembimbing.nama"
     })
@@ -188,7 +188,7 @@ const mappingFiltered = computed(() => {
   return mapping.value.filter((i) => {
     return (
       i.expand.pembimbing.nama.toLowerCase().includes(keyword.value.toLowerCase()) ||
-      i.expand.siswa.nama.toLowerCase().includes(keyword.value.toLowerCase())
+      i.expand.siswa.some((j) => j.nama.toLowerCase().includes(keyword.value.toLowerCase()))
     )
   })
 })
