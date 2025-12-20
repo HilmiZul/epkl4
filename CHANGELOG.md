@@ -1,6 +1,10 @@
 # Changelog
 
 ### 4.13.7 (15 Desember 2025)
+- Improvement: show temporary item peserta ketika dipetekan ke pembimbing
+- Bug fix null value when remove item from select input
+
+### 4.13.7 (15 Desember 2025)
 - Patch & Improvement:
   - Show stats Pembimbing and IDUKA for some role
   - Allowed some role to access Pembimbing and IDUKA
