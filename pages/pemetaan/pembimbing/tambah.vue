@@ -65,11 +65,12 @@
         </div>
         <div class="col-md-6">
           <div v-if="form.pembimbing">
-            <div class="text-muted mb-3"><span class="fw-bold">{{ form.pembimbing?.nama }}</span> membimbing {{ form.siswa.length }} peserta:</div>
+            <div class="text-muted mb-3"><span class="fw-bold">{{ form.pembimbing?.nama }}</span> akan membimbing {{ form.siswa.length }} peserta:</div>
             <ul v-for="(s,i) in form.siswa" :key="s.id" class="list-group list-group-flush">
-              <li class="list-group-item ps-0">
-                <span class="badge text-dark">{{ i + 1 }}</span>
-                {{ s.nama }} <button @click="()=>form.siswa.splice(i, 1)" class="border-0 bg-transparent float-end">X</button>
+              <li class="list-group-item">
+                </br><button @click="()=>form.siswa.splice(i, 1)" class="border-0 bg-transparent float-end">X</button>
+                {{ s.nama }} <br>
+                <span class="small text-muted">{{ s.kelas }}</span>
               </li>
             </ul>
           </div>
