@@ -1,27 +1,17 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand text-muted">Update Pemetaan Pembimbing ></span>
-      <span v-if="!isLoading" class="h4 quicksand text-grey">{{ pemetaan.expand.pembimbing.nama }}</span>
+      <span class="h4 quicksand text-muted fw-bold">Tambah Peserta / </span>
+      <span v-if="!isLoading" class="h4 quicksand text-grey fw-bold">{{ pemetaan.expand.pembimbing.nama }}</span>
       <p v-else class="placeholder-glow"><span class="placeholder col-3"></span></p>
     </div>
     <div class="card-body">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="alert alert-warning border-5 border-dark shadow-lg">
-            <div class="h5 quicksand">Perhatiin!</div>
-            <ul class="small">
-              <li>Perubahan ini akan menambahkan ke daftar peserta yang dibimbing saat ini</li>
-            </ul>
-          </div>
-        </div>
-      </div>
       <div v-if="isLoading"><Loading /></div>
       <div v-else class="row">
         <div class="col-md-6 mb-3">
           <form @submit.prevent="updatePemetaan">
-            <div class="my-3">
-              <label for="pembimbing">Ubah Pemilihan peserta? (pilih lebih dari satu)</label>
+            <div class="mb-4">
+              <label for="pembimbing">Tambah peserta? (pilih lebih dari satu)</label>
               <multiselect
                 v-model="form.siswa"
                 :options="students"
@@ -45,19 +35,31 @@
           </form>
         </div>
         <div class="col-md-6">
-          <div class="alert alert-info shadow-lg">
-            <div class="mb-2">Peserta yang dibimbing saat ini</div>
-            <table class="table border-0">
-              <tbody>
-                <tr v-if="curr_students?.length < 1"><td class="fst-italic">Belum dipasangkan dengan Peserta didik</td></tr>
-                <tr v-else v-for="student in curr_students" :key="student.id">
-                  <td>{{ student.nama }}</td>
-                  <td>{{ student.kelas }}</td>
-                </tr>
-              </tbody>
-            </table>
-            <span class="small text-grey">{{ curr_students?.length }} peserta</span>
-          </div>
+          <div class="text-muted mb-3">Saat ini <span class="fw-bold">{{ pemetaan?.expand.pembimbing.nama }}</span> membimbing {{ curr_students?.length }} peserta:</div>
+          <ul v-for="(s,i) in curr_students" :key="s.id" class="list-group list-group-flush">
+            <li class="list-group-item">
+              {{ s.nama }} <br>
+              <span class="small text-muted">{{ s.kelas }}</span>
+            </li>
+          </ul>
+          <hr />
+          <ul v-for="(s,i) in form.siswa" :key="s.id" class="list-group list-group-flush">
+            <li class="list-group-item">
+              <button @click="()=>form.siswa.splice(i, 1)" class="border-0 bg-transparent float-end">X</button>
+              {{ s.nama }} <br>
+              <span class="small text-muted">{{ s.kelas }}</span>
+            </li>
+          </ul>
+          <!-- <table class="table border-0">
+            <tbody>
+              <tr v-if="curr_students?.length < 1"><td class="fst-italic">Belum dipasangkan dengan Peserta didik</td></tr>
+              <tr v-else v-for="student in curr_students" :key="student.id">
+                <td>{{ student.nama }}</td>
+                <td>{{ student.kelas }}</td>
+              </tr>
+            </tbody>
+          </table> -->
+          <!-- <span class="small text-grey">{{ curr_students?.length }} peserta</span> -->
         </div>
       </div>
     </div>
@@ -66,7 +68,7 @@
 
 <script setup>
 definePageMeta({ middleware: 'auth' })
-useHead({ title: "Update Pemetaan Pembimbing — e-PKL / SMKN 4 Tasikmalaya." })
+useHead({ title: "Tambah Peserta — e-PKL / SMKN 4 Tasikmalaya." })
 let route = useRoute()
 let user = usePocketBaseUser()
 let client = usePocketBaseClient()
@@ -116,7 +118,10 @@ async function getReference() {
     isLoading.value = false
     pemetaan.value = res_pemetaan
     students.value = res_students
-    if(pemetaan.value.expand.siswa) curr_students.value = pemetaan.value.expand.siswa
+    if (pemetaan.value.expand.siswa) {
+      curr_students.value = pemetaan.value.expand.siswa
+      // form.value.siswa = curr_students.value
+    }
     else curr_students.value = []
   }
 }
