@@ -25,7 +25,6 @@
         <table class="table table-borderless table-striped table-hover">
           <thead>
             <tr>
-              <th width="2%">#</th>
               <th width="15%">Username</th>
               <th>Nama</th>
               <th v-if="role == 'wakasek' || role == 'tu'" width="15%">Program Keahlian</th>
@@ -49,7 +48,6 @@
               </td>
             </tr>
             <tr v-else v-for="(pembimbing,i) in itemFiltered" :key="pembimbing.id">
-              <td><span class="badge text-dark">{{ i+1 }}</span></td>
               <td>{{ pembimbing.username }}</td>
               <td class="fw-bold">
                 <nuxt-link v-if="role == 'jurusan'" :to="`/pembimbing/${pembimbing.id}`" class="link">{{ pembimbing.nama }}</nuxt-link>

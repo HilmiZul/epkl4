@@ -46,7 +46,6 @@
               <table class="table table-striped border border-2 border-dark my-2">
                 <tbody>
                   <tr v-for="(p,i) in peserta_belum_pemetaan.items" :key="p.id" class="fw-bold">
-                    <td width="3%"><span class="badge text-dark">{{ i+1 }}</span></td>
                     <td>
                       {{ p.nama }} <br>
                       <span class="smallest text-muted">{{ p.kelas }}</span>
@@ -99,7 +98,6 @@
             <table class="table table-hover table-striped table-borderless">
               <thead>
                 <tr>
-                  <th width="2%">#</th>
                   <th>Nama</th>
                   <th width="10%">Kelas</th>
                   <th width="15%">Rapor</th>
@@ -127,10 +125,6 @@
                   </td>
                 </tr>
                 <tr v-else v-for="(student,i) in students.items" :key="student.id">
-                  <td>
-                    <span v-if="student.status_pemetaan_pkl" class="badge text-dark">{{ i+1 }}</span>
-                    <span v-else class="badge bg-danger">{{ i+1 }}</span>
-                  </td>
                   <td class="fw-bold">
                     <!-- <span v-if="student.walikelas" class="text-danger me-2">W</span> -->
                     <nuxt-link :to="`/peserta/${student.id}`" class="link">{{ student.nama }}</nuxt-link>
