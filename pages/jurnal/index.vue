@@ -30,7 +30,9 @@
                     <div class="bookmark-icon text-danger" v-if="journal.expand.elemen.elemen == 'Lain-lain'"><i class="bi bi-bookmark-fill"></i></div>
                     <div class="bookmark-icon text-info" v-else><i class="bi bi-bookmark-fill"></i></div>
                   </div>
-                  <div class="mt-3"><strong class="fs-6">{{ journal.expand.siswa.expand.siswa.nama }}</strong> &bull; {{ journal.expand.iduka.nama }}</div>
+                  <div class="mt-3">
+                    <strong class="fs-6">{{ journal.expand.siswa.expand.siswa.nama }}</strong> {{ journal.expand.siswa.expand.siswa.currentMood }} &bull; {{ journal.expand.iduka.nama }}
+                  </div>
                   <div class="my-2 smallest fw-bold text-muted">
                     <span v-if="journal.expand.elemen.elemen == 'Lain-lain'">{{ journal.expand.elemen.elemen }}</span>
                     <span v-else>{{ journal.expand.elemen.elemen }}</span>
@@ -248,6 +250,9 @@ onMounted(() => {
       getJournalCountSesuaiElemen(false)
     }
   },{})
+  client.collection('siswa').subscribe('*', function(e) {
+    if(e.action == 'update') getJournals(false)
+  })
 })
 </script>
 
