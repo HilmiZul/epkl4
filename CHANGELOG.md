@@ -2,6 +2,7 @@
 
 ### 4.13.10 (1 Januari 2026)
 - Patch: showing Mood emoji correctly after modified BE structure
+- Fix issue userAgent in mobile device
 
 ### 4.13.9 (31 Desember 2025)
 - Improvement: show current mood peserta
