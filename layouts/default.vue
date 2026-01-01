@@ -7,13 +7,14 @@
       <div class="col-lg-9">
         <slot />
       </div>
-      <NavFixedBottom v-if="$device.isMobile && (role == 'jurusan' || role == 'guru')" />
+      <NavFixedBottom v-if="isMobile && (role == 'jurusan' || role == 'guru')" />
       <Footer class="footer-mobile-view" />
     </div>
   </div>
 </template>
 
 <script setup>
+let { isMobile } = useDevice()
 let user = usePocketBaseUser()
 let role = user?.user.value.role
 </script>
