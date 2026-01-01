@@ -1,5 +1,11 @@
 # Changelog
 
+### 4.13.10 (1 Januari 2026)
+- Patch: showing Mood emoji correctly after modified BE structure
+
+### 4.13.9 (31 Desember 2025)
+- Improvement: show current mood peserta
+
 ### 4.13.8 (20 Desember 2025)
 - Improvement: show temporary item peserta ketika dipetekan ke pembimbing
 - Bug fix null value when remove item from select input
