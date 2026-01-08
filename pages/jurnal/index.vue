@@ -129,11 +129,13 @@ let isMovingPage = ref(false)
 
 async function getJournals(loading=true) {
   isLoadingJournals.value = loading
-  let queryFilter = "iduka.pembimbing_sekolah='"+user.user.value.id+"'"
-  if(tanggal.value && opsiPeserta.value) queryFilter = "iduka.pembimbing_sekolah='"+user.user.value.id+"' && created~'"+tanggal.value+"' && siswa.siswa.id='"+opsiPeserta.value+"'"
-  else if(tanggal.value) queryFilter = "iduka.pembimbing_sekolah='"+user.user.value.id+"' && created~'"+tanggal.value+"'"
-  else if(opsiPeserta.value) queryFilter = "iduka.pembimbing_sekolah='"+user.user.value.id+"' && siswa.siswa.id='"+opsiPeserta.value+"'"
-  else queryFilter = "iduka.pembimbing_sekolah='"+user.user.value.id+"'"
+  let queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && isDraft=false`
+  if(tanggal.value && opsiPeserta.value) {
+    queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && created~"${tanggal.value}" && siswa.siswa.id="${opsiPeserta.value}" && isDraft=false`
+  }
+  else if(tanggal.value) queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && created~"${tanggal.value}" && isDraft=false`
+  else if(opsiPeserta.value) queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && siswa.siswa.id="${opsiPeserta.value}" && isDraft=false`
+  else queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && isDraft=false`
   if(user.user.value.role == 'admin') queryFilter = ""
 
   client.autoCancellation(false)
@@ -161,8 +163,8 @@ async function getJournals(loading=true) {
 async function pagination(page, loading=true) {
   isLoadingJournals.value = loading
   isMovingPage.value = true
-  let queryFilter = "iduka.pembimbing_sekolah='"+user.user.value.id+"'"
-  if(tanggal.value) queryFilter = "iduka.pembimbing_sekolah='"+user.user.value.id+"' && created~'"+tanggal.value+"'"
+  let queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && isDraft=false`
+  if(tanggal.value) queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && created~"${tanggal.value}" && isDraft=false`
   if(user.user.value.role == 'admin') queryFilter = ""
   client.autoCancellation(false)
   let res = await client.collection('jurnal').getList(page, perPage, {
