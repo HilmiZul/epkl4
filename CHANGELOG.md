@@ -1,5 +1,8 @@
 # Changelog
 
+### 4.14 (8 Januari 2026)
+- Filter Journal by draft and show `public only`
+
 ### 4.13.10 (1 Januari 2026)
 - Patch: showing Mood emoji correctly after modified BE structure
 - Fix issue userAgent in mobile device
