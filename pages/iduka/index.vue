@@ -8,7 +8,7 @@
       </span>
     </div>
     <div class="card-body small">
-      <div v-if="role == 'admin' || role == 'jurusan'" class="row">
+      <!--<div v-if="role == 'admin' || role == 'jurusan'" class="row">
         <div class="col-lg-12">
           <div class="alert alert-info alert-dismissible">
             <div class="fs-5 fw-bold"><i class="bi bi-lightbulb-fill"></i> Ada yang baru!</div>
@@ -17,7 +17,7 @@
             <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
         </div>
-      </div>
+      </div>-->
       <div class="row">
         <div class="col-lg-6">
           <form @submit.prevent="getCompanies">
