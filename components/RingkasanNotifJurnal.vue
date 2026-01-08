@@ -22,7 +22,7 @@ async function getJournalCount(loading=true) {
   isLoading.value = loading
   client.autoCancellation(false)
   let res = await client.collection('jurnal').getFullList({
-    filter: "iduka.pembimbing_sekolah='"+user.user.value.id+"' && isValid=false"
+    filter: `iduka.pembimbing_sekolah="${user.user.value.id}" && isValid=false && isDraft=false`
   })
   if(res) {
     isLoading.value = false

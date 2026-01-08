@@ -121,7 +121,7 @@ async function getNilai() {
 async function getJurnal() {
   client.autoCancellation(false)
   let res = await client.collection('jurnal').getFullList({
-    filter: "iduka.pembimbing_sekolah='"+user.user.value.id+"' && isValid=false"
+    filter: `iduka.pembimbing_sekolah="${user.user.value.id}" && isValid=false && isDraft=false`
   })
   if(res) {
     jurnal.value = res
