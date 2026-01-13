@@ -134,7 +134,7 @@ async function getPengaturanAndPemetaanById() {
   let res_pengaturan = await client.collection('pengaturan').getOne('pt7b25ofddwhngp')
   let res_pemetaan = await client.collection('pemetaan').getFullList({
     expand: "iduka, siswa, program_keahlian",
-    filter: "iduka='"+route.params.id+"'"
+    filter: `iduka="${route.params.id}"`
   })
   if(res_pengaturan && res_pemetaan) {
     pengaturan.value = res_pengaturan
