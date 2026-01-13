@@ -1,5 +1,8 @@
 # Changelog
 
+### 4.14.1 (13 Januari 2026)
+- Create printable page for `Berita Acara`
+
 ### 4.14 (8 Januari 2026)
 - Filter Journal by draft and show `public only`
 
