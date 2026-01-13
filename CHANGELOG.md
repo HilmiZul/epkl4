@@ -1,11 +1,9 @@
 # Changelog
 
-### 4.14.1 (13 Januari 2026)
-- Create printable page for `Berita Acara`
-- Jurusan can filter Pemetaan by `Pembimbing`
-
 ### 4.14 (8 Januari 2026)
 - Filter Journal by draft and show `public only`
+- Create printable page for `Berita Acara`
+- Jurusan can filter Pemetaan by `Pembimbing`
 
 ### 4.13.10 (1 Januari 2026)
 - Patch: showing Mood emoji correctly after modified BE structure
