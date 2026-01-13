@@ -20,7 +20,7 @@
           </form>
         </div>
 
-        <div v-if="role == 'admin' || role == 'jurusan'" class="col-md-3">
+        <div v-if="role == 'admin' || role == 'jurusan'" class="col-md-3 mb-3">
           <select @change="getPemetaan" v-model="selectedPembimbing" name="filterPembimbing" id="" class="form form-select form-select-lg">
             <option value="">&#8212; Pembimbing &#8212;</option>
             <option v-for="p in pembimbing" :key="p.id" :value="p.id">{{ p.nama }}</option>
