@@ -33,6 +33,7 @@
         </div>
       </div>
       <!-- <div v-if="isLoading"><Loading /></div> -->
+
       <div class="row">
         <div class="col-md-12">
           <div class="table-responsive">
@@ -94,7 +95,11 @@
                       {{ pemetaan.expand.siswa.nama }}
                     </nuxt-link>
                     <span v-else class="fw-bold">{{ pemetaan.expand.siswa.nama }}</span>
-                    <div class="mt-1 text-muted smallest">{{ pemetaan.expand.siswa.kelas }}</div>
+                    <div class="mt-1 text-muted smallest">{{ pemetaan.expand.siswa.kelas }} 
+                      <span v-if="role == 'tu'">
+                        &#8212; {{ pemetaan.expand.siswa.nis }}
+                      </span>
+                    </div>
                   </td>
                   <td v-if="pemetaan.showIduka && (role == 'jurusan' || role == 'tu' || role == 'admin')" :rowspan="pemetaan.idukaRowspan" class="align-middle text-center">
                     <button v-if="!pemetaan.status_acc_pkl" @click="setCetakSurat(pemetaan.iduka)" class="btn btn-light btn-sm border border-2 border-dark" data-bs-toggle="modal" data-bs-target="#cetak"><i class="bi bi-printer"></i> Cetak</button>
@@ -106,6 +111,7 @@
               </tbody>
             </table>
           </div>
+
           <div class="mt-2">
             <loading-placeholder v-if="isLoading" col="3" row="1" />
             <span v-else>
