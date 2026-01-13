@@ -19,6 +19,14 @@
             </div>
           </form>
         </div>
+
+        <div v-if="role == 'admin' || role == 'jurusan'" class="col-md-3">
+          <select @change="getPemetaan" v-model="selectedPembimbing" name="filterPembimbing" id="" class="form form-select form-select-lg">
+            <option value="">&#8212; Pembimbing &#8212;</option>
+            <option v-for="p in pembimbing" :key="p.id" :value="p.id">{{ p.nama }}</option>
+          </select>
+        </div> 
+
         <div v-if="role == 'tu' || role == 'wakasek'" class="col-lg-3">
           <div class="my-3 mt-0">
             <select v-model="selectedProkel" @change="getPemetaan" class="form form-select form-select-lg">
@@ -233,6 +241,9 @@ let iduka_nama = ref('') // single data untuk render ke Modal konfirmasi penerim
 let pratinjau_iduka = ref('')
 let isCopy = ref(false)
 let searchActivated = ref(false)
+let pembimbing = ref('')
+let selectedPembimbing = ref('')
+
 
 // setCetakSurat: mengambil ID IDUKA untuk ditetapkan kedalam cetakSurat.id_iduka
 // setJenisSurat: tte atau ttb untuk link cetak surat: /{opsi_jenis_surat}/{id_iduka}
@@ -334,7 +345,13 @@ async function getPemetaan() {
   // filterQuery diisi untuk role: TU dengan keyword pencarian
   // if(role == 'tu' && keyword.value != '') searchActive = "iduka.nama~'"+keyword.value+"' || siswa.nama~'"+keyword.value+"'"
   // filterQuery untuk role: jurusan/manajemen
-  else if(role == 'jurusan') filterQuery = "program_keahlian='"+prokel+"'"
+  else if(role == 'jurusan') {
+    if(selectedPembimbing.value) {
+      filterQuery = `program_keahlian="${prokel}" && iduka.pembimbing_sekolah="${selectedPembimbing.value}"`
+    } else {
+      filterQuery = `program_keahlian="${prokel}"`
+    }
+  }
   // filterQuery untuk role: guru pembimbing
   else if(role == 'guru') filterQuery = "program_keahlian='"+prokel+"' && iduka.pembimbing_sekolah='"+user.user.value.id+"'"
   // else if(role == 'guru') filterQuery = "program_keahlian='"+prokel+"' && siswa.pembimbing='"+user.user.value.id+"'"
@@ -473,10 +490,23 @@ async function getIdukaIsAvailable(loading=true) {
   }
 }
 
+async function getPembimbing() {
+  isLoading.value = true
+  let res = await client.collection('teacher_users').getFullList({
+    filter: `program_keahlian="${prokel}" && role!='admin'`,
+    sort: `nama`
+  })
+  if(res) {
+    pembimbing.value = res
+    isLoading.value = false
+  }
+}
+
 onMounted(() => {
   getPemetaan()
   getIdukaIsAvailable()
   getProkelForOption()
+  getPembimbing()
   client.autoCancellation(false)
   client.collection('pemetaan').subscribe('*', function(e) {
     if(e.action == 'update') {
