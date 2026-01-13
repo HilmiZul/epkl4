@@ -43,7 +43,7 @@
                   <!-- <th width="2%">#</th> -->
                   <th>IDUKA</th>
                   <th width="45%">Peserta</th>
-                  <th v-if="role == 'jurusan' || role == 'tu' || role == 'admin'" width="10%">Surat</th>
+                  <th v-if="role == 'jurusan' || role == 'tu' || role == 'admin'" width="10%">Cetak</th>
                 </tr>
               </thead>
               <tbody>
@@ -102,10 +102,13 @@
                     </div>
                   </td>
                   <td v-if="pemetaan.showIduka && (role == 'jurusan' || role == 'tu' || role == 'admin')" :rowspan="pemetaan.idukaRowspan" class="align-middle text-center">
-                    <button v-if="!pemetaan.status_acc_pkl" @click="setCetakSurat(pemetaan.iduka)" class="btn btn-light btn-sm border border-2 border-dark" data-bs-toggle="modal" data-bs-target="#cetak"><i class="bi bi-printer"></i> Cetak</button>
                     <!-- <div class="mb-2"><nuxt-link v-if="!pemetaan.status_acc_pkl" :to="`/pemetaan/pkl/surat/cetak/tte/${pemetaan.iduka}`" target="_blank" class="btn btn-light btn-sm smallest"><i class="bi bi-qr-code"></i> TTE</nuxt-link></div>
                     <nuxt-link v-if="!pemetaan.status_acc_pkl" :to="`/pemetaan/pkl/surat/cetak/non-tte/${pemetaan.iduka}`" target="_blank" class="btn btn-light btn-sm smallest"><i class="bi bi-pencil-square"></i> TTB</nuxt-link> -->
-                    <span v-else class="text-muted small">Sudah</span>
+                    <div class="d-grid">
+                      <button v-if="!pemetaan.status_acc_pkl" @click="setCetakSurat(pemetaan.iduka)" class="btn btn-light btn-sm border border-2 border-dark" data-bs-toggle="modal" data-bs-target="#cetak"><i class="bi bi-printer"></i> Surat</button>
+                      <div v-else class="text-muted small">&#8212;</div>
+                      <nuxt-link v-if="role == 'tu'" :to="`/pemetaan/pkl/ba/cetak/${pemetaan.iduka}`" target="_blank" class="btn btn-info btn-sm border border-2 border-dark mt-2"><i class="bi bi-printer me-2"></i> B. A</nuxt-link>
+                    </div>
                   </td>
                 </tr>
               </tbody>
