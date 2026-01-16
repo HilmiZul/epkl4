@@ -168,6 +168,11 @@
         <div v-if="pratinjau_iduka" class="modal-body py-3">
           <div v-if="pratinjau_iduka.wilayah == 'dalam'" class="mb-3 badge bg-dark">{{ pratinjau_iduka.wilayah.charAt(0).toUpperCase() + pratinjau_iduka.wilayah.slice(1) }} kota</div>
           <div v-else class="mb-3 badge text-dark">{{ pratinjau_iduka.wilayah.charAt(0).toUpperCase() + pratinjau_iduka.wilayah.slice(1) }} kota</div>
+          
+          <span v-if="pratinjau_iduka.jumlah_kuota" class="ms-2 badge text-dark">
+            Kuota: {{ pratinjau_iduka.jumlah_kuota }}
+          </span>
+
           <!-- <loading-placeholder v-if="isLoadingModalCatatan" col="12" row="1" /> -->
           <div class="fw-bold">Nama </div>
           <p>{{ pratinjau_iduka.nama }}</p>
