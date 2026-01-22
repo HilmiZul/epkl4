@@ -1,5 +1,9 @@
 # Changelog
 
+### 4.15 (22 Januari 2026)
+- Teacher can write comment to student's Journal
+- Showing indicator notification on bottom nav: new journal (not yet validated)
+
 ### 4.14 (8 Januari 2026)
 - Filter Journal by draft and show `public only`
 - Create printable page for `Berita Acara`
