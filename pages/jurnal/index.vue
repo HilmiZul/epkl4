@@ -44,12 +44,22 @@
                   <div v-if="journal.foto" class="my-3 foto-container hand-cursor" data-bs-toggle="modal" :data-bs-target="`#foto-${journal.id}`">
                     <img :src="`${host}/api/files/${journal.collectionId}/${journal.id}/${journal.foto}`" :alt="journal.deskripsi" class="foto" />
                   </div>
-                  <div class="fs-5">
+
+                  <div class="float-start fs-5 me-3">
                     <span v-if="journal.isValid" @click="handleValidasi(journal.id, journal.isValid)" class="hand-cursor text-muted"><span class="text-danger"><i class="bi bi-heart-fill"></i></span></span>
                     <span v-else @click="handleValidasi(journal.id, journal.isValid)" class="hand-cursor"><span class="text-danger"><i class="bi bi-heart"></i></span></span>
                   </div>
+
+                  <div v-if="journal.isComment" @click="getKomentarByIdJurnal(journal)" data-bs-toggle="modal" data-bs-target="#modal-lihat-komentar" class="text-end text-muted small hand-cursor">
+                    <i class="bi bi-chat-left-fill"></i> Lihat komentar
+                  </div>
+                  <div v-else @click="setModalKomentar(journal)" data-bs-toggle="modal" data-bs-target="#modal-komentar" class="text-end text-muted small hand-cursor">
+                    <i class="bi bi-chat-left"></i> Komentarin
+                  </div>
+
                   <!-- <span class="fst-italic text-muted">memvalidasi...</span> -->
                 </div>
+
                 <!-- MODAL FOTO PREVIEW -->
                 <div v-if="journal.foto" class="modal" :id="`foto-${journal.id}`">
                   <div class="modal-dialog modal-dialog-centered modal-fullscreen">
@@ -64,7 +74,47 @@
                     </div>
                   </div>
                 </div>
+               
+                <!-- single modal: komentar -->
+                <div class="modal" id="modal-komentar">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
+                      <div class="modal-header bg-success rounded-0 border-bottom border-3 border-dark fs-4 fw-bold">
+                        Beri Komentar
+                        <button class="btn-close" data-bs-dismiss="modal" label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="mb-4">
+                          <textarea v-model="formKomentar.komentar" name="komentar" id="komentar" class="form form-control form-lg" placeholder="berikan motivasi/apresiasi..." required></textarea>
+                        </div>
+                        <button @click="handleComment" :disabled="formKomentar.komentar.length < 4" class="btn btn-success border border-2 border-dark" data-bs-dismiss="modal">
+                          Kirim
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- single modal: lihat komentar -->
+                <div class="modal" id="modal-lihat-komentar">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
+                      <div class="modal-body">
+                        <loading-placeholder v-if="isLoadingKomentar" row="1" col="12" /> 
+                        <div v-else>
+                          <div v-if="pratinjauKomentar" class="text-muted small">{{ pratinjauKomentar.created }}</div>
+                          <div v-if="pratinjauKomentar" class="my-2">
+                            {{ pratinjauKomentar.komentar }}
+                          </div>
+                          <div class="text-end text-muted fw-bold mt-3 hand-cursor" data-bs-dismiss="modal">Tutup</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
+
               <div class="row my-4 mb-4 ms-1">
                 <div v-if="!isLoadingJournals" class="col-md-12">
                   <div v-if="isMovingPage" class="text-muted smallest mb-2 fst-italic">sedang berpindah halaman</div>
@@ -81,6 +131,7 @@
                   </button>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
@@ -126,6 +177,13 @@ let count_tidak_sesuai = ref(0)
 let students = ref([])
 let opsiPeserta = ref('')
 let isMovingPage = ref(false)
+let formKomentar = ref({
+  "idJurnal": "",
+  "komentar": "",
+  "pembimbing": ""
+})
+let isLoadingKomentar = ref(true)
+let pratinjauKomentar = ref()
 
 async function getJournals(loading=true) {
   isLoadingJournals.value = loading
@@ -236,6 +294,36 @@ async function getStudentsByPemetaan() {
   if(res_student) {
     isLoadingStudent.value = false
     students.value = res_student
+  }
+}
+
+function setModalKomentar(journal) {
+  formKomentar.value.idJurnal = journal.id
+  formKomentar.value.pembimbing = journal.expand.iduka.pembimbing_sekolah
+}
+
+async function getKomentarByIdJurnal(journal) {
+  isLoadingKomentar.value = true
+  let res = await client.collection('jurnal_komentar').getList(1,1, {
+    filter: `idJurnal="${journal.id}"`
+  })
+  if(res) {
+    pratinjauKomentar.value = res.items[0]
+    isLoadingKomentar.value = false
+    const date = new Date(pratinjauKomentar.value.created);
+    const options = {
+      dateStyle: "full",
+      timeStyle: "short"
+    }
+    pratinjauKomentar.value.created = new Intl.DateTimeFormat('id-ID', options).format(date);
+  }
+}
+
+async function handleComment() {
+  await client.collection('jurnal').update(formKomentar.value.idJurnal, { isComment: true })
+  let res = await client.collection('jurnal_komentar').create(formKomentar.value)
+  if(res) {
+    formKomentar.value.komentar = ""
   }
 }
 
