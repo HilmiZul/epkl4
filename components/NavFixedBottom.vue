@@ -16,6 +16,9 @@
         </li>
         <li class="nav-item mx-4">
           <nuxt-link class="nav-link  text-dark" to="/jurnal">
+            <div v-if="countInvalidatedJournal > 0" class="badge bg-danger rounded-5 smallest">
+              {{ countInvalidatedJournal }}
+            </div>
             <i class="bi bi-journals fs-2"></i> <br>
             <!-- <span class="smallest">Jurnal</span> -->
           </nuxt-link>
@@ -42,3 +45,40 @@
     </div>
   </nav>
 </template>
+
+
+
+<script setup>
+let client = usePocketBaseClient()
+let user = usePocketBaseUser()
+let countInvalidatedJournal = ref(0)
+
+async function getCountInvalidatedJournal() {
+  let res = await client.collection('jurnal').getList(1,1, {
+    filter: `iduka.pembimbing_sekolah="${user.user.value.id}" && isValid=false && isDraft=false`
+  })
+  if(res) {
+    countInvalidatedJournal.value = res.totalItems
+  }
+}
+
+onMounted(() => {
+  getCountInvalidatedJournal()
+  client.collection('jurnal').subscribe('*', function(e){
+    if(e.action == 'create' || e.action == 'update') getCountInvalidatedJournal()
+  },{})
+})
+</script>
+
+<style scoped>
+.nav-item {
+  position: relative;
+} 
+.nav-item .badge {
+  color: #fff !important;
+  border: 2px solid #fff !important;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+</style>
