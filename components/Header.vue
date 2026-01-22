@@ -5,6 +5,7 @@
         <div class="card mb-5 border border-2 border-dark bg-success">
           <div class="text-center py-1">
             <span class="fs-1 lexend-mega">e-PKL<span class="text-info dot-stroke">.</span></span>
+            <span class="fw-bold smallest ">guru</span>
           </div>
         </div>
         <!-- <div class="mb-4 quicksand text-muted">Pemetaan siswa Praktik Kerja Lapangan (PKL)</div> -->
