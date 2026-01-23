@@ -11,7 +11,7 @@
       <div class="row">
         <div class="col-md-7 p-0">
           <div v-if="!isLoadingJournals" class="mb-2 mx-3 text-end text-muted smallest">
-            <span v-if="journals.totalItems" class="float-start">Halaman {{ journals.page }} dari {{ journals.totalPages }}</span>
+            <!--<span v-if="journals.totalItems" class="float-start">Halaman {{ journals.page }} dari {{ journals.totalPages }}</span>-->
             <span v-if="journals.totalItems" class="badge text-dark"><span class="fw-bold">{{ journals.totalItems }}</span> Jurnal</span>
             <!-- <span v-if="journals.totalItems">Menampilkan {{ journals.items.length }}  dari {{ journals.totalItems }} Jurnal</span> -->
           </div>
@@ -120,18 +120,20 @@
 
               <div class="row my-4 mb-4 ms-1">
                 <div v-if="!isLoadingJournals" class="col-md-12">
-                  <div v-if="isMovingPage" class="text-muted smallest mb-2 fst-italic">sedang berpindah halaman</div>
-                  <div v-else>
+                  <div v-if="isMovingPage" class="text-muted smallest mb-2 fst-italic">sedang memuat</div>
+                  <!--<div v-else>
                     <div v-if="journals || isMovingPage" class="text-muted smallest mb-2">
                       <span v-if="journals.totalItems">Halaman {{ journals.page }} dari {{ journals.totalPages }}</span>
                     </div>
                   </div>
                   <button v-if="journals.totalItems" :disabled="isMovingPage || journals.page < 2" @click="pagination(journals.page - 1, false)" class="btn btn-info me-2 border border-2 border-dark">
                     <i class="bi bi-arrow-left"></i> sebelumnya
-                  </button>
-                  <button v-if="journals.totalItems" :disabled="isMovingPage || journals.page >= journals.totalPages" @click="pagination(journals.page + 1, false)" class="btn btn-info border border-2 border-dark">
-                    lanjut <i class="bi bi-arrow-right"></i>
-                  </button>
+                  </button>-->
+                  <div class="text-center">
+                    <button v-if="journals.totalItems" :disabled="isMovingPage || journals.page >= journals.totalPages" @click="pagination(journals.page + 1, false)" class="btn btn-info border border-2 border-dark">
+                      muat lagi <i class="bi bi-arrow-down"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -139,20 +141,22 @@
           </div>
         </div>
         <div class="col-md-5">
-          <div class="mb-4">
-            <label for="filter">Filter Tanggal</label>
-            <input @change="getJournals" v-model="tanggal" type="date" id="filter" class="form form-control picker">
-          </div>
-          <div class="mb-4">
-            <label for="filter-peserta">Filter Peserta</label>
-            <select @change="getJournals" v-model="opsiPeserta" name="filter-peserta" id="filter-peserta" class="form form-select">
-              <option value="">&#8212; Semua &#8212;</option>
-              <option v-for="student in students" :key="student.id" :value="student.siswa">{{ student.expand.siswa.nama }}</option>
-            </select>
-          </div>
-          <loading-placeholder v-if="isLoadingJournals" col="12" row="1" />
-          <div v-if="count_sesuai > 0 || count_tidak_sesuai > 0" class="row justify-content-center">
-            <jurnal-chart :countSesuai="count_sesuai" :countTidakSesuai="count_tidak_sesuai" />
+          <div class="sticky">
+            <div class="mb-4">
+              <label for="filter">Filter Tanggal</label>
+              <input @change="getJournals" v-model="tanggal" type="date" id="filter" class="form form-control picker">
+            </div>
+            <div class="mb-4">
+              <label for="filter-peserta">Filter Peserta</label>
+              <select @change="getJournals" v-model="opsiPeserta" name="filter-peserta" id="filter-peserta" class="form form-select">
+                <option value="">&#8212; Semua &#8212;</option>
+                <option v-for="student in students" :key="student.id" :value="student.siswa">{{ student.expand.siswa.nama }}</option>
+              </select>
+            </div>
+            <loading-placeholder v-if="isLoadingJournals" col="12" row="1" />
+            <div v-if="count_sesuai > 0 || count_tidak_sesuai > 0" class="row justify-content-center">
+              <jurnal-chart :countSesuai="count_sesuai" :countTidakSesuai="count_tidak_sesuai" />
+            </div>
           </div>
         </div>
       </div>
@@ -173,7 +177,7 @@ let prokel = user.user.value.program_keahlian
 let isLoadingJournals = ref(true)
 let isLoadingStudent = ref(true)
 let journals = ref([])
-let perPage = 5
+let perPage = 30
 let count_not_valid = ref(0)
 let count_sesuai = ref(0)
 let count_tidak_sesuai = ref(0)
@@ -234,16 +238,20 @@ async function pagination(page, loading=true) {
     sort: "isValid, -created"
   })
   if(res) {
-    journals.value = res
-
-    for(let i=0; i<journals.value.items.length; i++) {
-      const date = new Date(journals.value.items[i].created);
+    for(let i=0; i<res.items.length; i++) {
+      const date = new Date(res.items[i].created);
       const options = {
         dateStyle: "full",
         timeStyle: "short"
       };
-      journals.value.items[i].created = new Intl.DateTimeFormat('id-ID', options).format(date);
+      res.items[i].created = new Intl.DateTimeFormat('id-ID', options).format(date);
     }
+    
+    journals.value.page = res.page
+    journals.value.perPage = res.perPage
+    journals.value.totalItems = res.totalItems
+    journals.value.totalPages = res.totalPages
+    journals.value.items = journals.value.items.concat(res.items)
     isLoadingJournals.value = false
     isMovingPage.value = false
   }
@@ -344,7 +352,9 @@ onMounted(() => {
     }
   },{})
   client.collection('siswa').subscribe('*', function(e) {
-    if(e.action == 'update') getJournals(false)
+    if(e.action == 'update') {
+      getJournals(false)
+    }
   })
 })
 </script>
