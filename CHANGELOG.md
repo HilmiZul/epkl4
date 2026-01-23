@@ -1,7 +1,7 @@
 # Changelog
 
 ### 4.15 (22 Januari 2026)
-- Teacher can write comment to student's Journal
+- Teacher can write a comment to student's Journal
 - Showing indicator notification on bottom nav: new journal (not yet validated)
 
 ### 4.14 (8 Januari 2026)
