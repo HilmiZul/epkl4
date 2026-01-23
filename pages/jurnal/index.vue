@@ -103,6 +103,9 @@
                         <loading-placeholder v-if="isLoadingKomentar" row="1" col="12" /> 
                         <div v-else>
                           <div v-if="pratinjauKomentar" class="text-muted small">{{ pratinjauKomentar.created }}</div>
+                          <div v-if="pratinjauKomentar.isOpen" class="text-muted fst-italic small">
+                            <i class="bi bi-check-all"></i> Dibaca
+                          </div>
                           <div v-if="pratinjauKomentar" class="my-2 pre-text">
                             {{ pratinjauKomentar.komentar }}
                           </div>
