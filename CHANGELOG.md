@@ -1,5 +1,9 @@
 # Changelog
 
+### 4.15.1 (24 Januari 2026)
+- Change pagination method in Journal page using Loadmore
+- Sticky position of filter section
+
 ### 4.15 (22 Januari 2026)
 - Teacher can write a comment to student's Journal
 - Showing indicator notification on bottom nav: new journal (not yet validated)
