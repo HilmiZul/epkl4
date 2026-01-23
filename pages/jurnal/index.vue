@@ -85,7 +85,7 @@
                       </div>
                       <div class="modal-body">
                         <div class="mb-4">
-                          <textarea v-model="formKomentar.komentar" name="komentar" id="komentar" class="form form-control form-lg" placeholder="berikan motivasi/apresiasi..." required></textarea>
+                          <textarea v-model="formKomentar.komentar" name="komentar" id="komentar" rows="4" class="form form-control form-lg" placeholder="berikan motivasi/apresiasi..." required></textarea>
                         </div>
                         <button @click="handleComment" :disabled="formKomentar.komentar.length < 4" class="btn btn-success border border-2 border-dark" data-bs-dismiss="modal">
                           Kirim
