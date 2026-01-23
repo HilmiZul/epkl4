@@ -7,7 +7,7 @@
     </div>
     <div class="card-body text-dark">
       <p class="text-muted small">
-        Diperbaharui pada 27 November 2025
+        Diperbaharui pada 23 Januari 2026 
       </p>
       <h5 class="fw-bold">Akun Anggota e-PKL</h5>
       <ul>
@@ -74,6 +74,11 @@
         </li>
         <li>Jurnal peserta akan diurutkan berdasarkan status yang belum valid.</li>
         <li>Guru Pembimbing dapat memfilter jurnal berdasarkan tanggal dan atau peserta didik.</li>
+      </ul>
+      <h5 class="fw-bold">Terkait Komentar</h5>
+      <ul>
+        <li>Guru Pembimbing dapat memberikan dukungan berupa komentar tertulis pada Jurnal peserta.</li>
+        <li>Komentar dapat berupa motivasi atau apresiasi dan kritik yang membangun.</li>
       </ul>
       <h5 class="fw-bold">Terkait Nilai</h5>
       <ul>
