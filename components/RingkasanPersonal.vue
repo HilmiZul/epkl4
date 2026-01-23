@@ -31,6 +31,7 @@
               <span v-else>Belum punya role</span>
             </div>
           </div>
+
           <div class="col-md-3">
             <div class="mb-3">
               <div v-if="role == 'admin' || role == 'jurusan'" class="text-muted hand-cursor" data-bs-toggle="modal" data-bs-target="#relasi-iduka">
@@ -43,6 +44,7 @@
                 <span v-else>Belum ada</span>
               </span>
             </div>
+
             <!-- Single modal: Relasi iduka -->
             <div class="modal" id="relasi-iduka" aria-hidden="true" tabindex="-1">
               <div class="modal-dialog modal-dialog-centered">
@@ -77,6 +79,7 @@
               </div>
             </div>
           </div>
+
           <div class="col-md-3">
             <div class="mb-3">
               <div v-if="role == 'admin' || role == 'jurusan'" class="text-muted hand-cursor" data-bs-toggle="modal" data-bs-target="#relasi-peserta">
@@ -89,6 +92,7 @@
                 <span v-else>Belum ada</span>
               </span>
             </div>
+
             <!-- Single modal: Relasi pembimbing ke peserta didik -->
             <div class="modal" id="relasi-peserta" aria-hidden="true" tabindex="-1">
               <div class="modal-dialog modal-dialog-centered">
@@ -98,13 +102,16 @@
                     <button class="btn-close" data-bs-dismiss="modal" label="Close"></button>
                   </div>
                   <div class="modal-body">
+                    <span class="badge text-dark mb-3 small">{{ pemetaan?.totalItems }} Peserta</span>
                     <table class="table table-striped border border-2 border-dark">
                       <tbody>
                         <tr v-if="pemetaan?.totalItems < 1">
                           <td class="text-muted fst-italic">Belum ada</td>
                         </tr>
                         <tr v-else v-for="(p,i) in pemetaan.items" :key="p.id" class="fw-bold">
-                          <td width="3%"><span class="badge text-dark">{{ i+1 }}</span></td>
+                          <td width="3%">
+                            <span v-if="p.expand.siswa.currentMood" class="fs-5">{{ p.expand.siswa.currentMood.emoji }}</span>
+                          </td>
                           <td>
                             {{ p.expand.siswa.nama }} <br>
                             <span class="smallest text-muted">{{ p.expand.siswa.kelas }}</span>
@@ -127,6 +134,7 @@
       </div>
     </div>
   </div>
+
   <div v-if="role == 'guru'" class="row mt-3">
     <div class="col-lg-6">
       <div class="text-muted mb-1 fw-medium fw-bold">Peserta didik yang dibimbing:</div>
@@ -136,7 +144,9 @@
             <td class="text-muted fst-italic">Belum ada</td>
           </tr>
           <tr v-else v-for="(p,i) in pemetaan.items" :key="p.id" class="fw-bold">
-            <td width="3%"><span class="badge text-dark">{{ i+1 }}</span></td>
+            <td width="3%">
+              <span v-if="p.expand.siswa.currentMood" class="fs-5">{{ p.expand.siswa.currentMood.emoji }}</span>
+            </td>
             <td>
               {{ p.expand.siswa.nama }} <br>
               <span class="smallest text-muted">{{ p.expand.siswa.kelas }}</span>
