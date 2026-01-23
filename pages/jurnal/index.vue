@@ -103,7 +103,7 @@
                         <loading-placeholder v-if="isLoadingKomentar" row="1" col="12" /> 
                         <div v-else>
                           <div v-if="pratinjauKomentar" class="text-muted small">{{ pratinjauKomentar.created }}</div>
-                          <div v-if="pratinjauKomentar" class="my-2">
+                          <div v-if="pratinjauKomentar" class="my-2 pre-text">
                             {{ pratinjauKomentar.komentar }}
                           </div>
                           <div class="text-end text-muted fw-bold mt-3 hand-cursor" data-bs-dismiss="modal">Tutup</div>
