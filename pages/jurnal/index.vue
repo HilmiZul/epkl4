@@ -346,7 +346,7 @@ async function getStudentsByPemetaan() {
 async function getIdukaByCurrentUser() {
   isLoadingIduka.value = true
   let res_iduka = await client.collection("iduka").getFullList({
-    filter: `program_keahlian="${prokel}" && pembimbing_sekolah="${user.user.value.id}"`,
+    filter: `program_keahlian="${prokel}" && pembimbing_sekolah="${user.user.value.id}" && isArchive=false`,
     sort: "nama",
   })
   if(res_iduka) {
