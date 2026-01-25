@@ -147,6 +147,13 @@
               <input @change="getJournals" v-model="tanggal" type="date" id="filter" class="form form-control picker">
             </div>
             <div class="mb-4">
+              <label for="filter-peserta">Filter IDUKA</label>
+              <select @change="getJournals" v-model="opsiIduka" name="filter-iduka" id="filter-iduka" class="form form-select">
+                <option value="">&#8212; Semua &#8212;</option>
+                <option v-for="i in iduka" :key="i.id" :value="i.id">{{ i.nama }}</option>
+              </select>
+            </div>
+            <div class="mb-4">
               <label for="filter-peserta">Filter Peserta</label>
               <select @change="getJournals" v-model="opsiPeserta" name="filter-peserta" id="filter-peserta" class="form form-select">
                 <option value="">&#8212; Semua &#8212;</option>
@@ -176,13 +183,16 @@ let client = usePocketBaseClient()
 let prokel = user.user.value.program_keahlian
 let isLoadingJournals = ref(true)
 let isLoadingStudent = ref(true)
+let isLoadingIduka = ref(true)
 let journals = ref([])
 let perPage = 30
 let count_not_valid = ref(0)
 let count_sesuai = ref(0)
 let count_tidak_sesuai = ref(0)
 let students = ref([])
+let iduka = ref([])
 let opsiPeserta = ref('')
+let opsiIduka = ref('')
 let isMovingPage = ref(false)
 let formKomentar = ref({
   "idJurnal": "",
@@ -198,9 +208,21 @@ async function getJournals(loading=true) {
   if(tanggal.value && opsiPeserta.value) {
     queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && created~"${tanggal.value}" && siswa.siswa.id="${opsiPeserta.value}" && isDraft=false`
   }
-  else if(tanggal.value) queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && created~"${tanggal.value}" && isDraft=false`
-  else if(opsiPeserta.value) queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && siswa.siswa.id="${opsiPeserta.value}" && isDraft=false`
-  else queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && isDraft=false`
+  else if(tanggal.value) {
+    queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && created~"${tanggal.value}" && isDraft=false`
+  }
+  else if(opsiIduka.value && opsiPeserta.value) {
+    queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && siswa.siswa.id="${opsiPeserta.value}" && iduka.id="${opsiIduka.value}" && isDraft=false`
+  }
+  else if(opsiPeserta.value) {
+    queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && siswa.siswa.id="${opsiPeserta.value}" && isDraft=false`
+  }
+  else if(opsiIduka.value) {
+    queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && iduka="${opsiIduka.value}" && isDraft=false`
+  }
+  else {
+    queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && isDraft=false`
+  }
   if(user.user.value.role == 'admin') queryFilter = ""
 
   client.autoCancellation(false)
@@ -230,6 +252,8 @@ async function pagination(page, loading=true) {
   isMovingPage.value = true
   let queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && isDraft=false`
   if(tanggal.value) queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && created~"${tanggal.value}" && isDraft=false`
+  else if(opsiPeserta.value) queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && siswa.siswa.id="${opsiPeserta.value}" && isDraft=false`
+  else if(opsiIduka.value) queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && iduka="${opsiIduka.value}" && isDraft=false`
   if(user.user.value.role == 'admin') queryFilter = ""
   client.autoCancellation(false)
   let res = await client.collection('jurnal').getList(page, perPage, {
@@ -308,6 +332,19 @@ async function getStudentsByPemetaan() {
   }
 }
 
+async function getIdukaByCurrentUser() {
+  isLoadingIduka.value = true
+  let res_iduka = await client.collection("iduka").getFullList({
+    filter: `program_keahlian="${prokel}" && pembimbing_sekolah="${user.user.value.id}"`,
+    sort: "nama",
+  })
+  if(res_iduka) {
+    isLoadingIduka.value = false
+    iduka.value = res_iduka 
+  }
+}
+
+
 function setModalKomentar(journal) {
   formKomentar.value.idJurnal = journal.id
   formKomentar.value.pembimbing = journal.expand.iduka.pembimbing_sekolah
@@ -343,6 +380,7 @@ onMounted(() => {
   getJournalCountNotValid()
   getStudentsByPemetaan()
   getJournalCountSesuaiElemen()
+  getIdukaByCurrentUser()
   client.autoCancellation(false)
   client.collection('jurnal').subscribe('*', function(e) {
     if(e.action == 'create' || e.action == 'update') {
