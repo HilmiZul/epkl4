@@ -50,12 +50,12 @@
                     <span v-else @click="handleValidasi(journal.id, journal.isValid)" class="hand-cursor"><span class="text-danger"><i class="bi bi-heart"></i></span></span>
                   </div>
 
-                  <div v-if="journal.isComment" @click="getKomentarByIdJurnal(journal)" data-bs-toggle="modal" data-bs-target="#modal-lihat-komentar" class="text-end text-muted small hand-cursor">
+                  <span v-if="journal.isComment" @click="getKomentarByIdJurnal(journal)" data-bs-toggle="modal" data-bs-target="#modal-lihat-komentar" class="float-end text-muted small hand-cursor">
                     <i class="bi bi-chat-left-fill"></i> Lihat komentar
-                  </div>
-                  <div v-else @click="setModalKomentar(journal)" data-bs-toggle="modal" data-bs-target="#modal-komentar" class="text-end text-muted small hand-cursor">
+                  </span>
+                  <span v-else @click="setModalKomentar(journal)" data-bs-toggle="modal" data-bs-target="#modal-komentar" class="float-end text-muted small hand-cursor">
                     <i class="bi bi-chat-left"></i> Komentarin
-                  </div>
+                  </span>
 
                   <!-- <span class="fst-italic text-muted">memvalidasi...</span> -->
                 </div>
@@ -109,7 +109,7 @@
                           <div v-if="pratinjauKomentar" class="my-2 pre-text">
                             {{ pratinjauKomentar.komentar }}
                           </div>
-                          <div class="text-end text-muted fw-bold mt-3 hand-cursor" data-bs-dismiss="modal">Tutup</div>
+                          <span class="float-end text-muted fw-bold mt-3 hand-cursor" data-bs-dismiss="modal">Tutup</span>
                         </div>
                       </div>
                     </div>
@@ -456,7 +456,7 @@ input.picker[type="date"]::-webkit-calendar-picker-indicator {
 }
 .jurnal-item {
   border: none !important;
-  border-bottom: 1px solid #000 !important
+  border-bottom: 1px solid #cfcfcf !important
 }
 .no-shadow {
   box-shadow: none !important;
