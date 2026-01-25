@@ -8,12 +8,12 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav fw-bold text-center">
-          <li class="nav-item">
+          <!--<li class="nav-item">
             <nuxt-link  class="nav-link" to="/"><i class="bi bi-pie-chart-fill"></i> Overview</nuxt-link>
           </li>
 					<li v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" class="nav-item">
             <nuxt-link  class="nav-link" to="/personalisasi"><i class="bi bi-person"></i> Personalisasi</nuxt-link>
-          </li>
+          </li>-->
           <li v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" class="nav-item">
             <nuxt-link  class="nav-link" to="/elemen"><i class="bi bi-journal-bookmark-fill"></i> Elemen</nuxt-link>
           </li>
@@ -26,25 +26,25 @@
           <li v-if="role === 'admin' || role === 'jurusan' || role === 'wakasek'" class="nav-item">
             <nuxt-link class="nav-link" to="/iduka"><i class="bi bi-buildings-fill"></i> IDUKA</nuxt-link>
           </li>
-          <li  class="nav-item">
+          <!--<li  class="nav-item">
             <nuxt-link class="nav-link" to="/pemetaan/pkl"><i class="bi bi-diagram-3-fill"></i> Pemetaan</nuxt-link>
           </li>
-          <!-- <li v-if="role == 'admin' || role == 'jurusan'" class="nav-item">
+          <li v-if="role == 'admin' || role == 'jurusan'" class="nav-item">
             <nuxt-link class="nav-link" to="/peserta/users"><i class="bi bi-people-fill"></i> User Peserta</nuxt-link>
           </li>
           <li  class="nav-item">
             <nuxt-link class="nav-link" to="/pemetaan/pembimbing"><i class="bi bi-people-fill"></i> Pemetaan Pembimbing</nuxt-link>
-          </li> -->
-          <li v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" class="nav-item">
-            <nuxt-link class="nav-link" to="/jurnal"><i class="bi bi-journals"></i> Jurnal Peserta</nuxt-link>
           </li>
+          <li v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" class="nav-item">
+            <nuxt-link class="nav-link" to="/jurnal"><i class="bi bi-journals"></i> Jurnal</nuxt-link>
+          </li>-->
           <li v-if="role === 'admin' || role === 'tu'" class="nav-item">
             <nuxt-link class="nav-link" to="/pengaturan"><i class="bi bi-sliders"></i> Pengaturan</nuxt-link>
           </li>
-          <li v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" class="nav-item">
+          <!--<li v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" class="nav-item">
             <nuxt-link class="nav-link" to="/leger"><i class="bi bi-patch-check"></i> Leger</nuxt-link>
           </li>
-          <!-- <li v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" class="nav-item">
+          <li v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" class="nav-item">
             <nuxt-link class="nav-link" to="/sertifikat"><i class="bi bi-person-vcard-fill"></i> Setifikat</nuxt-link>
           </li> -->
           <li class="nav-item">
