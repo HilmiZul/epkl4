@@ -38,7 +38,7 @@
                 <li class="list-group-item"><i class="bi bi-people-fill"></i> Pemetaan Pembimbing</li>
               </nuxt-link> -->
               <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" to="/jurnal" :activeClass="activeClass">
-                <li class="list-group-item"><i class="bi bi-journals"></i> Jurnal Peserta <span v-if="jurnal.length > 0" class="badge rounded-5 text-dark float-end">{{ jurnal.length }}</span></li>
+                <li class="list-group-item"><i class="bi bi-journals"></i> Jurnal<span v-if="jurnal.length > 0" class="badge rounded-5 text-dark float-end">{{ jurnal.length }}</span></li>
               </nuxt-link>
               <nuxt-link v-if="role === 'admin' || role === 'tu'" to="/pengaturan" :activeClass="activeClass">
                 <li class="list-group-item"><i class="bi bi-sliders"></i> Pengaturan</li>

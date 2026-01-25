@@ -1,7 +1,7 @@
 <template>
   <div class="card shadow-lg">
     <div class="card-header">
-      <span class="h4 quicksand fw-bold"><i class="bi bi-journals"></i> Jurnal Peserta</span>
+      <span class="h4 quicksand fw-bold"><i class="bi bi-journals"></i> Jurnal</span>
     </div>
     <div class="card-body">
       <loading-placeholder v-if="isLoadingJournals" col="12" row="1" />
