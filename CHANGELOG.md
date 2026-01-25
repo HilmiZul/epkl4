@@ -1,5 +1,9 @@
 # Changelog
 
+### 4.15.2 (25 Januari 2026)
+- Add new Journal filter by IDUKA
+- Improvement query
+
 ### 4.15.1 (24 Januari 2026)
 - Change pagination method in Journal page using Loadmore
 - Sticky position of filter section
