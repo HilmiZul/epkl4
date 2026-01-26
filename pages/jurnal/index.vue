@@ -61,7 +61,7 @@
                 </div>
 
                 <!-- MODAL FOTO PREVIEW -->
-                <div v-if="journal.foto" class="modal" :id="`foto-${journal.id}`">
+                <div v-if="journal.foto" class="modal" :id="`foto-${journal.id}`" tabindex="-1">
                   <div class="modal-dialog modal-dialog-centered modal-fullscreen">
                     <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
                       <div class="modal-header bg-success rounded-0 border-bottom border-3 border-dark fs-4 fw-bold">
@@ -74,50 +74,49 @@
                     </div>
                   </div>
                 </div>
-               
-                <!-- single modal: komentar -->
-                <div class="modal" id="modal-komentar">
-                  <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-                      <div class="modal-header bg-success rounded-0 border-bottom border-3 border-dark fs-4 fw-bold">
-                        Beri Komentar
-                        <button class="btn-close" data-bs-dismiss="modal" label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        <div class="mb-4">
-                          <textarea v-model="formKomentar.komentar" name="komentar" id="komentar" rows="4" class="form form-control form-lg" placeholder="berikan motivasi/apresiasi..." required></textarea>
-                        </div>
-                        <button @click="handleComment" :disabled="formKomentar.komentar.length < 4" class="btn btn-success border border-2 border-dark" data-bs-dismiss="modal">
-                          Kirim
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- single modal: lihat komentar -->
-                <div class="modal" id="modal-lihat-komentar">
-                  <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-                      <div class="modal-body">
-                        <loading-placeholder v-if="isLoadingKomentar" row="1" col="12" /> 
-                        <div v-else>
-                          <div v-if="pratinjauKomentar" class="text-muted small">{{ pratinjauKomentar.created }}</div>
-                          <div v-if="pratinjauKomentar.isOpen" class="text-muted fst-italic small">
-                            <i class="bi bi-check-all"></i> Dibaca
-                          </div>
-                          <div v-if="pratinjauKomentar" class="my-2 pre-text">
-                            {{ pratinjauKomentar.komentar }}
-                          </div>
-                          <span class="float-end text-muted fw-bold mt-3 hand-cursor" data-bs-dismiss="modal">Tutup</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
               </div>
 
+              <!-- single modal: komentar -->
+              <div class="modal" id="modal-komentar" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
+                    <div class="modal-header bg-success rounded-0 border-bottom border-3 border-dark fs-4 fw-bold">
+                      Beri Komentar
+                      <button class="btn-close" data-bs-dismiss="modal" label="Close"></button>
+                     </div>
+                    <div class="modal-body">
+                      <div class="mb-4">
+                        <textarea v-model="formKomentar.komentar" name="komentar" id="komentar" rows="4" class="form form-control form-lg" placeholder="berikan motivasi/apresiasi..." required></textarea>
+                      </div>
+                      <button @click="handleComment" :disabled="formKomentar.komentar.length < 4" class="btn btn-success border border-2 border-dark" data-bs-dismiss="modal">
+                        Kirim
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                
+              <!-- single modal: lihat komentar -->
+              <div class="modal" id="modal-lihat-komentar" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
+                    <div class="modal-body">
+                      <loading-placeholder v-if="isLoadingKomentar" row="1" col="12" /> 
+                      <div v-else>
+                        <div v-if="pratinjauKomentar" class="text-muted small">{{ pratinjauKomentar.created }}</div>
+                        <div v-if="pratinjauKomentar.isOpen" class="text-muted fst-italic small">
+                          <i class="bi bi-check-all"></i> Dibaca
+                        </div>
+                        <div v-if="pratinjauKomentar" class="my-2 pre-text">
+                          {{ pratinjauKomentar.komentar }}
+                        </div>
+                        <span class="float-end text-muted fw-bold mt-3 hand-cursor" data-bs-dismiss="modal">Tutup</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
               <div class="row my-4 mb-4">
                 <div v-if="!isLoadingJournals" class="col-md-12">
                   <loading-placeholder v-if="isMovingPage" row="1" col="12" />
