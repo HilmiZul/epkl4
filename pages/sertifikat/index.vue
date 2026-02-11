@@ -2,9 +2,6 @@
   <div class="card">
     <div class="card-header">
       <span class="h4 quicksand fw-bold"><i class="bi bi-person-vcard-fill"></i> Sertifikat</span>
-      <button v-if="isLoaded" @click="unduhPdf" class="btn btn-info btn-sm border border-2 border-dark float-end">
-        <i class="bi bi-download"></i> Unduh
-      </button>
     </div>
     <div v-if="$device.isMobileOrTablet" class="card-body">
       <div class="alert alert-warning">Silahkan gunakan komputer/laptop!</div>
@@ -14,13 +11,13 @@
         <ul class="mb-0">
           <li>Berikut daftar peserta yang menitipkan <span class="fw-bold">Sertifikat</span> ke Sekolah.</li>
           <li>Pilih nama peserta untuk melihat pratinjau Sertifikat.</li>
-          <li>Apabila sudah benar, klik tombol <span class="fw-bold">Unduh</span> diatas.</li>
+          <li>Apabila sudah benar, klik tombol <span class="fw-bold">Unduh</span>.</li>
         </ul>
       </div>
       <loading-placeholder v-if="isLoading" row="1" col="4" />
       <div v-else class="row">
         <div v-if="nilai.length > 0" class="col-lg-4">
-          <label for="peserta">Pilih Nama Peserta</label>
+          <!--<label for="peserta">Pilih Nama Peserta</label>-->
           <multiselect
             @update:modelValue="getNilaiById"
             v-model="selectedPeserta"
@@ -30,10 +27,15 @@
             track-by="expand"
             label="expand"
             id="peserta"
-            placeholder="Pilih untuk menampilkan disertifikat"
+            placeholder="Pilih Nama Peserta"
             required>
             <template v-slot:singleLabel="{ option }"><strong>{{ option.expand.siswa.nama }}</strong></template>
           </multiselect>
+        </div>
+        <div v-if="nilai.length > 0" class="col-lg-4">
+          <button v-if="selectedPeserta" @click="unduhPdf" class="btn btn-info border border-2 border-dark">
+            <i class="bi bi-download"></i> Unduh
+          </button>
         </div>
         <div v-else class="p-4 text-muted">
           <div class="text-center fs-4">
