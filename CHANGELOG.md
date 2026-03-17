@@ -1,5 +1,9 @@
 # Changelog
 
+### 4.15.3 (11 Februari 2026)
+- Move download button
+- Fix & improvement validation
+
 ### 4.15.2 (25 Januari 2026)
 - Add new Journal filter by IDUKA
 - Improvement query
