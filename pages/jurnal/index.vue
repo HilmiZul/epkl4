@@ -19,6 +19,10 @@
             <div class="col-md-12">
               <!-- Menunggu jurnal termuat -->
               <LoadingPlaceholder v-if="isLoadingJournals" col="12" row="1" />
+              <LoadingPlaceholder v-if="isLoadingJournals" col="12" row="1" />
+              <LoadingPlaceholder v-if="isLoadingJournals" col="12" row="1" />
+              <LoadingPlaceholder v-if="isLoadingJournals" col="12" row="1" />
+              <LoadingPlaceholder v-if="isLoadingJournals" col="12" row="1" />
               <!-- is jurnal kosong? -->
               <div v-else-if="!isLoadingJournals && journals?.totalItems == 0" class="text-center text-muted">
                 <div class="pt-5"><i class="bi bi-database-fill fs-1"></i></div>
