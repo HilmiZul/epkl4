@@ -247,6 +247,16 @@ async function getJournals(loading=true) {
       journals.value.items[i].created = new Intl.DateTimeFormat('id-ID', options).format(date);
     }
     isLoadingJournals.value = false
+    
+    // filter jurnal yang sesuai dan tidak sesuai elemen, lalu lempar ke chart untuk di update 
+    let sesuai = 0;
+    let tidak_sesuai = 0;
+    journals.value.items.forEach(e => {
+      if(e.expand.elemen.elemen != 'Lain-lain') sesuai++
+      else if(e.expand.elemen.elemen == 'Lain-lain') tidak_sesuai++
+    });
+    count_sesuai.value = sesuai
+    count_tidak_sesuai.value = tidak_sesuai
   }
 }
 
@@ -292,6 +302,16 @@ async function pagination(page, loading=true) {
     journals.value.items = journals.value.items.concat(res.items)
     isLoadingJournals.value = false
     isMovingPage.value = false
+    
+    // filter jurnal yang sesuai dan tidak sesuai elemen, lalu lempar ke chart untuk di update 
+    let sesuai = 0;
+    let tidak_sesuai = 0;
+    journals.value.items.forEach(e => {
+      if(e.expand.elemen.elemen != 'Lain-lain') sesuai++
+      else if(e.expand.elemen.elemen == 'Lain-lain') tidak_sesuai++
+    });
+    count_sesuai.value = sesuai
+    count_tidak_sesuai.value = tidak_sesuai
   }
 }
 
@@ -315,23 +335,23 @@ async function getJournalCountNotValid(loading=true) {
   }
 }
 
-async function getJournalCountSesuaiElemen(loading=true) {
+/*async function getJournalCountSesuaiElemen(loading=true) {
   isLoadingJournals.value = loading
   client.autoCancellation(false)
-  let res_count_sesuai = await client.collection('jurnal').getFullList({
+  let res_count_sesuai = await client.collection('jurnal').getList(1,1, {
     filter: "iduka.pembimbing_sekolah='"+user.user.value.id+"' && elemen.elemen!='Lain-lain'",
     expand: "elemen"
   })
-  let res_count_tidak_sesuai = await client.collection('jurnal').getFullList({
+  let res_count_tidak_sesuai = await client.collection('jurnal').getList(1,1, {
     filter: "iduka.pembimbing_sekolah='"+user.user.value.id+"' && elemen.elemen='Lain-lain'",
     expand: "elemen"
   })
   if(res_count_sesuai && res_count_tidak_sesuai) {
-    count_sesuai.value = res_count_sesuai.length
-    count_tidak_sesuai.value = res_count_tidak_sesuai.length
+    count_sesuai.value = res_count_sesuai.totalItems
+    count_tidak_sesuai.value = res_count_tidak_sesuai.totalItems
     isLoadingJournals.value = false
   }
-}
+}*/
 
 async function getStudentsByPemetaan() {
   isLoadingStudent.value = true
@@ -393,14 +413,14 @@ onMounted(() => {
   getJournals()
   getJournalCountNotValid()
   getStudentsByPemetaan()
-  getJournalCountSesuaiElemen()
+  //getJournalCountSesuaiElemen()
   getIdukaByCurrentUser()
   client.autoCancellation(false)
   client.collection('jurnal').subscribe('*', function(e) {
     if(e.action == 'create' || e.action == 'update') {
       getJournals(false)
       getJournalCountNotValid(false)
-      getJournalCountSesuaiElemen(false)
+      //getJournalCountSesuaiElemen(false)
     }
   },{})
   client.collection('siswa').subscribe('*', function(e) {
