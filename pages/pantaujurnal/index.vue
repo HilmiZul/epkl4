@@ -3,7 +3,21 @@
     <div class="card-header">
       <span class="h4 quicksand fw-bold"><i class="bi bi-eye-fill"></i> Pantau Jurnal</span>
     </div>
-    <div v-if="journals?.totalItems > 0" class="card-body">
+   
+    <div v-if="isLoading && !isError" class="card-body">
+      <div class="row">
+        <div class="col-lg-3">
+          <loading-placeholder row="1" col="12" />
+        </div>
+        <div class="col-lg-9">
+          <loading-placeholder row="1" col="8" />
+          <loading-placeholder row="1" col="10" />
+          <loading-placeholder row="1" col="6" />
+          <loading-placeholder row="1" col="8" />
+        </div>
+      </div>
+    </div>
+    <div v-else class="card-body">
       <div class="row">
         <div class="col-lg-12">
           <div class="alert alert-warning mb-3">Ada <strong>{{ journals.totalItems }}</strong> Jurnal Peserta yang belum divalidasi Guru Pembimbing!</div>
@@ -18,7 +32,6 @@
         </div>
 
         <div class="col-lg-9">
-          <loading-placeholder v-if="isLoading && !isError" row="5" col="12" />
           <div v-for="journal in journals.items" :key="journal.id" class="item border-2 border-bottom boder-dark pb-3 mb-3">
             <div class="item-body">
               <div class="fw-bold text-muted">{{ journal.expand.iduka.nama }}</div>
@@ -30,6 +43,13 @@
               </div>
             </div>
           </div>
+          
+          <div v-if="isMovingPage" class="my-2">
+            <loading-placeholder row="1" col="8" />
+            <loading-placeholder row="1" col="10" />
+            <loading-placeholder row="1" col="6" />
+            <loading-placeholder row="1" col="8" />
+          </div>
           <div class="text-center">
             <button v-if="journals.totalItems" :disabled="isMovingPage || journals.page >= journals.totalPages" @click="loadMore(journals.page + 1, false)" class="btn btn-info border border-2 border-dark">
               muat lagi <i class="bi bi-arrow-down"></i>
@@ -40,7 +60,7 @@
       </div>
     </div> 
 
-    <div v-else class="card-body text-muted text-center p-5">
+    <div v-if="journals?.totalItems == 0" class="card-body text-muted text-center p-5">
       <div class="fs-1 fw-bold"><i class="bi bi-check-circle"></i></div>
       <div class="fs-4">
         Semua Jurnal sudah divalidasi!
