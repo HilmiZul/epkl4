@@ -1,5 +1,10 @@
 # Changelog
 
+### 4.16 (28 Maret 2026)
+- Get the total of valid and invalid journals when filtering record to update the chart 
+- Auto update of graph (jurnal/index) when filtering journal 
+- Create page and show notif Pantau Jurnal (wakasek and headmaster only)
+
 ### 4.15.3 (11 Februari 2026)
 - Move download button
 - Fix & improvement validation
