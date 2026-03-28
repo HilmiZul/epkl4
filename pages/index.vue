@@ -47,6 +47,20 @@
         <span class="h4 quicksand fw-bold"><i class="bi bi-pie-chart-fill"></i> Overview</span>
       </div>
       <div class="card-body">
+
+        <div v-if="role == 'wakasek'" class="row">
+          <div class="col-lg-12">
+            <div v-if="jumlah_jurnal_belum_valid > 0" class="alert alert-warning">
+              Ada <strong>{{ jumlah_jurnal_belum_valid }}</strong> Jurnal Peserta yang belum divalidasi Guru Pembimbing!
+              <NuxtLink to="/pantaujurnal">
+                <div class="mt-3">
+                  <button class="btn btn-outline-dark border border-2 border-dark">Intip sini <i class="bi bi-chevron-right"></i></button>
+                </div>
+              </NuxtLink>
+            </div>
+          </div>
+        </div>
+
         <div class="row">
           <div class="col-md-3">
             <nuxt-link to="/pembimbing" class="link border-0">
@@ -147,10 +161,12 @@ let isLoading = ref(true)
 let isLoadingPeserta = ref(true)
 let isLoadingIduka = ref(true)
 let isLoadingPembimbing = ref(true)
+let isLoadingJurnal = ref(true)
 let jumlah_pemetaan = ref([])
 let jumlah_peserta = ref(0)
 let jumlah_iduka = ref(0)
 let jumlah_pembimbing = ref(0)
+let jumlah_jurnal_belum_valid = ref(0)
 
 async function getInfo() {
   isLoading.value = true
@@ -196,10 +212,27 @@ async function getPembimbing() {
   }
 }
 
+async function getJournalNotValidYet(loading=true) {
+  isLoadingJurnal.value = loading 
+  let res = await client.collection('jurnal').getList(1,1, {
+    filter: `isDraft=false && isValid=false`
+  })
+  if(res) {
+    jumlah_jurnal_belum_valid.value = res.totalItems
+    isLoadingJurnal.value = false
+  }
+}
+
 onMounted(() => {
   getInfo()
   getPeserta()
   getIduka()
   getPembimbing()
+  getJournalNotValidYet()
+  client.collection('jurnal').subscribe('*', function(e) {
+    if(e.action == 'create' || e.action == 'update') {
+      getJournalNotValidYet(false)
+    }
+  },{})
 })
 </script>
