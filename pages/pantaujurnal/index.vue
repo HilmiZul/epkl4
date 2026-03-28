@@ -40,7 +40,7 @@
                 {{ journal.expand.iduka.nama }}
               </div>
               <div class="small text-muted">{{ journal.created }}</div>
-              <div class="text-muted py-3 pre-text">{{ journal.deskripsi.slice(0, 50) }}...</div>
+              <div class="text-muted py-3 pre-text">{{ journal.deskripsi.slice(0, 50) }}*****</div>
               <div class="small text-muted">{{ journal.expand.program_keahlian.nama }}</div>
               <div class="small fw-bold pt-1 text-muted">
                 Guru Pembimbing: {{ journal.expand.iduka.expand.pembimbing_sekolah.nama.charAt(0) + journal.expand.iduka.expand.pembimbing_sekolah.nama.charAt(1) }}***** 
