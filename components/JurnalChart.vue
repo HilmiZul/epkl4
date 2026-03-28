@@ -13,6 +13,9 @@ let prokel = user.user.value.program_keahlian
 let isLoading = ref(true)
 let count_sesuai = ref(0)
 let count_tidak_sesuai = ref(0)
+let chartInstance = null
+let sesuai = 0
+let tidak_sesuai = 0
 
 async function countJurnalSesuaiDanTidak(loading=true) {
   try {
@@ -63,12 +66,19 @@ async function initChartData() {
       options: {}
     }
     const canvas = document.getElementById('myChart')
-    new Chart(canvas, config)
+    chartInstance = new Chart(canvas, config)
   }
 }
 
-const gambarChart = () => {
-}
+// Pass fungsi initChartData 
+// watch digunakan untuk memperbaharui chart berdasar filtering data dari parent pages/jurnal/index
+// disini async gadibutuhin.
+// ambil props, masukin ke newData, update data pada chartInstance
+// terakhir update chart nya
+watch(() => [props.countSesuai, props.countTidakSesuai], (newData) => {
+  chartInstance.data.datasets[0].data = newData
+  if(chartInstance) chartInstance.update()
+})
 
 onMounted(() => {
   countJurnalSesuaiDanTidak()
