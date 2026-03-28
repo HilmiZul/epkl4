@@ -50,6 +50,10 @@
 
         <div v-if="role == 'wakasek'" class="row">
           <div class="col-lg-12">
+            <div v-if="isLoadingJurnal">
+              <loading-placeholder row="1" col="12" />
+              <loading-placeholder row="1" col="2" />
+            </div>
             <div v-if="jumlah_jurnal_belum_valid > 0" class="alert alert-warning">
               Ada <strong>{{ jumlah_jurnal_belum_valid }}</strong> Jurnal Peserta yang belum divalidasi Guru Pembimbing!
               <NuxtLink to="/pantaujurnal">
