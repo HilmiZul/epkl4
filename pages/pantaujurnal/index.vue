@@ -34,9 +34,13 @@
         <div class="col-lg-9">
           <div v-for="journal in journals.items" :key="journal.id" class="item border-2 border-bottom boder-dark pb-3 mb-3">
             <div class="item-body">
-              <div class="fw-bold text-muted">{{ journal.expand.iduka.nama }}</div>
+              <div class="fw-bold text-muted">
+                <i v-if="journal.expand.elemen.elemen == 'Lain-lain'" class="bi bi-bookmark-fill text-danger"></i>
+                <i v-else class="bi bi-bookmark-fill text-info"></i>
+                {{ journal.expand.iduka.nama }}
+              </div>
               <div class="small text-muted">{{ journal.created }}</div>
-              <div class="text-muted py-3">{{ journal.deskripsi.slice(0, 50) }}...</div>
+              <div class="text-muted py-3 pre-text">{{ journal.deskripsi.slice(0, 50) }}...</div>
               <div class="small text-muted">{{ journal.expand.program_keahlian.nama }}</div>
               <div class="small fw-bold pt-1 text-muted">
                 Guru Pembimbing: {{ journal.expand.iduka.expand.pembimbing_sekolah.nama.charAt(0) + journal.expand.iduka.expand.pembimbing_sekolah.nama.charAt(1) }}***** 
@@ -96,13 +100,13 @@ async function getJournalByInvalidAndPublic() {
   try {
     let res = await client.collection('jurnal').getList(1, perPage, {
       filter: filter,
-      expand: `siswa.siswa, iduka.pembimbing_sekolah, program_keahlian`,
+      expand: `siswa.siswa, iduka.pembimbing_sekolah, program_keahlian, elemen`,
       sort: sort
     })
 
     if(res) {
       journals.value = res
-    
+      
       // konversi waktu UTC dari server ke full date lokal indo
       for(let i=0; i<res.totalItems; i++) {
         const date = new Date(journals.value.items[i].created);
@@ -132,7 +136,7 @@ async function loadMore(page, loading=true) {
 
   let res = await client.collection('jurnal').getList(page, perPage, {
     filter: filter,
-    expand: `siswa.siswa, iduka.pembimbing_sekolah, program_keahlian`,
+    expand: `siswa.siswa, iduka.pembimbing_sekolah, program_keahlian, elemen`,
     sort: sort
   })
 
@@ -169,3 +173,9 @@ onMounted(() => {
   },{})
 })
 </script>
+
+<style scoped>
+.pre-text {
+  white-space: pre-wrap;
+}
+</style>
