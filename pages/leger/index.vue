@@ -4,8 +4,7 @@
       <span class="h4 quicksand fw-bold"><i class="bi bi-patch-check"></i> Leger</span>
     </div>
     <div class="card-body">
-      <loading-placeholder v-if="isLoading" row="1" col="12" />
-      <div v-else-if="nilaiNotValid?.length > 0" class="alert alert-warning fs-6">
+      <div v-if="nilaiNotValid?.length > 0" class="alert alert-warning fs-6">
         Ada <span class="fw-bold">{{ nilaiNotValid.length }}</span> Nilai yang belum divalidasi
       </div>
       <div class="row">

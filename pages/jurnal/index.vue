@@ -4,8 +4,7 @@
       <span class="h4 quicksand fw-bold"><i class="bi bi-journals"></i> Jurnal</span>
     </div>
     <div class="card-body">
-      <loading-placeholder v-if="isLoadingJournals" col="12" row="1" />
-      <div v-else-if="count_not_valid > 0" class="alert alert-warning">
+      <div v-if="count_not_valid > 0" class="alert alert-warning">
         Ada <span class="fw-bold">{{ count_not_valid }}</span> Jurnal yang belum divalidasi
       </div>
       <div class="row">
