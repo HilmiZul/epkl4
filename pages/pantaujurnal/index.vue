@@ -88,9 +88,9 @@ let journals = ref([])
 let isError = ref(false)
 let isMovingPage = ref(false)
 
-async function getJournalByInvalidAndPublic() {
+async function getJournalByInvalidAndPublic(loading=true) {
   isError.value = false
-  isLoading.value = true
+  isLoading.value = loading 
   
   let filter = `isDraft=false && isValid=false`
   let sort = ``
@@ -168,7 +168,7 @@ onMounted(() => {
   getJournalByInvalidAndPublic()
   client.collection('jurnal').subscribe('*', function(e) {
     if(e.action == 'create' || e.action == 'update') {
-      getJournalByInvalidAndPublic()
+      getJournalByInvalidAndPublic(false)
     }
   },{})
 })
