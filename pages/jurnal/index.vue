@@ -149,7 +149,7 @@
               <input @change="getJournals" v-model="tanggal" type="date" id="filter" class="form form-control picker">
             </div>
             <div class="mb-4">
-              <label for="filter-peserta">Filter IDUKA</label>
+              <label for="filter-iduka">Filter IDUKA</label>
               <select @change="getJournals" v-model="opsiIduka" name="filter-iduka" id="filter-iduka" class="form form-select">
                 <option value="">&#8212; Semua &#8212;</option>
                 <option v-for="i in iduka" :key="i.id" :value="i.id">{{ i.nama }}</option>
