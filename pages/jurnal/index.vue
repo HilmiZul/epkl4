@@ -162,7 +162,6 @@
                 <option v-for="student in students" :key="student.id" :value="student.siswa">{{ student.expand.siswa.nama }}</option>
               </select>
             </div>
-            <loading-placeholder v-if="isLoadingJournals" col="12" row="1" />
             <div v-if="count_sesuai > 0 || count_tidak_sesuai > 0" class="row justify-content-center">
               <jurnal-chart :countSesuai="count_sesuai" :countTidakSesuai="count_tidak_sesuai" />
             </div>
