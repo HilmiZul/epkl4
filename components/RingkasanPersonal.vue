@@ -227,7 +227,9 @@ async function getIdukaInfo() {
   let res_iduka = await client.collection('iduka').getList(1, 5, {
     filter: `pembimbing_sekolah="${user?.user.value.id}" && isArchive=false`
   })
-  if(res_iduka) iduka.value = res_iduka
+  if(res_iduka) {
+    iduka.value = res_iduka
+  }
   isLoading.value = false
 }
 
@@ -235,7 +237,7 @@ async function paginationRelasiIduka(page) {
   isMovingPage.value = true
   client.autoCancellation(false)
   let res_iduka = await client.collection('iduka').getList(page, perPage, {
-    filter: "pembimbing_sekolah='"+user?.user.value.id+"'"
+    filter: `pembimbing_sekolah="${user?.user.value.id}" && isArchive=false`
   })
   if(res_iduka) {
     iduka.value = res_iduka
