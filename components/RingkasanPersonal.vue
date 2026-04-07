@@ -198,8 +198,9 @@ async function getPemetaanInfo() {
   client.autoCancellation(false)
   // let res_pemetaan = await client.collection('pemetaan').getFullList()
   let res_pemetaan_by_pembimbing = await client.collection('pemetaan').getList(1, 5, {
-    expand: "iduka, siswa",
-    filter: "iduka.pembimbing_sekolah='"+user?.user.value.id+"'"
+    expand: `iduka, siswa`,
+    filter: `iduka.pembimbing_sekolah="${user?.user.value.id}"`,
+    sort: `iduka.nama`
   })
   if(res_pemetaan_by_pembimbing) {
     pemetaan.value = res_pemetaan_by_pembimbing
@@ -212,8 +213,9 @@ async function paginationRelasiPeserta(page) {
   client.autoCancellation(false)
   // let res_pemetaan = await client.collection('pemetaan').getFullList()
   let res_pemetaan_by_pembimbing = await client.collection('pemetaan').getList(page, perPage, {
-    expand: "iduka, siswa",
-    filter: "iduka.pembimbing_sekolah='"+user?.user.value.id+"'"
+    expand: `iduka, siswa`,
+    filter: `iduka.pembimbing_sekolah="${user?.user.value.id}"`,
+    sort: `iduka.nama`
   })
   if(res_pemetaan_by_pembimbing) {
     pemetaan.value = res_pemetaan_by_pembimbing
@@ -225,7 +227,8 @@ async function getIdukaInfo() {
   isLoading.value = true
   client.autoCancellation(false)
   let res_iduka = await client.collection('iduka').getList(1, 5, {
-    filter: `pembimbing_sekolah="${user?.user.value.id}" && isArchive=false`
+    filter: `pembimbing_sekolah="${user?.user.value.id}" && isArchive=false`,
+    sort: `nama`
   })
   if(res_iduka) {
     iduka.value = res_iduka
@@ -237,7 +240,8 @@ async function paginationRelasiIduka(page) {
   isMovingPage.value = true
   client.autoCancellation(false)
   let res_iduka = await client.collection('iduka').getList(page, perPage, {
-    filter: `pembimbing_sekolah="${user?.user.value.id}" && isArchive=false`
+    filter: `pembimbing_sekolah="${user?.user.value.id}" && isArchive=false`,
+    sort: `nama`
   })
   if(res_iduka) {
     iduka.value = res_iduka
