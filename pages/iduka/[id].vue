@@ -82,7 +82,8 @@
               </div>
               <div class="mb-4">
                 <label for="catatan">Catatan (opsional)</label>
-                <input :disabled="isLoading" v-model="form.catatan" type="text" id="catatan" class="form form-control form-control-lg" placeholder="Ada catatan untuk IDUKA ini?">
+                <textarea v-model="form.catatan" rows="3" id="catatan" class="form form-control form-control-lg" placeholder="Ada catatan untuk IDUKA ini?">
+                </textarea>
               </div>
             </div>
           </div>
