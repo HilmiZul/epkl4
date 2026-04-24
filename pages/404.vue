@@ -6,3 +6,9 @@
     </div>
   </div>
 </template>
+
+<script setup>
+useHead({
+  title: "404: Halaman yang kamu tuju tidak ada"
+})
+</script>
