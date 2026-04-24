@@ -10,7 +10,7 @@
           <div class="alert alert-info small px-4">
             <li>Pilih kelas untuk menampilkan pratinjau nilai</li>
             <li>Daftar yang muncul hanya yang sudah divalidasi oleh Guru pembimbing</li>
-            <li>Apabila semua nilai telah divalidasi, maka dapat diunduh kedalam berkas <code>.xlsx</code></li>
+            <li>Leger dapat diunduh per kelas apabila Guru pembimbing selesai memvalidasi</li>
           </div>
         </div>
         <div class="col-md-2">
@@ -200,7 +200,7 @@ let keyword = ref('')
 let nilaiNotValid = ref('')
 let count_entrust = ref('')
 let searchActived = ref(false)
-if(role != role == 'tu') navigateTo('/404')
+if(role == 'tu') navigateTo('/404')
 let kelas = ref([
   'TSM-1',
   'TSM-2',
