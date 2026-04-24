@@ -1,5 +1,8 @@
 import { build } from 'nuxt'
 import pkg from './package.json'
+import { readFileSync } from 'fs'
+import { read, utils } from 'xlsx'
+
 export default defineNuxtConfig({
   compatibilityDate: "2025-08-15",
   devtools: { enabled: false },
@@ -41,6 +44,19 @@ export default defineNuxtConfig({
       // limit hasil build yg >= 700 dalam kB
       // lieur warning wae lah
       chunkSizeWarningLimit: 900
-    }
+    },
+    assetsInclude: ['**/*.xlsx'], // xlsx file should be treated as assets
+
+    plugins: [
+      {
+        name: "vite-sheet",
+        transform(_code, id) {
+          if(!id.match(/\.xlsx$/)) return;
+          var wb = read(readFileSync(id.replace(/\?sheetjs$/, "")));
+          var data = utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
+          return `export default JSON.parse('${JSON.stringify(data).replace(/\\/g, "\\\\")}')`;
+        }
+      },
+    ],
   }
 })
