@@ -21,7 +21,7 @@
         </div>
 
         <div v-if="listLeger.length > 0 && countSiswaOnRombel == listLeger.length" class="col-md-3">
-          <button @click="unduh()" class="btn btn-success border border-2 border-dark">
+          <button @click="unduhLeger()" class="btn btn-success border border-2 border-dark">
             <i class="bi bi-download"></i> Unduh
           </button>
         </div>
@@ -52,9 +52,9 @@
                   <th>NAMA</th>
                   <th>KELAS</th>
                   <th width="10%">NILAI 1</th>
-                  <th width="10%">NILAI 1</th>
-                  <th width="10%">NILAI 1</th>
-                  <th width="10%">NILAI 1</th>
+                  <th width="10%">NILAI 2</th>
+                  <th width="10%">NILAI 3</th>
+                  <th width="10%">NILAI 4</th>
                 </tr>
               </thead>
 
@@ -289,7 +289,7 @@ async function getNilaiFilterByClass() {
   }
 }
 
-function unduh() {
+function unduhLeger() {
   const raw_data = listLeger.value
 
   // flatten objects
