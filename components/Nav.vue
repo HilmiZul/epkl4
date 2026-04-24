@@ -43,7 +43,7 @@
               <nuxt-link v-if="role === 'admin' || role === 'tu'" to="/pengaturan" :activeClass="activeClass">
                 <li class="list-group-item"><i class="bi bi-sliders"></i> Pengaturan</li>
               </nuxt-link>
-              <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role == 'guru'" to="/leger" :activeClass="activeClass">
+              <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role == 'guru' || role == 'wakasek'" to="/leger" :activeClass="activeClass">
                 <li class="list-group-item"><i class="bi bi-patch-check"></i> Leger <span v-if="nilai.length > 0" class="badge rounded-5 text-dark float-end">{{ nilai.length }}</span></li>
               </nuxt-link>
               <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role == 'guru'" to="/rapor" :activeClass="activeClass">
