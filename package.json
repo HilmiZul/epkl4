@@ -1,6 +1,6 @@
 {
   "name": "epkl4",
-  "version": "4.16",
+  "version": "4.17",
   "author": "Zul Hilmi",
   "dependencies": {
     "@neoconfetti/vue": "^2.2.1",
@@ -12,7 +12,8 @@
     "compressorjs": "^1.2.1",
     "html2pdf.js": "^0.12.1",
     "nuxt": "3.18",
-    "pocketbase": "^0.21.5"
+    "pocketbase": "^0.21.5",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
   },
   "description": "Pemetaan PKL",
   "license": "MIT",
