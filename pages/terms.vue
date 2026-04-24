@@ -7,7 +7,7 @@
     </div>
     <div class="card-body text-dark">
       <p class="text-muted small">
-        Diperbaharui pada 23 Januari 2026 
+        Diperbaharui pada 25 April 2026 
       </p>
       <h5 class="fw-bold">Akun Anggota e-PKL</h5>
       <ul>
@@ -19,6 +19,7 @@
         <li>Setiap anggota berhak dan dianjurkan memperbaharui password secara berkala.</li>
         <li>e-PKL berhak menonaktifkan akun anggota apabila terjadi hal lain misalnya perubahan jadwal atau cuti.</li>
       </ul>
+
       <h5 class="fw-bold">Alur Pemetaan PKL</h5>
       <ul>
         <li>Hanya peserta didik yang sudah tuntas nilai rapor 4 semester terakhir yang dapat dipetakan.</li>
@@ -33,6 +34,7 @@
         <li>TU Persuratan akan merilis dan mencetak surat permohonan yang telah selesai di TTE paling lambat setengah hari (tergantung ketersediaan personil).</li>
         <li>Upayakan peserta didik tidak mengubah atau mengundurkan diri dari IDUKA apabila telah diterima. Jika hal tersebut terjadi, maka peserta didik tersebut harus dipetakan ulang.</li>
       </ul>
+
       <h5 class="fw-bold">Terkait Elemen</h5>
       <ul>
         <li>
@@ -45,6 +47,7 @@
         <li>Setiap Kepala Program Keahlian wajib mengisi poin-poin elemen yang telah disusun bersama Kurikulum.</li>
         <li>Elemen ini akan digunakan oleh peserta didik untuk mengisi Jurnal Harian.</li>
       </ul>
+
       <h5 class="fw-bold">Terkait Jurnal Harian</h5>
       <ul>
         <li>Setiap Guru Pembimbing wajib memantau dan memvalidasi aktivitas peserta pada halaman Jurnal Harian.</li>
@@ -74,18 +77,22 @@
         </li>
         <li>Jurnal peserta akan diurutkan berdasarkan status yang belum valid.</li>
         <li>Guru Pembimbing dapat memfilter jurnal berdasarkan tanggal dan atau peserta didik.</li>
+        <li>Wakasek Kurikulum dapat memantau aktivitas jurnal peserta secara <em>realtime</em> berdasarkan yang belum divalidasi Guru Pembimbing.</li>
       </ul>
+
       <h5 class="fw-bold">Terkait Komentar</h5>
       <ul>
         <li>Guru Pembimbing dapat memberikan dukungan berupa komentar tertulis pada Jurnal peserta.</li>
         <li>Komentar dapat berupa motivasi atau apresiasi dan kritik yang membangun.</li>
       </ul>
-      <h5 class="fw-bold">Terkait Nilai</h5>
+      <h5 class="fw-bold">Terkait Leger Nilai</h5>
       <ul>
         <li>Guru Pembimbing berkewajiban mengingatkan peserta untuk menyerahkan nilai PKL.</li>
-        <li>Guru Pembimbing berkewajiban memeriksa dan memastikan data yang serahkan sesuai.</li>
+        <li>Guru Pembimbing berkewajiban memeriksa dan memastikan data yang diserahkan peserta sesuai dengan foto halaman nilai dan rekapan kehadiran.</li>
         <li>Guru Pembimbing berkewajiban memvalidasi nilai yang yang sudah diperiksa dan sesuai.</li>
+        <li>Kurikulum memantau leger nilai per kelas yang telah divalidasi oleh Guru Pembimbing dan dapat mengunduhnya kedalam berkas <span class="text-success">.xlsx</span></li>
       </ul>
+
       <h5 class="fw-bold">Terkait Rapor PKL</h5>
       <ul>
         <li>
@@ -96,6 +103,7 @@
         <li>Guru Pembimbing berkewajiban mencetak Rapor peserta dan menandatangani.</li>
         <li>Guru Pembimbing berkewajiban menyerahkan Rapor yang sudah ditanda tangan kepada Walikelas.</li>
       </ul>
+
       <h5 class="fw-bold">Terkait Sertifikat</h5>
       <ul>
         <li>Sertifikat bersifat <span class="fw-bold border-bottom border-2 border-dark">opsional</span>. Guru Pembimbing bertanggungjawab apabila IDUKA menitipkan sertifikat untuk dicetak disekolah.</li>
