@@ -21,14 +21,14 @@
       <div class="row">
         <div class="col-md-6">
           <div class="alert alert-danger">
-            <div class="fs-3 fw-bold">{{ journals.totalItems }}</div>
+            <div class="fs-3 fw-bold">{{ totalUnvalidateJournal }}</div>
             <div class="fw-normal">Jurnal belum divalidasi</div>
           </div>
         </div>
 
         <div class="col-md-6">
-          <div class="alert alert-success">
-            <div class="fs-3 fw-bold">{{ totalJournal }}</div>
+          <div class="alert">
+            <div class="fs-3 fw-bold">{{ totalJournal }} <span class="text-muted">({{ totalJournalNatural }})</span></div>
             <div class="fw-normal">Total Jurnal</div>
           </div>
         </div>
@@ -98,6 +98,8 @@ let journals = ref([])
 let isError = ref(false)
 let isMovingPage = ref(false)
 let totalJournal = ref(0)
+let totalJournalNatural = ref(0)
+let totalUnvalidateJournal = ref(0)
 
 async function getJournalByInvalidAndPublic(loading=true) {
   isError.value = false
@@ -117,7 +119,8 @@ async function getJournalByInvalidAndPublic(loading=true) {
 
     if(res) {
       journals.value = res
-      
+      totalUnvalidateJournal.value = res.totalItems
+
       // konversi waktu UTC dari server ke full date lokal indo
       for(let i=0; i<res.totalItems; i++) {
         const date = new Date(journals.value.items[i].created);
@@ -167,6 +170,7 @@ async function loadMore(page, loading=true) {
     journals.value.perPage = res.perPage
     journals.value.totalItems = res.totalItems
     journals.value.totalPages = res.totalPages
+    totalUnvalidateJournal.value = res.totalItems
     
     // gabungin item lama dengan yang baru
     journals.value.items = journals.value.items.concat(res.items)
@@ -178,8 +182,17 @@ async function loadMore(page, loading=true) {
 
 async function getTotalJournal() {
   let res = await client.collection('jurnal').getList(1,1,{})
-  if(res) totalJournal.value = res.totalItems
+  if(res) {
+    totalJournal.value = formatNum.format(res.totalItems)
+    totalJournalNatural.value = res.totalItems
+  } 
 }
+
+const formatNum = new Intl.NumberFormat('en-US', {
+  notation: 'compact',
+  maximumFractionDigits: 1
+})
+
 onMounted(() => {
   getJournalByInvalidAndPublic()
   getTotalJournal()
