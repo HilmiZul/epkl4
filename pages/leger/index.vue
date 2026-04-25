@@ -20,7 +20,7 @@
           </select>
         </div>
 
-        <div v-if="listLeger.length > 0 && countSiswaOnRombel == listLeger.length" class="col-md-3">
+        <div v-if="listLeger.length > 0 && countSiswaOnRombel == 32" class="col-md-3">
           <button @click="unduhLeger()" class="btn btn-success border border-2 border-dark">
             <i class="bi bi-download"></i> Unduh
           </button>
@@ -271,7 +271,7 @@ async function getNilaiFilterByClass() {
 
   let res_nilai = await client.collection('nilai').getFullList({
     filter: `siswa.kelas="${opsiKelas.value}" && isValid=true`,
-    expand: `iduka, siswa, program_keahlian`,
+    expand: `iduka.pembimbing_sekolah, siswa, program_keahlian`,
     sort: `program_keahlian, siswa.kelas, siswa.nama`
   })
 
@@ -300,6 +300,7 @@ function unduhLeger() {
     kelas: `XII.${row.expand.siswa.kelas}`,
     iduka: row.expand.iduka.nama,
     instruktur: row.expand.iduka.pembimbing_iduka,
+    guru_pembimbing: row.expand.iduka.expand.pembimbing_sekolah.nama,
     nilai_elemen1: row.nilai_elemen1,
     nilai_elemen2: row.nilai_elemen2,
     nilai_elemen3: row.nilai_elemen3,
@@ -317,7 +318,7 @@ function unduhLeger() {
 
   // fix headers
   utils.sheet_add_aoa(worksheet, [["NO", "NIS", "NISN", "NAMA", "KELAS", 
-                                    "IDUKA", "INSTRUKTUR", "NILAI 1", "NILAI 2", "NILAI 3", "NILAI 4",
+                                    "IDUKA", "INSTRUKTUR", "GURU PEMBIMBING", "NILAI 1", "NILAI 2", "NILAI 3", "NILAI 4",
                                     "SAKIT", "IZIN", "ABSEN"]], { origin: "A1" });
   
   // buat file dan download dengan ext .xlsx
