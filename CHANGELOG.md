@@ -1,7 +1,7 @@
 # Changelog
 
 ### 4.17 (21 April 2026)
-- Create a feature export leger to .xlsx file by wakasek role
+- Create a feature export leger to .xlsx file (wakasek only) 
 - Add new package dependency
 - Display total journal (wakasek only)
 
