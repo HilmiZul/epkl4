@@ -19,8 +19,18 @@
     </div>
     <div v-else class="card-body">
       <div class="row">
-        <div class="col-lg-12">
-          <div class="alert alert-warning mb-3">Ada <strong>{{ journals.totalItems }}</strong> Jurnal Peserta yang belum divalidasi Guru Pembimbing!</div>
+        <div class="col-md-6">
+          <div class="alert alert-danger">
+            <div class="fs-3 fw-bold">{{ journals.totalItems }}</div>
+            <div class="fw-normal">Jurnal belum divalidasi</div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="alert alert-success">
+            <div class="fs-3 fw-bold">{{ totalJournal }}</div>
+            <div class="fw-normal">Total Jurnal</div>
+          </div>
         </div>
       </div>
       <div class="row">
@@ -87,6 +97,7 @@ let perPage = 50
 let journals = ref([])
 let isError = ref(false)
 let isMovingPage = ref(false)
+let totalJournal = ref(0)
 
 async function getJournalByInvalidAndPublic(loading=true) {
   isError.value = false
@@ -164,8 +175,14 @@ async function loadMore(page, loading=true) {
     isError.value = false
   } 
 }
+
+async function getTotalJournal() {
+  let res = await client.collection('jurnal').getList(1,1,{})
+  if(res) totalJournal.value = res.totalItems
+}
 onMounted(() => {
   getJournalByInvalidAndPublic()
+  getTotalJournal()
   client.collection('jurnal').subscribe('*', function(e) {
     if(e.action == 'create' || e.action == 'update') {
       getJournalByInvalidAndPublic(false)
