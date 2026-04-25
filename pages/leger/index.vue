@@ -41,7 +41,6 @@
           <div v-else-if="!isLoading && listLeger.length < 1" class="text-center text-muted my-3">
             <div class="fs-1"><i class="bi bi-database-fill"></i></div>
             <div class="fs-4">Belum tersedia</div>
-            <div>Pilih kelas terlebih dahulu</div>
           </div>
           <div v-else class="table-responseive smallest">
             <table class="table">
