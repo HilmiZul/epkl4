@@ -3,6 +3,7 @@
 ### 4.17 (21 April 2026)
 - Create a feature export leger to .xlsx file by wakasek role
 - Add new package dependency
+- Display total journal (wakasek only)
 
 ### 4.16 (28 Maret 2026)
 - Get the total of valid and invalid journals when filtering record to update the chart 
