@@ -20,7 +20,7 @@
           </select>
         </div>
 
-        <div v-if="listLeger.length > 0 && countSiswaOnRombel == 32" class="col-md-3">
+        <div v-if="listLeger.length > 0 && countSiswaOnRombel == listLeger.length" class="col-md-3">
           <button @click="unduhLeger()" class="btn btn-success border border-2 border-dark">
             <i class="bi bi-download"></i> Unduh
           </button>
