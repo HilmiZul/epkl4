@@ -246,11 +246,13 @@ async function getSetting() {
     pengaturan.value = res
     isLoading.value = false
 
-    let titimangsa_rapor = new Date(res.titimangsa_rapor)
-    let option = {
-      dateStyle: "medium"
+    if(res.titimangsa_rapor) {
+      let titimangsa_rapor = new Date(res.titimangsa_rapor)
+      let option = {
+        dateStyle: "medium"
+      }
+      pengaturan.value.titimangsa_rapor = new Intl.DateTimeFormat("id-ID", option).format(titimangsa_rapor)
     }
-    pengaturan.value.titimangsa_rapor = new Intl.DateTimeFormat("id-ID", option).format(titimangsa_rapor)
   }
 }
 

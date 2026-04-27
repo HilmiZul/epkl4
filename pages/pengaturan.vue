@@ -100,8 +100,10 @@ async function getPengaturan() {
     isLoading.value = false
     form.value = res
 
-    let dateLocal = new Date(res.titimangsa_rapor)
-    form.value.titimangsa_rapor = dateLocal.toISOString().split('T')[0]
+    if(res.titimangsa_rapor) {
+      let dateLocal = new Date(res.titimangsa_rapor)
+      form.value.titimangsa_rapor = dateLocal.toISOString().split('T')[0]
+    }
   }
 }
 
