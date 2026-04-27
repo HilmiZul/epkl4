@@ -40,9 +40,6 @@
               <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" to="/jurnal" :activeClass="activeClass">
                 <li class="list-group-item"><i class="bi bi-journals"></i> Jurnal<span v-if="jurnal.length > 0" class="badge rounded-5 text-dark float-end">{{ jurnal.length }}</span></li>
               </nuxt-link>
-              <nuxt-link v-if="role === 'admin' || role === 'tu'" to="/pengaturan" :activeClass="activeClass">
-                <li class="list-group-item"><i class="bi bi-sliders"></i> Pengaturan</li>
-              </nuxt-link>
               <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role == 'guru' || role == 'wakasek'" to="/leger" :activeClass="activeClass">
                 <li class="list-group-item"><i class="bi bi-patch-check"></i> Leger <span v-if="nilai.length > 0" class="badge rounded-5 text-dark float-end">{{ nilai.length }}</span></li>
               </nuxt-link>
@@ -51,6 +48,9 @@
               </nuxt-link>
               <nuxt-link v-if="isEntrustCertificate && (role === 'admin' || role === 'jurusan' || role == 'guru')" to="/sertifikat" :activeClass="activeClass">
                 <li class="list-group-item"><i class="bi bi-person-vcard-fill"></i> Sertifikat</li>
+              </nuxt-link>
+              <nuxt-link v-if="role === 'admin' || role === 'tu' || role === 'wakasek'" to="/pengaturan" :activeClass="activeClass">
+                <li class="list-group-item"><i class="bi bi-sliders"></i> Pengaturan</li>
               </nuxt-link>
               <nuxt-link to="/ubah-password" :activeClass="activeClass">
                 <li class="list-group-item"><i class="bi bi-key"></i> Password</li>
