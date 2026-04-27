@@ -1,5 +1,9 @@
 # Changelog
 
+### 4.18 (27 April 2026)
+- Allowed Wakasek (Kurikulum) to access Pengaturan
+- Add new field: titimangsa rapor in Pengaturan and render to RaporTemplate component
+
 ### 4.17 (24 April 2026)
 - Add new package dependency
 - Create a feature export leger to .xlsx file (wakasek only) 
