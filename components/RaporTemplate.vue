@@ -195,7 +195,7 @@
         <div v-else>NIP. [Nomor Pegawai]</div>
       </div>
       <div class="col-lg-4">
-        <div>Tasikmalaya, 24 April 2026</div>
+        <div>Tasikmalaya, <span v-if="pengaturan">{{ pengaturan.titimangsa_rapor }}</span></div>
         <div>Guru Pembimbing PKL</div>
         <br><br><br><br>
         <div v-if="props.isLoaded" class="fw-bold">
@@ -245,6 +245,12 @@ async function getSetting() {
   if(res) {
     pengaturan.value = res
     isLoading.value = false
+
+    let titimangsa_rapor = new Date(res.titimangsa_rapor)
+    let option = {
+      dateStyle: "medium"
+    }
+    pengaturan.value.titimangsa_rapor = new Intl.DateTimeFormat("id-ID", option).format(titimangsa_rapor)
   }
 }
 
