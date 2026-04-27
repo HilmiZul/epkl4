@@ -16,6 +16,10 @@
               <input v-model="form.rentang_pelaksanaan"  id="rentang_pelaksanaan" type="text" class="form form-control form-control-lg" placeholder="misal: 11 Januari sampai dengan 20 April 2026" required>
             </div>
             <div class="mb-3">
+              <label for="titimangsa_rapor">Titimangsa Rapor</label>
+              <input v-model="form.titimangsa_rapor"  id="titimangsa_rapor" type="date" class="form form-control form-control-lg" required>
+            </div>
+            <div class="mb-3">
               <label for="npsn">NPSN</label>
               <input v-model="form.npsn" id="npsn" type="text" class="form form-control form-control-lg" placeholder="masukkan NPSN Sekolah" required>
             </div>
@@ -54,7 +58,8 @@ useHead({ title: "Pengaturan — e-PKL / SMKN 4 Tasikmalaya." })
 let config = useRuntimeConfig()
 let host = config.public.apiBaseUrl+":"+config.public.apiPort
 let user = usePocketBaseUser()
-if(user?.user.value.role != 'tu' && user?.user.value.role != 'admin') navigateTo('/404')
+let role = user?.user.value.role
+if(role == 'jurusan') navigateTo('/404')
 let client = usePocketBaseClient()
 let isLoading = ref(true)
 let isSending = ref(false)
@@ -66,13 +71,18 @@ let form = ref({
   "nip": "",
   "nomor_surat": "",
   "logo": "",
-  "rentang_pelaksanaan": ''
+  "rentang_pelaksanaan": "",
+  "titimangsa_rapor": ""
 })
 
 async function updatePengaturan() {
   isLoading.value = true
   isSending.value = true
   isSaved.value = false
+
+  let dateConvert = new Date(form.value.titimangsa_rapor)
+  form.value.titimangsa_rapor = dateConvert.toISOString().split('T')[0]
+
   client.autoCancellation(false)
   let res = await client.collection('pengaturan').update("pt7b25ofddwhngp", form.value)
   if(res) {
@@ -89,6 +99,9 @@ async function getPengaturan() {
   if(res) {
     isLoading.value = false
     form.value = res
+
+    let dateLocal = new Date(res.titimangsa_rapor)
+    form.value.titimangsa_rapor = dateLocal.toISOString().split('T')[0]
   }
 }
 
