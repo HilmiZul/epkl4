@@ -1,5 +1,9 @@
 # Changelog
 
+### 4.18.1 (27 April 2026)
+- Bug fix null datetime field
+
+
 ### 4.18 (27 April 2026)
 - Allowed Wakasek (Kurikulum) to access Pengaturan
 - Add new field: titimangsa rapor in Pengaturan and render to RaporTemplate component
