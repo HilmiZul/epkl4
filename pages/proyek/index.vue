@@ -182,7 +182,7 @@ async function getProjectsByProkelOrPembimbing(loading=true) {
     let res = await client.collection('proyek').getList(1, perPage, {
       filter: filter,
       expand: `program_keahlian, siswa, iduka.pembimbing_sekolah`,
-      sort: `created`
+      sort: `-created`
     })
 
     if(res) {
