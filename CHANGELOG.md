@@ -1,5 +1,8 @@
 # Changelog
 
+### 4.19 (28 April 2026)
+- New feature: Proyek Peserta
+
 ### 4.18.1 (27 April 2026)
 - Bug fix null datetime field
 
