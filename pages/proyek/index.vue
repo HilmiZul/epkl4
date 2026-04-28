@@ -46,6 +46,11 @@
             </ul>
           </div>
 
+          <div v-else class="text-muted text-center my-3">
+            <div class="fs-1"><i class="bi bi-database-fill"></i></div>
+            <div class="fs-4">Belum tersedia</div>
+          </div>
+
 
           <!-- single modal: pratinjau proyek -->
           <div class="modal" id="pratinjau" tabindex="-1" aria-hidden="false">
