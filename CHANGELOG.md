@@ -1,5 +1,8 @@
 # Changelog
 
+### 4.20 (29 April 2026)
+- Create a load more pagination on the Proyek list
+
 ### 4.19 (28 April 2026)
 - New feature: Proyek Peserta
 - Bug fixes & improvement
