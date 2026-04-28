@@ -7,7 +7,7 @@
     </div>
     <div class="card-body text-dark">
       <p class="text-muted small">
-        Diperbaharui pada 25 April 2026 
+        Diperbaharui pada 28 April 2026 
       </p>
       <h5 class="fw-bold">Akun Anggota e-PKL</h5>
       <ul>
@@ -106,9 +106,13 @@
 
       <h5 class="fw-bold">Terkait Sertifikat</h5>
       <ul>
-        <li>Sertifikat bersifat <span class="fw-bold border-bottom border-2 border-dark">opsional</span>. Guru Pembimbing bertanggungjawab apabila IDUKA menitipkan sertifikat untuk dicetak disekolah.</li>
-        <li>Guru Pembimbing mengumpulkan dan menyerahkan Sertifikat yang sudah ditanda tangan oleh IDUKA bersangkutan kepada Panitia/HUBIN.</li>
-        <li>Guru Pembimbing memindai sertifikat dan mengunggahnya ke Drive Kurikulum.</li>
+        <li>Sertifikat bersifat <span class="fw-bold border-bottom border-2 border-dark">tidak wajib</span>. Namun Guru Pembimbing bertanggungjawab apabila IDUKA menitipkan sertifikat untuk dicetak disekolah.</li>
+        <li>Guru Pembimbing mengumpulkan dan menyerahkan Sertifikat yang sudah ditanda tangan oleh IDUKA bersangkutan kepada HUBIN.</li>
+      </ul>
+
+      <h5 class="fw-bold">Terkait Proyek Peserta</h5>
+      <ul>
+        <li>Guru Pembimbing berhak memberi <em>feedback</em> dalam bentuk catatan kedalam Proyek Peserta.</li>
       </ul>
     </div>
   </div>
