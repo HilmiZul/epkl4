@@ -52,12 +52,12 @@
               <nuxt-link v-if="role === 'admin' || role === 'tu' || role === 'wakasek'" to="/pengaturan" :activeClass="activeClass">
                 <li class="list-group-item"><i class="bi bi-sliders"></i> Pengaturan</li>
               </nuxt-link>
+              <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" to="/proyek">
+                <li class="list-group-item"><i class="bi bi-easel"></i> Proyek</li>
+              </nuxt-link>
               <nuxt-link to="/ubah-password" :activeClass="activeClass">
                 <li class="list-group-item"><i class="bi bi-key"></i> Password</li>
               </nuxt-link>
-              <!-- <nuxt-link v-if="role === 'admin' || role === 'jurusan'" to="/verifikasi">
-                <li class="list-group-item"><i class="bi bi-patch-check"></i> Verifikasi</li>
-              </nuxt-link> -->
               <!-- <nuxt-link to="/analitik">
                 <li class="list-group-item"><i class="bi bi-bar-chart-fill"></i> Analitik</li>
               </nuxt-link> -->
