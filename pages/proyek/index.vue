@@ -30,27 +30,30 @@
             <loading-placeholder row="1" col="12" />
           </div>
 
-          <div v-if="projects?.totalItems > 0">
-            <ul v-for="project in projects.items" :key="project.id" class="list-group list-group-flush">
-              <a class="hand-cursor" data-bs-toggle="modal" data-bs-target="#pratinjau" @click="setProjectToPrantinjau(project)">
-                <li class="list-group-item py-3 border-bottom border-2 border-grey">
-                  <div class="fw-bold">{{ project.judul }}</div>
-
-                  <div class="text-muted fw-bold mt-2 mb-1">{{ project.expand.siswa.nama }}</div>
-                  <div class="text-muted fw-bold mb-2">XII PPLG 3</div>
-
-                  <a v-if="project.catatan_guru" @click="setProjectToPrantinjau(project)" data-bs-toggle="modal" data-bs-target="#ubah-catatan" class="link text-muted mb-2"><i class="bi bi-chat-left-fill"></i> Ubah catatan</a>
-                  <a v-else @click="setProjectToPrantinjau(project)" data-bs-toggle="modal" data-bs-target="#catatan" class="link text-muted mb-2"><i class="bi bi-chat-left"></i> Tulis catatan</a>
-                </li>
-              </a>
-            </ul>
+          <div v-else-if="!isLoading && projects?.totalItems < 1" class="text-muted text-center my-3">
+            <div v-if="searchActivated">
+              <div class="fs-1"><i class="bi bi-search"></i></div>
+              <div class="fs-4">Pencarian tidak ditemukan</div>
+            </div>
+            <div v-else>
+              <div class="fs-1"><i class="bi bi-database-fill"></i></div>
+              <div class="fs-4">Belum tersedia</div>
+            </div>
           </div>
 
-          <div v-else class="text-muted text-center my-3">
-            <div class="fs-1"><i class="bi bi-database-fill"></i></div>
-            <div class="fs-4">Belum tersedia</div>
-          </div>
+          <ul v-else v-for="project in projects.items" :key="project.id" class="list-group list-group-flush">
+            <a class="hand-cursor" data-bs-toggle="modal" data-bs-target="#pratinjau" @click="setProjectToPrantinjau(project)">
+              <li class="list-group-item py-3 border-bottom border-2 border-grey">
+                <div class="fw-bold">{{ project.judul }}</div>
 
+                <div class="text-muted fw-bold mt-2 mb-1">{{ project.expand.siswa.nama }}</div>
+                <div class="text-muted fw-bold mb-2">XII PPLG 3</div>
+
+                <a v-if="project.catatan_guru" @click="setProjectToPrantinjau(project)" data-bs-toggle="modal" data-bs-target="#ubah-catatan" class="link text-muted mb-2"><i class="bi bi-chat-left-fill"></i> Ubah catatan</a>
+                <a v-else @click="setProjectToPrantinjau(project)" data-bs-toggle="modal" data-bs-target="#catatan" class="link text-muted mb-2"><i class="bi bi-chat-left"></i> Tulis catatan</a>
+              </li>
+            </a>
+          </ul>
 
           <!-- single modal: pratinjau proyek -->
           <div class="modal" id="pratinjau" tabindex="-1" aria-hidden="false">
@@ -157,6 +160,7 @@ let projects = ref([])
 let pratinjau = ref()
 let perPage = 30
 let keyword = ref('')
+let searchActivated = ref(false)
 
 let form = ref({
   catatan_guru: '',
@@ -172,14 +176,18 @@ async function getProjectsByProkelOrPembimbing(loading=true) {
 
     if(role == 'jurusan') {
       if(keyword.value) {
+        searchActivated.value = true
         filter = `program_keahlian="${prokel}" && (judul="${keyword.value}" || siswa.nama~"${keyword.value}")`
       } else {
+        searchActivated.value = false
         filter = `program_keahlian="${prokel}"`
       }
     } else {
       if(keyword.value) {
+        searchActivated.value = true
         filter = `program_keahlian="${prokel}" && iduka.pembimbing_sekolah="${id_pembimbing}" && (judul="${keyword.value}" || siswa.nama~"${keyword.value}")`
       } else {
+        searchActivated.value = false
         filter = `program_keahlian="${prokel}" && iduka.pembimbing_sekolah="${id_pembimbing}"`
       }
     }
