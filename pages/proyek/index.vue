@@ -55,6 +55,21 @@
             </a>
           </ul>
 
+          <div v-if="!isLoading" class="my-4">
+            <div v-if="isMovingPage">
+              <loading-placeholder row="1" col="12" />
+              <loading-placeholder row="1" col="12" />
+              <loading-placeholder row="1" col="12" />
+              <loading-placeholder row="1" col="12" />
+            </div>
+
+            <div class="text-center">
+              <button v-if="projects.totalItems" :disabled="isMovingPage || projects.page >= projects.totalPages" @click="loadMore(projects.page + 1, false)" class="btn btn-info border border-2 border-dark">
+                muat lagi <i class="bi bi-arrow-down"></i>
+              </button>
+            </div>
+          </div>
+
           <!-- single modal: pratinjau proyek -->
           <div class="modal" id="pratinjau" tabindex="-1" aria-hidden="false">
             <div class="modal-dialog modal-dialog-centered">
@@ -156,6 +171,7 @@ let id_pembimbing = user?.user.value.id
 let role = user?.user.value.role
 let isLoading = ref(true)
 let isError = ref(false)
+let isMovingPage = ref(false)
 let projects = ref([])
 let pratinjau = ref()
 let perPage = 30
@@ -206,6 +222,56 @@ async function getProjectsByProkelOrPembimbing(loading=true) {
   } catch (err) {
     isError.value = true
     isLoading.value = false
+  }
+}
+
+async function loadMore(page, loading=true) {
+  isLoading.value = loading
+  isError.value = false
+  isMovingPage.value = true
+
+  try {
+    let filter
+
+    if(role == 'jurusan') {
+      if(keyword.value) {
+        searchActivated.value = true
+        filter = `program_keahlian="${prokel}" && (judul="${keyword.value}" || siswa.nama~"${keyword.value}")`
+      } else {
+        searchActivated.value = false
+        filter = `program_keahlian="${prokel}"`
+      }
+    } else {
+      if(keyword.value) {
+        searchActivated.value = true
+        filter = `program_keahlian="${prokel}" && iduka.pembimbing_sekolah="${id_pembimbing}" && (judul="${keyword.value}" || siswa.nama~"${keyword.value}")`
+      } else {
+        searchActivated.value = false
+        filter = `program_keahlian="${prokel}" && iduka.pembimbing_sekolah="${id_pembimbing}"`
+      }
+    }
+
+    let res = await client.collection('proyek').getList(page, perPage, {
+      filter: filter,
+      expand: `program_keahlian, siswa, iduka.pembimbing_sekolah`,
+      sort: `-created`
+    })
+
+    if(res) {
+      projects.value.page = res.page
+      projects.value.perPage = res.perPage
+      projects.value.totalItems = res.totalItems
+      projects.value.totalPages = res.totalPages
+      projects.value.items = projects.value.items.concat(res.items)
+
+      isLoading.value = false
+      isError.value = false
+      isMovingPage.value = false
+    }
+  } catch (err) {
+    isError.value = true
+    isLoading.value = false
+    isMovingPage.value = false
   }
 }
 
