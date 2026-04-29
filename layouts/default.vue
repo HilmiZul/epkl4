@@ -270,4 +270,8 @@ ul.list-group > a:hover {
   text-decoration: none;
   border: none !important
 }
+
+.pre-text {
+  white-space: pre-wrap;
+}
 </style>

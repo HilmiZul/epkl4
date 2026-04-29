@@ -72,31 +72,32 @@
 
           <!-- single modal: pratinjau proyek -->
           <div class="modal" id="pratinjau" tabindex="-1" aria-hidden="false">
-            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
               <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-                <div class="modal-header rounded-0 bg-info h4 fw-bold border-bottom border-3 border-dark">
+                <div class="modal-header rounded-0 bg-info fw-bold border-bottom border-3 border-dark">
                   {{ pratinjau?.judul }}
                   <button class="btn-close" data-bs-dismiss="modal" label="Close"></button>
                 </div>
 
                 <div class="modal-body">
-                  <div class="mb-4 fw-bold">{{ pratinjau?.deskripsi }}</div>
+                  <div class="mb-4 text-muted pre-text">{{ pratinjau?.deskripsi }}</div>
 
-                  <div class="text-muted fw-bold">URL</div>
-                  <div v-if="pratinjau?.url" class="mb-4 fw-bold"><NuxtLink :to="`${pratinjau?.url}`" class="link" target="_blank">{{ pratinjau?.url }} <i class="bi bi-box-arrow-in-up-right"></i></NuxtLink></div>
-                  <div v-else class="mb-4 fw-bold">&#8212;</div>
-
-                  <div class="text-muted fw-bold">Oleh</div>
-                  <div class="fw-bold">{{ pratinjau?.expand.siswa.nama }}</div>
-                  <div class="mb-4 fw-bold">XII.{{ pratinjau?.expand.siswa.kelas }}</div>
-
-                  <div class="text-muted fw-bold">IDUKA</div>
-                  <div class="mb-4 fw-bold">{{ pratinjau?.expand.iduka.nama }}</div>
+                  <div v-if="pratinjau?.url" class="mb-4 text-muted">
+                    <NuxtLink :to="`${pratinjau?.url}`" class="link" target="_blank">{{ pratinjau?.url }} <i class="bi bi-box-arrow-in-up-right"></i></NuxtLink>
+                  </div>
+                  <div v-else class="mb-4 text-muted">&#8212;</div>
 
                   <hr>
 
-                  <div class="text-muted fw-bold">Catatan Guru</div>
-                  <div v-if="pratinjau?.catatan_guru" class="mb-4 fw-bold">{{ pratinjau?.catatan_guru }}</div>
+                  <div class="text-muted">{{ pratinjau?.expand.siswa.nama }}</div>
+                  <div class="text-muted">XII.{{ pratinjau?.expand.siswa.kelas }}</div>
+
+                  <div class="text-muted">{{ pratinjau?.expand.iduka.nama }}</div>
+
+                  <hr>
+
+                  <div class="text-muted">Catatan Guru</div>
+                  <div v-if="pratinjau?.catatan_guru" class="mb-4 text-muted fw-bold pre-text">{{ pratinjau?.catatan_guru }}</div>
                   <div v-else class="mb-4 fw-bold">&#8212;</div>
                 </div>
               </div>
