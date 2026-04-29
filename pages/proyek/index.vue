@@ -194,7 +194,7 @@ async function getProjectsByProkelOrPembimbing(loading=true) {
     if(role == 'jurusan') {
       if(keyword.value) {
         searchActivated.value = true
-        filter = `program_keahlian="${prokel}" && (judul="${keyword.value}" || siswa.nama~"${keyword.value}")`
+        filter = `program_keahlian="${prokel}" && (judul~"${keyword.value}" || siswa.nama~"${keyword.value}")`
       } else {
         searchActivated.value = false
         filter = `program_keahlian="${prokel}"`
@@ -202,7 +202,7 @@ async function getProjectsByProkelOrPembimbing(loading=true) {
     } else {
       if(keyword.value) {
         searchActivated.value = true
-        filter = `program_keahlian="${prokel}" && iduka.pembimbing_sekolah="${id_pembimbing}" && (judul="${keyword.value}" || siswa.nama~"${keyword.value}")`
+        filter = `program_keahlian="${prokel}" && iduka.pembimbing_sekolah="${id_pembimbing}" && (judul~"${keyword.value}" || siswa.nama~"${keyword.value}")`
       } else {
         searchActivated.value = false
         filter = `program_keahlian="${prokel}" && iduka.pembimbing_sekolah="${id_pembimbing}"`
