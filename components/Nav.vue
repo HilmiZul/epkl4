@@ -52,7 +52,7 @@
               <nuxt-link v-if="role === 'admin' || role === 'tu' || role === 'wakasek'" to="/pengaturan" :activeClass="activeClass">
                 <li class="list-group-item"><i class="bi bi-sliders"></i> Pengaturan</li>
               </nuxt-link>
-              <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" to="/proyek">
+              <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" to="/proyek" :activeClass="activeClass">
                 <li class="list-group-item"><i class="bi bi-easel"></i> Proyek</li>
               </nuxt-link>
               <nuxt-link to="/ubah-password" :activeClass="activeClass">
