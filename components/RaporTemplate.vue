@@ -217,7 +217,7 @@
         <div v-if="isLoaded">Kepala {{ pengaturan?.nama_sekolah }}</div>
         <div v-else>[Kepala Sekolah]</div>
         <br><br><br><br>
-        <div v-if="isLoaded">{{ pengaturan?.nama_kepala_sekolah }}</div>
+        <div v-if="isLoaded" class="fw-bold">{{ pengaturan?.nama_kepala_sekolah }}</div>
         <div v-else>[Nama Kepala Sekolah]</div>
         <div v-if="isLoaded">NIP. {{ pengaturan?.nip }}</div>
         <div v-else>[NIP]</div>
