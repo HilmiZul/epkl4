@@ -116,7 +116,7 @@
       </tbody>
     </table>
     <div class="row justify-content-center text-center">
-      <div class="col-lg-4">
+      <div class="col-lg-6">
         <div class="titimangsa">Tasikmalaya, 24 April 2026</div>
         <div v-if="props.isLoaded" class="ttd-pj">{{ props.sertifikat?.pj_penandatangan }}</div>
         <div v-else class="ttd-pj text-muted">[Jabatan]</div>
