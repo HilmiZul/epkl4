@@ -4,6 +4,9 @@
 - Improvement:
   - Text bold of headmaster name (Rapor)
   - More wide pj column
+- Bug fixes:
+  - Nav active class
+  - Render class
 
 ### 4.20 (29 April 2026)
 - Create a load more pagination on the Proyek list
