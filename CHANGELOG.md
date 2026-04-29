@@ -1,5 +1,9 @@
 # Changelog
 
+### 4.20.2 (30 April 2026)
+- Bug fixes & improvement
+  - Search proyek by title or student
+
 ### 4.20.1 (29 April 2026)
 - Improvement:
   - Text bold of headmaster name (Rapor)
