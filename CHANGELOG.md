@@ -1,5 +1,10 @@
 # Changelog
 
+### 4.20.1 (29 April 2026)
+- Improvement:
+  - Text bold of headmaster name (Rapor)
+  - More wide pj column
+
 ### 4.20 (29 April 2026)
 - Create a load more pagination on the Proyek list
 
