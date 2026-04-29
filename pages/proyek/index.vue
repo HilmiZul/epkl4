@@ -47,7 +47,7 @@
                 <div class="fw-bold">{{ project.judul }}</div>
 
                 <div class="text-muted fw-bold mt-2 mb-1">{{ project.expand.siswa.nama }}</div>
-                <div class="text-muted fw-bold mb-2">XII PPLG 3</div>
+                <div class="text-muted fw-bold mb-2">XII.{{ project.expand.siswa.kelas }}</div>
 
                 <a v-if="project.catatan_guru" @click="setProjectToPrantinjau(project)" data-bs-toggle="modal" data-bs-target="#ubah-catatan" class="link text-muted mb-2"><i class="bi bi-chat-left-fill"></i> Ubah catatan</a>
                 <a v-else @click="setProjectToPrantinjau(project)" data-bs-toggle="modal" data-bs-target="#catatan" class="link text-muted mb-2"><i class="bi bi-chat-left"></i> Tulis catatan</a>
@@ -88,7 +88,7 @@
 
                   <div class="text-muted fw-bold">Oleh</div>
                   <div class="fw-bold">{{ pratinjau?.expand.siswa.nama }}</div>
-                  <div class="mb-4 fw-bold">XII-{{ pratinjau?.expand.siswa.kelas }}</div>
+                  <div class="mb-4 fw-bold">XII.{{ pratinjau?.expand.siswa.kelas }}</div>
 
                   <div class="text-muted fw-bold">IDUKA</div>
                   <div class="mb-4 fw-bold">{{ pratinjau?.expand.iduka.nama }}</div>
