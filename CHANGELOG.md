@@ -1,5 +1,9 @@
 # Changelog
 
+### 4.20.3 (30 April 2026)
+- Guru can update instruktur IDUKA on the Leger
+- Guru can control (entrust or not) Certificate on the Leger
+
 ### 4.20.2 (30 April 2026)
 - Bug fixes & improvement
   - Search proyek by title or student
