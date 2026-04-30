@@ -157,13 +157,13 @@ onMounted(() => {
   getJurnal()
   getPeserta()
   isIdukaEntrustCertificate()
-  client.autoCancellation(false)
-  client.collection('nilai').subscribe('*', function(e){
-    if(e.action == 'update' || e.action == 'create') {
-      getNilai()
-      isIdukaEntrustCertificate()
-    }
-  },{})
+  // client.autoCancellation(false)
+  // client.collection('nilai').subscribe('*', function(e){
+  //   if(e.action == 'update' || e.action == 'create') {
+  //     getNilai()
+  //     isIdukaEntrustCertificate()
+  //   }
+  // },{})
   client.collection('jurnal').subscribe('*', function(e){
     if(e.action == 'update' || e.action == 'create') getJurnal()
   },{})
