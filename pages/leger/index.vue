@@ -329,10 +329,9 @@ onMounted(() => {
   getNilai()
   getEntrust()
   getNilaiByNotVerify()
-  client.autoCancellation(false)
-  client.collection('nilai').subscribe('*', function(e) {
-    // param default getNilai: loading=true
-    if(e.action == 'create' || e.action == 'update') getNilai(false)
-  },{})
+  // client.autoCancellation(false)
+  // client.collection('nilai').subscribe('*', function(e) {
+  //   if(e.action == 'create' || e.action == 'update') getNilai(false)
+  // },{})
 })
 </script>
