@@ -16,11 +16,17 @@
       <div v-else>
         <div v-if="isCertificate" class="row">
           <div class="col-lg-12">
-            <form @submit.prevent="updateNilai">
+            <form @submit.prevent="updateNilaiAndIduka">
               <div class="row">
                 <div class="col-lg-12">
                   <div class="fs-5 fw-bold"><i class="bi bi-buildings"></i>
                     {{ certificate.expand.iduka.nama }}
+
+                    <span class="float-end form-check form-switch smallest">
+                      <input v-model="form.isEntrust" :checked="form.isEntrust" class="form-check-input" type="checkbox" id="entrustCertificate" switch>
+                      <label for="entrustCertificate">Buat sertifikat</label>
+                    </span>
+
                     <span v-if="form.isEntrust" class="badge bg-info">Menitip Sertifikat</span>
                   </div>
                   <hr>
@@ -28,16 +34,19 @@
                 <div class="col-lg-12">
                   <div v-if="isSaved" class="alert alert-success">Berhasil tersimpan!</div>
                 </div>
+
                 <div class="col-lg-6">
                   <nav>
                     <div class="nav nav-tabs small" id="nav-tab" role="tablist">
                       <button @click="() => isSaved = false" class="nav-link p-2 active" id="nilai-tab" data-bs-toggle="tab" data-bs-target="#nav-nilai" type="button" role="tab" aria-controls="nav-nilai" aria-selected="true">Nilai</button>
                       <!-- <button @click="() => isSaved = false" class="nav-link p-2" id="presensi-tab" data-bs-toggle="tab" data-bs-target="#nav-deskripsi" type="button" role="tab" aria-controls="nav-deskripsi" aria-selected="false">Deskripsi</button> -->
                       <button @click="() => isSaved = false" class="nav-link p-2" id="presensi-tab" data-bs-toggle="tab" data-bs-target="#nav-presensi" type="button" role="tab" aria-controls="nav-presensi" aria-selected="false">Kehadiran</button>
+                      <button @click="() => isSaved = false" class="nav-link p-2" id="iduka-tab" data-bs-toggle="tab" data-bs-target="#nav-iduka" type="button" role="tab" aria-controls="nav-iduka" aria-selected="false">IDUKA</button>
                       <button @click="() => isSaved = false" v-if="form.isEntrust" class="nav-link p-2" id="sertifikat-tab" data-bs-toggle="tab" data-bs-target="#nav-sertifikat" type="button" role="tab" aria-controls="nav-sertifikat" aria-selected="false">Sertifikat</button>
                     </div>
                   </nav>
                 </div>
+
                 <div class="tab-content pt-3" id="nav-tabContent">
                   <!-- pane: nilai -->
                   <div class="tab-pane fade show active" id="nav-nilai" role="tabpanel" aria-labelledby="nav-nilai-tab" tabindex="0">
@@ -197,6 +206,7 @@
                       </div>
                     </div>
                   </div> -->
+
                   <!-- pane: kehadiran -->
                   <div class="tab-pane fade" id="nav-presensi" role="tabpanel" aria-labelledby="nav-presensi-tab" tabindex="0">
                     <div class="row">
@@ -217,6 +227,37 @@
                     </div>
                   </div>
 
+                  <!-- pane: IDUKA -->
+                  <div class="tab-pane fade" id="nav-iduka" role="tabpanel" aria-labelledby="nav-iduka-tab" tabindex="0">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="mb-4">
+                          <label for="pimpinan">Instruktur <span class="text-danger">*</span></label>
+                          <input v-model="formIduka.pembimbing_iduka" name="pimpinan" type="text" id="sakit" class="form form-control form-control-lg" required>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- pane: kehadiran -->
+                  <div class="tab-pane fade" id="nav-presensi" role="tabpanel" aria-labelledby="nav-presensi-tab" tabindex="0">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="mb-4">
+                          <label for="sakit">Sakit <span class="text-danger">*</span></label>
+                          <input v-model="form.sakit" name="sakit" type="number" min="0" id="sakit" class="form form-control form-control-lg" required>
+                        </div>
+                        <div class="mb-4">
+                          <label for="izin">Izin <span class="text-danger">*</span></label>
+                          <input v-model="form.izin" type="number" min="0" id="izin" class="form form-control form-control-lg" required>
+                        </div>
+                        <div class="mb-4">
+                          <label for="tanpa_keterangan">Tanpa keterangan <span class="text-danger">*</span></label>
+                          <input v-model="form.tanpa_keterangan" type="number" min="0" id="tanpa_keterangan" class="form form-control form-control-lg" required>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <!-- pane: sertifikat -->
                   <div v-if="form.isEntrust" class="tab-pane fade" id="nav-sertifikat" role="tabpanel" aria-labelledby="nav-sertifikat-tab" tabindex="0">
                     <div class="row">
@@ -235,7 +276,7 @@
                         </div>
                         <div class="mb-4">
                           <label for="nomor_sertifikat">Nomor Sertifikat</label>
-                          <input v-model="form.nomor_sertifikat" type="text" id="nomor_sertifikat" class="form form-control form-control-lg" placeholder="Kosongkat jika tidak ada">
+                          <input v-model="form.nomor_sertifikat" type="text" id="nomor_sertifikat" class="form form-control form-control-lg" placeholder="Kosongkan jika tidak ada">
                         </div>
                         <div class="mb-4">
                           <label for="logo_iduka">Logo IDUKA</label>
@@ -333,6 +374,12 @@ let form = ref({
   "deskripsi_elemen3": '',
   "deskripsi_elemen4": '',
 })
+
+let formIduka = ref({
+  pembimbing_iduka: '',
+})
+let id_iduka = ref('')
+
 let deskripsi = ref({
   elemen1: [],
   elemen2: [],
@@ -347,7 +394,7 @@ let deskripsi_temp2 = ref([])
 let deskripsi_temp3 = ref([])
 let deskripsi_temp4 = ref([])
 
-async function updateNilai() {
+async function updateNilaiAndIduka() {
   isSending.value = true
   isSaved.value = false
   try {
@@ -356,6 +403,9 @@ async function updateNilai() {
     form.value.deskripsi_elemen3 = deskripsi_temp3.value
     form.value.deskripsi_elemen4 = deskripsi_temp4.value
     let res = await client.collection('nilai').update(route.params.id, form.value)
+
+    let res_update_iduka = await client.collection('iduka').update(id_iduka.value, formIduka.value)
+
     if(res) {
       isSending.value = false
       isSaved.value = true
@@ -379,6 +429,9 @@ async function getNilai(loading=true, isCert=false) {
     if(res) {
       certificate.value = res
       form.value = res
+      id_iduka.value = res.iduka
+      formIduka.value.pembimbing_iduka = res.expand.iduka.pembimbing_iduka
+
       tempLogoImg.value = certificate.value.logo
       tempNilaiImg.value = certificate.value.foto_jurnal_nilai
       // if(form.value.deskripsi_elemen1 == '')
