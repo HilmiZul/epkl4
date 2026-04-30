@@ -448,13 +448,13 @@ async function getElemen() {
 onMounted(() => {
   getNilai()
   getElemen()
-  client.autoCancellation(false)
-  client.collection('nilai').subscribe('*', function(e) {
-    // getNilai params:
-    // - isLoading nilai default na true
-    // - isCert nilai default na false
-    if(e.action == 'update') getNilai(false, true)
-  },{})
+  // client.autoCancellation(false)
+  // client.collection('nilai').subscribe('*', function(e) {
+  //   // getNilai params:
+  //   // - isLoading nilai default na true
+  //   // - isCert nilai default na false
+  //   if(e.action == 'update') getNilai(false, true)
+  // },{})
 })
 </script>
 
