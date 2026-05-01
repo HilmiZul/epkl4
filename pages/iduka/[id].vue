@@ -147,6 +147,7 @@ let client = usePocketBaseClient()
 let user = usePocketBaseUser()
 let route = useRoute()
 let prokel = user?.user.value.program_keahlian
+let role = user?.user.value.role
 let isSaved = ref(false)
 let isSending = ref(false)
 let isLoading = ref(true)
@@ -171,7 +172,7 @@ let form = ref({
   pembimbing: ""
 })
 let isLoadingArchive = ref(false)
-if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
+if(role != 'jurusan' && role != 'admin' && role != 'wakasek') navigateTo('/404')
 
 async function updateIduka() {
   try {

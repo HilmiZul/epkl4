@@ -55,7 +55,9 @@
       <div class="row">
         <div class="col-md-12">
           <div class="table-responsive">
+
             <table class="table table-hover table-striped table-bordereless">
+
               <thead>
                 <tr>
                   <!-- <th width="2%">#</th> -->
@@ -67,6 +69,7 @@
                   <th v-if="role == 'admin' || role == 'jurusan'" width="5%">Hapus</th>
                 </tr>
               </thead>
+
               <tbody>
                 <tr v-if="isLoading" class="text-center my-5">
                   <td colspan="6">
@@ -77,6 +80,7 @@
                     <LoadingPlaceholder col="12" row="1" />
                   </td>
                 </tr>
+
                 <tr v-else-if="companies && companies.totalItems < 1" class="text-center my-5">
                   <td v-if="searchActivated" colspan="6">
                     <div class="text-muted"><i class="bi bi-search fs-1"></i></div>
@@ -87,12 +91,13 @@
                     <div class="pb-3 text-muted">IDUKA belum tersedia</div>
                   </td>
                 </tr>
+
                 <!-- tanda merah menandakan IDUKA yang diarsipkan -->
                 <tr v-else v-for="(company, i) in companies.items" :key="i">
                   <td class="fw-bold">
                     <span @click="setModalCatatanById(company.id, company)" data-bs-toggle="modal" data-bs-target="#catatan" class="hand-cursor me-3"><i class="bi bi-chat-right-text"></i></span>
                     <span v-if="(role == 'admin' || role == 'jurusan') && company.isArchive" class="text-danger me-1">&bull;</span>
-                    <nuxt-link v-if="role == 'admin' || role == 'jurusan'" :to="`/iduka/${company.id}`" class="link">
+                    <nuxt-link v-if="role == 'admin' || role == 'jurusan' || role == 'wakasek'" :to="`/iduka/${company.id}`" class="link">
                       <span v-if="company.isArchive" class="text-muted">{{ company.nama }}</span>
                       <span v-else>{{ company.nama }}</span>
                     </nuxt-link>
@@ -113,9 +118,11 @@
                 </tr>
               </tbody>
             </table>
+
           </div>
         </div>
       </div>
+
       <div class="col-md-12 mt-2">
         <loading-placeholder v-if="isLoading" col="3" row="1" />
         <span v-else>
@@ -133,6 +140,7 @@
           </button>
         </span>
       </div>
+
     </div>
   </div>
 
