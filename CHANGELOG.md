@@ -2,6 +2,7 @@
 
 ### 4.20.4 (1 Mei 2026)
 - Wakasek allowed to update IDUKA
+- Show walikelas on Leger page Wakasek
 
 ### 4.20.3 (30 April 2026)
 - Guru can update instruktur IDUKA on the Leger
