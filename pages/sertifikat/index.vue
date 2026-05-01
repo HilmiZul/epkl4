@@ -129,11 +129,9 @@ async function getNilai() {
     filter: `program_keahlian="${prokel}" && iduka.pembimbing_sekolah="${user.user.value.id}" && isEntrust=True && isValid=True`,
     expand: `siswa, program_keahlian, iduka`,
   })
-  if(res.length > 0) {
+  if(res) {
     nilai.value = res
     isLoading.value = false
-  } else {
-    navigateTo('/404')
   }
 }
 
