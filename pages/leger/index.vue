@@ -42,7 +42,11 @@
             <div class="fs-1"><i class="bi bi-database-fill"></i></div>
             <div class="fs-4">Belum tersedia</div>
           </div>
-          <div v-else class="table-responseive smallest">
+          <div v-else class="table-responseive">
+            <div v-if="walikelas" class="mb-3">
+              Walikelas: {{ walikelas }}
+            </div>
+
             <table class="table">
               <thead>
                 <tr>
@@ -220,6 +224,7 @@ let kelas = ref([
 let opsiKelas = ref('')
 let listLeger = ref([])
 let countSiswaOnRombel = ref(0)
+let walikelas = ref('')
 
 async function getNilai(loading=true) {
   isLoading.value = loading
@@ -276,11 +281,14 @@ async function getNilaiFilterByClass() {
   })
 
   let res_rombel = await client.collection('siswa').getList(1,1, {
-    filter: `kelas="${opsiKelas.value}"`
+    filter: `kelas="${opsiKelas.value}"`,
+    expand: `walikelas`
   })
 
   if(res_rombel) {
     countSiswaOnRombel.value = res_rombel.totalItems
+    walikelas.value = res_rombel.items[0].expand?.walikelas?.nama
+
     if(res_nilai) {
       listLeger.value = res_nilai
       isLoading.value = false
