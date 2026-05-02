@@ -58,7 +58,7 @@
                         <li>text writing ini minta kepada kurikulum...</li>
                       </ul>
                     </div> -->
-                    <div data-bs-toggle="modal" data-bs-target="#preview-nilai" class="mb-4 mt-2">
+                    <div v-if="form.foto_jurnal_nilai" data-bs-toggle="modal" data-bs-target="#preview-nilai" class="mb-4 mt-2">
                       <span class="hand-cursor fw-bold text-muted border-bottom border-1 border-dark"><i class="bi bi-eye-fill"></i> Lihat foto nilai</span>
                     </div>
                     <div class="row">
@@ -319,7 +319,7 @@
                     <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
                   </div>
                   <div class="modal-body">
-                    <img :src="`${host}/api/files/${certificate.collectionId}/${certificate.id}/${tempNilaiImg}`" alt="preview" width="100%" />
+                    <img v-if="form.foto_jurnal_nilai" :src="`${host}/api/files/${certificate.collectionId}/${certificate.id}/${tempNilaiImg}`" alt="preview" width="100%" />
                   </div>
                 </div>
               </div>
