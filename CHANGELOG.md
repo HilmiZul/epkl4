@@ -1,5 +1,10 @@
 # Changelog
 
+### 4.21 (2 Mei 2026)
+- Create new feature: Guru Pembimbing allowed add Leger Nilai (urgent only)
+- Preview foto nilai will hidden when it's null
+- Bug fix & improvement
+
 ### 4.20.4 (1 Mei 2026)
 - Wakasek allowed to update IDUKA
 - Show walikelas on Leger page Wakasek
