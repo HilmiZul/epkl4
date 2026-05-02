@@ -433,11 +433,13 @@ async function getElemen() {
 }
 
 async function getIdukaByCurrentUser() {
-  let res = await client.collection('iduka').getFirstListItem(`pembimbing_sekolah="${user?.user.value.id}"`)
+  if(role == 'jurusan' || role == 'guru') {
+    let res = await client.collection('iduka').getFirstListItem(`pembimbing_sekolah="${user?.user.value.id}"`)
 
-  if(res) {
-    id_iduka.value = res.id
-    formIduka.value.pembimbing_iduka = res.pembimbing_iduka
+    if(res) {
+      id_iduka.value = res.id
+      formIduka.value.pembimbing_iduka = res.pembimbing_iduka
+    }
   }
 }
 
