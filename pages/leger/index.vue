@@ -2,6 +2,11 @@
   <div class="card">
     <div class="card-header">
       <span class="h4 quicksand fw-bold"><i class="bi bi-patch-check"></i> Leger</span>
+      <span class="float-end">
+        <NuxtLink to="/leger/tambah" class="btn btn-info btn-sm border border-2 border-dark">
+          <i class="bi bi-plus"></i> Tambah
+        </NuxtLink>
+      </span>
     </div>
 
     <div v-if="role == 'wakasek'" class="card-body">
