@@ -10,7 +10,7 @@
       <div class="alert alert-warning fw-bold">
         <div class="fs-5">Perhatian!</div>
         Form ini digunakan apabila Peserta tidak kunjung menyerahkan nilai! <br>
-        Syarat: Guru Pembimbing memiliki salinan lembar nilai!
+        Syarat: Guru Pembimbing memiliki salinan lembar Nilai dan Kehadiran!
       </div>
 
       <div>
