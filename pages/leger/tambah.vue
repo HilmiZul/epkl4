@@ -20,7 +20,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="mb-4">
-                    <select v-model="form.siswa" class="form form-select" required>
+                    <select @change="getIdukaByCurrentUser" v-model="form.siswa" class="form form-select" required>
                       <option value="">Pilih Peserta</option>
                       <option v-for="student in students" :key="student.siswa" :value="student.siswa">{{ student?.expand.siswa.nama }}</option>
                     </select>
@@ -374,7 +374,7 @@ async function buatNilai() {
     // console.log(form.value)
     let res = await client.collection('nilai').create(form.value)
 
-    await client.collection('iduka').update(id_iduka.value, formIduka.value)
+    // await client.collection('iduka').update(id_iduka.value, formIduka.value)
 
     if(res) {
       isSending.value = false
@@ -434,11 +434,13 @@ async function getElemen() {
 
 async function getIdukaByCurrentUser() {
   if(role == 'jurusan' || role == 'guru') {
-    let res = await client.collection('iduka').getFirstListItem(`pembimbing_sekolah="${user?.user.value.id}"`)
+    let res = await client.collection('pemetaan').getFirstListItem(`siswa="${form.value.siswa}"`, {
+      expand: `iduka`
+    })
 
     if(res) {
-      id_iduka.value = res.id
-      formIduka.value.pembimbing_iduka = res.pembimbing_iduka
+      id_iduka.value = res.iduka
+      formIduka.value.pembimbing_iduka = res.expand?.iduka.pembimbing_iduka
     }
   }
 }
@@ -460,7 +462,6 @@ async function getPesertaByPemetaanPembimbing() {
 onMounted(() => {
   getElemen()
   getPesertaByPemetaanPembimbing()
-  getIdukaByCurrentUser()
   // client.autoCancellation(false)
   // client.collection('nilai').subscribe('*', function(e) {
   //   // getNilai params:
