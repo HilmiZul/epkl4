@@ -1,5 +1,11 @@
 # Changelog
 
+### 4.22-rc (29 Mei 2026)
+- Disable realtime in side navbar
+- Disable realtime sertifikat nav item when sertifikat is entrust
+- Create new page: Walikelas pantau leger nilai
+
+
 ### 4.21 (2 Mei 2026)
 - Create new feature: Guru Pembimbing allowed add Leger Nilai (urgent only)
 - Preview foto nilai will hidden when it's null
