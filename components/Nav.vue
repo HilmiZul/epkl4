@@ -164,6 +164,10 @@ onMounted(() => {
     if(e.action == 'update') getNilai()
   },{})
 })
+
+onUnmounted(() => {
+  client.realtime.unsubscribe()
+})
 </script>
 
 <style scoped>
