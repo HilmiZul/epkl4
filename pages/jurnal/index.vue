@@ -27,7 +27,7 @@
                 <div class="pt-5"><i class="bi bi-database-fill fs-1"></i></div>
                 <div class="fs-4">Belum ada jurnal</div>
               </div>
-              <div v-else v-for="journal in journals.items" :key="journal.id" class="card jurnal-hover jurnal-item no-shadow">
+              <div v-else v-for="(journal, index) in journals.items" :key="journal.id" class="card jurnal-hover jurnal-item no-shadow">
                 <div class="card-body">
                   <div class="bookmark fs-2">
                     <div class="bookmark-icon text-danger" v-if="journal.expand.elemen.elemen == 'Lain-lain'"><i class="bi bi-bookmark-fill"></i></div>
@@ -48,15 +48,18 @@
                     <img :src="`${host}/api/files/${journal.collectionId}/${journal.id}/${journal.foto}`" :alt="journal.deskripsi" class="foto" />
                   </div>
 
-                  <div class="float-start fs-5 me-3">
-                    <span v-if="journal.isValid" @click="handleValidasi(journal.id, journal.isValid)" class="hand-cursor text-muted"><span class="text-danger"><i class="bi bi-heart-fill"></i></span></span>
-                    <span v-else @click="handleValidasi(journal.id, journal.isValid)" class="hand-cursor"><span class="text-danger"><i class="bi bi-heart"></i></span></span>
+                  <div v-if="isLoadingValidate" class="float-start fs-italic me-3">
+                    Tunggu sebentar...
+                  </div>
+                  <div v-else class="float-start fs-5 me-3">
+                    <span v-if="journal.isValid" @click="handleValidasi(index, journal.id, journal.isValid)" class="hand-cursor text-muted"><span class="text-danger"><i class="bi bi-heart-fill"></i></span></span>
+                    <span v-else @click="handleValidasi(index, journal.id, journal.isValid)" class="hand-cursor"><span class="text-danger"><i class="bi bi-heart"></i></span></span>
                   </div>
 
                   <span v-if="journal.isComment" @click="getKomentarByIdJurnal(journal)" data-bs-toggle="modal" data-bs-target="#modal-lihat-komentar" class="float-end text-muted small hand-cursor">
                     <i class="bi bi-chat-left-fill"></i> Lihat komentar
                   </span>
-                  <span v-else @click="setModalKomentar(journal)" data-bs-toggle="modal" data-bs-target="#modal-komentar" class="float-end text-muted small hand-cursor">
+                  <span v-else @click="setModalKomentar(index, journal)" data-bs-toggle="modal" data-bs-target="#modal-komentar" class="float-end text-muted small hand-cursor">
                     <i class="bi bi-chat-left"></i> Komentarin
                   </span>
 
@@ -185,6 +188,8 @@ let prokel = user.user.value.program_keahlian
 let isLoadingJournals = ref(true)
 let isLoadingStudent = ref(true)
 let isLoadingIduka = ref(true)
+let isLoadingValidate = ref(false)
+
 let journals = ref([])
 let perPage = 30
 let count_not_valid = ref(0)
@@ -202,6 +207,8 @@ let formKomentar = ref({
 })
 let isLoadingKomentar = ref(true)
 let pratinjauKomentar = ref()
+let indexJournal = ref()
+
 
 async function getJournals(loading=true) {
   isLoadingJournals.value = loading
@@ -313,12 +320,19 @@ async function pagination(page, loading=true) {
   }
 }
 
-async function handleValidasi(id, isValid) {
-  let currValidate = isValid
-  if(currValidate) currValidate = !isValid
-  else currValidate = !isValid
+async function handleValidasi(index, id, isValid) {
+  // TODO: handle validasi harus cepat < 1s
+  // validasi akan di UPDATE pada local variable client, lalu dikirim ke API kemudian.
+
+  // isLoadingValidate.value = true
+  journals.value.items[index].isValid = !isValid
+
+  // let currValidate = !isValid
+  // if(currValidate) currValidate = !isValid
+  // else currValidate = !isValid
+
   client.autoCancellation(false)
-  await client.collection('jurnal').update(id, { isValid: currValidate })
+  await client.collection('jurnal').update(id, { isValid: !isValid })
 }
 
 async function getJournalCountNotValid(loading=true) {
@@ -377,7 +391,10 @@ async function getIdukaByCurrentUser() {
 }
 
 
-function setModalKomentar(journal) {
+function setModalKomentar(index, journal) {
+  // indexJournal digunakan untuk menyimpan index yang akan digunakan untuk POST dan UPDATE saat handleComment dilakukan
+  indexJournal.value = index
+
   formKomentar.value.idJurnal = journal.id
   formKomentar.value.pembimbing = journal.expand.iduka.pembimbing_sekolah
 }
@@ -400,6 +417,10 @@ async function getKomentarByIdJurnal(journal) {
 }
 
 async function handleComment() {
+  // untuk mempercepat POST dan UPDATE, data diubah pada variable local client, baru kirim ke API
+  journals.value.items[indexJournal.value].isComment = true
+  journals.value.items[indexJournal.value].komentar = formKomentar.value.komentar
+
   await client.collection('jurnal').update(formKomentar.value.idJurnal, { isComment: true })
   let res = await client.collection('jurnal_komentar').create(formKomentar.value)
   if(res) {
@@ -415,8 +436,10 @@ onMounted(() => {
   getIdukaByCurrentUser()
   client.autoCancellation(false)
   client.collection('jurnal').subscribe('*', function(e) {
-    if(e.action == 'create' || e.action == 'update') {
+    if(e.action == 'create') {
       getJournals(false)
+    }
+    if(e.action == 'update') {
       getJournalCountNotValid(false)
       //getJournalCountSesuaiElemen(false)
     }
@@ -426,6 +449,10 @@ onMounted(() => {
       getJournals(false)
     }
   })
+})
+
+onUnmounted(() => {
+  client.realtime.unsubscribe()
 })
 </script>
 
