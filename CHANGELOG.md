@@ -1,5 +1,10 @@
 # Changelog
 
+### 4.22.1-rc (21 Juni 2026)
+- Improvement:
+  - remove realtime on unmounted when leave the page
+  - more fast validation and comment
+
 ### 4.22-rc (29 Mei 2026)
 - Disable realtime in side navbar
 - Disable realtime sertifikat nav item when sertifikat is entrust
