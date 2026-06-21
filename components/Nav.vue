@@ -26,7 +26,7 @@
                 <li class="list-group-item"><i class="bi bi-emoji-smile"></i> Pembimbing</li>
               </nuxt-link>
               <nuxt-link v-if="role === 'admin' || role === 'jurusan'" to="/peserta" :activeClass="activeClass">
-                <li class="list-group-item"><i class="bi bi-people-fill"></i> Peserta <span v-if="peserta.length > 0" class="badge rounded-5 text-dark float-end">{{ peserta.length }}</span></li>
+                <li class="list-group-item"><i class="bi bi-people-fill"></i> Peserta <span v-if="peserta > 0" class="badge rounded-5 text-dark float-end">{{ peserta }}</span></li>
               </nuxt-link>
               <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role === 'wakasek' || role === 'tu'" to="/iduka" :activeClass="activeClass">
                 <li class="list-group-item"><i class="bi bi-buildings-fill"></i> IDUKA</li>
@@ -41,10 +41,10 @@
                 <li class="list-group-item"><i class="bi bi-people-fill"></i> Pemetaan Pembimbing</li>
               </nuxt-link> -->
               <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" to="/jurnal" :activeClass="activeClass">
-                <li class="list-group-item"><i class="bi bi-journals"></i> Jurnal<span v-if="jurnal.length > 0" class="badge rounded-5 text-dark float-end">{{ jurnal.length }}</span></li>
+                <li class="list-group-item"><i class="bi bi-journals"></i> Jurnal<span v-if="jurnal > 0" class="badge rounded-5 text-dark float-end">{{ jurnal }}</span></li>
               </nuxt-link>
               <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role == 'guru' || role == 'wakasek'" to="/leger" :activeClass="activeClass">
-                <li class="list-group-item"><i class="bi bi-patch-check"></i> Leger <span v-if="nilai.length > 0" class="badge rounded-5 text-dark float-end">{{ nilai.length }}</span></li>
+                <li class="list-group-item"><i class="bi bi-patch-check"></i> Leger <span v-if="nilai > 0" class="badge rounded-5 text-dark float-end">{{ nilai }}</span></li>
               </nuxt-link>
               <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role == 'guru'" to="/rapor" :activeClass="activeClass">
                 <li class="list-group-item"><i class="bi bi-book"></i> Rapor</li>
@@ -100,9 +100,9 @@ let role = user?.user.value.role
 let username = user?.user.value.username
 let isConfetti = ref(false)
 let activeClass = ref('list-group-item-active')
-let nilai = ref('')
-let jurnal = ref('')
-let peserta = ref('')
+let nilai = ref(0)
+let jurnal = ref(0)
+let peserta = ref(0)
 
 const moreConfetti = async () => {
   isConfetti.value = false
@@ -112,31 +112,31 @@ const moreConfetti = async () => {
 
 async function getNilai() {
   client.autoCancellation(false)
-  let res = await client.collection('nilai').getFullList({
+  let res = await client.collection('nilai').getList(1, 1, {
     filter: `iduka.pembimbing_sekolah="${user.user.value.id}" && isValid=false`,
   })
   if(res) {
-    nilai.value = res
+    nilai.value = res.totalItems
   }
 }
 
 async function getJurnal() {
   client.autoCancellation(false)
-  let res = await client.collection('jurnal').getFullList({
+  let res = await client.collection('jurnal').getList(1,1, {
     filter: `iduka.pembimbing_sekolah="${user.user.value.id}" && isValid=false && isDraft=false`
   })
   if(res) {
-    jurnal.value = res
+    jurnal.value = res.totalItems
   }
 }
 
 async function getPeserta() {
   client.autoCancellation(false)
-  let res = await client.collection('siswa').getFullList({
+  let res = await client.collection('siswa').getList(1, 1, {
     filter: `program_keahlian="${prokel}" && status_pemetaan_pkl=false`,
   })
   if(res) {
-    peserta.value = res
+    peserta.value = res.totalItems
   }
 }
 
@@ -147,14 +147,21 @@ onMounted(() => {
   client.collection('jurnal').subscribe('*', function(e){
     if(e.action == 'update' || e.action == 'create') getJurnal()
   },{})
+
   client.collection('siswa').subscribe('*', function(e){
     if(e.action == 'update') getPeserta()
   },{})
+
   client.collection('iduka').subscribe('*', function(e){
     if(e.action == 'update') getJurnal()
   },{})
+
   client.collection('teacher_users').subscribe('*', function(e){
     if(e.action == 'update') user?.user.value
+  },{})
+
+  client.collection('nilai').subscribe('*', function(e){
+    if(e.action == 'update') getNilai()
   },{})
 })
 </script>
