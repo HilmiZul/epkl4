@@ -7,7 +7,7 @@
     </div>
     <div class="card-body text-dark">
       <p class="text-muted small">
-        Diperbaharui pada 28 April 2026 
+        Diperbaharui pada 25 Juni 2026
       </p>
       <h5 class="fw-bold">Akun Anggota e-PKL</h5>
       <ul>
