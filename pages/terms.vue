@@ -12,11 +12,11 @@
       <h5 class="fw-bold">Akun Anggota e-PKL</h5>
       <ul>
         <li>Warga sekolah di SMKN 4 Tasikmalaya.</li>
-        <li>Manajemen, diantaranya Wakil Kepala Sekolah bidang Humas, Kepala Program dan Kepala Bengkel.</li>
+        <li>Manajemen, diantaranya Kepala Sekolah, Wakil Kepala, Kepala Program dan Kepala Bengkel.</li>
         <li>Guru yang mengampu pada tingkat XII.</li>
         <li>Tata Usaha bagian persuratan.</li>
         <li>Setiap anggota yang terdaftar artinya sepakat dengan Kebijakan Privasi aplikasi e-PKL.</li>
-        <li>Setiap anggota berhak dan dianjurkan memperbaharui password secara berkala.</li>
+        <li>Setiap anggota dianjurkan memperbaharui password secara berkala.</li>
         <li>e-PKL berhak menonaktifkan akun anggota apabila terjadi hal lain misalnya perubahan jadwal atau cuti.</li>
       </ul>
 
