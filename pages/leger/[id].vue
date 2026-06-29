@@ -150,6 +150,7 @@
                           </label>
                         </div>
                       </div>
+
                       <!-- <div class="col-lg-6">
                         <div class="mb-4">
                           <div class="fw-bold pb-2"><i class="bi bi-image-fill"></i> Foto Halaman Nilai</div>
@@ -162,6 +163,7 @@
                       </div> -->
                     </div>
                   </div>
+
                   <!-- pane: deskripsi -->
                   <!-- <div class="tab-pane fade show" id="nav-deskripsi" role="tabpanel" aria-labelledby="nav-nilai-tab" tabindex="0">
                     <div class="row">
@@ -263,23 +265,23 @@
                     <div class="row">
                       <div class="col-lg-6">
                         <div class="mb-4">
-                          <label for="pj_penandatangan">Pejabat Penandatangan <span class="text-danger">*</span></label>
+                          <label for="pj_penandatangan">Jabatan Penandatangan <span class="text-danger">*</span></label>
                           <input v-model="form.pj_penandatangan" type="text" id="pj_penandatangan" class="form form-control form-control-lg" placeholder="Contoh: CEO, Direktur, Kepala Dinas..." required>
                         </div>
                         <div class="mb-4">
-                          <label for="nama_pj_penandatangan">Nama Pejabat Penandatangan <span class="text-danger">*</span></label>
+                          <label for="nama_pj_penandatangan">Nama Lengkap Pejabat Penandatangan <span class="text-danger">*</span></label>
                           <input :disabled="form.pj_penandatangan < 1" v-model="form.nama_pj_penandatangan" type="text" id="nama_pj_penandatangan" class="form form-control form-control-lg" placeholder="Tulis mama lengkapnya..." required>
                         </div>
                         <div class="mb-4">
-                          <label for="nomor_pegawai">Nomor Pegawai</label>
+                          <label for="nomor_pegawai">NIP <span class="text-muted">(opsional)</span></label>
                           <input v-model="form.nomor_pegawai" type="text" id="nomor_pegawai" class="form form-control form-control-lg" placeholder="Kosongkan jika tidak ada">
                         </div>
                         <div class="mb-4">
-                          <label for="nomor_sertifikat">Nomor Sertifikat</label>
+                          <label for="nomor_sertifikat">Nomor Sertifikat <span class="text-muted">(opsional)</span></label>
                           <input v-model="form.nomor_sertifikat" type="text" id="nomor_sertifikat" class="form form-control form-control-lg" placeholder="Kosongkan jika tidak ada">
                         </div>
                         <div class="mb-4">
-                          <label for="logo_iduka">Logo IDUKA</label>
+                          <label for="logo_iduka">Logo IDUKA <span class="text-muted">(opsional)</span></label>
                           <div v-if="tempLogoImg" class="my-2"><img :src="`${host}/api/files/${certificate.collectionId}/${certificate.id}/${tempLogoImg}`" alt="Foto jurnal nilai" width="70"></div>
                           <input @change="compressFileLogo" class="form form-control form-control-lg" type="file" id="logo_iduka" accept="image/*" />
                         </div>
@@ -310,20 +312,54 @@
 
               </div>
             </form>
+
             <!-- Single Modal: Preview foto nilai -->
-            <div class="modal" id="preview-nilai">
+            <div class="modal" id="preview-nilai" tabindex="-1">
               <div class="modal-dialog modal-dialog-centered modal-fullscreen">
                 <div class="modal-content rounded-0 border border-3 border-dark shadow-lg text-muted">
                   <div class="modal-header border-bottom border-3 border-dark bg-success rounded-0 fs-4 fw-bold">
                     Preview
                     <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
                   </div>
+
                   <div class="modal-body">
-                    <img v-if="form.foto_jurnal_nilai" :src="`${host}/api/files/${certificate.collectionId}/${certificate.id}/${tempNilaiImg}`" alt="preview" width="100%" />
+                    <div class="row">
+                      <div class="col-md-3">
+                        <form @submit.prevent="updateNilaiAndIduka">
+                          <div class="mb-3">
+                            <label for="previvew_el_1">Menerapkan soft skills yang dibutuhkan dalam dunia kerja <span class="text-danger">*</span></label>
+                            <input v-model="form.nilai_elemen1" type="number" min="0" max="100" id="previvew_el_1" class="form form-control form-control-lg" required>
+                          </div>
+                          <div class="mb-3">
+                            <label for="previvew_el_2">Menerapkan norma, POS, dan K3LH yang ada pada dunia kerja <span class="text-danger">*</span></label>
+                            <input v-model="form.nilai_elemen2" type="number" min="0" max="100" id="previvew_el_2" class="form form-control form-control-lg" required>
+                          </div>
+                          <div class="mb-3">
+                            <label for="preview_el_3">Menerapkan kompetensi teknis yang sudah dipelajari di sekolah dan/atau baru dipelajari pada dunia kerja <span class="text-danger">*</span></label>
+                            <input v-model="form.nilai_elemen3" type="number" min="0" max="100" id="preview_el_3" class="form form-control form-control-lg" required>
+                          </div>
+                          <div class="mb-3">
+                            <label for="preview_el_4">Memahami alur bisnis dunia kerja tempat PKL <span class="text-danger">*</span></label>
+                            <input v-model="form.nilai_elemen4" type="number" min="0" max="100" id="preview_el_4" class="form form-control form-control-lg" required>
+                          </div>
+                          <button :disabled="isSending"
+                            class="btn btn-success me-2 border border-2 border-dark mb-4">
+                            <span v-if="isSending">Sedang menyimpan</span>
+                            <span v-else>Simpan</span>
+                          </button>
+                          <span v-if="isSaved" class="text-muted">Berhasil tersimpan!</span>
+                        </form>
+                      </div>
+
+                      <div class="col-md-9">
+                        <img v-if="form.foto_jurnal_nilai" :src="`${host}/api/files/${certificate.collectionId}/${certificate.id}/${tempNilaiImg}`" alt="preview" width="100%" />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </div>
