@@ -3,6 +3,7 @@
 ### 4.22.2-rc (29 Juni 2026)
 - Form nilai disertakan dalam preview foto nilai
 - Improvement UX writing form Certificate
+- Disable unmounted realtime on nav
 
 ### 4.22.1-rc (21 Juni 2026)
 - Improvement:
