@@ -59,7 +59,7 @@
                       </ul>
                     </div> -->
                     <div v-if="form.foto_jurnal_nilai" data-bs-toggle="modal" data-bs-target="#preview-nilai" class="mb-4 mt-2">
-                      <span class="hand-cursor fw-bold text-muted border-bottom border-1 border-dark"><i class="bi bi-eye-fill"></i> Lihat foto nilai</span>
+                      <span @click="() => isSaved = false" class="btn btn-dark border border-2 border-dark"><i class="bi bi-image-fill"></i> Lihat foto nilai</span>
                     </div>
                     <div class="row">
                       <div class="col-lg-6">
@@ -266,7 +266,7 @@
                       <div class="col-lg-6">
                         <div class="mb-4">
                           <label for="pj_penandatangan">Jabatan Penandatangan <span class="text-danger">*</span></label>
-                          <input v-model="form.pj_penandatangan" type="text" id="pj_penandatangan" class="form form-control form-control-lg" placeholder="Contoh: CEO, Direktur, Kepala Dinas..." required>
+                          <input v-model="form.pj_penandatangan" type="text" id="pj_penandatangan" class="form form-control form-control-lg" placeholder="CEO/Direktur/Kepala Bengkel/Kepala Dinas..." required>
                         </div>
                         <div class="mb-4">
                           <label for="nama_pj_penandatangan">Nama Lengkap Pejabat Penandatangan <span class="text-danger">*</span></label>
@@ -318,37 +318,35 @@
               <div class="modal-dialog modal-dialog-centered modal-fullscreen">
                 <div class="modal-content rounded-0 border border-3 border-dark shadow-lg text-muted">
                   <div class="modal-header border-bottom border-3 border-dark bg-success rounded-0 fs-4 fw-bold">
-                    Preview
+                    Preview Nilai
                     <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
                   </div>
 
                   <div class="modal-body">
                     <div class="row">
                       <div class="col-md-3">
-                        <form @submit.prevent="updateNilaiAndIduka">
-                          <div class="mb-3">
-                            <label for="previvew_el_1">Menerapkan soft skills yang dibutuhkan dalam dunia kerja <span class="text-danger">*</span></label>
-                            <input v-model="form.nilai_elemen1" type="number" min="0" max="100" id="previvew_el_1" class="form form-control form-control-lg" required>
-                          </div>
-                          <div class="mb-3">
-                            <label for="previvew_el_2">Menerapkan norma, POS, dan K3LH yang ada pada dunia kerja <span class="text-danger">*</span></label>
-                            <input v-model="form.nilai_elemen2" type="number" min="0" max="100" id="previvew_el_2" class="form form-control form-control-lg" required>
-                          </div>
-                          <div class="mb-3">
-                            <label for="preview_el_3">Menerapkan kompetensi teknis yang sudah dipelajari di sekolah dan/atau baru dipelajari pada dunia kerja <span class="text-danger">*</span></label>
-                            <input v-model="form.nilai_elemen3" type="number" min="0" max="100" id="preview_el_3" class="form form-control form-control-lg" required>
-                          </div>
-                          <div class="mb-3">
-                            <label for="preview_el_4">Memahami alur bisnis dunia kerja tempat PKL <span class="text-danger">*</span></label>
-                            <input v-model="form.nilai_elemen4" type="number" min="0" max="100" id="preview_el_4" class="form form-control form-control-lg" required>
-                          </div>
-                          <button :disabled="isSending"
-                            class="btn btn-success me-2 border border-2 border-dark mb-4">
-                            <span v-if="isSending">Sedang menyimpan</span>
-                            <span v-else>Simpan</span>
-                          </button>
-                          <span v-if="isSaved" class="text-muted">Berhasil tersimpan!</span>
-                        </form>
+                        <div class="mb-3">
+                          <label for="previvew_el_1">Menerapkan soft skills yang dibutuhkan dalam dunia kerja <span class="text-danger">*</span></label>
+                          <input v-model="form.nilai_elemen1" type="number" min="0" max="100" id="previvew_el_1" class="form form-control form-control-lg" required>
+                        </div>
+                        <div class="mb-3">
+                          <label for="previvew_el_2">Menerapkan norma, POS, dan K3LH yang ada pada dunia kerja <span class="text-danger">*</span></label>
+                          <input v-model="form.nilai_elemen2" type="number" min="0" max="100" id="previvew_el_2" class="form form-control form-control-lg" required>
+                        </div>
+                        <div class="mb-3">
+                          <label for="preview_el_3">Menerapkan kompetensi teknis yang sudah dipelajari di sekolah dan/atau baru dipelajari pada dunia kerja <span class="text-danger">*</span></label>
+                          <input v-model="form.nilai_elemen3" type="number" min="0" max="100" id="preview_el_3" class="form form-control form-control-lg" required>
+                        </div>
+                        <div class="mb-3">
+                          <label for="preview_el_4">Memahami alur bisnis dunia kerja tempat PKL <span class="text-danger">*</span></label>
+                          <input v-model="form.nilai_elemen4" type="number" min="0" max="100" id="preview_el_4" class="form form-control form-control-lg" required>
+                        </div>
+                        <button @click="updateNilaiAndIduka" :disabled="isSending"
+                          class="btn btn-success me-2 border border-2 border-dark mb-4">
+                          <span v-if="isSending">Sedang menyimpan</span>
+                          <span v-else>Simpan</span>
+                        </button>
+                        <span v-if="isSaved" class="text-muted">Berhasil tersimpan!</span>
                       </div>
 
                       <div class="col-md-9">
