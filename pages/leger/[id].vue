@@ -38,11 +38,11 @@
                 <div class="col-lg-6">
                   <nav>
                     <div class="nav nav-tabs small" id="nav-tab" role="tablist">
-                      <button @click="() => isSaved = false" class="nav-link p-2 active" id="nilai-tab" data-bs-toggle="tab" data-bs-target="#nav-nilai" type="button" role="tab" aria-controls="nav-nilai" aria-selected="true">Nilai</button>
+                      <button @click="() => isSaved = false" class="nav-link p-2 active" id="nilai-tab" data-bs-toggle="tab" data-bs-target="#nav-nilai" type="button" role="tab" aria-controls="nav-nilai" aria-selected="true">NILAI</button>
                       <!-- <button @click="() => isSaved = false" class="nav-link p-2" id="presensi-tab" data-bs-toggle="tab" data-bs-target="#nav-deskripsi" type="button" role="tab" aria-controls="nav-deskripsi" aria-selected="false">Deskripsi</button> -->
-                      <button @click="() => isSaved = false" class="nav-link p-2" id="presensi-tab" data-bs-toggle="tab" data-bs-target="#nav-presensi" type="button" role="tab" aria-controls="nav-presensi" aria-selected="false">Kehadiran</button>
+                      <button @click="() => isSaved = false" class="nav-link p-2" id="presensi-tab" data-bs-toggle="tab" data-bs-target="#nav-presensi" type="button" role="tab" aria-controls="nav-presensi" aria-selected="false">KEHADIRAN</button>
                       <button @click="() => isSaved = false" class="nav-link p-2" id="iduka-tab" data-bs-toggle="tab" data-bs-target="#nav-iduka" type="button" role="tab" aria-controls="nav-iduka" aria-selected="false">IDUKA</button>
-                      <button @click="() => isSaved = false" v-if="form.isEntrust" class="nav-link p-2" id="sertifikat-tab" data-bs-toggle="tab" data-bs-target="#nav-sertifikat" type="button" role="tab" aria-controls="nav-sertifikat" aria-selected="false">Sertifikat</button>
+                      <button @click="() => isSaved = false" v-if="form.isEntrust" class="nav-link p-2" id="sertifikat-tab" data-bs-toggle="tab" data-bs-target="#nav-sertifikat" type="button" role="tab" aria-controls="nav-sertifikat" aria-selected="false">SERTIFIKAT</button>
                     </div>
                   </nav>
                 </div>
@@ -59,7 +59,7 @@
                       </ul>
                     </div> -->
                     <div v-if="form.foto_jurnal_nilai" data-bs-toggle="modal" data-bs-target="#preview-nilai" class="mb-4 mt-2">
-                      <span @click="() => isSaved = false" class="btn btn-dark border border-2 border-dark"><i class="bi bi-image-fill"></i> Lihat foto nilai</span>
+                      <span @click="() => isSaved = false" class="btn btn-success border border-2 border-dark"><i class="bi bi-image-fill"></i> Side by side</span>
                     </div>
                     <div class="row">
                       <div class="col-lg-6">
@@ -318,35 +318,39 @@
               <div class="modal-dialog modal-dialog-centered modal-fullscreen">
                 <div class="modal-content rounded-0 border border-3 border-dark shadow-lg text-muted">
                   <div class="modal-header border-bottom border-3 border-dark bg-success rounded-0 fs-4 fw-bold">
-                    Preview Nilai
+                    Side by side Nilai
                     <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
                   </div>
 
                   <div class="modal-body">
                     <div class="row">
                       <div class="col-md-3">
-                        <div class="mb-3">
-                          <label for="previvew_el_1">Menerapkan soft skills yang dibutuhkan dalam dunia kerja <span class="text-danger">*</span></label>
-                          <input v-model="form.nilai_elemen1" type="number" min="0" max="100" id="previvew_el_1" class="form form-control form-control-lg" required>
+                        <div class="sticky">
+                          <form @submit.prevent="updateNilaiAndIduka">
+                            <div class="mb-3">
+                              <label for="previvew_el_1">Menerapkan soft skills yang dibutuhkan dalam dunia kerja <span class="text-danger">*</span></label>
+                              <input v-model="form.nilai_elemen1" type="number" min="0" max="100" id="previvew_el_1" class="form form-control form-control-lg" required>
+                            </div>
+                            <div class="mb-3">
+                              <label for="previvew_el_2">Menerapkan norma, POS, dan K3LH yang ada pada dunia kerja <span class="text-danger">*</span></label>
+                              <input v-model="form.nilai_elemen2" type="number" min="0" max="100" id="previvew_el_2" class="form form-control form-control-lg" required>
+                            </div>
+                            <div class="mb-3">
+                              <label for="preview_el_3">Menerapkan kompetensi teknis yang sudah dipelajari di sekolah dan/atau baru dipelajari pada dunia kerja <span class="text-danger">*</span></label>
+                              <input v-model="form.nilai_elemen3" type="number" min="0" max="100" id="preview_el_3" class="form form-control form-control-lg" required>
+                            </div>
+                            <div class="mb-3">
+                              <label for="preview_el_4">Memahami alur bisnis dunia kerja tempat PKL <span class="text-danger">*</span></label>
+                              <input v-model="form.nilai_elemen4" type="number" min="0" max="100" id="preview_el_4" class="form form-control form-control-lg" required>
+                            </div>
+                            <button :disabled="isSending"
+                              class="btn btn-success me-2 border border-2 border-dark mb-4">
+                              <span v-if="isSending">Sedang menyimpan</span>
+                              <span v-else>Simpan</span>
+                            </button>
+                            <span v-if="isSaved" class="text-muted">Berhasil tersimpan!</span>
+                          </form>
                         </div>
-                        <div class="mb-3">
-                          <label for="previvew_el_2">Menerapkan norma, POS, dan K3LH yang ada pada dunia kerja <span class="text-danger">*</span></label>
-                          <input v-model="form.nilai_elemen2" type="number" min="0" max="100" id="previvew_el_2" class="form form-control form-control-lg" required>
-                        </div>
-                        <div class="mb-3">
-                          <label for="preview_el_3">Menerapkan kompetensi teknis yang sudah dipelajari di sekolah dan/atau baru dipelajari pada dunia kerja <span class="text-danger">*</span></label>
-                          <input v-model="form.nilai_elemen3" type="number" min="0" max="100" id="preview_el_3" class="form form-control form-control-lg" required>
-                        </div>
-                        <div class="mb-3">
-                          <label for="preview_el_4">Memahami alur bisnis dunia kerja tempat PKL <span class="text-danger">*</span></label>
-                          <input v-model="form.nilai_elemen4" type="number" min="0" max="100" id="preview_el_4" class="form form-control form-control-lg" required>
-                        </div>
-                        <button @click="updateNilaiAndIduka" :disabled="isSending"
-                          class="btn btn-success me-2 border border-2 border-dark mb-4">
-                          <span v-if="isSending">Sedang menyimpan</span>
-                          <span v-else>Simpan</span>
-                        </button>
-                        <span v-if="isSaved" class="text-muted">Berhasil tersimpan!</span>
                       </div>
 
                       <div class="col-md-9">
