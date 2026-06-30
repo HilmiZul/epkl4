@@ -1,5 +1,9 @@
 # Changelog
 
+### 4.22.3-rc (30 Juni 2026)
+- Improvement preview foto nilai agar bisa input side-by-side 
+- Lock halaman leger nilai apabila belum selesai validasi semua jurnal
+
 ### 4.22.2-rc (29 Juni 2026)
 - Form nilai disertakan dalam preview foto nilai
 - Improvement UX writing form Certificate
