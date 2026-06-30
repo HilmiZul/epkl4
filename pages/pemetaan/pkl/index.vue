@@ -214,6 +214,10 @@
 <script setup>
 definePageMeta({ middleware: 'auth' })
 useHead({ title: "Pemetaan PKL — e-PKL / SMKN 4 Tasikmalaya." })
+
+const config = useRuntimeConfig()
+const host = config.public.apiBaseUrl+":"+config.public.apiPort
+
 let client = usePocketBaseClient()
 let user = usePocketBaseUser()
 let role = user.user.value.role
@@ -508,7 +512,8 @@ onMounted(() => {
   getProkelForOption()
   getPembimbing()
   client.autoCancellation(false)
-  client.collection('pemetaan').subscribe('*', function(e) {
+  // based on new docs API, realtime collection fill out with host/base url
+  client.collection(host).subscribe('*', function(e) {
     if(e.action == 'update') {
       getPemetaan()
       getIdukaIsAvailable(false)
