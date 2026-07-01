@@ -6,7 +6,7 @@
     <div class="col-md-3">
       <nuxt-link to="/peserta" class="link border-0">
         <div class="card mb-3">
-          <div class="card-body bg-danger">
+          <div class="card-body">
             <h2 v-if="!isLoadingPeserta" class="fs-2 fw-bold">{{ count_peserta.length }}</h2>
             <h4 v-else>
               <p class="placeholder-glow">
@@ -21,7 +21,7 @@
     <div class="col-md-3">
       <nuxt-link to="/pembimbing" class="link border-0">
         <div class="card mb-3">
-          <div class="card-body bg-purple">
+          <div class="card-body">
             <h2 v-if="!isLoadingPembimbing" class="fs-2 fw-bold">{{ count_pembimbing.length }}</h2>
             <h4 v-else>
               <p class="placeholder-glow">
@@ -36,7 +36,7 @@
     <div class="col-md-3 mb-3">
       <nuxt-link to="/iduka" class="link border-0">
         <div class="card">
-          <div class="card-body bg-success">
+          <div class="card-body">
             <h2 v-if="!isLoadingIduka" class="fs-2 fw-bold">{{ count_iduka.length }}</h2>
             <h4 v-else>
               <p class="placeholder-glow">
@@ -51,7 +51,7 @@
     <div class="col-md-3">
       <nuxt-link to="/pemetaan/pkl" class="link border-0">
         <div class="card">
-          <div class="card-body bg-info">
+          <div class="card-body">
             <h2 v-if="!isLoadingTerserap" class="fs-2 fw-bold">{{ prosentase_pemetaan.toFixed(0) }}%</h2>
             <h4 v-else>
               <p class="placeholder-glow">
