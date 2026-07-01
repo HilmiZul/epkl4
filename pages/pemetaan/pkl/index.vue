@@ -513,7 +513,7 @@ onMounted(() => {
   getPembimbing()
   client.autoCancellation(false)
   // based on new docs API, realtime collection fill out with host/base url
-  client.collection(host).subscribe('*', function(e) {
+  client.collection('pemetaan').subscribe('*', function(e) {
     if(e.action == 'update') {
       getPemetaan()
       getIdukaIsAvailable(false)
