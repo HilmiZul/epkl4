@@ -274,4 +274,8 @@ ul.list-group > a:hover {
 .pre-text {
   white-space: pre-wrap;
 }
+
+.border-grey {
+  border-color: #7f7f7f !important;
+}
 </style>
