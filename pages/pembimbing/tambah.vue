@@ -23,7 +23,7 @@
               <input v-model="form.password" :disabled="form.email.length < 10" type="password" id="password" class="form form-control form-control-lg" placeholder="masukkan password min.8 karakter" required>
             </div>
             <div class="my-4">
-              <label for="nama">Nama</label>
+              <label for="nama">Nama Lengkap dan Gelar</label>
               <input v-model="form.nama" :disabled="form.password.length < 8" type="text" id="nama" class="form form-control form-control-lg" placeholder="masukkan nama Guru Pembimbing" required>
             </div>
             <div class="my-4">
@@ -47,8 +47,20 @@
               </select>
             </div>
             <div class="my-4">
+              <label for="kelompok_mapel">Kelompok Mapel</label>
+              <select v-model="form.kelompok_mapel" :disabled="form.pangkat_golongan.length < 4" id="kelompok_mapel" class="form form-control form-select form-select-lg" required>
+                <option disabled value="">—</option>
+                <option value="Guru Kejuruan">Guru Kejuruan</option>
+                <option value="Guru Umum">Guru Umum</option>
+              </select>
+            </div>
+            <div class="my-4">
+              <label for="jjm">JJM (Jumlah Jam Mengajar)</label>
+              <input v-model="form.jjm" :disabled="form.kelompok_mapel.length < 4" type="number" id="jjm" min="2" max="40" class="form form-control form-control-lg" required>
+            </div>
+            <div class="my-4">
               <label for="role">Role</label>
-              <select v-model="form.role" :disabled="form.pangkat_golongan.length < 4" id="role" class="form form-control form-select form-select-lg" required>
+              <select v-model="form.role" id="role" class="form form-control form-select form-select-lg" required>
                 <option disabled value="">—</option>
                 <option value="jurusan">Manajemen</option>
                 <option value="guru">Guru Pembimbing</option>
@@ -98,6 +110,8 @@ let form = ref({
   program_keahlian: '',
   nip: '',
   pangkat_golongan: '',
+  kelompok_mapel: '',
+  jjm: '',
 })
 if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
 
