@@ -34,11 +34,7 @@
           <tbody>
             <tr v-if="isLoading" class="text-center my-5">
               <td colspan="4">
-                <LoadingPlaceholder col="12" row="1" />
-                <LoadingPlaceholder col="12" row="1" />
-                <LoadingPlaceholder col="12" row="1" />
-                <LoadingPlaceholder col="12" row="1" />
-                <LoadingPlaceholder col="12" row="1" />
+                <LoadingPlaceholder :col="12" :row="5" />
               </td>
             </tr>
             <tr v-else-if="itemFiltered.length < 1" class="text-center my-5">
@@ -50,7 +46,9 @@
             <tr v-else v-for="(pembimbing,i) in itemFiltered" :key="pembimbing.id">
               <td>{{ pembimbing.username }}</td>
               <td class="fw-bold">
-                <nuxt-link v-if="role == 'jurusan'" :to="`/pembimbing/${pembimbing.id}`" class="link">{{ pembimbing.nama }}</nuxt-link>
+                <nuxt-link v-if="role == 'jurusan'" :to="`/pembimbing/${pembimbing.id}`" class="link">
+                  <i class="bi bi-pencil-square"></i> {{ pembimbing.nama }}
+                </nuxt-link>
                 <span v-else class="fw-bold">{{ pembimbing.nama }}</span>
               </td>
               <!-- <td>

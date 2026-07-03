@@ -24,8 +24,24 @@
               <input v-model="form.nip" :disabled="isLoading" type="text" id="nip" class="form form-control form-control-lg" placeholder="kosongkan jika tidak ada">
             </div>
             <div class="my-4">
+              <label for="pangkat_golongan">Pangkat Golongan</label>
+              <select v-model="form.pangkat_golongan" :disabled="form.nip.length < 4" id="pangkat_golongan" class="form form-control form-select form-select-lg" required>
+                <option disabled value="">—</option>
+                <option value="III/a">III/a</option>
+                <option value="III/b">III/b</option>
+                <option value="III/c">III/c</option>
+                <option value="III/d">III/d</option>
+                <option value="IV/a">IV/a</option>
+                <option value="IV/b">IV/b</option>
+                <option value="IV/c">IV/c</option>
+                <option value="IV/d">IV/d</option>
+                <option value="IV/e">IV/e</option>
+                <option value="IX/IX">IX/IX</option>
+              </select>
+            </div>
+            <div class="my-4">
               <label for="role">Role</label>
-              <select v-model="form.role" :disabled="isLoading" id="role" class="form form-control form-select form-select-lg" required>
+              <select v-model="form.role" :disabled="form.pangkat_golongan.length < 4" id="role" class="form form-control form-select form-select-lg" required>
                 <option disabled value="">—</option>
                 <option value="jurusan">Manajemen</option>
                 <option value="guru">Guru Pembimbing</option>
@@ -59,6 +75,8 @@ let errMessage = ref('')
 let form = ref({
   username: 'loading',
   nama: 'loading',
+  nip: 'loading',
+  pangkat_golongan: 'loading',
   role: 'loading',
 })
 if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
