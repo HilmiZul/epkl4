@@ -19,7 +19,7 @@
         <nuxt-link to="https://github.com/hilmizul/epkl4" target="_blank" class="link-footer">project</nuxt-link>.
       </p>
 
-      <p>
+      <div>
         <strong>Thanks to</strong>
         <ul>
           <li>Taufik Hidayat</li>
@@ -30,7 +30,7 @@
           <li>Kurniawan</li>
           <li>and SGD Team</li>
         </ul>
-      </p>
+      </div>
 
       <div class="pt-3">
         Best regards,
