@@ -52,7 +52,7 @@ html, body {
   transition: all 0.1s ease-in-out;
   /*border: 1.9px solid #000000;*/
   border-radius: 0 !important;
-  box-shadow: 0.2rem 0.2rem 0 #000000 !important;
+  box-shadow: 0.19rem 0.19rem 0 #000000 !important;
 }
 .btn:hover {
   transform: translate(2px,2px);
@@ -68,7 +68,7 @@ html, body {
   font-weight: 550;
   border: 2.5px solid #000000;
   border-radius: 0 !important;
-  box-shadow: 0.3rem 0.3rem 0 #000000 !important;
+  box-shadow: 0.19rem 0.19rem 0 #000000 !important;
 }
 .form:focus {
   border-color: #000000;
