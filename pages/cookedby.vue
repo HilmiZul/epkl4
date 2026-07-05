@@ -18,6 +18,20 @@
         This project is an open source software under MIT Licensed. Feel free if you want to contribute to this
         <nuxt-link to="https://github.com/hilmizul/epkl4" target="_blank" class="link-footer">project</nuxt-link>.
       </p>
+
+      <p>
+        <strong>Thanks to</strong>
+        <ul>
+          <li>Taufik Hidayat</li>
+          <li>Deni Ridwan</li>
+          <li>Arip</li>
+          <li>Saepudin</li>
+          <li>Nisa Nuraeni</li>
+          <li>Kurniawan</li>
+          <li>and SGD Team</li>
+        </ul>
+      </p>
+
       <div class="pt-3">
         Best regards,
         <div class="fw-bold">
