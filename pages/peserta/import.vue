@@ -52,8 +52,8 @@ let user = usePocketBaseUser()
 let studentTemp = ref([])
 let isLoading = ref(false)
 // matiin import Peserta karena sudah impor semua
-//if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
-navigateTo('/404')
+if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
+// navigateTo('/404')
 
 async function getFile(e) {
   isLoading.value = true
