@@ -32,7 +32,7 @@
           </multiselect>
         </div>
         <div v-if="semua_nilai.length > 0" class="col-lg-4">
-          <button v-if="selectedPeserta" @click="unduhPdf" class="btn btn-info border border-2 border-dark">
+          <button v-if="selectedPeserta" @click="unduhPdf" class="btn btn-success border border-2 border-dark">
             <i class="bi bi-download"></i> Unduh
           </button>
         </div>
