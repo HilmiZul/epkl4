@@ -97,7 +97,7 @@
               <LoadingPlaceholder v-if="isLoading" col="12" row="2" />
               <div v-else class="small">
                 <div v-if="mapping.length < 1 || isLoading" class="text-center">
-                  <nuxt-link to="/pemetaan/pkl/tambah" class="btn btn-info btn-sm border border-2 border-dark">Petakan sekarang <i class="bi bi-arrow-up-right"></i></nuxt-link>
+                  <nuxt-link to="/pemetaan/pkl/tambah" class="btn btn-success btn-sm border border-2 border-dark">Petakan sekarang <i class="bi bi-arrow-up-right"></i></nuxt-link>
                 </div>
                 <ul v-else v-for="p in mapping" :key="p.id" class="list-group list-group-flush">
                   <li class="list-group-item">

@@ -3,7 +3,7 @@
     <div class="card-header">
       <span class="h4 quicksand fw-bold"><i class="bi bi-buildings-fill"></i> IDUKA</span>
       <span class="float-end">
-        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/iduka/tambah" class="btn btn-info btn-sm border border-2 border-dark"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
+        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/iduka/tambah" class="btn btn-success btn-sm border border-2 border-dark"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
         <!-- <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/iduka/import" class="btn btn-success btn-sm ms-2 border border-2 border-dark"><i class="bi bi-download"></i> Impor dari .csv</nuxt-link> -->
       </span>
     </div>
@@ -23,7 +23,7 @@
           <form @submit.prevent="getCompanies">
             <div class="my-3 mt-0 input-group">
               <input type="search" v-model="keyword" class="form form-control form-control-lg" placeholder="🔎 Cari nama IDUKA" />
-              <button class="btn btn-info ms-2 border border-2 border-dark">Cari</button>
+              <button class="btn btn-success ms-2 border border-2 border-dark">Cari</button>
             </div>
           </form>
         </div>
@@ -132,10 +132,10 @@
               <span v-if="companies.totalItems">Halaman {{ companies.page }} dari {{ companies.totalPages }}</span>
             </div>
           </div>
-          <button :disabled="isMovingPage || companies.page < 2" @click="pagination(companies.page - 1, false)" class="btn btn-info btn-sm me-2 border border-2 border-dark">
+          <button :disabled="isMovingPage || companies.page < 2" @click="pagination(companies.page - 1, false)" class="btn btn-success btn-sm me-2 border border-2 border-dark">
             <i class="bi bi-arrow-left"></i> sebelumnya
           </button>
-          <button :disabled="isMovingPage || companies.page >= companies.totalPages" @click="pagination(companies.page + 1, false)" class="btn btn-info btn-sm border border-2 border-dark">
+          <button :disabled="isMovingPage || companies.page >= companies.totalPages" @click="pagination(companies.page + 1, false)" class="btn btn-success btn-sm border border-2 border-dark">
             lanjut <i class="bi bi-arrow-right"></i>
           </button>
         </span>
@@ -169,7 +169,7 @@
   <div class="modal" id="catatan" aria-hidden="true" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-        <div class="modal-header bg-info rounded-0 fw-bold border-bottom border-3 border-dark">
+        <div class="modal-header btn-success rounded-0 fw-bold border-bottom border-3 border-dark">
           <div class="fs-4">Pratinjau <span v-if="pratinjau_iduka.isArchive" class="text-grey">(Arsip)</span></div>
           <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
         </div>

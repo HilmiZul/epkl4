@@ -52,8 +52,8 @@ let idukaTemp = ref([])
 let isLoading = ref(false)
 let isError = ref(false)
 // matiin import IDUKA karena sudah impor semua
-//if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
-navigateTo('/404')
+if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
+// navigateTo('/404')
 
 async function getFile(e) {
   isLoading.value = true
