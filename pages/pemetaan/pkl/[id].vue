@@ -13,7 +13,7 @@
       </div>
       <div v-else class="row">
         <div v-if="pemetaan?.status_acc_pkl" class="col-md-12">
-          <div class="alert alert-info border border-2 border-dark quicksand text-center py-5 fs-4">
+          <div class="quicksand text-center py-5 fs-4">
             <span class="fw-bold">{{ pemetaan.expand.siswa.nama }}</span>
             <div class="my-2 text-grey">diterima PKL di </div>
             <span class="fw-bold">{{ pemetaan.expand.iduka.nama }}</span>
