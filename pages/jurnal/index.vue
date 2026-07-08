@@ -135,7 +135,7 @@
                     <i class="bi bi-arrow-left"></i> sebelumnya
                   </button>-->
                   <div class="text-center">
-                    <button v-if="journals.totalItems" :disabled="isMovingPage || journals.page >= journals.totalPages" @click="pagination(journals.page + 1, false)" class="btn btn-info border border-2 border-dark">
+                    <button v-if="journals.totalItems" :disabled="isMovingPage || journals.page >= journals.totalPages" @click="pagination(journals.page + 1, false)" class="btn btn-success border border-2 border-dark">
                       muat lagi <i class="bi bi-arrow-down"></i>
                     </button>
                   </div>
@@ -147,10 +147,10 @@
         </div>
         <div class="col-md-5">
           <div class="sticky">
-            <div class="mb-4">
-              <label for="filter">Filter Tanggal</label>
-              <input @change="getJournals" v-model="tanggal" type="date" id="filter" class="form form-control picker">
-            </div>
+            <!-- <div class="mb-4"> -->
+            <!--   <label for="filter">Filter Tanggal</label> -->
+            <!--   <input @change="getJournals" v-model="tanggal" type="date" id="filter" class="form form-control picker"> -->
+            <!-- </div> -->
             <div class="mb-4">
               <label for="filter-iduka">Filter IDUKA</label>
               <select @change="getJournals" v-model="opsiIduka" name="filter-iduka" id="filter-iduka" class="form form-select">
@@ -164,6 +164,23 @@
                 <option value="">&#8212; Semua &#8212;</option>
                 <option v-for="student in students" :key="student.id" :value="student.siswa">{{ student.expand.siswa.nama }}</option>
               </select>
+            </div>
+            <div class="mb-4">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="alert">
+                    Saat ini
+                    <div class="fs-4 fw-bold">{{ count_sesuai }} dari {{ journals?.totalItems }} ({{ Math.round((count_sesuai/journals.totalItems)*100 || 0) }}%)</div>
+                    Jurnal Sesuai Elemen
+                  </div>
+                </div>
+                <!-- <div class="col-md-6"> -->
+                <!--   <div class="alert alert-danger"> -->
+                <!--     <div class="fs-5 fw-bold">20%</div> -->
+                <!--     Belum Sesuai -->
+                <!--   </div> -->
+                <!-- </div> -->
+              </div>
             </div>
             <div v-if="count_sesuai > 0 || count_tidak_sesuai > 0" class="row justify-content-center">
               <jurnal-chart :countSesuai="count_sesuai" :countTidakSesuai="count_tidak_sesuai" />
