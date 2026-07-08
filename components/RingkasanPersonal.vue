@@ -68,10 +68,10 @@
                         </tr>
                       </tbody>
                     </table>
-                    <button :disabled="isMovingPage || iduka.page < 2" @click="paginationRelasiIduka(iduka.page - 1, false)" class="btn btn-info btn-sm me-2 border border-2 border-dark">
+                    <button :disabled="isMovingPage || iduka.page < 2" @click="paginationRelasiIduka(iduka.page - 1, false)" class="btn btn-success btn-sm me-2 border border-2 border-dark">
                       <i class="bi bi-arrow-left"></i> sebelumnya
                     </button>
-                    <button :disabled="isMovingPage || iduka.page >= iduka.totalPages" @click="paginationRelasiIduka(iduka.page + 1, false)" class="btn btn-info btn-sm border border-2 border-dark">
+                    <button :disabled="isMovingPage || iduka.page >= iduka.totalPages" @click="paginationRelasiIduka(iduka.page + 1, false)" class="btn btn-success btn-sm border border-2 border-dark">
                       lanjut <i class="bi bi-arrow-right"></i>
                     </button>
                   </div>
@@ -119,10 +119,10 @@
                         </tr>
                       </tbody>
                     </table>
-                    <button :disabled="isMovingPage || pemetaan.page < 2" @click="paginationRelasiPeserta(pemetaan.page - 1, false)" class="btn btn-info btn-sm me-2 border border-2 border-dark">
+                    <button :disabled="isMovingPage || pemetaan.page < 2" @click="paginationRelasiPeserta(pemetaan.page - 1, false)" class="btn btn-success btn-sm me-2 border border-2 border-dark">
                       <i class="bi bi-arrow-left"></i> sebelumnya
                     </button>
-                    <button :disabled="isMovingPage || pemetaan.page >= pemetaan.totalPages" @click="paginationRelasiPeserta(pemetaan.page + 1, false)" class="btn btn-info btn-sm border border-2 border-dark">
+                    <button :disabled="isMovingPage || pemetaan.page >= pemetaan.totalPages" @click="paginationRelasiPeserta(pemetaan.page + 1, false)" class="btn btn-success btn-sm border border-2 border-dark">
                       lanjut <i class="bi bi-arrow-right"></i>
                     </button>
                   </div>
