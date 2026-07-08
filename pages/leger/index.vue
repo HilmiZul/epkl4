@@ -3,7 +3,7 @@
     <div class="card-header">
       <span class="h4 quicksand fw-bold"><i class="bi bi-patch-check"></i> Leger</span>
       <span v-if="role == 'jurusan' || role == 'guru'" class="float-end">
-        <NuxtLink v-if="journalValidCount < 1" to="/leger/tambah" class="btn btn-info btn-sm border border-2 border-dark">
+        <NuxtLink v-if="journalValidCount < 1" to="/leger/tambah" class="btn btn-success btn-sm border border-2 border-dark">
           <i class="bi bi-plus"></i> Tambah
         </NuxtLink>
       </span>
@@ -103,7 +103,7 @@
             <form @submit.prevent="getNilai">
               <div class="my-3 mt-0 input-group">
                 <input v-model="keyword" type="search" class="form form-control form-control-lg" placeholder="🔎 Cari nama peserta" />
-                <button class="btn btn-info ms-2 border border-2 border-dark">Cari</button>
+                <button class="btn btn-success ms-2 border border-2 border-dark">Cari</button>
               </div>
             </form>
           </div>

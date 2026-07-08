@@ -59,7 +59,7 @@
                       </ul>
                     </div> -->
                     <div v-if="form.foto_jurnal_nilai" data-bs-toggle="modal" data-bs-target="#preview-nilai" class="mb-4 mt-2">
-                      <span @click="() => isSaved = false" class="btn btn-success border border-2 border-dark"><i class="bi bi-image-fill"></i> Side by side</span>
+                      <span @click="() => isSaved = false" class="btn btn-success border border-2 border-dark"><i class="bi bi-image-fill"></i> Foto Nilai</span>
                     </div>
                     <div class="row">
                       <div class="col-lg-6">
@@ -318,7 +318,7 @@
               <div class="modal-dialog modal-dialog-centered modal-fullscreen">
                 <div class="modal-content rounded-0 border border-3 border-dark shadow-lg text-muted">
                   <div class="modal-header border-bottom border-3 border-dark bg-success rounded-0 fs-4 fw-bold">
-                    Side by side Nilai
+                    Foto Nilai side by side
                     <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
                   </div>
 
@@ -348,7 +348,8 @@
                               <span v-if="isSending">Sedang menyimpan</span>
                               <span v-else>Simpan</span>
                             </button>
-                            <span v-if="isSaved" class="text-muted">Berhasil tersimpan!</span>
+                            <button type="button" class="btn btn-light border border-2 border-dark mb-4" data-bs-dismiss="modal">Tutup</button>
+                            <div v-if="isSaved" class="text-muted">Berhasil tersimpan!</div>
                           </form>
                         </div>
                       </div>
