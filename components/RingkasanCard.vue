@@ -13,11 +13,12 @@
                 <span class="placeholder col-6"></span>
               </p>
             </h4>
-            <span class="fs-5">Peserta</span>
+            <span class="fs-5">Peserta <i class="bi bi-arrow-up-right-square"></i></span>
           </div>
         </div>
       </nuxt-link>
     </div>
+
     <div class="col-md-3">
       <nuxt-link to="/pembimbing" class="link border-0">
         <div class="card mb-3">
@@ -28,11 +29,12 @@
                 <span class="placeholder col-6"></span>
               </p>
             </h4>
-            <span class="fs-5">Pembimbing</span>
+            <span class="fs-5">Pembimbing <i class="bi bi-arrow-up-right-square"></i></span>
           </div>
         </div>
       </nuxt-link>
     </div>
+
     <div class="col-md-3 mb-3">
       <nuxt-link to="/iduka" class="link border-0">
         <div class="card">
@@ -43,11 +45,12 @@
                 <span class="placeholder col-6"></span>
               </p>
             </h4>
-            <span class="fs-5">IDUKA</span>
+            <span class="fs-5">IDUKA <i class="bi bi-arrow-up-right-square"></i></span>
           </div>
         </div>
       </nuxt-link>
     </div>
+
     <div class="col-md-3">
       <nuxt-link to="/pemetaan/pkl" class="link border-0">
         <div class="card">
@@ -58,7 +61,7 @@
                 <span class="placeholder col-6"></span>
               </p>
             </h4>
-            <span class="fs-5">Terserap</span>
+            <span class="fs-5">Terserap <i class="bi bi-arrow-up-right-square"></i></span>
           </div>
         </div>
       </nuxt-link>
