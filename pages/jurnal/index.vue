@@ -170,7 +170,7 @@
                 <div class="col-md-12">
                   <div class="alert">
                     Saat ini
-                    <div class="fs-4 fw-bold">{{ count_sesuai }} dari {{ journals?.totalItems }} ({{ Math.round((count_sesuai/journals.totalItems)*100 || 0) }}%)</div>
+                    <div class="fs-4 fw-bold">{{ count_sesuai }} dari {{ journals?.totalItems }} <span class="text-muted">({{ Math.round((count_sesuai/journals.totalItems)*100 || 0) }}%)</span></div>
                     Jurnal Sesuai Elemen
                   </div>
                 </div>
