@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand text-muted fw-bold">Tambah Peserta / </span>
+      <span class="h4 quicksand text-muted fw-bold">Pemetaan Pembimbing / Tambah Peserta / </span>
       <span v-if="!isLoading" class="h4 quicksand text-grey fw-bold">{{ pemetaan.expand.pembimbing.nama }}</span>
       <p v-else class="placeholder-glow"><span class="placeholder col-3"></span></p>
     </div>
@@ -19,6 +19,7 @@
                 :close-on-search="false"
                 :clear-on-select="false"
                 :custom-label="({nama, kelas}) => `${nama} - ${kelas}`"
+                :disabled="pemetaan?.expand.pembimbing.konversi_jjm_ke_jumlah_siswa == form.siswa.length+curr_students.length"
                 id="pembimbing"
                 placeholder="Pilih lebih dari satu"
                 label="nama"
@@ -34,15 +35,41 @@
             <em v-if="isSaved" class="text-muted">Berhasil tersimpan!</em>
           </form>
         </div>
+
         <div class="col-md-6">
-          <div class="text-muted mb-3">Saat ini <span class="fw-bold">{{ pemetaan?.expand.pembimbing.nama }}</span> membimbing {{ curr_students?.length }} peserta:</div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="alert">
+                <div class="fs-4 fw-bold">{{ pemetaan?.expand.pembimbing?.jjm }}</div>
+                JP
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="alert">
+                <div class="fs-4 fw-bold">{{ pemetaan?.expand.pembimbing.konversi_jjm_ke_jumlah_siswa }}</div>
+                Peserta
+              </div>
+            </div>
+
+            <div class="col-md-12">
+              <div :class="`alert ${form.siswa.length + curr_students.length == pemetaan?.expand.pembimbing.konversi_jjm_ke_jumlah_siswa ? 'alert-success' : 'alert-secondary'}`">
+                <div class="fs-4 fw-bold">{{ form.siswa.length + curr_students.length }}</div>
+                <span v-if="form.siswa.length + curr_students.length < pemetaan?.expand.pembimbing.konversi_jjm_ke_jumlah_siswa">dari {{ pemetaan?.expand.pembimbing.konversi_jjm_ke_jumlah_siswa }} Peserta</span>
+                <span v-else>Peserta akan dibimbing</span>
+              </div>
+            </div>
+          </div>
+
           <ul v-for="(s,i) in curr_students" :key="s.id" class="list-group list-group-flush">
             <li class="list-group-item">
               {{ s.nama }} <br>
               <span class="small text-muted">{{ s.kelas }}</span>
             </li>
           </ul>
+
           <hr />
+
           <ul v-for="(s,i) in form.siswa" :key="s.id" class="list-group list-group-flush">
             <li class="list-group-item">
               <button @click="()=>form.siswa.splice(i, 1)" class="border-0 bg-transparent float-end">X</button>
@@ -108,7 +135,8 @@ async function updatePemetaan() {
 async function getReference() {
   isLoading.value = true
   let res_pemetaan = await client.collection('pemetaan_pembimbing').getOne(route.params.id, {
-    expand: "pembimbing, siswa"
+    filter: `pembimbing.jjm >= 2 && pembimbing.konversi_jjm_ke_jumlah_siswa > 0 && program_keahlian="${prokel}" && pembimbing.role!="admin" && status_pemetaan=false`,
+    expand: "pembimbing, siswa",
   })
   let res_students = await client.collection('siswa').getFullList({
     filter: "program_keahlian='"+prokel+"' && status_pemetaan_pembimbing=false",

@@ -3,7 +3,7 @@
     <div class="card-header">
       <span class="h4 quicksand fw-bold"><i class="bi bi-diagram-3-fill"></i> Pemetaan Pembimbing</span>
       <div v-if="isPembimbingAvailable.length > 0" class="float-end">
-        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/pemetaan/pembimbing/tambah" class="btn btn-info btn-sm border border-2 border-dark"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
+        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/pemetaan/pembimbing/tambah" class="btn btn-success btn-sm border border-2 border-dark"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
       </div>
     </div>
     <div class="card-body">
@@ -26,6 +26,7 @@
           <div class="mb-3 text-grey float-end badge text-dark">{{ mapping.length }} pemetaan</div>
         </div>
       </div>
+
       <div class="row">
         <div class="col-md-12">
           <div class="table-responsive">
@@ -47,8 +48,16 @@
                 <tr v-for="(pemetaan) in mapping" :key="pemetaan.id">
                   <!-- <td><span class="badge text-dark">{{ i+1 }}</span></td> -->
                   <td>
-                    <nuxt-link :to="`/pemetaan/pembimbing/${pemetaan.id}`" class="link fw-bold">{{ pemetaan.expand.pembimbing.nama }}</nuxt-link>
-                    <p v-if="pemetaan.siswa.length > 0" class="my-2 small text-muted"><i class="bi bi-people"></i> {{ pemetaan.siswa.length }} peserta</p>
+                    <span class="fw-bold">{{ pemetaan.expand.pembimbing.nama }}</span>
+                    <p v-if="pemetaan.siswa.length < pemetaan.expand.pembimbing.konversi_jjm_ke_jumlah_siswa" class="my-2 small text-muted">
+                      <i class="bi bi-people"></i> {{ pemetaan.siswa.length }} dari {{ pemetaan.expand.pembimbing.konversi_jjm_ke_jumlah_siswa }} peserta
+                    </p>
+                    <p v-else class="my-2 small text-muted">
+                      <i class="bi bi-people"></i> {{ pemetaan.siswa.length }} peserta
+                    </p>
+                    <NuxtLink v-if="pemetaan.expand.siswa.length < pemetaan.expand.pembimbing.konversi_jjm_ke_jumlah_siswa" :to="`/pemetaan/pembimbing/${pemetaan.id}`" class="btn btn-light btn-sm border border-2 border-dark">
+                      <i class="bi bi-plus"></i> Tambah Peserta
+                    </NuxtLink>
                   </td>
                   <td>
                     <table class="table">
@@ -71,6 +80,7 @@
               </tbody>
             </table>
           </div>
+
           <!-- Single Modal confirm: apakah ingin mengapus siswa terpilih dari pemetaan guru ini? -->
           <div class="modal" id="hapus-pemetaan" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -81,7 +91,7 @@
                 <div class="modal-body text-dark">
                   Hapus <span class="fw-bold">{{ siswaNama }}</span> dari daftar bimbingan <span class="fw-bold">{{ pembimbingNama }}</span>?
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer border-0 justify-content-center">
                   <button @click="hapusPesertaDariBimbingan(pemetaanId, siswaId)" class="btn btn-danger border border-2 border-dark" data-bs-dismiss="modal">Hapus</button>
                   <button class="btn btn-light border border-2 border-dark" data-bs-dismiss="modal">Gajadi</button>
                 </div>
@@ -90,6 +100,7 @@
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </template>
@@ -139,7 +150,7 @@ async function getPemetaanPembimbing() {
   isLoading.value = true
   client.autoCancellation(false)
   let res_pemetaan = await client.collection("pemetaan_pembimbing").getFullList({
-    filter: "program_keahlian='"+prokel+"'",
+    // filter: "program_keahlian='"+prokel+"'",
     expand: "pembimbing, siswa, progarm_keahlian",
     sort: "pembimbing.nama"
   })
@@ -147,7 +158,8 @@ async function getPemetaanPembimbing() {
   // kalo belum, proses pemetaan pembimbing ga diizinin haha
   // bagian hanya dilakukan saat halaman ini dibuka
   let res_pembimbing = await client.collection('teacher_users').getFullList({
-    filter: "program_keahlian='"+prokel+"' && role!='admin'"
+    // filter: "program_keahlian='"+prokel+"' && role!='admin'"
+    filter: "role!='admin'"
   })
   if(res_pemetaan && res_pembimbing) {
     isLoading.value = false
