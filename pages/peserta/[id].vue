@@ -23,14 +23,14 @@
             Terjadi error: {{ errMessage }}
           </div>
           <form @submit.prevent="simpanPerubahan">
-            <!-- <div class="mt-3 mb-4">
+            <div class="mt-3 mb-4">
               <label for="nis">NIS (temp)</label>
-              <input v-model="form.nis" :disabled="isLoading || isLoadingSave" type="text" class="form form-control form-control-lg" placeholder="NIS sebenarnya!" required>
+              <input v-model="form.nis" :disabled="isLoading || isLoadingSave" id="nis" type="text" class="form form-control form-control-lg" placeholder="NIS sebenarnya!" required>
             </div>
             <div class="mb-4">
               <label for="nisn">NISN (temp)</label>
-              <input v-model="form.nisn" :disabled="isLoading || isLoadingSave" type="text" class="form form-control form-control-lg" placeholder="NISN sebenarnya!" required>
-            </div> -->
+              <input v-model="form.nisn" :disabled="isLoading || isLoadingSave" id="nisn" type="text" class="form form-control form-control-lg" placeholder="NISN sebenarnya!" required>
+            </div>
             <div class="mb-4">
               <label for="walikelas">Walikelas</label>
               <select v-model="form.walikelas" class="form form-select form-select-lg" id="walikelas">
@@ -38,17 +38,19 @@
                 <option v-for="w in walikelas" :key="w.id" :value="w.id">{{ w.expand.rombel.nama }} &#8212; {{ w.nama }}</option>
               </select>
             </div>
-            <div class="my-4 form-check form-switch">
+            <div class="my-3 form-check form-switch">
               <input v-model="form.status_rapot" :checked="form.status_rapot" :disabled="isLoading || isLoadingSave" class="form-check-input" type="checkbox" id="checkRapor" switch>
               <label class="form-check-label" for="checkRapor">
                 Ketuntasan Rapor
               </label>
             </div>
-            <div class="mb-4 form-check form-switch">
-              <input :checked="form.status_pemetaan_pkl" disabled class="form-check-input" type="checkbox" id="checkPemetaan" switch>
-              <label class="form-check-label" for="checkPemetaan">
-                Pemetaan PKL
-              </label>
+            <div class="mb-4 text-muted fw-bold">
+              <span v-if="form.status_pemetaan_pkl"><i class="bi bi-check-circle"></i> Sudah pemetaan PKL</span>
+              <span v-else class="text-danger"><i class="bi bi-x-circle"></i> Belum pemetaan PKL</span>
+              <!-- <input :checked="form.status_pemetaan_pkl" disabled class="form-check-input" type="checkbox" id="checkPemetaan" switch> -->
+              <!-- <label class="form-check-label" for="checkPemetaan"> -->
+              <!--   Pemetaan PKL -->
+              <!-- </label> -->
             </div>
             <!-- <div v-if="form.status_pemetaan_pkl" class="mb-3 form-check form-switch">
               <input v-model="form.status_acc_pkl" :checked="form.status_acc_pkl" class="form-check-input" type="checkbox" id="checkAcc" switch>
@@ -64,9 +66,12 @@
             <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small">Berhasil tersimpan!</span>
           </form>
         </div>
+
         <div class="col-md-6">
           <LoadingPlaceholder v-if="isLoading" col="12" row="2" />
           <div v-else>
+            <div class="fw-bold h6 mt-3">Akun Peserta</div>
+
             <!-- <div v-if="!form.hasUser" class="mt-3 border-dash p-3">
               Buatkan user login untuk <strong>{{ form.nama }}</strong>?
               <div class="mt-3">
@@ -77,63 +82,81 @@
               </div>
             </div> -->
             <!-- <div v-if="form.hasUser" class="mt-3 border-dash p-3"> -->
-            <div v-if="curr_user?.totalItems > 0" class="mt-4 border-dash p-3">
-              <div v-if="isUserCreated" class="mb-2"><strong>User berhasil dibuat!</strong></div>
-              <table class="border-0">
-                <tbody>
-                  <tr>
-                    <td>Username</td>
-                    <td>: <nuxt-link data-bs-toggle="modal" data-bs-target="#update-username" v-if="curr_user" class="fw-bold hand-cursor link-external">{{ curr_user.items[0].username }}</nuxt-link></td>
-                  </tr>
-                  <tr>
-                    <td>Password</td>
-                    <td>: <nuxt-link data-bs-toggle="modal" data-bs-target="#reset-password" class="fst-italic text-muted hand-cursor link-external">NPSN</nuxt-link></td>
-                  </tr>
-                </tbody>
-              </table>
-              <!-- Modal: Update Username Peserta -->
-              <div class="modal" id="update-username">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-                    <div class="modal-header rounded-0 bg-info border-bottom border-3 border-dark">
-                      <span class="fs-4 fw-bold">Custom Username Peserta</span>
-                      <button @click="() => usernameUpdated = false" class="btn-close" label="Close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body text-dark">
-                      <form @submit.prevent="updateUsername">
-                        <div class="mb-4">
-                          <label for="username">Username</label>
-                          <input v-model="new_user_update" type="text" id="username" class="form form-control form-control-lg" placeholder="min. 3 karakter tanpa spasi " required>
-                        </div>
-                        <div class="text-start">
-                          <button :disabled="new_user_update.length < 3 || isUpdateUsername" class="btn btn-info border border-2 border-dark">
-                            <span v-if="isUpdateUsername">Sedang menyimpan</span>
-                            <span v-else>Simpan</span>
-                          </button>
-                          <span v-if="usernameUpdated" class="ms-2 fst-italic text-muted">Username berhasil diubah!</span>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
+            <div v-if="curr_user?.totalItems > 0" class="alert p-3">
+              <!-- <div v-if="isUserCreated" class="mb-2"><strong>User berhasil dibuat!</strong></div> -->
+
+              <div class="mb-3">
+                <div class="text-muted fw-bold">Username</div>
+                <div class="fw-bold">
+                  <nuxt-link data-bs-toggle="modal" data-bs-target="#update-username" v-if="curr_user" class="fw-bold hand-cursor link-external">{{ curr_user.items[0].username }}</nuxt-link>
                 </div>
               </div>
-              <!-- Modal: Reset Password -->
-              <div class="modal" id="reset-password">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-                    <div class="modal-header rounded-0 h4 bg-info fw-bold border-bottom border-3 border-dark">
-                      Reset Password
-                    </div>
-                    <div class="modal-body text-dark">
-                      Hubungi <span class="fw-bold">Administrator</span> untuk reset password peserta.
-                    </div>
-                    <div class="modal-footer border-0 justify-content-center">
-                      <button class="btn border border-2 border-dark text-dark" data-bs-dismiss="modal">Baiklah</button>
-                    </div>
+
+              <div class="text-muted fw-bold">Password</div>
+              <div class="fw-bold">
+                <nuxt-link data-bs-toggle="modal" data-bs-target="#reset-password" class="hand-cursor link-external">Reset?</nuxt-link>
+                <!-- <div class="text-danger">//TODO: masih return 400 err code</div> -->
+              </div>
+            </div>
+
+            <div v-else class="alert alert-secondary p-3">
+              Akun peserta belum dibuat. Silahkan kembali ke halaman daftar peserta dan klik tombol Buat Akun diatas.
+            </div>
+
+            <!-- Modal: Update Username Peserta -->
+            <div class="modal" id="update-username" tabindex="-1">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
+                  <div class="modal-header rounded-0 btn-success border-bottom border-3 border-dark">
+                    <span class="fs-4 fw-bold">Custom Username Peserta</span>
+                    <button @click="() => usernameUpdated = false" class="btn-close" label="Close" data-bs-dismiss="modal"></button>
+                  </div>
+                  <div class="modal-body text-dark">
+                    <form @submit.prevent="updateUsername">
+                      <div class="mb-4">
+                        <label for="username">Username</label>
+                        <input v-model="new_user_update" type="text" id="username" class="form form-control form-control-lg" placeholder="min. 3 karakter tanpa spasi " required>
+                      </div>
+                      <div class="text-start">
+                        <button :disabled="new_user_update.length < 3 || isUpdateUsername" class="btn btn-success border border-2 border-dark">
+                          <span v-if="isUpdateUsername">Sedang menyimpan</span>
+                          <span v-else>Simpan</span>
+                        </button>
+                        <span v-if="usernameUpdated" class="ms-2 fst-italic text-muted">Username berhasil diubah!</span>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>
             </div>
+
+            <!-- Modal: Reset Password -->
+            <div class="modal" id="reset-password" tabindex="-1">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
+                  <div class="modal-header rounded-0 btn-success fw-bold border-bottom border-3 border-dark">
+                    <span class="fs-4 fw-bold">Reset Password</span>
+                    <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
+                  </div>
+                  <div class="modal-body text-dark">
+                    <form @submit.prevent="resetPassword">
+                      <div class="mb-4">
+                        <label for="password">Password baru</label>
+                        <input v-model="formReset.password" id="password" minlength="8" type="password" class="form form-control form-control-lg" placeholder="minimal 8 karakter" required>
+                      </div>
+                      <div class="mb-4">
+                        <label for="passwordConfirm">Konfirmasi Password baru</label>
+                        <input v-model="formReset.passwordConfirm" id="passwordConfirm" minlength="8" type="password" class="form form-control form-control-lg" placeholder="Ketik ulang password baru" required>
+                      </div>
+                      <button class="btn btn-success border border-2 border-dark">Reset</button>
+                      <span v-if="isSuccessResetPassword" class="ms-2 fst-italic text-muted">Password berhasil direset!</span>
+                      <span v-if="isErrorResetPassword" class="ms-2 fst-italic text-danger">Password gagal reset!</span>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -191,6 +214,9 @@ let errMessage = ref('')
 let student = ref()
 let teachers = ref([])
 let curr_user = ref([])
+let isSuccessResetPassword = ref(false)
+let isErrorResetPassword = ref(false)
+
 let form = ref({
   id: '',
   nis: 'loading',
@@ -201,6 +227,12 @@ let form = ref({
   status_pemetaan_pkl: false,
   walikelas: '',
 })
+
+const formReset = ref({
+  password: "",
+  passwordConfirm: ""
+})
+
 let walikelas = ref('')
 let new_user_update = ref('')
 if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
@@ -308,6 +340,27 @@ async function getWalikelas() {
   }
 }
 
+// TODO: belum selesai. masih 400 err code
+async function resetPassword() {
+  isSuccessResetPassword.value = false
+  isErrorResetPassword.value = false
+
+  let user_id = curr_user.value.items[0].id
+
+  try {
+    let res = await client.collection('student_users').update(user_id, formReset.value)
+
+    if(res) {
+      console.log('success??')
+      isSuccessResetPassword.value = true
+    }
+  } catch (err) {
+    console.error(err)
+    isErrorResetPassword.value = true
+    isSuccessResetPassword.value = false
+  }
+}
+
 onMounted(() => {
   getStudentById()
   getWalikelas()
@@ -325,6 +378,6 @@ onMounted(() => {
   font-size: 5vw;
 }
 .border-dash {
-  border: 3px dashed #4f4f4f;
+  border: 3px solid #4f4f4f;
 }
 </style>
