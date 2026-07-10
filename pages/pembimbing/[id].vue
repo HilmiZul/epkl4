@@ -3,6 +3,7 @@
     <div class="card-header">
       <loading-placeholder v-if="isLoading" col="5" row="1" />
       <span v-else class="h4 quicksand fw-bold text-muted">Pembimbing / <span class="text-dark">{{ form.nama }}</span></span>
+      <span class="float-end"><nuxt-link to="/pembimbing" class="btn btn-light btn-sm border border-2 border-dark">Kembali</nuxt-link></span>
     </div>
     <div class="card-body">
       <div class="row">
@@ -11,9 +12,16 @@
             Terjadi error: {{ errMessage }}
           </div>
           <form @submit.prevent="updatePembimbingBaru">
+            <div v-if="role == 'wakasek'" class="mb-4">
+              <label for="program_keahlian">Program Keahlian</label>
+              <select v-model="form.program_keahlian" class="form form-select form-select-lg" id="program_keahlian" required>
+                <option disabled value="">&#8212;</option>
+                <option v-for="p in program_keahlians" :key="p.id" :value="p.id">{{ p.nama }}</option>
+              </select>
+            </div>
             <div class="mb-4">
               <label for="username">Username</label>
-              <input v-model="form.username" :disabled="isLoading" type="text" id="username" class="form form-control form-control-lg" placeholder="masukkan username" required autofocus>
+              <input v-model="form.username" :disabled="isLoading || form.program_keahlian.length < 1"  type="text" id="username" class="form form-control form-control-lg" placeholder="masukkan username" required autofocus>
             </div>
             <div class="my-4">
               <label for="nama">Nama Lengkap dan Gelar</label>
@@ -48,16 +56,19 @@
               </select>
             </div>
             <div class="my-4">
-              <label for="jjm">JJM (Jumlah Jam Mengajar)</label>
-              <input v-model="form.jjm" :disabled="form.kelompok_mapel.length < 4" type="number" id="jjm" min="2" max="40" class="form form-control form-control-lg" required>
-            </div>
-            <div class="my-4">
               <label for="role">Role</label>
               <select v-model="form.role" id="role" class="form form-control form-select form-select-lg" required>
                 <option disabled value="">—</option>
                 <option value="jurusan">Manajemen</option>
                 <option value="guru">Guru Pembimbing</option>
               </select>
+            </div>
+            <div class="my-4 alert alert-secondary">
+              <label for="jjm">Jumlah Jam Mengajar (minimal 2 JP)</label>
+              <input @input="jumlahPesertaDidik" v-model="form.jjm" :disabled="form.kelompok_mapel.length < 4" type="number" id="jjm" min="2" max="40" class="form form-control form-control-lg" required>
+              <div class="mt-3">
+                Membimbing <span class="fw-bold">{{ form.konversi_jjm_ke_jumlah_siswa }}</span> peserta didik
+              </div>
             </div>
             <button :disabled="isSending || isLoading || form.username == '' || form.email == '' || form.password == '' || form.nama == '' || form.role == ''" class="btn btn-success me-2 border border-2 border-dark">
               <span v-if="!isSending">Simpan</span>
@@ -100,9 +111,14 @@
 </template>
 
 <script setup>
+import { useJjmToNumStudent } from '../../composables/useJjmToNumStudent'
+
 definePageMeta({ middleware: 'auth' })
 useHead({ title: 'Update Pembimbing — e-PKL / SMKN 4 Tasikmalaya'})
+
 let user = usePocketBaseUser()
+let role = user?.user.value.role
+
 let client = usePocketBaseClient()
 let route = useRoute()
 let prokel = user.user.value.program_keahlian
@@ -121,7 +137,9 @@ let form = ref({
   nip: 'loading',
   pangkat_golongan: 'loading',
   kelompok_mapel: 'loading',
-  jjm: 'loading',
+  jjm: '2',
+  konversi_jjm_ke_jumlah_siswa: 0,
+  program_keahlian: '',
   role: 'loading',
 })
 
@@ -130,7 +148,11 @@ let formReset = ref({
   passwordConfirm: "",
 })
 
-if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
+let program_keahlians = ref([])
+
+let jumlahSiswa = ref(0)
+
+if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin' && user?.user.value.role != 'wakasek') navigateTo('/404')
 
 async function updatePembimbingBaru() {
   try {
@@ -151,12 +173,28 @@ async function updatePembimbingBaru() {
   }
 }
 
-async function getPembimbingById(loading=true) {
+async function getPembimbingByIdAndStudentByProkel(loading=true) {
   isLoading.value = loading
-  let data = await client.collection('teacher_users').getOne(route.params.id)
+  let data = await client.collection('teacher_users').getOne(route.params.id, {
+    expand: `program_keahlian`
+  })
+
   if(data) {
     isLoading.value = false
     form.value = data
+
+    let res_students = await client.collection('siswa').getList(1, 1)
+
+    if(res_students) {
+      jumlahSiswa.value = res_students.totalItems
+    }
+  }
+}
+
+async function getProkel() {
+  let res = await client.collection('program_keahlian').getFullList()
+  if(res) {
+    program_keahlians.value = res
   }
 }
 
@@ -183,10 +221,16 @@ async function resetPassword() {
   }
 }
 
+const jumlahPesertaDidik = () => {
+  let result = useJjmToNumStudent(jumlahSiswa.value, form.value.jjm)
+  form.value.konversi_jjm_ke_jumlah_siswa = result.result
+}
+
 onMounted(() => {
-  getPembimbingById()
+  getProkel()
+  getPembimbingByIdAndStudentByProkel()
   client.collection('teacher_users').subscribe("*", function (e) {
-    if(e.action == 'update') getPembimbingById(false)
+    if(e.action == 'update') getPembimbingByIdAndStudentByProkel(false)
   }, {});
 })
 </script>

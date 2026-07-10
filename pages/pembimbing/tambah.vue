@@ -2,6 +2,7 @@
   <div class="card">
     <div class="card-header">
       <span class="h4 quicksand fw-bold text-muted">Pembimbing / <span class="text-dark">Tambah baru</span></span>
+      <span class="float-end"><nuxt-link to="/pembimbing" class="btn btn-light btn-sm border border-2 border-dark">Kembali</nuxt-link></span>
     </div>
     <div class="card-body">
       <div class="row">
@@ -10,6 +11,13 @@
             Terjadi error: {{ errMessage }}
           </div>
           <form @submit.prevent="buatPembimbingBaru">
+            <div v-if="role == 'wakasek'" class="mb-4">
+              <label for="program_keahlian">Program Keahlian</label>
+              <select v-model="form.program_keahlian" class="form form-select form-select-lg" id="program_keahlian" required>
+                <option disabled value="">&#8212;</option>
+                <option v-for="p in program_keahlians" :key="p.id" :value="p.id">{{ p.nama }}</option>
+              </select>
+            </div>
             <div class="mb-4">
               <label for="username">Username</label>
               <input v-model="form.username" type="text" id="username" class="form form-control form-control-lg" placeholder="masukkan username" required autofocus>
@@ -55,16 +63,18 @@
               </select>
             </div>
             <div class="my-4">
-              <label for="jjm">JJM (Jumlah Jam Mengajar)</label>
-              <input v-model="form.jjm" :disabled="form.kelompok_mapel.length < 4" type="number" id="jjm" min="2" max="40" class="form form-control form-control-lg" required>
-            </div>
-            <div class="my-4">
               <label for="role">Role</label>
-              <select v-model="form.role" id="role" class="form form-control form-select form-select-lg" required>
+              <select v-model="form.role" :disabled="form.kelompok_mapel.length < 1" id="role" class="form form-control form-select form-select-lg" required>
                 <option disabled value="">—</option>
                 <option value="jurusan">Manajemen</option>
                 <option value="guru">Guru Pembimbing</option>
               </select>
+            </div>
+            <div class="my-4 alert alert-secondary">
+              <label for="jjm">Jumlah Jam Mengajar (minimal 2 JP)</label>
+              <input @input="jumlahPesertaDidik" v-model="form.jjm" :disabled="form.role.length < 1" type="number" id="jjm" min="2" max="40" class="form form-control form-control-lg" required>
+              <div class="mt-3 fw-bold">Hasil Konversi:</div>
+              Membimbing <span class="fw-bold">{{ form.konversi_jjm_ke_jumlah_siswa }}</span> peserta didik
             </div>
             <button :disabled="isSending || form.username.length < 3 || form.email.length < 10 || form.password.length < 8 || form.nama.length < 4 || form.role.length < 4" class="btn btn-success me-2 border border-2 border-dark">
               <span v-if="!isSending">Simpan</span>
@@ -91,7 +101,10 @@
 <script setup>
 definePageMeta({ middleware: 'auth' })
 useHead({ title: 'Tambah Pembimbing — e-PKL / SMKN 4 Tasikmalaya'})
+
 let user = usePocketBaseUser()
+let role = user?.user.value.role 
+
 let client = usePocketBaseClient()
 let prokel = user.user.value.program_keahlian
 let isSaved = ref(false)
@@ -111,15 +124,27 @@ let form = ref({
   nip: '',
   pangkat_golongan: '',
   kelompok_mapel: '',
-  jjm: '',
+  jjm: '2',
+  konversi_jjm_ke_jumlah_siswa: 0,
 })
-if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
+
+let program_keahlians = ref([])
+
+let jumlahSiswa = ref(0)
+
+if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin' && user?.user.value.role != 'wakasek') navigateTo('/404')
 
 async function buatPembimbingBaru() {
   try {
     isSending.value = true
     isSaved.value = false
-    form.value.program_keahlian = prokel
+
+    if(role == 'wakasek') {
+      form.value.program_keahlian = form.value.program_keahlian.id
+    } else if(role == 'jurusan') {
+      form.value.program_keahlian = user.user.value.program_keahlian
+    }
+
     form.value.username = form.value.username.toLowerCase()
     form.value.passwordConfirm = form.value.password
     let data = await client.collection('teacher_users').create(form.value)
@@ -135,4 +160,30 @@ async function buatPembimbingBaru() {
     errMessage.value = error
   }
 }
+
+async function getProkelByIdAndStudentByProkel(loading=true) {
+  isLoading.value = loading
+  let data = await client.collection('program_keahlian').getFullList()
+
+  if(data) {
+    isLoading.value = false
+    // form.value.program_keahlian = data.nama
+    program_keahlians.value = data
+
+    let res_students = await client.collection('siswa').getList(1, 1)
+
+    if(res_students) {
+      jumlahSiswa.value = res_students.totalItems
+    }
+  }
+}
+
+const jumlahPesertaDidik = () => {
+  let result = useJjmToNumStudent(jumlahSiswa.value, form.value.jjm)
+  form.value.konversi_jjm_ke_jumlah_siswa = result.result
+}
+
+onMounted(() => {
+  getProkelByIdAndStudentByProkel()
+})
 </script>
