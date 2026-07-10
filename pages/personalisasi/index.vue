@@ -98,12 +98,10 @@ async function updatePersonal() {
 }
 
 
-async function getCurrentTeacherByCurrentLoginId() {
+async function getTeacherByCurrentLoginId() {
   isLoading.value = true
 
-  let data = await client.collection('teacher_users').getOne(user?.user.value.id, {
-    expand: `program_keahlian`
-  })
+  let data = await client.collection('teacher_users').getOne(user?.user.value.id, {})
 
   if(data) {
     form.value = data
@@ -114,6 +112,6 @@ async function getCurrentTeacherByCurrentLoginId() {
 
 
 onMounted(() => {
-  getCurrentTeacherByCurrentLoginId()
+  getTeacherByCurrentLoginId()
 })
 </script>
