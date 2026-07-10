@@ -1,5 +1,20 @@
 # Changelog
 
+### 4.23-rc (3 Juli 2026)
+- Add new field and input form pangkat golongan teachers
+- Revamp Pembimbing list
+- Shadowless on form and button
+- Add new fields: JJM and konversi_jjm to total students
+- Update rule, now `Pembimbing` page can be managed by Wakasek Kurikulum
+- Update rule, now `Pemetaan Pembimbing` can be managed between Kaprog
+- Menampilkan jumlah jurnal sesuai elemen dan percentage saat ini (semua atau by filter)
+- Add some input form to Personalisasi and Guru allowed to edit
+- ⚠️ Experimental (under development):
+  - Pembimbing can convert JJM to numb of student
+  - and then, Pemetaan Pembimbing can use for validation Journal and Leger Nilai
+  - Jurusan, Wakasek allowed reset password Pembimbing
+  - Jurusan allowed reset password Peserta
+
 ### 4.22.3-rc (30 Juni 2026)
 - Improvement preview foto nilai agar bisa input side-by-side 
 - Lock halaman leger nilai apabila belum selesai validasi semua jurnal
