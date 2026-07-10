@@ -54,6 +54,7 @@
                     <button class="btn-close" data-bs-dismiss="modal" label="Close"></button>
                   </div>
                   <div class="modal-body">
+                    <span class="badge text-dark mb-3 small">{{ iduka?.totalItems }} IDUKA</span>
                     <table class="table table-striped border border-2 border-dark">
                       <tbody>
                         <tr v-if="iduka?.totalItems < 1">

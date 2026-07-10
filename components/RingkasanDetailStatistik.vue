@@ -3,55 +3,50 @@
     <LoadingPlaceholder v-if="isLoading" col="12" row="3" />
     <div class="row">
       <div class="col-md-6">
-        <div class="card mb-4">
-          <div class="card-body">
-            <h2 v-if="!isLoading" class="fs-2 fw-bold">{{ count_iduka_dalam }}</h2>
-            <h4 v-else>
-              <p class="placeholder-glow">
-                <span class="placeholder col-6"></span>
-              </p>
-            </h4>
-            <span>IDUKA dalam kota</span>
-          </div>
+        <div class="alert mb-4">
+          <h2 v-if="!isLoading" class="fs-2 fw-bold">{{ count_iduka_dalam }}</h2>
+          <h4 v-else>
+            <p class="placeholder-glow">
+              <span class="placeholder col-6"></span>
+            </p>
+          </h4>
+          <span>IDUKA dalam kota</span>
         </div>
       </div>
+
       <div class="col-md-6">
-        <div class="card mb-4">
-          <div class="card-body">
-            <h2 v-if="!isLoading" class="fs-2 fw-bold">{{ count_iduka_luar }}</h2>
-            <h4 v-else>
-              <p class="placeholder-glow">
-                <span class="placeholder col-6"></span>
-              </p>
-            </h4>
-            <span>IDUKA luar kota</span>
-          </div>
+        <div class="alert mb-4">
+          <h2 v-if="!isLoading" class="fs-2 fw-bold">{{ count_iduka_luar }}</h2>
+          <h4 v-else>
+            <p class="placeholder-glow">
+              <span class="placeholder col-6"></span>
+            </p>
+          </h4>
+          <span>IDUKA luar kota</span>
         </div>
       </div>
+
       <div class="col-md-6">
-        <div class="card mb-4">
-          <div class="card-body">
-            <h2 v-if="!isLoading" class="fs-2 fw-bold">{{ count_terserap_dalam }} / {{ count_peserta }}</h2>
-            <h4 v-else>
-              <p class="placeholder-glow">
-                <span class="placeholder col-6"></span>
-              </p>
-            </h4>
-            <span>Terpetakan dalam kota</span>
-          </div>
+        <div class="alert mb-4">
+          <h2 v-if="!isLoading" class="fs-2 fw-bold">{{ count_terserap_dalam }} / {{ count_peserta }}</h2>
+          <h4 v-else>
+            <p class="placeholder-glow">
+              <span class="placeholder col-6"></span>
+            </p>
+          </h4>
+          <span>Terpetakan dalam kota</span>
         </div>
       </div>
+
       <div class="col-md-6">
-        <div class="card mb-4">
-          <div class="card-body">
-            <h2 v-if="!isLoading" class="fs-2 fw-bold">{{ count_terserap_luar }} / {{ count_peserta }}</h2>
-            <h4 v-else>
-              <p class="placeholder-glow">
-                <span class="placeholder col-6"></span>
-              </p>
-            </h4>
-            <span>Terpetakan luar kota</span>
-          </div>
+        <div class="alert mb-4">
+          <h2 v-if="!isLoading" class="fs-2 fw-bold">{{ count_terserap_luar }} / {{ count_peserta }}</h2>
+          <h4 v-else>
+            <p class="placeholder-glow">
+              <span class="placeholder col-6"></span>
+            </p>
+          </h4>
+          <span>Terpetakan luar kota</span>
         </div>
       </div>
     </div>
