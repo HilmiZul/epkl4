@@ -45,8 +45,8 @@
           <div v-for="journal in journals.items" :key="journal.id" class="item border-2 border-bottom boder-dark pb-3 mb-3">
             <div class="item-body">
               <div class="fw-bold text-muted">
-                <i v-if="journal.expand.elemen.elemen == 'Lain-lain'" class="bi bi-bookmark-fill text-danger"></i>
-                <i v-else class="bi bi-bookmark-fill text-info"></i>
+                <i v-if="journal.expand.elemen.elemen == 'Lain-lain'" class="bi bi-bookmark-fill text-dark"></i>
+                <i v-else class="bi bi-bookmark text-dark"></i>
                 {{ journal.expand.iduka.nama }}
               </div>
               <div class="small text-muted">{{ journal.created }}</div>
@@ -65,7 +65,7 @@
             <loading-placeholder row="1" col="8" />
           </div>
           <div class="text-center">
-            <button v-if="journals.totalItems" :disabled="isMovingPage || journals.page >= journals.totalPages" @click="loadMore(journals.page + 1, false)" class="btn btn-info border border-2 border-dark">
+            <button v-if="journals.totalItems" :disabled="isMovingPage || journals.page >= journals.totalPages" @click="loadMore(journals.page + 1, false)" class="btn btn-dark border border-2 border-dark">
               muat lagi <i class="bi bi-arrow-down"></i>
             </button>
           </div>
@@ -93,7 +93,7 @@ let user = usePocketBaseUser()
 if(user?.user.value.role != 'wakasek') navigateTo('/404')
 let opsiFilter = ref('terbaru')
 let isLoading = ref(true)
-let perPage = 50 
+let perPage = 50
 let journals = ref([])
 let isError = ref(false)
 let isMovingPage = ref(false)
