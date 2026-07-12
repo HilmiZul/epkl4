@@ -109,8 +109,8 @@
             <!-- Modal: Update Username Peserta -->
             <div class="modal" id="update-username" tabindex="-1">
               <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-                  <div class="modal-header rounded-0 btn-success border-bottom border-3 border-dark">
+                <div class="modal-content border border-3 border-dark shadow-lg">
+                  <div class="modal-header border-bottom border-3 border-dark">
                     <span class="fs-4 fw-bold">Custom Username Peserta</span>
                     <button @click="() => usernameUpdated = false" class="btn-close" label="Close" data-bs-dismiss="modal"></button>
                   </div>
@@ -136,8 +136,8 @@
             <!-- Modal: Reset Password -->
             <div class="modal" id="reset-password" tabindex="-1">
               <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-                  <div class="modal-header rounded-0 btn-success fw-bold border-bottom border-3 border-dark">
+                <div class="modal-content border border-3 border-dark shadow-lg">
+                  <div class="modal-header fw-bold border-bottom border-3 border-dark">
                     <span class="fs-4 fw-bold">Reset Password</span>
                     <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
                   </div>
