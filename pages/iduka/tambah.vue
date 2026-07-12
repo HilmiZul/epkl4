@@ -1,7 +1,10 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand fw-bold text-muted">IDUKA / <span class="text-dark">Tambah baru</span></span>
+      <span class="h5 quicksand fw-bold text-muted">IDUKA / <span class="text-dark">Tambah baru</span></span>
+      <span class="float-end">
+        <NuxtLink to="/iduka" class="btn btn-light btn-sm border border-2 border-dark">kembali</NuxtLink>
+      </span>
     </div>
     <div class="card-body">
       <!-- <div class="row">
@@ -80,11 +83,11 @@
         </div>
         <div class="row">
           <div class="col-md-6">
-            <button :disabled="isSending" class="btn btn-success me-2 mb-4 border border-2 border-dark">
+            <button :disabled="isSending" class="btn btn-dark me-3 mb-4 border border-2 border-dark">
               <span v-if="isSending">Sedang menyimpan</span>
               <span v-else>Simpan</span>
             </button>
-            <nuxt-link class="btn btn-light mb-4 border border-2 border-dark" to="/iduka">Kembali</nuxt-link>
+            <nuxt-link class="link" to="/iduka">Kembali</nuxt-link>
             <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small">Berhasil tersimpan!</span>
           </div>
         </div>

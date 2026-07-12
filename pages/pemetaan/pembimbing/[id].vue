@@ -1,9 +1,12 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand text-muted fw-bold">Pemetaan Pembimbing / Tambah Peserta / </span>
-      <span v-if="!isLoading" class="h4 quicksand text-grey fw-bold">{{ pemetaan.expand.pembimbing.nama }}</span>
+      <span class="h5 quicksand text-muted fw-bold">Pemetaan Pembimbing / Tambah Peserta / </span>
+      <span v-if="!isLoading" class="h5 quicksand text-grey fw-bold">{{ pemetaan.expand.pembimbing.nama }}</span>
       <p v-else class="placeholder-glow"><span class="placeholder col-3"></span></p>
+      <span class="float-end">
+        <NuxtLink to="/pemetaan/pembimbing" class="btn btn-light btn-sm border border-2 border-dark">kembali</NuxtLink>
+      </span>
     </div>
     <div class="card-body">
       <div v-if="isLoading"><Loading /></div>
@@ -27,11 +30,11 @@
                 required>
               </multiselect>
             </div>
-            <button :disabled="isSending || form.siswa.length < 1" class="btn btn-success me-2 border border-2 border-dark">
+            <button :disabled="isSending || form.siswa.length < 1" class="btn btn-dark me-3 border border-2 border-dark">
               <span v-if="isSending">Sedang memetakan</span>
               <span v-else>Simpan</span>
             </button>
-            <nuxt-link to="/pemetaan/pembimbing" class="btn btn-light me-2 border border-2 border-dark">Kembali</nuxt-link>
+            <nuxt-link to="/pemetaan/pembimbing" class="link">Kembali</nuxt-link>
             <em v-if="isSaved" class="text-muted">Berhasil tersimpan!</em>
           </form>
         </div>
@@ -53,7 +56,7 @@
             </div>
 
             <div class="col-md-12">
-              <div :class="`alert ${form.siswa.length + curr_students.length == pemetaan?.expand.pembimbing.konversi_jjm_ke_jumlah_siswa ? 'alert-success' : 'alert-secondary'}`">
+              <div :class="`alert ${form.siswa.length + curr_students.length == pemetaan?.expand.pembimbing.konversi_jjm_ke_jumlah_siswa ? 'text-bg-dark' : 'alert-secondary'}`">
                 <div class="fs-4 fw-bold">{{ form.siswa.length + curr_students.length }}</div>
                 <span v-if="form.siswa.length + curr_students.length < pemetaan?.expand.pembimbing.konversi_jjm_ke_jumlah_siswa">dari {{ pemetaan?.expand.pembimbing.konversi_jjm_ke_jumlah_siswa }} Peserta</span>
                 <span v-else>Peserta akan dibimbing</span>
@@ -139,8 +142,9 @@ async function getReference() {
     expand: "pembimbing, siswa",
   })
   let res_students = await client.collection('siswa').getFullList({
-    filter: "program_keahlian='"+prokel+"' && status_pemetaan_pembimbing=false",
-    sort: "kelas, nama"
+    // filter: "program_keahlian='"+prokel+"' && status_pemetaan_pembimbing=false",
+    filter: "status_pemetaan_pembimbing=false",
+    sort: "program_keahlian, kelas, nama"
   })
   if(res_pemetaan && res_students) {
     isLoading.value = false

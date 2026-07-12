@@ -2,7 +2,10 @@
   <div class="card">
     <div class="card-header">
       <loading-placeholder v-if="isLoading" col="5" row="1" />
-      <span v-else class="h4 quicksand fw-bold text-muted">Update Elemen / <span class="text-dark">{{ form.elemen }}</span></span>
+      <span v-else class="h5 quicksand fw-bold text-muted">Update Elemen / <span class="text-dark">{{ form.elemen }}</span></span>
+      <span class="float-end">
+        <nuxt-link to="/elemen" class="btn btn-light btn-sm border border-2 border-dark">Kembali</nuxt-link>
+      </span>
     </div>
     <div class="card-body">
       <div class="row">
@@ -30,11 +33,11 @@
               <label for="tujuan">Tujuan</label>
               <textarea v-model="form.tujuan" :disabled="isLoading" id="tujuan" rows="4" class="form form-control form-control-lg" placeholder="Menerapkan softskills, menerapkan K3LH, ..." required></textarea>
             </div>
-            <button :disabled="isSending || isLoading" class="btn btn-success me-2 border border-2 border-dark">
+            <button :disabled="isSending || isLoading" class="btn btn-dark me-2 border border-2 border-dark me-3">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>
-            <nuxt-link to="/elemen" class="btn btn-light border border-2 border-dark">Kembali</nuxt-link>
+            <nuxt-link to="/elemen" class="link">Kembali</nuxt-link>
             <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small">Berhasil tersimpan!</span>
           </form>
         </div>

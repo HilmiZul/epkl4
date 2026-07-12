@@ -1,7 +1,10 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand fw-bold text-muted">IDUKA / <span class="text-dark">Impor dari .csv</span></span>
+      <span class="h5 quicksand fw-bold text-muted">IDUKA / <span class="text-dark">Impor dari .csv</span></span>
+      <span class="float-end">
+        <NuxtLink to="/iduka" class="btn btn-light btn-sm border border-2 border-dark">kembali</NuxtLink>
+      </span>
     </div>
     <div class="card-body">
       <div class="row">

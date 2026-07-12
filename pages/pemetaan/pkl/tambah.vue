@@ -1,7 +1,10 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand fw-bold text-muted">Pemetaan PKL / <span class="text-dark">Tambah baru</span></span>
+      <span class="h5 quicksand fw-bold text-muted">Pemetaan PKL / <span class="text-dark">Tambah baru</span></span>
+      <span class="float-end">
+        <NuxtLink to="/pemetaan/pkl" class="btn btn-light btn-sm border border-2 border-dark">kembali</NuxtLink>
+      </span>
     </div>
     <div class="card-body">
       <!-- <div class="row">
@@ -66,11 +69,11 @@
                 <template v-slot:singleLabel="{ option }"><strong>{{ option.nama }} — {{ option.kelas }}</strong></template>
               </multiselect>
             </div>
-            <button :disabled="isSending" class="btn btn-success me-2 mb-3 border border-2 border-dark">
+            <button :disabled="isSending" class="btn btn-dark me-3 mb-3 border border-2 border-dark">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>
-            <nuxt-link to="/pemetaan/pkl" class="btn btn-light me-2 mb-3 border border-2 border-dark">Kembali</nuxt-link>
+            <nuxt-link to="/pemetaan/pkl" class="link">Kembali</nuxt-link>
             <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small mb-3">Berhasil terpetekan!</span>
           </form>
         </div>

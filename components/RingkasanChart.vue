@@ -52,10 +52,10 @@ async function initChartData() {
       datasets: [{
         label: "Jumlah peserta",
         backgroundColor: [
-          'rgba(10, 138, 102)',
-          'rgba(54, 162, 235)',
-          'rgba(255, 205, 86)',
-          'rgba(255, 99, 132)',
+          'rgba(10, 138, 102, .5)',
+          'rgba(54, 162, 235, .5)',
+          'rgba(255, 205, 86, .5)',
+          'rgba(255, 99, 132, .5)',
         ],
         borderColor: 'rgb(0, 0, 0)',
         data: [
@@ -68,7 +68,7 @@ async function initChartData() {
     };
 
     const config = {
-      type: 'pie',
+      type: 'doughnut',
       data: data,
       options: {}
     }

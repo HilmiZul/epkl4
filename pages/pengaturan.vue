@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 fw-bold"><i class="bi bi-sliders"></i> Pengaturan</span>
+      <span class="h5 fw-bold"><i class="bi bi-sliders"></i> Pengaturan</span>
     </div>
     <div class="card-body">
       <div class="row">
@@ -40,7 +40,7 @@
               <label for="logo" class="label-berkas p-2 hand-cursor"><i class="bi-filetype-png"></i> Unggah logo</label>
               <input id="logo" type="file" accept="image/png" class="form form-control-file">
             </div>
-            <button :disabled="isSending" class="btn btn-success me-2 border border-2 border-dark">
+            <button :disabled="isSending" class="btn btn-dark me-2 border border-2 border-dark">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>

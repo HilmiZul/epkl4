@@ -3,7 +3,7 @@
     <!-- ROLE: ADMIN & JURUSAN (MANAJEMEN) -->
     <div v-if="role == 'admin' || role == 'jurusan'" class="card">
       <div class="card-header">
-        <span class="h4 quicksand fw-bold"><i class="bi bi-pie-chart-fill"></i> Overview</span>
+        <span class="h5 quicksand fw-bold"><i class="bi bi-pie-chart-fill"></i> Overview</span>
       </div>
       <div class="card-body">
         <!--<div class="alert alert-info alert-dismissible small">
@@ -16,12 +16,13 @@
         <ringkasan-personal />
         <!-- <ringkasan-fyi v-if="role == 'admin' || role == 'jurusan'" /> -->
         <ringkasan-card />
+        <ringkasan-detail-statistik />
+
         <div class="row mt-4 justify-content-center">
           <ringkasan-chart />
-          <ringkasan-detail-statistik />
+          <RingkasanDaftarPesertaBelumTerpetakan />
         </div>
         <div class="row">
-          <RingkasanDaftarPesertaBelumTerpetakan />
         </div>
       </div>
     </div>
@@ -29,7 +30,7 @@
     <!-- ROLE: GURU PEMBIMBING -->
     <div v-else-if="role == 'guru'" class="card">
       <div class="card-header">
-        <span class="h4 quicksand fw-bold"><i class="bi bi-pie-chart-fill"></i> Overview</span>
+        <span class="h5 quicksand fw-bold"><i class="bi bi-pie-chart-fill"></i> Overview</span>
       </div>
       <div class="card-body">
         <div class="row">
@@ -44,7 +45,7 @@
     <!-- ROLE: TU & WAKASEK -->
     <div v-else class="card">
       <div class="card-header">
-        <span class="h4 quicksand fw-bold"><i class="bi bi-pie-chart-fill"></i> Overview</span>
+        <span class="h5 quicksand fw-bold"><i class="bi bi-pie-chart-fill"></i> Overview</span>
       </div>
       <div class="card-body">
 
@@ -76,11 +77,12 @@
                       <span class="placeholder col-6"></span>
                     </p>
                   </h4>
-                  <span class="fw-bold text-muted">Pembimbing</span>
+                  <span class="fw-normal">Pembimbing <i class="bi bi-arrow-up-right-square"></i></span>
                 </div>
               </div>
             </nuxt-link>
           </div>
+
           <div class="col-md-3">
             <nuxt-link to="/iduka" class="link border-0">
               <div class="card mb-3">
@@ -91,11 +93,12 @@
                       <span class="placeholder col-6"></span>
                     </p>
                   </h4>
-                  <span class="fw-bold text-muted">IDUKA</span>
+                  <span class="fw-normal">IDUKA <i class="bi bi-arrow-up-right-square"></i></span>
                 </div>
               </div>
             </nuxt-link>
           </div>
+
           <div class="col-md-3">
             <nuxt-link to="/pemetaan/pkl" class="link border-0">
               <div class="card mb-3">
@@ -106,11 +109,12 @@
                       <span class="placeholder col-6"></span>
                     </p>
                   </h4>
-                  <span class="fw-bold text-muted">Pemetaan</span>
+                  <span class="fw-normal">Pemetaan <i class="bi bi-arrow-up-right-square"></i></span>
                 </div>
               </div>
             </nuxt-link>
           </div>
+
           <div class="col-md-3">
             <div class="card">
               <div class="card-body">
@@ -120,26 +124,29 @@
                     <span class="placeholder col-6"></span>
                   </p>
                 </h4>
-                <span class="fw-bold text-muted">Peserta</span>
+                <span class="fw-normal">Pesetrta</span>
               </div>
             </div>
           </div>
         </div>
+
         <div class="row mt-4">
           <div class="col-md-6">
-            <h4 class="fw-bold text-muted"><i class="bi bi-emoji-smile"></i> Statistik Pembimbing</h4>
+            <h5 class="fw-bold text-muted"><i class="bi bi-emoji-smile"></i> Statistik Pembimbing</h5>
             <ringkasan-stat-pembimbing />
           </div>
+
         <!-- </div>
         <div class="row mt-4"> -->
           <div class="col-md-6">
-            <h4 class="fw-bold text-muted"><i class="bi bi-buildings-fill"></i> Statistik IDUKA</h4>
+            <h5 class="fw-bold text-muted"><i class="bi bi-buildings-fill"></i> Statistik IDUKA</h5>
             <ringkasan-stat-iduka />
           </div>
         </div>
+
         <div class="row mt-4 justify-content-center">
           <div class="col-md-12">
-            <h4 class="fw-bold text-muted"><i class="bi bi-diagram-3-fill"></i> Statistik Pemetaan</h4>
+            <h5 class="fw-bold text-muted"><i class="bi bi-diagram-3-fill"></i> Statistik Pemetaan</h5>
           </div>
           <ringkasan-stat-per-jurusan />
         </div>

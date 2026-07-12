@@ -1,20 +1,20 @@
 <template>
-  <div class="col-lg-3">
-    <div class="side-nav sticky">
+  <div class="col-lg-2">
+    <div class="side-nav sticky smallest">
       <Header />
       <div class="card shadow-lg">
         <div v-confetti v-if="isConfetti" class="posiiton-absolute top-0 start-50 translate-middle-x"></div>
         <div class="card-body p-0">
-          <div v-if="user" class="lexend-mega text-center py-2 border-2 border-bottom border-dark text-muted">Halo, <span class="text-dark">{{ username.toUpperCase() }}</span>!
-            <span @click="moreConfetti" class="hand-cursor">😃</span>
+          <div v-if="user" class="fw-bold text-center py-2 text-muted">Halo, <span class="text-dark">{{ username.toUpperCase() }}</span>!
+            <!-- <span @click="moreConfetti" class="hand-cursor">😃</span> -->
           </div>
           <nav>
             <ol class="list-group list-group-flush quicksand fw-bold">
               <nuxt-link to="/" :activeClass="activeClass">
                 <li class="list-group-item"><i class="bi bi-pie-chart-fill"></i> Overview</li>
               </nuxt-link>
-              <nuxt-link to="/personalisasi" v-if="role ==='admin' || role === 'jurusan' || role === 'guru'" :activeClass="activeClass">
-                <li class="list-group-item"><i class="bi bi-person-fill"></i> Personalisasi</li>
+              <nuxt-link to="/profil" v-if="role ==='admin' || role === 'jurusan' || role === 'guru'" :activeClass="activeClass">
+                <li class="list-group-item"><i class="bi bi-person-fill"></i> Profil</li>
               </nuxt-link>
               <!-- <nuxt-link to="/walikelas" v-if="role ==='admin' || role === 'jurusan' || role === 'wakasek'" :activeClass="activeClass"> -->
               <!--   <li class="list-group-item"><i class="bi bi-person-workspace"></i> Walikelas</li> -->
@@ -65,7 +65,7 @@
                 <li class="list-group-item"><i class="bi bi-bar-chart-fill"></i> Analitik</li>
               </nuxt-link> -->
               <nuxt-link to="/logout" :activeClass="activeClass">
-                <li class="list-group-item text-danger"><i class="bi bi-box-arrow-right"></i> Keluar</li>
+                <li class="list-group-item text-danger mb-3"><i class="bi bi-box-arrow-right"></i> Keluar</li>
               </nuxt-link>
               <div class="modal" id="logout" aria-hidden="true">
                 <div class="modal-dialog">
@@ -84,7 +84,8 @@
           </nav>
         </div>
       </div>
-      <Footer />
+      <!-- tutup ./card -->
+
     </div>
   </div>
 </template>
@@ -176,12 +177,23 @@ a:hover > li {
 .list-group-item {
   font-size: 1.2em;
   border: none !important;
-  border-bottom: 2px solid #000 !important;
+  /* border-bottom: 2px solid #212529 !important; */
+  background-color: transparent;
 }
 .list-group-item:hover,
 a.list-group-item-active > li {
-  background-color: #b5d2ad !important;
+  /* background-color: #b5d2ad !important; */
+  background-color: #212529 !important;
+  color: #fff;
 }
+
+.list-group-item:hover .badge,
+.list-group-item-active .badge {
+  border: #fff;
+  color: #fff;
+  background-color: #fff;
+}
+
 @media screen and (max-width: 992px) {
   .side-nav {
     display: none;

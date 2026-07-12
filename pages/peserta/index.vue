@@ -1,17 +1,17 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand fw-bold"><i class="bi bi-people-fill"></i> Peserta Didik</span>
+      <span class="h5 quicksand fw-bold"><i class="bi bi-people-fill"></i> Peserta Didik</span>
       <span class="float-end">
         <span v-if="role == 'admin' || role == 'jurusan'">
-          <button v-if="students.totalItems > 0 && count_users.length < 1" data-bs-toggle="modal" data-bs-target="#buat-akun-peserta" class="btn btn-info btn-sm border border-2 border-dark"><i class="bi bi-person-plus"></i> Buat akun</button>
+          <button v-if="students.totalItems > 0 && count_users.length < 1" data-bs-toggle="modal" data-bs-target="#buat-akun-peserta" class="btn btn-light btn-sm border border-2 border-dark"><i class="bi bi-person-plus"></i> Buat akun</button>
         </span>
-        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/peserta/import" class="btn btn-success btn-sm ms-2 border border-2 border-dark"><i class="bi bi-download"></i> Impor dari .csv</nuxt-link>
+        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/peserta/import" class="btn btn-dark btn-sm ms-2 border border-2 border-dark"><i class="bi bi-download"></i> Impor dari .csv</nuxt-link>
       </span>
       <div class="modal" id="buat-akun-peserta" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-            <div class="modal-header rounded-0 h4 bg-success border-bottom border-3 border-dark fw-bold">
+          <div class="modal-content border border-3 border-dark shadow-lg">
+            <div class="modal-header h4 border-bottom border-3 border-dark fw-bold">
               Buat akun Peserta
             </div>
             <div class="modal-body">
@@ -33,11 +33,12 @@
       <div v-if="peserta_belum_pemetaan?.totalItems > 0" class="alert alert-warning">
         Ada <span class="fw-bold">{{ peserta_belum_pemetaan.totalItems }}</span> yang belum pemetaan PKL. <span class="hand-cursor border-bottom border-2 border-dark" data-bs-toggle="modal" data-bs-target="#peserta-belum-pemetaan">Lihat</span>
       </div>
+
       <!-- Single modal: Peserta belum pemetaan -->
       <div class="modal" id="peserta-belum-pemetaan">
         <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-            <div class="modal-header rounded-0 bg-success fw-bold border-bottom border-3 border-dark">
+          <div class="modal-content border border-3 border-dark shadow-lg">
+            <div class="modal-header fw-bold border-bottom border-3 border-dark">
               <div class="fs-5">Peserta yang belum pemetaan</div>
               <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
             </div>
@@ -56,11 +57,11 @@
               <div v-if="peserta_belum_pemetaan || isMovingPage" class="text-muted small mb-2">
                 <span v-if="peserta_belum_pemetaan?.totalItems">Halaman {{ peserta_belum_pemetaan.page }} dari {{ peserta_belum_pemetaan.totalPages }}</span>
               </div>
-              <button :disabled="isMovingPageModal || peserta_belum_pemetaan.page < 2" @click="paginationPesertaBelumPemetaan(peserta_belum_pemetaan.page - 1)" class="btn btn-success btn-sm me-2 border border-2 border-dark">
+              <button :disabled="isMovingPageModal || peserta_belum_pemetaan.page < 2" @click="paginationPesertaBelumPemetaan(peserta_belum_pemetaan.page - 1)" class="btn btn-dark btn-sm me-2 border border-2 border-dark">
                 <i class="bi bi-arrow-left"></i> sebelumnya
               </button>
-              <button :disabled="isMovingPageModal || peserta_belum_pemetaan.page >= peserta_belum_pemetaan.totalPages" @click="paginationPesertaBelumPemetaan(peserta_belum_pemetaan.page + 1)" class="btn btn-success btn-sm border border-2 border-dark">
-                lanjut <i class="bi bi-arrow-right"></i>
+              <button :disabled="isMovingPageModal || peserta_belum_pemetaan.page >= peserta_belum_pemetaan.totalPages" @click="paginationPesertaBelumPemetaan(peserta_belum_pemetaan.page + 1)" class="btn btn-outline-dark btn-sm border border-2 border-dark">
+                selanjutnya <i class="bi bi-arrow-right"></i>
               </button>
             </div>
           </div>
@@ -82,7 +83,7 @@
           <form @submit.prevent="getStudents">
             <div class="my-3 mt-0 input-group">
               <input type="search" v-model="keyword" class="form form-control form-control-lg" placeholder="🔎 Cari nama" />
-              <button class="btn btn-success ms-2 border border-2 border-dark">Cari</button>
+              <button class="btn btn-dark ms-2 border border-2 border-dark">Cari</button>
             </div>
           </form>
         </div>
@@ -132,11 +133,11 @@
                   <!-- <td>{{ student.pembimbing }}</td> -->
                   <td>{{ student.kelas }}</td>
                   <td>
-                    <span v-if="student.status_rapot" class="badge bg-success">Tuntas</span>
+                    <span v-if="student.status_rapot" class="badge text-bg-white text-dark">Tuntas</span>
                     <span v-else class="badge bg-danger">Belum tuntas</span>
                   </td>
                   <td>
-                    <span v-if="student.status_pemetaan_pkl" class="badge bg-success">Sudah</span>
+                    <span v-if="student.status_pemetaan_pkl" class="badge text-bg-white text-dark">Sudah</span>
                     <span v-else class="badge bg-danger">Belum</span>
                   </td>
                 </tr>
@@ -153,11 +154,11 @@
                 <span v-if="students.totalItems">Halaman {{ students.page }} dari {{ students.totalPages }}</span>
               </div>
             </div>
-            <button :disabled="isMovingPage || students.page < 2" @click="pagination(students.page - 1, false)" class="btn btn-success btn-sm me-2 border border-2 border-dark">
+            <button :disabled="isMovingPage || students.page < 2" @click="pagination(students.page - 1, false)" class="btn btn-dark me-2 border border-2 border-dark">
               <i class="bi bi-arrow-left"></i> sebelumnya
             </button>
-            <button :disabled="isMovingPage || students.page >= students.totalPages" @click="pagination(students.page + 1, false)" class="btn btn-success btn-sm border border-2 border-dark">
-              lanjut <i class="bi bi-arrow-right"></i>
+            <button :disabled="isMovingPage || students.page >= students.totalPages" @click="pagination(students.page + 1, false)" class="btn btn-outline-dark border border-2 border-dark">
+              selanjutnya <i class="bi bi-arrow-right"></i>
             </button>
           </span>
         </div>

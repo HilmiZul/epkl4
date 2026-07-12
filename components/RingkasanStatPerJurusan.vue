@@ -2,7 +2,7 @@
   <!-- PPLG -->
   <div class="col-md-4">
     <div class="card mb-4">
-      <div class="card-header fw-bold bg-success">PPLG</div>
+      <div class="card-header fw-bold">PPLG</div>
       <div class="card-body">
         <table class="table">
           <tbody>
@@ -27,10 +27,11 @@
       </div>
     </div>
   </div>
+
   <!-- TKJ -->
   <div class="col-md-4">
     <div class="card mb-4">
-      <div class="card-header fw-bold bg-info">TJKT</div>
+      <div class="card-header fw-bold">TJKT</div>
       <div class="card-body">
         <table class="table">
           <tbody>
@@ -55,10 +56,11 @@
       </div>
     </div>
   </div>
+
   <!-- TSM-->
   <div class="col-md-4">
     <div class="card mb-4">
-      <div class="card-header fw-bold bg-danger">TSM</div>
+      <div class="card-header fw-bold">TSM</div>
       <div class="card-body">
         <table class="table">
           <tbody>
@@ -83,10 +85,11 @@
       </div>
     </div>
   </div>
+
   <!-- DKV -->
   <div class="col-md-4">
     <div class="card mb-4">
-      <div class="card-header fw-bold bg-purple">DKV</div>
+      <div class="card-header fw-bold">DKV</div>
       <div class="card-body">
         <table class="table">
           <tbody>
@@ -111,10 +114,11 @@
       </div>
     </div>
   </div>
+
   <!-- TOI-->
   <div class="col-md-4">
     <div class="card mb-4">
-      <div class="card-header fw-bold bg-grey">TOI</div>
+      <div class="card-header fw-bold">TOI</div>
       <div class="card-body">
         <table class="table">
           <tbody>

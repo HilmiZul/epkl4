@@ -3,7 +3,7 @@
     <div class="col-md-12">
       <div>
         <div class="fs-5">
-          <h4 class="fw-bold">Personal Info</h4>
+          <h5 class="fw-bold">Personal Info</h5>
           <!-- Hola,
           <span v-if="user">
             <strong>{{ nama }}</strong>!
@@ -48,8 +48,8 @@
             <!-- Single modal: Relasi iduka -->
             <div class="modal" id="relasi-iduka" aria-hidden="true" tabindex="-1">
               <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-                  <div class="modal-header rounded-0 bg-success fw-bold border-bottom border-3 border-dark">
+                <div class="modal-content border border-3 border-dark shadow-lg">
+                  <div class="modal-header fw-bold border-bottom border-3 border-dark">
                     <span class="fs-5">Relasi ke IDUKA</span>
                     <button class="btn-close" data-bs-dismiss="modal" label="Close"></button>
                   </div>
@@ -69,11 +69,11 @@
                         </tr>
                       </tbody>
                     </table>
-                    <button :disabled="isMovingPage || iduka.page < 2" @click="paginationRelasiIduka(iduka.page - 1, false)" class="btn btn-success btn-sm me-2 border border-2 border-dark">
+                    <button :disabled="isMovingPage || iduka.page < 2" @click="paginationRelasiIduka(iduka.page - 1, false)" class="btn btn-dark btn-sm me-2 border border-2 border-dark">
                       <i class="bi bi-arrow-left"></i> sebelumnya
                     </button>
-                    <button :disabled="isMovingPage || iduka.page >= iduka.totalPages" @click="paginationRelasiIduka(iduka.page + 1, false)" class="btn btn-success btn-sm border border-2 border-dark">
-                      lanjut <i class="bi bi-arrow-right"></i>
+                    <button :disabled="isMovingPage || iduka.page >= iduka.totalPages" @click="paginationRelasiIduka(iduka.page + 1, false)" class="btn btn-outline-dark btn-sm border border-2 border-dark">
+                      selanjutnya <i class="bi bi-arrow-right"></i>
                     </button>
                   </div>
                 </div>
@@ -97,8 +97,8 @@
             <!-- Single modal: Relasi pembimbing ke peserta didik -->
             <div class="modal" id="relasi-peserta" aria-hidden="true" tabindex="-1">
               <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-                  <div class="modal-header rounded-0 bg-success fw-bold border-bottom border-3 border-dark">
+                <div class="modal-content border border-3 border-dark shadow-lg">
+                  <div class="modal-header fw-bold border-bottom border-3 border-dark">
                     <span class="fs-5">Peserta didik yang dibimbing</span>
                     <button class="btn-close" data-bs-dismiss="modal" label="Close"></button>
                   </div>
@@ -120,11 +120,11 @@
                         </tr>
                       </tbody>
                     </table>
-                    <button :disabled="isMovingPage || pemetaan.page < 2" @click="paginationRelasiPeserta(pemetaan.page - 1, false)" class="btn btn-success btn-sm me-2 border border-2 border-dark">
+                    <button :disabled="isMovingPage || pemetaan.page < 2" @click="paginationRelasiPeserta(pemetaan.page - 1, false)" class="btn btn-dark btn-sm me-2 border border-2 border-dark">
                       <i class="bi bi-arrow-left"></i> sebelumnya
                     </button>
-                    <button :disabled="isMovingPage || pemetaan.page >= pemetaan.totalPages" @click="paginationRelasiPeserta(pemetaan.page + 1, false)" class="btn btn-success btn-sm border border-2 border-dark">
-                      lanjut <i class="bi bi-arrow-right"></i>
+                    <button :disabled="isMovingPage || pemetaan.page >= pemetaan.totalPages" @click="paginationRelasiPeserta(pemetaan.page + 1, false)" class="btn btn-outline-dark btn-sm border border-2 border-dark">
+                      selanjutnya <i class="bi bi-arrow-right"></i>
                     </button>
                   </div>
                 </div>
@@ -138,8 +138,8 @@
 
   <div v-if="role == 'guru'" class="row mt-3">
     <div class="col-lg-6">
-      <div class="text-muted mb-1 fw-medium fw-bold">Peserta didik yang dibimbing:</div>
-      <table class="table table-striped border border-2 border-dark shadow-lg">
+      <div class="text-muted mb-1 fw-medium fw-bold">Peserta didik yang dibimbing</div>
+      <table class="table table-striped border border-2 border-dark">
         <tbody>
           <tr v-if="pemetaan?.totalItems < 1">
             <td class="text-muted fst-italic">Belum ada</td>
@@ -159,9 +159,10 @@
         <nuxt-link to="/pemetaan/pkl" class="link">Lihat semua <i class="bi bi-chevron-right"></i></nuxt-link>
       </div>
     </div>
+
     <div class="col-lg-6">
-      <div class="text-muted mb-1 fw-medium fw-bold">Relasi ke IDUKA:</div>
-      <table class="table table-striped border border-2 border-dark shadow-lg">
+      <div class="text-muted mb-1 fw-medium fw-bold">Relasi ke IDUKA</div>
+      <table class="table table-striped border border-2 border-dark">
         <tbody>
           <tr v-if="iduka?.totalItems < 1">
             <td class="text-muted fst-italic">Belum ada</td>

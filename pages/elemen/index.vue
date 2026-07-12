@@ -1,9 +1,9 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand fw-bold"><i class="bi bi-journal-bookmark-fill"></i> Elemen</span>
+      <span class="h5 quicksand fw-bold"><i class="bi bi-journal-bookmark-fill"></i> Elemen</span>
       <span v-if="role == 'admin' || role == 'jurusan'" class="float-end">
-        <nuxt-link to="/elemen/tambah" class="btn btn-success btn-sm border border-2 border-dark"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
+        <nuxt-link to="/elemen/tambah" class="btn btn-dark btn-sm border border-2 border-dark"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
       </span>
     </div>
     <div class="card-body">
@@ -79,11 +79,11 @@
                 Yakin mau hapus Tujuan: <strong>{{ tujuan }}</strong> dari daftar elemen?
               </div>
               <div class="modal-footer border-0 justify-content-center">
-                <button v-if="!isDeleted" class="btn btn-danger border border-2 border-dark me-2" data-bs-dismiss="modal" @click="hapusData(elemen_id)" :disabled="isSending">
+                <a v-if="!isDeleted" class="link hand-cursor me-2" data-bs-dismiss="modal" @click="hapusData(elemen_id)" :disabled="isSending">
                   <span v-if="isSending">Sedang menghapus</span>
                   <span v-else>Hapus</span>
-                </button>
-                <button @click="() => { isDeleted = false; isSending = flase }" class="btn btn-light border border-2 border-dark" data-bs-dismiss="modal">Gajadi</button>
+                </a>
+                <button @click="() => { isDeleted = false; isSending = flase }" class="btn btn-danger border border-2 border-dark" data-bs-dismiss="modal">Gajadi</button>
               </div>
             </div>
           </div>

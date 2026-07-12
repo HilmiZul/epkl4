@@ -1,7 +1,10 @@
 <template>
   <div class="card">
-    <div class="card-header h4 fw-bold">
+    <div class="card-header h5 fw-bold">
       <span class="text-muted">Leger /</span> Tambah Nilai
+      <span class="float-end">
+        <NuxtLink to="/leger" class="btn btn-light btn-sm border border-2 border-dark">kembali</NuxtLink>
+      </span>
     </div>
     <div v-if="$device.isMobileOrTablet" class="card-body">
       <div class="alert alert-warning">Silahkan gunakan komputer/laptop!</div>
@@ -283,7 +286,7 @@
                     <label for="entrust">Tandai valid</label>
                   </div>
                   <button :disabled="isSending"
-                    class="btn btn-success me-2 border border-2 border-dark mb-4">
+                    class="btn btn-dark me-2 border border-2 border-dark mb-4">
                     <span v-if="isSending">Sedang menyimpan</span>
                     <span v-else>Simpan</span>
                   </button>

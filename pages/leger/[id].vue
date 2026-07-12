@@ -2,7 +2,10 @@
   <div class="card">
     <div class="card-header">
       <loading-placeholder v-if="isLoading" row="1" col="6" />
-      <span v-else class="h4 fw-bold text-muted">Validasi / <span class="text-dark">{{ certificate.expand.siswa.nama }}</span></span>
+      <span v-else class="h5 fw-bold text-muted">Validasi / <span class="text-dark">{{ certificate.expand.siswa.nama }}</span></span>
+      <span class="float-end">
+        <NuxtLink to="/leger" class="btn btn-light btn-sm border border-2 border-dark">kembali</NuxtLink>
+      </span>
     </div>
     <div v-if="$device.isMobileOrTablet" class="card-body">
       <div class="alert alert-warning">Silahkan gunakan komputer/laptop!</div>
@@ -27,7 +30,7 @@
                       <label for="entrustCertificate">Buat sertifikat</label>
                     </span>
 
-                    <span v-if="form.isEntrust" class="badge bg-info">Menitip Sertifikat</span>
+                    <span v-if="form.isEntrust" class="badge text-bg-dark">Menitip Sertifikat</span>
                   </div>
                   <hr>
                 </div>
@@ -59,7 +62,7 @@
                       </ul>
                     </div> -->
                     <div v-if="form.foto_jurnal_nilai" data-bs-toggle="modal" data-bs-target="#preview-nilai" class="mb-4 mt-2">
-                      <span @click="() => isSaved = false" class="btn btn-success border border-2 border-dark"><i class="bi bi-image-fill"></i> Foto Nilai</span>
+                      <span @click="() => isSaved = false" class="btn btn-light border border-2 border-dark"><i class="bi bi-image-fill"></i> Foto Nilai</span>
                     </div>
                     <div class="row">
                       <div class="col-lg-6">
@@ -302,7 +305,7 @@
                     <label for="entrust">Tandai valid</label>
                   </div>
                   <button :disabled="isSending"
-                    class="btn btn-success me-2 border border-2 border-dark mb-4">
+                    class="btn btn-dark me-2 border border-2 border-dark mb-4">
                     <span v-if="isSending">Sedang menyimpan</span>
                     <span v-else>Simpan</span>
                   </button>
@@ -316,8 +319,8 @@
             <!-- Single Modal: Preview foto nilai -->
             <div class="modal" id="preview-nilai" tabindex="-1">
               <div class="modal-dialog modal-dialog-centered modal-fullscreen">
-                <div class="modal-content rounded-0 border border-3 border-dark shadow-lg text-muted">
-                  <div class="modal-header border-bottom border-3 border-dark bg-success rounded-0 fs-4 fw-bold">
+                <div class="modal-content border border-3 border-dark shadow-lg">
+                  <div class="modal-header border-bottom border-3 border-dark fs-4 fw-bold">
                     Foto Nilai side by side
                     <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
                   </div>
@@ -326,7 +329,7 @@
                     <div class="row">
                       <div class="col-md-3">
                         <div class="sticky">
-                          <form @submit.prevent="updateNilaiAndIduka">
+                          <form @submit.prevent="updateNilaiOnlySideBySide">
                             <div class="mb-3">
                               <label for="previvew_el_1">Menerapkan soft skills yang dibutuhkan dalam dunia kerja <span class="text-danger">*</span></label>
                               <input v-model="form.nilai_elemen1" type="number" min="0" max="100" id="previvew_el_1" class="form form-control form-control-lg" required>
@@ -344,7 +347,7 @@
                               <input v-model="form.nilai_elemen4" type="number" min="0" max="100" id="preview_el_4" class="form form-control form-control-lg" required>
                             </div>
                             <button :disabled="isSending"
-                              class="btn btn-success me-2 border border-2 border-dark mb-4">
+                              class="btn btn-dark me-2 border border-2 border-dark mb-4">
                               <span v-if="isSending">Sedang menyimpan</span>
                               <span v-else>Simpan</span>
                             </button>
@@ -432,6 +435,29 @@ let deskripsi_temp1 = ref([])
 let deskripsi_temp2 = ref([])
 let deskripsi_temp3 = ref([])
 let deskripsi_temp4 = ref([])
+
+async function updateNilaiOnlySideBySide() {
+  isSending.value = true
+  isSaved.value = false
+
+  try {
+    let res = await client.collection('nilai').update(route.params.id, {
+      "nilai_elemen1": form.value.nilai_elemen1,
+      "nilai_elemen2": form.value.nilai_elemen2,
+      "nilai_elemen3": form.value.nilai_elemen3,
+      "nilai_elemen4": form.value.nilai_elemen4,
+    })
+
+    if(res) {
+      isSending.value = false
+      isSaved.value = true
+    }
+  } catch (error) {
+    isSending.value = false
+    isSaved.value = false
+    isError.value = true
+  }
+}
 
 async function updateNilaiAndIduka() {
   isSending.value = true

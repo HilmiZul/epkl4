@@ -1,9 +1,9 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand fw-bold"><i class="bi bi-emoji-smile"></i> Pembimbing</span>
+      <span class="h5 quicksand fw-bold"><i class="bi bi-emoji-smile"></i> Pembimbing</span>
       <span class="float-end">
-        <nuxt-link v-if="role == 'admin' || role == 'jurusan' || role == 'wakasek'" to="/pembimbing/tambah" class="btn btn-success btn-sm border border-2 border-dark"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
+        <nuxt-link v-if="role == 'admin' || role == 'jurusan' || role == 'wakasek'" to="/pembimbing/tambah" class="btn btn-dark btn-sm border border-2 border-dark"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
       </span>
     </div>
     <div class="card-body">

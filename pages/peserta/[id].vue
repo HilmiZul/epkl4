@@ -2,8 +2,11 @@
   <div class="card">
     <div class="card-header">
       <loading-placeholder v-if="isLoading" col="5" row="1" />
-      <span v-else class="h4 quicksand fw-bold text-muted">
+      <span v-else class="h5 quicksand fw-bold text-muted">
         {{ form.kelas }} / <span class="text-dark">{{ form.nama }}</span>
+      </span>
+      <span class="float-end">
+        <NuxtLink to="/peserta" class="btn btn-light btn-sm border border-2 border-dark">kembali</NuxtLink>
       </span>
     </div>
     <div class="card-body">
@@ -58,11 +61,11 @@
                 Diterima tempat PKL?
               </label>
             </div> -->
-            <button :disabled="isLoadingSave || isLoading" class="btn btn-success mb-2 me-2 border border-2 border-dark">
+            <button :disabled="isLoadingSave || isLoading" class="btn btn-dark mb-2 me-3 border border-2 border-dark">
               <span v-if="isLoadingSave">Sedang menyimpan</span>
               <span v-else>Simpan</span>
             </button>
-            <nuxt-link to="/peserta" class="btn btn-light mb-2 border border-2 border-dark">Kembali</nuxt-link>
+            <nuxt-link to="/peserta" class="link">Kembali</nuxt-link>
             <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small">Berhasil tersimpan!</span>
           </form>
         </div>
@@ -118,7 +121,7 @@
                         <input v-model="new_user_update" type="text" id="username" class="form form-control form-control-lg" placeholder="min. 3 karakter tanpa spasi " required>
                       </div>
                       <div class="text-start">
-                        <button :disabled="new_user_update.length < 3 || isUpdateUsername" class="btn btn-success border border-2 border-dark">
+                        <button :disabled="new_user_update.length < 3 || isUpdateUsername" class="btn btn-dark border border-2 border-dark">
                           <span v-if="isUpdateUsername">Sedang menyimpan</span>
                           <span v-else>Simpan</span>
                         </button>
@@ -148,7 +151,7 @@
                         <label for="passwordConfirm">Konfirmasi Password baru</label>
                         <input v-model="formReset.passwordConfirm" id="passwordConfirm" minlength="8" type="password" class="form form-control form-control-lg" placeholder="Ketik ulang password baru" required>
                       </div>
-                      <button class="btn btn-success border border-2 border-dark">Reset</button>
+                      <button class="btn btn-dark border border-2 border-dark">Reset</button>
                       <span v-if="isSuccessResetPassword" class="ms-2 fst-italic text-muted">Password berhasil direset!</span>
                       <span v-if="isErrorResetPassword" class="ms-2 fst-italic text-danger">Password gagal reset!</span>
                     </form>

@@ -1,8 +1,8 @@
 <template>
-  <div class="col-md-6">
+  <div class="col-md-12">
     <LoadingPlaceholder v-if="isLoading" col="12" row="3" />
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-3">
         <div class="alert mb-4">
           <h2 v-if="!isLoading" class="fs-2 fw-bold">{{ count_iduka_dalam }}</h2>
           <h4 v-else>
@@ -14,7 +14,7 @@
         </div>
       </div>
 
-      <div class="col-md-6">
+      <div class="col-md-3">
         <div class="alert mb-4">
           <h2 v-if="!isLoading" class="fs-2 fw-bold">{{ count_iduka_luar }}</h2>
           <h4 v-else>
@@ -26,9 +26,9 @@
         </div>
       </div>
 
-      <div class="col-md-6">
+      <div class="col-md-3">
         <div class="alert mb-4">
-          <h2 v-if="!isLoading" class="fs-2 fw-bold">{{ count_terserap_dalam }} / {{ count_peserta }}</h2>
+          <h2 v-if="!isLoading" class="fs-2 fw-bold">{{ count_terserap_dalam }}<span class="fs-5 text-muted">/{{ count_peserta }}</span></h2>
           <h4 v-else>
             <p class="placeholder-glow">
               <span class="placeholder col-6"></span>
@@ -38,9 +38,9 @@
         </div>
       </div>
 
-      <div class="col-md-6">
+      <div class="col-md-3">
         <div class="alert mb-4">
-          <h2 v-if="!isLoading" class="fs-2 fw-bold">{{ count_terserap_luar }} / {{ count_peserta }}</h2>
+          <h2 v-if="!isLoading" class="fs-2 fw-bold">{{ count_terserap_luar }}<span class="fs-5 text-muted">/{{ count_peserta }}</span></h2>
           <h4 v-else>
             <p class="placeholder-glow">
               <span class="placeholder col-6"></span>

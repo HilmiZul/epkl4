@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand fw-bold text-muted">Pembimbing / <span class="text-dark">Tambah baru</span></span>
+      <span class="h5 quicksand fw-bold text-muted">Pembimbing / <span class="text-dark">Tambah baru</span></span>
       <span class="float-end"><nuxt-link to="/pembimbing" class="btn btn-light btn-sm border border-2 border-dark">Kembali</nuxt-link></span>
     </div>
     <div class="card-body">
@@ -76,11 +76,11 @@
               <div class="mt-3 fw-bold">Hasil Konversi:</div>
               Membimbing <span class="fw-bold">{{ form.konversi_jjm_ke_jumlah_siswa }}</span> peserta didik
             </div>
-            <button :disabled="isSending || form.username.length < 3 || form.email.length < 10 || form.password.length < 8 || form.nama.length < 4 || form.role.length < 4" class="btn btn-success me-2 border border-2 border-dark">
+            <button :disabled="isSending || form.username.length < 3 || form.email.length < 10 || form.password.length < 8 || form.nama.length < 4 || form.role.length < 4" class="btn btn-success me-2 border border-2 border-dark me-3">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>
-            <nuxt-link to="/pembimbing" class="btn btn-light border border-2 border-dark">Kembali</nuxt-link>
+            <nuxt-link to="/pembimbing" class="link">Kembali</nuxt-link>
             <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small">Berhasil tersimpan!</span>
           </form>
         </div>

@@ -2,10 +2,10 @@
   <!-- <div class="col-lg-12"> -->
     <!-- <div :class="classNameRow">
       <div :class="classNameCol"> -->
-        <div class="card mb-5 border border-2 border-dark bg-success">
-          <div class="text-center py-1">
-            <span class="fs-1 lexend-mega">e-PKL<span class="text-info dot-stroke">.</span></span>
-            <span class="fw-bold smallest ">guru</span>
+        <div class="card mb-5 border border-2 border-dark">
+          <div class="text-center py-2">
+            <span class="fs-3 lexend-mega">e-PKL<span class="text-dark dot-stroke">.</span></span>
+            <span class="fw-bold">guru</span>
           </div>
         </div>
         <!-- <div class="mb-4 quicksand text-muted">Pemetaan siswa Praktik Kerja Lapangan (PKL)</div> -->
@@ -39,6 +39,6 @@ let user = usePocketBaseUser()
   margin-bottom: 2em !important;
 }
 .dot-stroke {
-  -webkit-text-stroke: 2px #000;
+  -webkit-text-stroke: 2px #fff;
 }
 </style>

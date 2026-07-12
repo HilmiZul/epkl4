@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand fw-bold"><i class="bi bi-key"></i> Ubah Password</span>
+      <span class="h5 quicksand fw-bold"><i class="bi bi-key"></i> Ubah Password</span>
     </div>
     <div class="card-body">
       <div class="row">
@@ -21,7 +21,7 @@
               <label for="passwordConfirm">Konfirmasi password baru</label>
               <input v-model="form.passwordConfirm" :disabled="form.password.length < 8" type="password" id="newPassword" class="form form-control form-control-lg" placeholder="ketik ulang password baru" required>
             </div>
-            <button :disabled="isSending || form.oldPassword.length < 8 || form.password.length < 8 || form.passwordConfirm.length < 8" class="btn btn-success me-2 border border-2 border-dark">
+            <button :disabled="isSending || form.oldPassword.length < 8 || form.password.length < 8 || form.passwordConfirm.length < 8" class="btn btn-dark me-2 border border-2 border-dark">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>

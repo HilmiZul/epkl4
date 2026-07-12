@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand fw-bold"><i class="bi bi-book"></i> Rapor</span>
+      <span class="h5 quicksand fw-bold"><i class="bi bi-book"></i> Rapor</span>
     </div>
     <div v-if="$device.isMobile || $device.isTablet" class="card-body">
       <div class="alert alert-warning">Silahkan gunakan komputer/laptop!</div>
@@ -32,7 +32,7 @@
           </multiselect>
         </div>
         <div v-if="semua_nilai.length > 0" class="col-lg-4">
-          <button v-if="selectedPeserta" @click="unduhPdf" class="btn btn-success border border-2 border-dark">
+          <button v-if="selectedPeserta" @click="unduhPdf" class="btn btn-dark border border-2 border-dark">
             <i class="bi bi-download"></i> Unduh
           </button>
         </div>

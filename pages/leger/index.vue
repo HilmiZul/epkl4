@@ -1,9 +1,9 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand fw-bold"><i class="bi bi-patch-check"></i> Leger</span>
+      <span class="h5 quicksand fw-bold"><i class="bi bi-patch-check"></i> Leger</span>
       <span v-if="role == 'jurusan' || role == 'guru'" class="float-end">
-        <NuxtLink v-if="journalValidCount < 1" to="/leger/tambah" class="btn btn-success btn-sm border border-2 border-dark">
+        <NuxtLink v-if="journalValidCount < 1" to="/leger/tambah" class="btn btn-dark btn-sm border border-2 border-dark">
           <i class="bi bi-plus"></i> Tambah
         </NuxtLink>
       </span>
@@ -26,7 +26,7 @@
         </div>
 
         <div v-if="listLeger.length > 0 && countSiswaOnRombel == listLeger.length" class="col-md-3">
-          <button @click="unduhLeger()" class="btn btn-success border border-2 border-dark">
+          <button @click="unduhLeger()" class="btn btn-dark border border-2 border-dark">
             <i class="bi bi-download"></i> Unduh
           </button>
         </div>
@@ -103,7 +103,7 @@
             <form @submit.prevent="getNilai">
               <div class="my-3 mt-0 input-group">
                 <input v-model="keyword" type="search" class="form form-control form-control-lg" placeholder="🔎 Cari nama peserta" />
-                <button class="btn btn-success ms-2 border border-2 border-dark">Cari</button>
+                <button class="btn btn-dark ms-2 border border-2 border-dark">Cari</button>
               </div>
             </form>
           </div>
@@ -199,7 +199,7 @@
           Leger Nilai Terkunci
         </div>
         <div class="text-center">
-          Pastikan semua <NuxtLink to="/jurnal" class="text-muted">Jurnal</NuxtLink> sudah divalidasi. Mari apresiasi pekerjaan yang sudah dilakukan Peserta didik.
+          Pastikan semua <NuxtLink to="/jurnal" class="link">Jurnal</NuxtLink> sudah tervalidasi.
         </div>
       </div>
 

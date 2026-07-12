@@ -1,7 +1,7 @@
 <template>
   <div class="card shadow-lg">
     <div class="card-header">
-      <span class="h4 quicksand fw-bold"><i class="bi bi-journals"></i> Jurnal</span>
+      <span class="h5 quicksand fw-bold"><i class="bi bi-journals"></i> Jurnal</span>
     </div>
     <div class="card-body">
       <div v-if="count_not_valid > 0" class="alert alert-warning">
@@ -30,8 +30,8 @@
               <div v-else v-for="(journal, index) in journals.items" :key="journal.id" class="card jurnal-hover jurnal-item no-shadow">
                 <div class="card-body">
                   <div class="bookmark fs-2">
-                    <div class="bookmark-icon text-danger" v-if="journal.expand.elemen.elemen == 'Lain-lain'"><i class="bi bi-bookmark-fill"></i></div>
-                    <div class="bookmark-icon text-info" v-else><i class="bi bi-bookmark-fill"></i></div>
+                    <div class="bookmark-icon text-dark" v-if="journal.expand.elemen.elemen == 'Lain-lain'"><i class="bi bi-bookmark-fill"></i></div>
+                    <div class="bookmark-icon text-dark" v-else><i class="bi bi-bookmark"></i></div>
                   </div>
                   <div class="mt-3">
                     <strong class="fs-6">{{ journal.expand.siswa.expand.siswa.nama }}</strong> {{ journal.expand.siswa.expand.siswa.currentMood?.emoji }} &bull; {{ journal.expand.iduka.nama }}
@@ -51,7 +51,7 @@
                   <div v-if="isLoadingValidate" class="float-start fs-italic me-3">
                     Tunggu sebentar...
                   </div>
-                  <div v-else class="float-start fs-5 me-3">
+                  <div v-else class="float-start fs-4 me-3">
                     <span v-if="journal.isValid" @click="handleValidasi(index, journal.id, journal.isValid)" class="hand-cursor text-muted"><span class="text-danger"><i class="bi bi-heart-fill"></i></span></span>
                     <span v-else @click="handleValidasi(index, journal.id, journal.isValid)" class="hand-cursor"><span class="text-danger"><i class="bi bi-heart"></i></span></span>
                   </div>
@@ -69,8 +69,8 @@
                 <!-- MODAL FOTO PREVIEW -->
                 <div v-if="journal.foto" class="modal" :id="`foto-${journal.id}`" tabindex="-1">
                   <div class="modal-dialog modal-dialog-centered modal-fullscreen">
-                    <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-                      <div class="modal-header bg-success rounded-0 border-bottom border-3 border-dark fs-4 fw-bold">
+                    <div class="modal-content border border-3 border-dark shadow-lg">
+                      <div class="modal-header border-bottom border-3 border-dark fs-4 fw-bold">
                         Preview
                         <button class="btn-close" data-bs-dismiss="modal" label="Close"></button>
                       </div>
@@ -85,8 +85,8 @@
               <!-- single modal: komentar -->
               <div class="modal" id="modal-komentar" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-                    <div class="modal-header bg-success rounded-0 border-bottom border-3 border-dark fs-4 fw-bold">
+                  <div class="modal-content border border-3 border-dark shadow-lg">
+                    <div class="modal-header border-bottom border-3 border-dark fs-4 fw-bold">
                       Beri Komentar
                       <button class="btn-close" data-bs-dismiss="modal" label="Close"></button>
                      </div>
@@ -94,7 +94,7 @@
                       <div class="mb-4">
                         <textarea v-model="formKomentar.komentar" name="komentar" id="komentar" rows="4" class="form form-control form-lg" placeholder="berikan motivasi/apresiasi..." required></textarea>
                       </div>
-                      <button @click="handleComment" :disabled="formKomentar.komentar.length < 4" class="btn btn-success border border-2 border-dark" data-bs-dismiss="modal">
+                      <button @click="handleComment" :disabled="formKomentar.komentar.length < 4" class="btn btn-dark border border-2 border-dark" data-bs-dismiss="modal">
                         Kirim
                       </button>
                     </div>
@@ -116,7 +116,7 @@
                         <div v-if="pratinjauKomentar" class="my-2 pre-text">
                           {{ pratinjauKomentar.komentar }}
                         </div>
-                        <span class="float-end text-muted fw-bold mt-3 hand-cursor" data-bs-dismiss="modal">Tutup</span>
+                        <span class="float-end btn btn-light btn-sm border border-2 border-dark" data-bs-dismiss="modal">Tutup</span>
                       </div>
                     </div>
                   </div>
@@ -135,7 +135,7 @@
                     <i class="bi bi-arrow-left"></i> sebelumnya
                   </button>-->
                   <div class="text-center">
-                    <button v-if="journals.totalItems" :disabled="isMovingPage || journals.page >= journals.totalPages" @click="pagination(journals.page + 1, false)" class="btn btn-success border border-2 border-dark">
+                    <button v-if="journals.totalItems" :disabled="isMovingPage || journals.page >= journals.totalPages" @click="pagination(journals.page + 1, false)" class="btn btn-dark border border-2 border-dark">
                       muat lagi <i class="bi bi-arrow-down"></i>
                     </button>
                   </div>
@@ -169,8 +169,8 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="alert">
-                    Saat ini
-                    <div class="fs-4 fw-bold">{{ count_sesuai }} dari {{ journals?.totalItems }} <span class="text-muted">({{ Math.round((count_sesuai/journals.totalItems)*100 || 0) }}%)</span></div>
+                    <div class="fs-3 fw-bold">{{ Math.round((count_total_sesuai/journals.totalItems)*100 || 0) }}%</div>
+                    <div class="fs-5 fw-bold text-muted">{{ count_total_sesuai }} dari {{ journals?.totalItems }} </div>
                     Jurnal Sesuai Elemen
                   </div>
                 </div>
@@ -208,7 +208,7 @@ let isLoadingIduka = ref(true)
 let isLoadingValidate = ref(false)
 
 let journals = ref([])
-let perPage = 30
+let perPage = 10
 let count_not_valid = ref(0)
 let count_sesuai = ref(0)
 let count_tidak_sesuai = ref(0)
@@ -226,8 +226,47 @@ let isLoadingKomentar = ref(true)
 let pratinjauKomentar = ref()
 let indexJournal = ref()
 
+let isLoadingTotalSesuai = ref(true)
+let count_total_sesuai = ref(0)
+
+
+// ambil total semua jurnal yang sesuai elemen
+// masukkan ke var count_total_sesuai 
+async function getCurrentStatJournalBySesuaiElemen() {
+  isLoadingTotalSesuai.value = true
+
+  let queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && isValid=true && isDraft=false && elemen.elemen!="Lain-lain"`
+  if(tanggal.value && opsiPeserta.value) {
+    queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && isValid=true && created~"${tanggal.value}" && siswa.siswa.id="${opsiPeserta.value}" && isDraft=false && elemen.elemen!="Lain-lain"`
+  }
+  else if(tanggal.value) {
+    queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && created~"${tanggal.value}" && isValid=true && isDraft=false && elemen.elemen!="Lain-lain"`
+  }
+  else if(opsiIduka.value && opsiPeserta.value) {
+    queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && siswa.siswa.id="${opsiPeserta.value}" && iduka.id="${opsiIduka.value}" && isValid=true && isDraft=false && elemen.elemen!="Lain-lain"`
+  }
+  else if(opsiPeserta.value) {
+    queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && siswa.siswa.id="${opsiPeserta.value}" && isValid=true && isDraft=false && elemen.elemen!="Lain-lain"`
+  }
+  else if(opsiIduka.value) {
+    queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && iduka="${opsiIduka.value}" && isValid=true && isDraft=false && elemen.elemen!="Lain-lain"`
+  }
+  else {
+    queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && isValid=true && isDraft=false && elemen.elemen!="Lain-lain"`
+  }
+
+  let res = await client.collection('jurnal').getList(1, 1, {
+    filter: queryFilter
+  })
+
+  if(res) {
+    count_total_sesuai.value = res.totalItems
+    isLoadingTotalSesuai.value = false
+  }
+}
 
 async function getJournals(loading=true) {
+  getCurrentStatJournalBySesuaiElemen()
   isLoadingJournals.value = loading
   let queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && isDraft=false`
   if(tanggal.value && opsiPeserta.value) {
@@ -451,13 +490,16 @@ onMounted(() => {
   getStudentsByPemetaan()
   //getJournalCountSesuaiElemen()
   getIdukaByCurrentUser()
+  getCurrentStatJournalBySesuaiElemen()
   client.autoCancellation(false)
   client.collection('jurnal').subscribe('*', function(e) {
     if(e.action == 'create') {
       getJournals(false)
+      getCurrentStatJournalBySesuaiElemen()
     }
     if(e.action == 'update') {
       getJournalCountNotValid(false)
+      getCurrentStatJournalBySesuaiElemen()
       //getJournalCountSesuaiElemen(false)
     }
   },{})
@@ -521,7 +563,8 @@ input.picker[type="date"]::-webkit-calendar-picker-indicator {
 }
 .jurnal-item {
   border: none !important;
-  border-bottom: 1px solid #cfcfcf !important
+  border-bottom: 2px solid #cfcfcf !important;
+  border-radius: 0 !important;
 }
 .no-shadow {
   box-shadow: none !important;

@@ -3,8 +3,11 @@
     <div v-if="pemetaan?.status_acc_pkl" v-confetti class="posiiton-absolute top-0 start-50 translate-middle-x"></div>
     <div class="card-header">
       <loading-placeholder v-if="isLoading" col="5" row="1" />
-      <span v-else class="h4 quicksand fw-bold text-muted">
+      <span v-else class="h5 quicksand fw-bold text-muted">
         {{ pemetaan.expand.siswa.nama }} <i class="bi bi-chevron-right"></i> <span class="text-dark">{{ pemetaan.expand.iduka.nama }}</span>
+      </span>
+      <span class="float-end">
+        <NuxtLink to="/pemetaan/pkl" class="btn btn-light btn-sm border border-2 border-dark">kembali</NuxtLink>
       </span>
     </div>
     <div class="card-body">
@@ -57,11 +60,11 @@
                 <template v-slot:singleLabel="{ option }"><strong>{{ option.nama }} / {{ option.terisi }} dari {{ option.jumlah_kuota }}</strong></template>
               </multiselect>
             </div>
-            <button :disabled="isSending" class="btn btn-success me-2 mb-3 border border-2 border-dark">
+            <button :disabled="isSending" class="btn btn-dark me-3 mb-3 border border-2 border-dark">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>
-            <nuxt-link to="/pemetaan/pkl" class="btn btn-light me-2 mb-3 border border-2 border-dark">Kembali</nuxt-link>
+            <nuxt-link to="/pemetaan/pkl" class="link">Kembali</nuxt-link>
             <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small">Berhasil dipetakan ulang!</span>
           </form>
         </div>

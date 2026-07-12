@@ -45,8 +45,10 @@ async function initChartData() {
       datasets: [{
         label: "Jumlah Jurnal",
         backgroundColor: [
-          'rgb(54, 162, 235)',
-          'rgb(255, 99, 132)',
+          'rgb(255, 255, 255)',
+          'rgb(70, 70, 70)',
+          // 'rgb(54, 162, 235)',
+          // 'rgb(255, 99, 132)',
         ],
         borderColor: [
           'rgb(0, 0, 0)',

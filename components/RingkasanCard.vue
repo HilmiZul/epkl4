@@ -1,60 +1,60 @@
 <template>
-  <div class="row my-3">
+  <div class="row mt-3">
     <div class="col-md-12">
-      <h4 class="mb-3 fw-bold">Statistik</h4>
+      <h5 class="mb-3 fw-bold">Statistik</h5>
     </div>
     <div class="col-md-3">
       <nuxt-link to="/peserta" class="link border-0">
-        <div class="alert mb-3">
+        <div class="alert text-bg-dark mb-3">
           <h2 v-if="!isLoadingPeserta" class="fs-2 fw-bold">{{ count_peserta.length }}</h2>
           <h4 v-else>
             <p class="placeholder-glow">
               <span class="placeholder col-6"></span>
             </p>
           </h4>
-          <span class="fs-5">Peserta <i class="bi bi-arrow-up-right-square"></i></span>
+          <span class="fw-normal">Peserta <i class="bi bi-arrow-up-right-square"></i></span>
         </div>
       </nuxt-link>
     </div>
 
     <div class="col-md-3">
       <nuxt-link to="/pembimbing" class="link border-0">
-        <div class="alert mb-3">
+        <div class="alert text-bg-dark mb-3">
           <h2 v-if="!isLoadingPembimbing" class="fs-2 fw-bold">{{ count_pembimbing.length }}</h2>
           <h4 v-else>
             <p class="placeholder-glow">
               <span class="placeholder col-6"></span>
             </p>
           </h4>
-          <span class="fs-5">Pembimbing <i class="bi bi-arrow-up-right-square"></i></span>
+          <span class="fw-normal">Pembimbing <i class="bi bi-arrow-up-right-square"></i></span>
         </div>
       </nuxt-link>
     </div>
 
-    <div class="col-md-3 mb-3">
+    <div class="col-md-3">
       <nuxt-link to="/iduka" class="link border-0">
-        <div class="alert">
+        <div class="alert text-bg-dark">
           <h2 v-if="!isLoadingIduka" class="fs-2 fw-bold">{{ count_iduka.length }}</h2>
           <h4 v-else>
             <p class="placeholder-glow">
               <span class="placeholder col-6"></span>
             </p>
           </h4>
-          <span class="fs-5">IDUKA <i class="bi bi-arrow-up-right-square"></i></span>
+          <span class="fw-normal">IDUKA <i class="bi bi-arrow-up-right-square"></i></span>
         </div>
       </nuxt-link>
     </div>
 
     <div class="col-md-3">
       <nuxt-link to="/pemetaan/pkl" class="link border-0">
-        <div class="alert">
-          <h2 v-if="!isLoadingTerserap" class="fs-2 fw-bold">{{ prosentase_pemetaan.toFixed(0) }}%</h2>
+        <div class="alert text-bg-dark">
+          <h2 v-if="!isLoadingTerserap" class="fs-2 fw-bold">{{ count_pemetaan_diterima}} <span class="fs-6">{{ prosentase_pemetaan.toFixed(0) }}%</span></h2>
           <h4 v-else>
             <p class="placeholder-glow">
               <span class="placeholder col-6"></span>
             </p>
           </h4>
-          <span class="fs-5">Terserap <i class="bi bi-arrow-up-right-square"></i></span>
+          <span class="fw-normal">Terserap <i class="bi bi-arrow-up-right-square"></i></span>
         </div>
       </nuxt-link>
     </div>
@@ -74,6 +74,7 @@ let count_peserta = ref(0)
 let count_pembimbing = ref(0)
 let count_iduka = ref(0)
 let prosentase_pemetaan = ref(0)
+let count_pemetaan_diterima = ref(0)
 
 async function countPeserta() {
   isLoadingPeserta.value = true
@@ -91,6 +92,7 @@ async function countPeserta() {
   }
   if(res_pemetaan) {
     isLoadingTerserap.value = false
+    count_pemetaan_diterima.value = res_pemetaan.length
     prosentase_pemetaan.value = (res_pemetaan.length / count_peserta.value.length) * 100
   }
 }

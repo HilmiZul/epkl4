@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-header">
       <loading-placeholder v-if="isLoading" col="5" row="1" />
-      <span v-else class="h4 quicksand fw-bold text-muted">Pembimbing / <span class="text-dark">{{ form.nama }}</span></span>
+      <span v-else class="h5 quicksand fw-bold text-muted">Pembimbing / <span class="text-dark">{{ form.nama }}</span></span>
       <span class="float-end"><nuxt-link to="/pembimbing" class="btn btn-light btn-sm border border-2 border-dark">Kembali</nuxt-link></span>
     </div>
     <div class="card-body">
@@ -70,11 +70,11 @@
                 Membimbing <span class="fw-bold">{{ form.konversi_jjm_ke_jumlah_siswa }}</span> peserta didik
               </div>
             </div>
-            <button :disabled="isSending || isLoading || form.username == '' || form.email == '' || form.password == '' || form.nama == '' || form.role == ''" class="btn btn-success me-2 border border-2 border-dark">
+            <button :disabled="isSending || isLoading || form.username == '' || form.email == '' || form.password == '' || form.nama == '' || form.role == ''" class="btn btn-dark me-2 border border-2 border-dark me-3">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>
-            <nuxt-link to="/pembimbing" class="btn btn-light border border-2 border-dark">Kembali</nuxt-link>
+            <nuxt-link to="/pembimbing" class="link">Kembali</nuxt-link>
             <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small">Berhasil tersimpan!</span>
           </form>
         </div>
@@ -97,7 +97,7 @@
                 <input v-model="formReset.passwordConfirm" :disabled="formReset.password.length < 8" type="password" id="passwordConfirm" class="form form-control form-control-lg" placeholder="ketik ulang password" required>
               </div>
 
-              <button :disabled="isSendingReset || formReset.password == '' || formReset.passwordConfirm.length < 8" class="btn btn-success me-2 border border-2 border-dark">
+              <button :disabled="isSendingReset || formReset.password == '' || formReset.passwordConfirm.length < 8" class="btn btn-dark me-2 border border-2 border-dark">
                 <span v-if="!isSendingReset">Simpan</span>
                 <span v-else>Sedang menyimpan</span>
               </button>

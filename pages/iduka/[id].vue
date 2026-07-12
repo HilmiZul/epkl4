@@ -2,7 +2,12 @@
   <div class="card">
     <div class="card-header">
       <loading-placeholder v-if="isLoading" col="5" row="1" />
-      <span v-else class="h4 quicksand fw-bold text-muted">IDUKA / <span class="text-dark">{{ form.nama }}</span></span>
+      <span v-else class="h5 quicksand fw-bold text-muted">IDUKA / <span class="text-dark">{{ form.nama }}</span>
+        <span v-if="form.isArchive" class="badge bg-dark fw-bold ms-3">Arsip</span>
+      </span>
+      <span class="float-end">
+        <NuxtLink to="/iduka" class="btn btn-light btn-sm border border-2 border-dark">kembali</NuxtLink>
+      </span>
     </div>
     <div class="card-body">
       <!-- <div class="row">
@@ -20,7 +25,6 @@
         <loading-placeholder row="1" col="3" />
       </div>
       <div v-else class="mb-3">
-        <span v-if="form.isArchive" class="badge bg-dark fw-bold me-2">Arsip</span>
         <button v-if="form.terisi < 1 && !form.isArchive" @click="handleArchive(true, route.params.id)" class="btn btn-light btn-sm border border-2 border-dark"><i class="bi bi-archive"></i> Arsipkan</button>
         <button v-if="form.isArchive" @click="handleArchive(false, route.params.id)" class="btn btn-light btn-sm border border-2 border-dark"><i class="bi bi-archive"></i> Buka arsip</button>
       </div>
@@ -97,7 +101,7 @@
               <LoadingPlaceholder v-if="isLoading" col="12" row="2" />
               <div v-else class="small">
                 <div v-if="mapping.length < 1 || isLoading" class="text-center">
-                  <nuxt-link to="/pemetaan/pkl/tambah" class="btn btn-success btn-sm border border-2 border-dark">Petakan sekarang <i class="bi bi-arrow-up-right"></i></nuxt-link>
+                  <nuxt-link to="/pemetaan/pkl/tambah" class="btn btn-dark border border-2 border-dark">Petakan sekarang <i class="bi bi-arrow-up-right"></i></nuxt-link>
                 </div>
                 <ul v-else v-for="p in mapping" :key="p.id" class="list-group list-group-flush">
                   <li class="list-group-item">
@@ -124,11 +128,11 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-            <button :disabled="isSending || isLoading" class="btn btn-success me-2 mb-4 border border-2 border-dark">
+            <button :disabled="isSending || isLoading" class="btn btn-dark me-3 mb-4 border border-2 border-dark">
               <span v-if="isSending">Sedang menyimpan</span>
               <span v-else>Simpan</span>
             </button>
-            <nuxt-link class="btn btn-light mb-4 border border-2 border-dark" to="/iduka">Kembali</nuxt-link>
+            <nuxt-link class="link" to="/iduka">Kembali</nuxt-link>
             <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small">Berhasil tersimpan!</span>
             <span v-if="isFail" class="ms-2 fst-italic text-danger small">Terjadi error saat menyimpan!</span>
           </div>

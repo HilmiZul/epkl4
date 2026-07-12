@@ -23,7 +23,7 @@ let user = usePocketBaseUser()
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 
 html, body {
-  background: #f5fff2 url('~/assets/img/bg.webp') no-repeat center bottom fixed;
+  background: #fff url('~/assets/img/bg.webp') no-repeat center bottom fixed;
   background-size: cover;
   font-family: "Quicksand", sans-serif;
 }
@@ -43,20 +43,22 @@ html, body {
   box-shadow: 0.5rem 0.5rem 0 #000000 !important;
 }
 .card {
-  border-radius: 0 !important;
-  border: 2.5px solid #000000 !important;
-  box-shadow: 0.5rem 0.5rem 0 #000000 !important;
+  border-radius: 32px !important;
+  corner-shape: squircle;
+  border: 2.5px solid #212529 !important;
+  box-shadow: 0.4rem 0.4rem 0 #000 !important;
 }
 .btn {
   font-weight: 600;
   transition: all 0.1s ease-in-out;
   /*border: 1.9px solid #000000;*/
-  border-radius: 0 !important;
+  border-radius: 32px !important;
+  corner-shape: squircle;
   box-shadow: 0.19rem 0.19rem 0 #000000 !important;
 }
 .btn:hover {
   transform: translate(2px,2px);
-  border: 1.9px solid #000000;
+  border: 1.9px solid transparent;
   box-shadow: none !important;
 }
 .btn:disabled {
@@ -67,7 +69,8 @@ html, body {
 .form {
   font-weight: 550;
   border: 2.5px solid #000000;
-  border-radius: 0 !important;
+  border-radius: 32px !important;
+  corner-shape: squircle;
   box-shadow: 0.19rem 0.19rem 0 #000000 !important;
 }
 .form:focus {
@@ -133,5 +136,22 @@ table thead {
 table th {
   background-color: #000 !important;
   color: #fff;
+}
+
+.bg-dark, .text-bg-dark {
+  background-color: #212529 !important;
+}
+
+.border-dark {
+  border-color: #212529 !important;
+}
+.alert {
+  border-radius: 32px !important;
+  corner-shape: squircle;
+  border-width: 2px;
+  border: 2px solid #212529 !important;
+}
+.smallest {
+  font-size: .8em;
 }
 </style>

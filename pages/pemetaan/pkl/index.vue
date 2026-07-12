@@ -1,12 +1,12 @@
 <template>
   <div class="card shadow-lg">
     <div class="card-header">
-      <span class="h4 quicksand fw-bold"><i class="bi bi-diagram-3-fill"></i> Pemetaan</span>
+      <span class="h5 quicksand fw-bold"><i class="bi bi-diagram-3-fill"></i> Pemetaan</span>
       <div v-if="role == 'admin' || role == 'jurusan'" class="float-end">
         <nuxt-link to="/pemetaan/pembimbing" class="btn btn-light btn-sm border border-2 border-dark ms-2">Pembimbing</nuxt-link>
       </div>
       <div v-if="isIdukaAvailable?.totalItems > 0" class="float-end">
-        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/pemetaan/pkl/tambah" class="btn btn-success btn-sm border border-2 border-dark"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
+        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/pemetaan/pkl/tambah" class="btn btn-dark btn-sm border border-2 border-dark"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
       </div>
     </div>
     <div class="card-body">
@@ -15,7 +15,7 @@
           <form @submit.prevent="getPemetaan">
             <div class="my-3 mt-0 input-group">
               <input v-model="keyword" type="search" class="form form-control form-control-lg" placeholder="🔎 Cari nama IDUKA / peserta" />
-              <button class="btn btn-success ms-2 border border-2 border-dark">Cari</button>
+              <button class="btn btn-dark ms-2 border border-2 border-dark">Cari</button>
             </div>
           </form>
         </div>
@@ -95,8 +95,8 @@
                       <span v-if="pemetaan.expand.iduka?.pembimbing_sekolah == '-' || pemetaan.expand.iduka?.pembimbing_sekolah == ''">&#8212;</span>
                       <span v-else> {{ pemetaan.expand.iduka?.expand.pembimbing_sekolah?.nama }}</span>
                     </div>
-                    <div v-if="pemetaan.status_acc_pkl" class="badge bg-success my-2"><i class="bi bi-patch-check"></i> Diterima</div>
-                    <div v-else-if="pemetaan.status_acc_pkl || role == 'admin' || role == 'jurusan'" @click="setModalKonfirmasiPenerimaan(pemetaan.iduka, pemetaan.expand.iduka.nama)" class="badge bg-warning hand-cursor my-2" data-bs-toggle="modal" data-bs-target="#konfirmasi-penerimaan">Konfirmasi penerimaan <i class="bi bi-person-fill-check"></i></div>
+                    <div v-if="pemetaan.status_acc_pkl" class="badge text-bg-light my-2"><i class="bi bi-patch-check"></i> Diterima</div>
+                    <div v-else-if="pemetaan.status_acc_pkl || role == 'admin' || role == 'jurusan'" @click="setModalKonfirmasiPenerimaan(pemetaan.iduka, pemetaan.expand.iduka.nama)" class="badge bg-warning hand-cursor my-2" data-bs-toggle="modal" data-bs-target="#konfirmasi-penerimaan">Konfirmasi penerimaan <i class="bi bi-arrow-down"></i></div>
                   </td>
                   <td class="py-1">
                     <nuxt-link v-if="role == 'admin' || role == 'jurusan'" :to="`/pemetaan/pkl/${pemetaan.id}`" class="link text-dark fw-bolder">
@@ -115,7 +115,7 @@
                     <div class="d-grid">
                       <button v-if="!pemetaan.status_acc_pkl" @click="setCetakSurat(pemetaan.iduka)" class="btn btn-light btn-sm border border-2 border-dark" data-bs-toggle="modal" data-bs-target="#cetak"><i class="bi bi-printer"></i> Surat</button>
                       <div v-else class="text-muted small">&#8212;</div>
-                      <nuxt-link v-if="role == 'tu'" :to="`/pemetaan/pkl/ba/cetak/${pemetaan.iduka}`" target="_blank" class="btn btn-info btn-sm border border-2 border-dark mt-2"><i class="bi bi-printer me-2"></i> B. A</nuxt-link>
+                      <nuxt-link v-if="role == 'tu'" :to="`/pemetaan/pkl/ba/cetak/${pemetaan.iduka}`" target="_blank" class="btn btn-light btn-sm border border-2 border-dark mt-2"><i class="bi bi-printer me-2"></i> B. A</nuxt-link>
                     </div>
                   </td>
                 </tr>
@@ -132,11 +132,11 @@
                   <span v-if="mapping.totalItems">Halaman {{ mapping.page }} dari {{ mapping.totalPages }}</span>
                 </div>
               </div>
-              <button :disabled="isMovingPage || mapping.page < 2" @click="pagination(mapping.page - 1, false)" class="btn btn-success btn-sm me-2 border border-2 border-dark">
+              <button :disabled="isMovingPage || mapping.page < 2" @click="pagination(mapping.page - 1, false)" class="btn btn-dark me-2 border border-2 border-dark">
                 <i class="bi bi-arrow-left"></i> sebelumnya
               </button>
-              <button :disabled="isMovingPage || mapping.page >= mapping.totalPages" @click="pagination(mapping.page + 1, false)" class="btn btn-success btn-sm border border-2 border-dark">
-                lanjut <i class="bi bi-arrow-right"></i>
+              <button :disabled="isMovingPage || mapping.page >= mapping.totalPages" @click="pagination(mapping.page + 1, false)" class="btn btn-outline-dark border border-2 border-dark">
+                selanjutnya <i class="bi bi-arrow-right"></i>
               </button>
             </span>
           </div>
@@ -144,8 +144,8 @@
           <!-- Single Modal: Opsi Jenis Surat TTE / TTB -->
           <div class="modal" id="cetak" aria-hidden="true" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-                <div class="modal-header rounded-0 bg-success h4 fw-bold border-bottom border-3 border-dark">
+              <div class="modal-content border border-3 border-dark shadow-lg">
+                <div class="modal-header h4 fw-bold border-bottom border-3 border-dark">
                   Konfirmasi Jenis Surat
                   <button class="btn-close small" data-bs-dismiss="modal" label="Close"></button>
                 </div>
@@ -157,7 +157,7 @@
                   </select>
                 </div>
                 <div class="modal-footer border-0 justify-content-center">
-                  <nuxt-link v-if="cetakSurat.opsi_jenis_surat" :to="`/pemetaan/pkl/surat/cetak/${cetakSurat.opsi_jenis_surat}/${cetakSurat.id_iduka}`" target="_blank" class="btn btn-success border border-2 border-dark"><i class="bi bi-printer me-2"></i> Cetak</nuxt-link>
+                  <nuxt-link v-if="cetakSurat.opsi_jenis_surat" :to="`/pemetaan/pkl/surat/cetak/${cetakSurat.opsi_jenis_surat}/${cetakSurat.id_iduka}`" target="_blank" class="btn btn-dark border border-2 border-dark"><i class="bi bi-printer me-2"></i> Cetak</nuxt-link>
                   <button v-else class="btn btn-light border border-2 border-dark" disabled><i class="bi bi-printer me-2"></i> Cetak</button>
                 </div>
               </div>
@@ -167,15 +167,15 @@
           <!-- Single Modal: Konfirmasi penerimaan -->
           <div class="modal" id="konfirmasi-penerimaan" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-                <div class="modal-header rounded-0 h4 bg-success fw-bold border-bottom border-3 border-dark">
+              <div class="modal-content border border-3 border-dark shadow-lg">
+                <div class="modal-header h4 fw-bold border-bottom border-3 border-dark">
                   Konfrimasi Penerimaan
                 </div>
                 <div class="modal-body text-dark">
                   Apakah <strong>{{ iduka_nama }}</strong> sudah konfirmasi menerima Peserta?
                 </div>
                 <div class="modal-footer border-0 justify-content-center">
-                  <button @click="handleAccPkl(iduka_id)" class="btn btn-success border border-2 border-dark me-2" data-bs-dismiss="modal">Udah!</button>
+                  <button @click="handleAccPkl(iduka_id)" class="btn btn-dark border border-2 border-dark me-2" data-bs-dismiss="modal">Udah!</button>
                   <button class="btn btn-light border border-2 border-dark" data-bs-dismiss="modal">belum</button>
                 </div>
               </div>

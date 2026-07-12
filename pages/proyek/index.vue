@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand fw-bold"><i class="bi bi-easel"></i> Proyek</span>
+      <span class="h5 quicksand fw-bold"><i class="bi bi-easel"></i> Proyek</span>
     </div>
 
     <div class="card-body">
@@ -10,7 +10,7 @@
           <form @submit.prevent="getProjectsByProkelOrPembimbing">
             <div class="my-3 mt-0 input-group">
               <input v-model="keyword" class="form form-control form-control-lg" type="search" placeholder="🔎 Cari judul proyek / peserta" />
-              <button class="btn btn-success ms-2 border border-2 border-dark">Cari</button>
+              <button class="btn btn-dark ms-2 border border-2 border-dark">Cari</button>
             </div>
           </form>
         </div>
@@ -64,7 +64,7 @@
             </div>
 
             <div class="text-center">
-              <button v-if="projects.totalItems" :disabled="isMovingPage || projects.page >= projects.totalPages" @click="loadMore(projects.page + 1, false)" class="btn btn-success border border-2 border-dark">
+              <button v-if="projects.totalItems" :disabled="isMovingPage || projects.page >= projects.totalPages" @click="loadMore(projects.page + 1, false)" class="btn btn-dark border border-2 border-dark">
                 muat lagi <i class="bi bi-arrow-down"></i>
               </button>
             </div>
@@ -73,8 +73,8 @@
           <!-- single modal: pratinjau proyek -->
           <div class="modal" id="pratinjau" tabindex="-1" aria-hidden="false">
             <div class="modal-dialog modal-dialog-centered modal-lg">
-              <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-                <div class="modal-header rounded-0 bg-success fw-bold border-bottom border-3 border-dark">
+              <div class="modal-content border border-3 border-dark shadow-lg">
+                <div class="modal-header fw-bold border-bottom border-3 border-dark">
                   {{ pratinjau?.judul }}
                   <button class="btn-close" data-bs-dismiss="modal" label="Close"></button>
                 </div>
@@ -108,7 +108,7 @@
           <div class="modal" id="catatan" tabindex="-1" aria-hidden="false">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-                <div class="modal-header rounded-0 bg-success h4 fw-bold border-bottom border-3 border-dark">
+                <div class="modal-header fw-bold border-bottom border-3 border-dark">
                   Beri catatan
                   <button class="btn-close" data-bs-dismiss="modal" label="Close"></button>
                 </div>
@@ -119,7 +119,7 @@
                       <textarea v-model="form.catatan_guru" class="form form-control" rows="4" placeholder="tulis catatan untuk proyek ini..." required></textarea>
                     </div>
 
-                    <button :disabled="form.catatan_guru.length < 5" data-bs-dismiss="modal" class="btn btn-success border border-2 border-dark">
+                    <button :disabled="form.catatan_guru.length < 5" data-bs-dismiss="modal" class="btn btn-dark border border-2 border-dark">
                       Kirim
                     </button>
                   </form>
@@ -131,8 +131,8 @@
           <!-- single modal: ubah catatan guru -->
           <div class="modal" id="ubah-catatan" tabindex="-1" aria-hidden="false">
             <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-                <div class="modal-header rounded-0 bg-success h4 fw-bold border-bottom border-3 border-dark">
+              <div class="modal-content border border-3 border-dark shadow-lg">
+                <div class="modal-header fw-bold border-bottom border-3 border-dark">
                   Ubah catatan
                   <button class="btn-close" data-bs-dismiss="modal" label="Close"></button>
                 </div>
@@ -143,7 +143,7 @@
                       <textarea v-model="currentCatatan" class="form form-control" rows="4" placeholder="tulis catatan untuk proyek ini..."></textarea>
                     </div>
 
-                    <button data-bs-dismiss="modal" class="btn btn-success border border-2 border-dark">
+                    <button data-bs-dismiss="modal" class="btn btn-dark border border-2 border-dark">
                       Simpan
                     </button>
                   </form>

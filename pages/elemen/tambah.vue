@@ -1,7 +1,10 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="h4 quicksand fw-bold text-muted">Elemen / <span class="text-dark">Tambah baru</span></span>
+      <span class="h5 quicksand fw-bold text-muted">Elemen / <span class="text-dark">Tambah baru</span></span>
+      <span class="float-end">
+        <nuxt-link to="/elemen" class="btn btn-light btn-sm border border-2 border-dark">Kembali</nuxt-link>
+      </span>
     </div>
     <div class="card-body">
       <div class="row">
@@ -29,11 +32,11 @@
               <label for="tujuan">Tujuan</label>
               <textarea :disabled="form.cp.length < 9" v-model="form.tujuan" id="tujuan" rows="4" class="form form-control form-control-lg" placeholder="Menerapkan softskills, menerapkan K3LH, ..." required></textarea>
             </div>
-            <button :disabled="isSending || form.elemen.length < 9 || form.cp.length < 9 || form.tujuan.length < 9" class="btn btn-success border border-2 border-dark me-2">
+            <button :disabled="isSending || form.elemen.length < 9 || form.cp.length < 9 || form.tujuan.length < 9" class="btn btn-dark border border-2 border-dark me-3">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
             </button>
-            <nuxt-link to="/elemen" class="btn btn-light border border-2 border-dark">Kembali</nuxt-link>
+            <nuxt-link to="/elemen" class="link">Kembali</nuxt-link>
             <span v-if="isSaved" class="ms-2 mb-3 fst-italic text-grey small">Berhasil tersimpan!</span>
           </form>
         </div>
