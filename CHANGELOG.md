@@ -1,5 +1,9 @@
 # Changelog
 
+### 4.24-rc (12 Juli 2026)
+- All-new UI monochrome brutalism
+- Get total prosentase jurnal when filter is empty
+
 ### 4.23-rc (3 Juli 2026)
 - Add new field and input form pangkat golongan teachers
 - Revamp Pembimbing list
