@@ -9,7 +9,7 @@
     <div class="card-body">
       <div class="row">
         <div class="col-lg-12">
-          <div class="alert alert-info pb-0">
+          <div class="alert alert-warning pb-0">
             <ul>
               <li>Fitur ini masih dalam tahap pengembangan</li>
               <li>Daftar berikut digunakan untuk pemenuhan rasio</li>

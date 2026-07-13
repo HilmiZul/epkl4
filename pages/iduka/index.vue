@@ -107,7 +107,7 @@
                   <td class="smallest">{{ company.wilayah.charAt(0).toUpperCase() + company.wilayah.slice(1) }} kota </td>
                   <td v-if="role == 'admin' || role == 'jurusan'" class="smallest">
                     <span v-if="company.terisi < company.jumlah_kuota">{{ company.terisi }} / {{ company.jumlah_kuota }}</span>
-                    <span v-else class="badge bg-danger">Penuh</span>
+                    <span v-else class="badge text-dark">Penuh</span>
                   </td>
                   <td v-if="role == 'admin' || role == 'jurusan'" class="smallest">{{ company.expand.pembimbing_sekolah?.nama }} </td>
                   <td v-if="role == 'wakasek' || role == 'tu'" class="smallest">{{ company.expand.program_keahlian?.nama }} </td>

@@ -7,7 +7,7 @@
       <div class="alert alert-warning">Silahkan gunakan komputer/laptop!</div>
     </div>
     <div v-else class="card-body">
-      <div v-if="isLoaded || nilai.length > 0" class="alert alert-info">
+      <div v-if="isLoaded || nilai.length > 0" class="alert alert-secondary">
         <ul class="mb-0">
           <li>Berikut daftar peserta yang menitipkan <span class="fw-bold">Sertifikat</span> ke Sekolah.</li>
           <li>Pilih nama peserta untuk melihat pratinjau Sertifikat.</li>

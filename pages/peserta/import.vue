@@ -2,11 +2,14 @@
   <div class="card">
     <div class="card-header">
       <span class="h5 quicksand fw-bold text-muted">Peserta Didik / <span class="text-dark">Impor dari .csv</span></span>
+      <span class="float-end">
+        <NuxtLink to="/peserta" class="btn btn-light btn-sm border border-2 border-dark">kembali</NuxtLink>
+      </span>
     </div>
     <div class="card-body">
       <div class="row">
         <div class="col-md-12">
-          <div class="alert alert-warning border-5 border-dark shadow-lg">
+          <div class="alert alert-secondary border-5 border-dark shadow-lg">
             <div class="h5 quicksand">Perhatiin!</div>
             <ul>
               <li>Tidak perlu impor apabila data peserta didik sudah lengkap</li>
@@ -22,7 +25,7 @@
       <div class="row">
         <div class="col-md-4">
           <div class="my-3">
-            <label for="file" class="label-berkas p-2 hand-cursor"><i class="bi-filetype-csv"></i> Pilih berkas</label>
+            <label for="file" class="label-berkas p-2 hand-cursor"><i class="bi-filetype-csv"></i> Pilih berkas .CSV</label>
             <input @change="getFile" id="file" type="file" accept=".csv" class="form form-control-file">
           </div>
           <!-- <label for="customFileInput" class="custom-file-upload">

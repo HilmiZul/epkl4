@@ -7,7 +7,7 @@
       </span>
     </div>
     <div class="card-body">
-      <div v-if="teachers_jjm > 0" class="alert alert-warning">Ada <span class="fw-bold">{{ teachers_jjm }}</span> Guru yang belum memenuhi Jumlah Jam Mengajar (JP)</div>
+      <div v-if="teachers_jjm > 0" class="alert alert-secondary">Ada <span class="fw-bold">{{ teachers_jjm }}</span> Guru yang belum memenuhi Jumlah Jam Mengajar (JP)</div>
 
       <div class="row">
         <div class="col-lg-6">

@@ -9,7 +9,7 @@
     <div class="card-body">
       <div class="row">
         <div class="col-md-12">
-          <div class="alert alert-warning border-5 border-dark shadow-lg">
+          <div class="alert alert-secondary border-5 border-dark shadow-lg">
             <div class="h5 quicksand">Perhatiin!</div>
             <ul>
               <li>Gunakan fitur impor ini untuk memindahkan daftar IDUKA lama sekaligus</li>
@@ -25,7 +25,7 @@
       <div class="row">
         <div class="col-md-4">
           <div class="my-3">
-            <label for="file" class="label-berkas p-2 hand-cursor"><i class="bi-filetype-csv"></i> Pilih berkas</label>
+            <label for="file" class="label-berkas p-2 hand-cursor"><i class="bi-filetype-csv"></i> Pilih berkas .CSV</label>
             <input @change="getFile" id="file" type="file" accept=".csv" class="form form-control-file">
           </div>
           <div v-if="isLoading" class="mb-3 text-muted">

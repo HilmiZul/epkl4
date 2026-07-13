@@ -78,7 +78,7 @@
           </form>
         </div>
         <div class="col-md-6">
-          <div class="alert alert-info border-5 border-dark">
+          <div class="alert alert-secondary border-5 border-dark">
             <ul class="mb-0">
               <li>IDUKA yang muncul hanya yang masih kosong</li>
               <li>Peserta didik yang muncul hanya yang sudah tuntas rapor dan belum terpetakan</li>

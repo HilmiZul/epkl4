@@ -12,7 +12,7 @@
     <div v-if="role == 'wakasek'" class="card-body">
       <div class="row">
         <div class="col-md-12">
-          <div class="alert alert-info small px-4">
+          <div class="alert alert-secondary small px-4">
             <li>Pilih kelas untuk menampilkan pratinjau nilai</li>
             <li>Daftar yang muncul hanya yang sudah divalidasi oleh Guru pembimbing</li>
             <li>Leger dapat diunduh per kelas apabila Guru pembimbing selesai memvalidasi</li>
@@ -94,7 +94,7 @@
 
     <div v-else-if="role == 'jurusan' || role == 'guru'" class="card-body">
       <div v-if="journalValidCount < 1">
-        <div v-if="nilaiNotValid?.length > 0" class="alert alert-warning fs-6">
+        <div v-if="nilaiNotValid?.length > 0" class="alert alert-secondary fs-6">
           Ada <span class="fw-bold">{{ nilaiNotValid.length }}</span> Nilai yang belum divalidasi
         </div>
 

@@ -85,7 +85,7 @@
           </form>
         </div>
         <div class="col-md-6">
-          <div class="alert alert-info border-5 border-dark">
+          <div class="alert alert-secondary border-5 border-dark">
             <ul class="mb-0">
               <li>Guru pembimbing adalah Guru yang mengajar pada tingkat XII</li>
               <li>Guru pembimbing termasuk Guru kejuruan</li>

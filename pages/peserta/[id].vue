@@ -12,7 +12,7 @@
     <div class="card-body">
       <div class="row">
         <div class="col-md-12">
-          <div class="alert alert-info border-2 border-dark">
+          <div class="alert alert-secondary border-2 border-dark">
             <ul class="mb-0">
               <li>Jika ada nilai rapor yang belum tuntas, silahkan ubah status <strong>Ketuntasan Rapor</strong></li>
               <li>Status <strong>Pemetaan PKL</strong> diubah oleh sistem ketika siswa di petakan ke IDUKA</li>

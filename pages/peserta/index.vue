@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="card-body">
-      <div v-if="peserta_belum_pemetaan?.totalItems > 0" class="alert alert-warning">
+      <div v-if="peserta_belum_pemetaan?.totalItems > 0" class="alert alert-secondary">
         Ada <span class="fw-bold">{{ peserta_belum_pemetaan.totalItems }}</span> yang belum pemetaan PKL. <span class="hand-cursor border-bottom border-2 border-dark" data-bs-toggle="modal" data-bs-target="#peserta-belum-pemetaan">Lihat</span>
       </div>
 
