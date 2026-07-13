@@ -1,5 +1,8 @@
 # Changelog
 
+### 4.24.1-rc (13 Juli 2026)
+- Some alert switch to grey color
+
 ### 4.24-rc (12 Juli 2026)
 - All-new UI monochrome brutalism
 - Get total prosentase jurnal when filter is empty
