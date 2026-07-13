@@ -29,13 +29,13 @@
               {{ countInvalidatedNilai }}
             </div>
             <i class="bi bi-patch-check fs-5"></i> <br>
-            <span class="smallest">Nilai</span>
+            <span class="smallest">Leger</span>
           </nuxt-link>
         </li>
         <li class="nav-item">
-          <nuxt-link class="nav-link text-dark" href="/personalisasi">
+          <nuxt-link class="nav-link text-dark" href="/profil">
             <i class="bi bi-person fs-5"></i> <br>
-            <span class="smallest">Personal</span>
+            <span class="smallest">Profil</span>
           </nuxt-link>
         </li>
         <!-- <li class="nav-item">
