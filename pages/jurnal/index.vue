@@ -539,6 +539,11 @@ input.picker[type="date"]::-webkit-calendar-picker-indicator {
   height: 100%;
   object-fit: cover;
   object-position: center;
+  filter: grayscale(.99);
+  transition: .3s ease-in-out;
+}
+.foto:hover {
+  filter: none;
 }
 .foto-preview {
   width: 100%;
