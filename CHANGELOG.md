@@ -1,5 +1,10 @@
 # Changelog
 
+### 4.24.2-rc (14 Juli 2026)
+- Display full name of Pembimbing
+- Borderless pemetaan UI design
+- Udpate Privacy and Terms
+
 ### 4.24.1-rc (13 Juli 2026)
 - Some alert switch to grey color
 
