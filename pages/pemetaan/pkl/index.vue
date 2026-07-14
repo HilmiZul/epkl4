@@ -46,14 +46,14 @@
         <div class="col-md-12">
           <div class="table-responsive">
             <table class="table">
-              <thead>
-                <tr>
+              <!-- <thead> -->
+              <!--   <tr> -->
                   <!-- <th width="2%">#</th> -->
-                  <th>IDUKA</th>
-                  <th width="45%">Peserta</th>
-                  <th v-if="role == 'jurusan' || role == 'tu' || role == 'admin'" width="10%">Cetak</th>
-                </tr>
-              </thead>
+                  <!-- <th>IDUKA</th> -->
+                  <!-- <th width="45%">Peserta</th> -->
+                  <!-- <th v-if="role == 'jurusan' || role == 'tu' || role == 'admin'" width="10%">Cetak</th> -->
+              <!--   </tr> -->
+              <!-- </thead> -->
               <tbody>
                 <tr v-if="isLoading" class="text-center my-5">
                   <td colspan="3">
@@ -547,8 +547,15 @@ a.link.link-card .card {
 .smallest {
   font-size: 12px;
 }
-table tr, table td {
-  border-bottom: 2px solid #000;
-  border-right: 2px solid #000;
+/* table tr, table td { */
+/*   border-bottom: 2px solid #000; */
+/*   border-right: 2px solid #000; */
+/* } */
+
+.table-responsive {
+  border: none
+}
+table tr {
+  border-bottom: 2px solid #cecece;
 }
 </style>
