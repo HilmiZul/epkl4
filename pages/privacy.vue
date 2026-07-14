@@ -1,8 +1,8 @@
 <template>
   <nuxt-link to="/" class="btn btn-light btn-sm border border-2 border-dark"><i class="bi bi-arrow-left"></i> Kembali</nuxt-link>
-  <nuxt-link to="/terms" class="btn btn-info btn-sm border border-2 border-dark ms-2">Aturan & Syarat Penggunaan</nuxt-link>
+  <nuxt-link to="/terms" class="btn btn-dark btn-sm border border-2 border-dark ms-2">Aturan & Syarat Penggunaan</nuxt-link>
   <div class="card mt-3">
-    <div class="card-header bg-success fw-bold fs-5">
+    <div class="card-header fw-bold fs-5">
       Kebijakan Privasi
     </div>
     <div class="card-body text-dark">

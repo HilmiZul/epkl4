@@ -1,13 +1,13 @@
 <template>
   <nuxt-link to="/" class="btn btn-light btn-sm border border-2 border-dark"><i class="bi bi-arrow-left"></i> Kembali</nuxt-link>
-  <nuxt-link to="/privacy" class="btn btn-info btn-sm border border-2 border-dark ms-2">Kebijakan Privasi</nuxt-link>
+  <nuxt-link to="/privacy" class="btn btn-dark btn-sm border border-2 border-dark ms-2">Kebijakan Privasi</nuxt-link>
   <div class="card mt-3">
-    <div class="card-header bg-success fw-bold fs-5">
+    <div class="card-header fw-bold fs-5">
       Aturan dan Syarat Penggunaan
     </div>
     <div class="card-body text-dark">
       <p class="text-muted small">
-        Diperbaharui pada 25 Juni 2026
+        Diperbaharui pada 14 Juli 2026
       </p>
       <h5 class="fw-bold">Akun Anggota e-PKL</h5>
       <ul>
@@ -51,24 +51,20 @@
       <h5 class="fw-bold">Terkait Jurnal Harian</h5>
       <ul>
         <li>Setiap Guru Pembimbing wajib memantau dan memvalidasi aktivitas peserta pada halaman Jurnal Harian.</li>
-        <li>Setiap jurnal peserta memiliki pita berwarna <span class="text-info">Biru (sesuai elemen)</span> dan <span class="text-danger">Merah (tidak sesuai elemen)</span>.</li>
+        <li>Setiap jurnal peserta memiliki pita berwarna Putih (sesuai elemen) dan <span class="text-dark">Hitam (tidak sesuai elemen)</span>.</li>
         <li>Guru Pembimbing hanya diperbolehkan memvalidasi Jurnal peserta apabila:
           <table class="table text-muted small mt-3">
             <tbody>
               <tr>
-                <th>Elemen</th>
-                <th>Konten</th>
-              </tr>
-              <tr>
-                <td><i class="bi bi-bookmark-fill text-info"></i> Pita Biru</td>
+                <td><i class="bi bi-bookmark"></i> Pita Putih</td>
                 <td>Sesuai dengan elemen yang dipilih</td>
               </tr>
               <tr>
-                <td><i class="bi bi-bookmark-fill text-info"></i> Pita Biru</td>
+                <td><i class="bi bi-bookmark"></i> Pita Putih</td>
                 <td>Ada hubungannya dengan elemen yang dipilih</td>
               </tr>
               <tr>
-                <td> <i class="bi bi-bookmark-fill text-danger"></i> Pita Merah</td>
+                <td> <i class="bi bi-bookmark-fill text-dark"></i> Pita Hitam</td>
                 <td>Lintas konsentrasi keahlian atau aktivitas masih berhubungan dengan pekerjaan</td>
               </tr>
             </tbody>
