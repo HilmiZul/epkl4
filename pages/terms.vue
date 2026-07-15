@@ -7,7 +7,7 @@
     </div>
     <div class="card-body text-dark">
       <p class="text-muted small">
-        Diperbaharui pada 14 Juli 2026
+        Diperbaharui pada 15 Juli 2026
       </p>
       <h5 class="fw-bold">Akun Anggota e-PKL</h5>
       <ul>
@@ -38,9 +38,8 @@
       <h5 class="fw-bold">Terkait Elemen</h5>
       <ul>
         <li>
-          Berdasarkan keputusan <nuxt-link to="https://kurikulum.kemendikdasmen.go.id/file/1687442514_manage_file.pdf" target="_blank">Kepala Badan Standar, Kurikulum, dan Asesmen Pendidikan (BSKAP)</nuxt-link>
-          Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi yang mengatur elemen Capaian Pembelajaran untuk mata pelajaran
-          PKK dan PKL dalam kurikulum merdeka.
+          Berdasarkan <nuxt-link to="https://guru.kemendikdasmen.go.id/dokumen/WZ20mN6AdE?parentCategory=Implementasi%20Kurikulum%20Nasional" target="_blank">Permendikbud Nomor 50 Tahun 2020</nuxt-link>
+          tentang PKL sebagai mata pelajaran dalam implementasi kurikulum merdeka.
         </li>
         <li>Elemen berisi CP dan tujuan dari mata pelajaran PKL.</li>
         <li>Dilarang keras mengubah Elemen default yang sudah ada pada aplikasi e-PKL.</li>
@@ -92,8 +91,8 @@
       <h5 class="fw-bold">Terkait Rapor PKL</h5>
       <ul>
         <li>
-          Berdasarkan keputusan <nuxt-link to="https://kurikulum.kemendikdasmen.go.id/file/1687442514_manage_file.pdf" target="_blank">Kepala Badan Standar, Kurikulum, dan Asesmen Pendidikan (BSKAP)</nuxt-link>
-          Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi, bahwa hasil asesmen disampaikan dalam rapor dengan mencantumkan keterangan industri tentang kinerja secara keseluruhan
+          Berdasarkan <nuxt-link to="https://guru.kemendikdasmen.go.id/dokumen/WZ20mN6AdE?parentCategory=Implementasi%20Kurikulum%20Nasional" target="_blank">Permendikbud Nomor 50 Tahun 2020</nuxt-link>,
+          bahwa hasil asesmen disampaikan dalam rapor dengan mencantumkan keterangan industri tentang kinerja secara keseluruhan
           berdasarkan jurnal PKL, sertifikat atau surat keterangan PKL dari dunia kerja.
         </li>
         <li>Guru Pembimbing berkewajiban mencetak Rapor peserta dan menandatangani.</li>
