@@ -44,13 +44,13 @@
           <ul v-else v-for="project in projects.items" :key="project.id" class="list-group list-group-flush">
             <a class="hand-cursor" data-bs-toggle="modal" data-bs-target="#pratinjau" @click="setProjectToPrantinjau(project)">
               <li class="list-group-item py-3 border-bottom border-2 border-grey">
-                <div class="fw-bold">{{ project.judul }}</div>
+                <div class="fw-bold">{{ project.judul.toUpperCase() }}</div>
 
-                <div class="text-muted fw-bold mt-2 mb-1">{{ project.expand.siswa.nama }}</div>
-                <div class="text-muted fw-bold mb-2">XII.{{ project.expand.siswa.kelas }}</div>
+                <div class="text-muted fw-bold mt-2 mb-1 small">{{ project.expand.siswa.nama }}</div>
+                <div class="text-muted fw-bold mb-2 small">XII.{{ project.expand.siswa.kelas }}</div>
 
-                <a v-if="project.catatan_guru" @click="setProjectToPrantinjau(project)" data-bs-toggle="modal" data-bs-target="#ubah-catatan" class="link text-muted mb-2"><i class="bi bi-chat-left-fill"></i> Ubah catatan</a>
-                <a v-else @click="setProjectToPrantinjau(project)" data-bs-toggle="modal" data-bs-target="#catatan" class="link text-muted mb-2"><i class="bi bi-chat-left"></i> Tulis catatan</a>
+                <a v-if="project.catatan_guru" @click="setProjectToPrantinjau(project)" data-bs-toggle="modal" data-bs-target="#ubah-catatan" class="link text-muted mb-2 small"><i class="bi bi-chat-left-fill"></i> Ubah catatan</a>
+                <a v-else @click="setProjectToPrantinjau(project)" data-bs-toggle="modal" data-bs-target="#catatan" class="link text-muted mb-2 small"><i class="bi bi-chat-left"></i> Tulis catatan</a>
               </li>
             </a>
           </ul>
