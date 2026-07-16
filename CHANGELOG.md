@@ -1,5 +1,8 @@
 # Changelog
 
+### 4.24.3-rc (16 Juli 2026)
+- Improvement project UI
+
 ### 4.24.2-rc (14 Juli 2026)
 - Display full name of Pembimbing
 - Borderless pemetaan UI design
