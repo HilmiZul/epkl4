@@ -49,13 +49,13 @@
                   <!-- <td><span class="badge text-dark">{{ i+1 }}</span></td> -->
                   <td>
                     <span class="fw-bold">{{ pemetaan.expand.pembimbing.nama }}</span>
-                    <p v-if="pemetaan.siswa.length < pemetaan.expand.pembimbing.konversi_jjm_ke_jumlah_siswa" class="my-2 small text-muted">
+                    <p v-if="pemetaan?.siswa?.length < pemetaan.expand.pembimbing.konversi_jjm_ke_jumlah_siswa" class="my-2 small text-muted">
                       <i class="bi bi-people"></i> {{ pemetaan.siswa.length }} dari {{ pemetaan.expand.pembimbing.konversi_jjm_ke_jumlah_siswa }} peserta
                     </p>
                     <p v-else class="my-2 small text-muted">
                       <i class="bi bi-people"></i> {{ pemetaan.siswa.length }} peserta
                     </p>
-                    <NuxtLink v-if="pemetaan.expand.siswa.length < pemetaan.expand.pembimbing.konversi_jjm_ke_jumlah_siswa" :to="`/pemetaan/pembimbing/${pemetaan.id}`" class="btn btn-light btn-sm border border-2 border-dark">
+                    <NuxtLink v-if="pemetaan.siswa.length < 1 || pemetaan?.expand?.siswa?.length < pemetaan.expand.pembimbing.konversi_jjm_ke_jumlah_siswa" :to="`/pemetaan/pembimbing/${pemetaan.id}`" class="btn btn-light btn-sm border border-2 border-dark">
                       <i class="bi bi-plus"></i> Tambah Peserta
                     </NuxtLink>
                   </td>
@@ -63,7 +63,7 @@
                     <table class="table">
                       <tbody>
                         <tr v-if="pemetaan.siswa.length < 1">
-                          <td class="text-danger">Belum dipasangkan dengan peserta didik</td>
+                          <td class="text-danger small">Belum dipasangkan dengan peserta didik</td>
                         </tr>
                         <tr v-for="(student) in pemetaan.expand.siswa" :key="student.id">
                           <!-- <td width="2%"><span class="badge text-dark">{{ i+1 }}</span></td> -->
