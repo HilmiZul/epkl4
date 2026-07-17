@@ -1,5 +1,8 @@
 # Changelog
 
+### 4.24.4-rc (17 Juli 2026)
+- Fix bug when siswa is emtpy on Pemetaan Pembimbing
+
 ### 4.24.3-rc (16 Juli 2026)
 - Improvement project UI
 
