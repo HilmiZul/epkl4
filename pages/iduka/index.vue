@@ -64,7 +64,7 @@
                   <th width="60%">Nama</th>
                   <th width="10%">Wilayah</th>
                   <th v-if="role == 'admin' || role == 'jurusan'" width="6%">Terisi</th>
-                  <th v-if="role == 'admin' || role == 'jurusan'" width="17%">Pembimbing</th>
+                  <th v-if="role == 'admin' || role == 'jurusan'" width="17%">PIC Sekolah</th>
                   <th v-if="role == 'wakasek' || role == 'tu'" width="17%">Program Keahlian</th>
                   <th v-if="role == 'admin' || role == 'jurusan'" width="5%">Hapus</th>
                 </tr>
@@ -188,11 +188,11 @@
           <div class="fw-bold">Alamat</div>
           <p>{{ pratinjau_iduka.alamat }}</p>
 
-          <div class="fw-bold">Pembimbing</div>
+          <div class="fw-bold">PIC Sekolah</div>
           <p v-if="pratinjau_iduka.pembimbing_sekolah">{{ pratinjau_iduka.expand.pembimbing_sekolah.nama }}</p>
           <p v-else>&#8212;</p>
 
-          <div class="fw-bold">Instruktur</div>
+          <div class="fw-bold">Instruktur IDUKA</div>
           <p v-if="pratinjau_iduka.pembimbing_iduka">{{ pratinjau_iduka.pembimbing_iduka }}</p>
           <p v-else>&#8212;</p>
 

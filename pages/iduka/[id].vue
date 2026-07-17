@@ -67,14 +67,14 @@
               </div>
               <!-- <input v-model="form.program_keahlian" type="hidden" :value="prokel" disabled id="prokel" class="form form-control"> -->
               <div class="mb-4">
-                <label for="pem_sekolah">Pembimbing Sekolah</label>
+                <label for="pem_sekolah">PIC Sekolah</label>
                 <select :disabled="isLoading" v-model="form.pembimbing_sekolah" id="pem_sekolah" class="form form-control form-select form-select-lg">
                   <option disabled value="" selected>&#8212;</option>
                   <option :disabled="isLoading" v-for="teacher in teachers" :key="teacher.id" :value="teacher.id">{{ teacher.nama }}</option>
                 </select>
               </div>
               <div class="mb-4">
-                <label for="pem_iduka">Pembimbing IDUKA</label>
+                <label for="pem_iduka">Nama Lengkap Instruktur IDUKA</label>
                 <input :disabled="isLoading" v-model="form.pembimbing_iduka" type="text" id="pem_iduka" class="form form-control form-control-lg" placeholder="Kalau belum tahu, ketik '-'" required>
               </div>
               <div class="mb-4">
