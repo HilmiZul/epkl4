@@ -38,6 +38,7 @@
             <div v-else>
               <div class="fs-1"><i class="bi bi-database-fill"></i></div>
               <div class="fs-4">Belum tersedia</div>
+              Karya Peserta akan muncul disini apabila mereka membuat dan mengirimnya.
             </div>
           </div>
 
