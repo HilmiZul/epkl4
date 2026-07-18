@@ -1,5 +1,8 @@
 # Changelog
 
+### 4.24.5-rc (18 Juli 2026)
+- Add description text when Project Student is empty
+
 ### 4.24.4-rc (17 Juli 2026)
 - Fix bug when siswa is emtpy on Pemetaan Pembimbing
 - Rename label in IDUKA:
