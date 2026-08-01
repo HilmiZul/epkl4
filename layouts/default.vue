@@ -186,7 +186,7 @@ a.link {
   font-weight: bolder;
 }
 a.link:hover {
-  border-bottom: 1.5px solid #000 !important;
+  border-bottom: 1.5px solid #a7a7a7 !important;
 }
 a.link-external {
   text-decoration: none;
