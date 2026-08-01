@@ -32,7 +32,7 @@
                 <option value="IV/c">IV/c</option>
                 <option value="IV/d">IV/d</option>
                 <option value="IV/e">IV/e</option>
-                <option value="IX/IX">IX/IX</option>
+                <option value="IX">IX</option>
               </select>
             </div>
 
