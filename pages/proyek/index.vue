@@ -9,7 +9,7 @@
         <div class="col-md-6">
           <form @submit.prevent="getProjectsByProkelOrPembimbing">
             <div class="my-3 mt-0 input-group">
-              <input v-model="keyword" class="form form-control form-control-lg" type="search" placeholder="🔎 Cari judul proyek / peserta" />
+              <input v-model="keyword" class="form form-control form-control-lg" type="search" placeholder="Cari judul proyek / peserta" />
               <button class="btn btn-dark ms-2 border border-2 border-dark">Cari</button>
             </div>
           </form>

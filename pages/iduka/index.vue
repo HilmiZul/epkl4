@@ -22,7 +22,7 @@
         <div class="col-lg-6">
           <form @submit.prevent="getCompanies">
             <div class="my-3 mt-0 input-group">
-              <input type="search" v-model="keyword" class="form form-control form-control-lg" placeholder="🔎 Cari nama IDUKA" />
+              <input type="search" v-model="keyword" class="form form-control form-control-lg" placeholder="Cari nama IDUKA" />
               <button class="btn btn-dark ms-2 border border-2 border-dark">Cari</button>
             </div>
           </form>
