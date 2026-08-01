@@ -136,7 +136,7 @@
             </div>
             <ul v-else v-for="(n, i) in nilai" :key="i" class="list-group list-group-flush">
               <nuxt-link :to="`/leger/${n.id}`" class="fw-bold">
-                <li class="list-group-item py-3 border-bottom border-2 border-grey">
+                <li class="list-group-item py-3 border-bottom border-1 border-grey">
                   {{ n.expand.siswa.nama }} <br>
                   <div class="text-muted mt-2">{{ n.expand.siswa.kelas }}</div>
                   <div v-if="n.isEntrust" class="text-muted mt-1">

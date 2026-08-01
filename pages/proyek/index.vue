@@ -44,7 +44,7 @@
 
           <ul v-else v-for="project in projects.items" :key="project.id" class="list-group list-group-flush">
             <a class="hand-cursor" data-bs-toggle="modal" data-bs-target="#pratinjau" @click="setProjectToPrantinjau(project)">
-              <li class="list-group-item py-3 border-bottom border-2 border-grey">
+              <li class="list-group-item py-3 border-bottom border-1 border-grey">
                 <div class="fw-bold">{{ project.judul.toUpperCase() }}</div>
 
                 <div class="text-muted fw-bold mt-2 mb-1 small">{{ project.expand.siswa.nama }}</div>
