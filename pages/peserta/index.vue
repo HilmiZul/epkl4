@@ -16,13 +16,13 @@
             </div>
             <div class="modal-body">
               Akun ini akan digunakan Peserta untuk login ke aplikasi. <br>
-              Tekan tombol <strong>Buatkan</strong> untuk membuat akun otomatis.
+              Tekan tombol <strong>Buatkan</strong> untuk membuat semua Akun Peserta.
             </div>
             <div class="modal-footer border-0 justify-content-center">
-              <span v-if="isCreated" class="fst-italic text-muted">Berhasil dibuat!</span>
+              <div v-if="isCreated" class="fst-italic text-muted">Berhasil dibuat!</div>
               <span v-if="isCreatingUser" class="fst-italic text-muted">Membuat akun user peserta</span>
-              <button v-if="!isCreated" @click="buatAkunPeserta" class="btn btn-success me-2 border border-2 border-dark">Buatkan</button>
-              <button v-if="!isCreated" class="btn btn-light border border-2 border-dark" data-bs-dismiss="modal">Nanti saja</button>
+              <button v-if="!isCreated" @click="buatAkunPeserta" class="btn btn-dark me-2 border border-2 border-dark">Buatkan</button>
+              <a v-if="!isCreated" class="link hand-cursor" data-bs-dismiss="modal">Nanti saja</a>
               <button v-if="isCreated" class="btn btn-light border border-2 border-dark" data-bs-dismiss="modal">Tutup</button>
             </div>
           </div>
