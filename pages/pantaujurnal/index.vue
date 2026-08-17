@@ -20,7 +20,7 @@
     <div v-else class="card-body">
       <div class="row">
         <div class="col-md-6">
-          <div class="alert alert-danger">
+          <div class="alert text-bg-dark">
             <div class="fs-3 fw-bold">{{ totalUnvalidateJournal }}</div>
             <div class="fw-normal">Jurnal belum divalidasi</div>
           </div>
@@ -49,11 +49,11 @@
                 <i v-else class="bi bi-bookmark text-dark"></i>
                 {{ journal.expand.iduka.nama }}
               </div>
-              <div class="small text-muted">{{ journal.created }}</div>
+              <div class="small text-muted pt-2">{{ journal.created }}</div>
               <div class="text-muted py-3 pre-text">{{ journal.deskripsi.slice(0, 50) }}*****</div>
-              <div class="small text-muted">{{ journal.expand.program_keahlian.nama }}</div>
+              <div class="badge text-muted border-grey rounded-pill small text-muted">{{ journal.expand.program_keahlian.nama }}</div>
               <div class="small fw-bold pt-1 text-muted">
-                Guru Pembimbing: {{ journal.expand.iduka.expand.pembimbing_sekolah.nama }}
+                Guru Pembimbing: {{ journal.expand.pembimbing.nama }}
               </div>
             </div>
           </div>
@@ -113,7 +113,8 @@ async function getJournalByInvalidAndPublic(loading=true) {
   try {
     let res = await client.collection('jurnal').getList(1, perPage, {
       filter: filter,
-      expand: `siswa.siswa, iduka.pembimbing_sekolah, program_keahlian, elemen`,
+      // expand: `siswa.siswa, iduka.pembimbing_sekolah, program_keahlian, elemen`,
+      expand: `siswa.siswa, iduka.pembimbing_sekolah, program_keahlian, elemen, pembimbing`,
       sort: sort
     })
 
@@ -150,7 +151,7 @@ async function loadMore(page, loading=true) {
 
   let res = await client.collection('jurnal').getList(page, perPage, {
     filter: filter,
-    expand: `siswa.siswa, iduka.pembimbing_sekolah, program_keahlian, elemen`,
+    expand: `siswa.siswa, iduka.pembimbing_sekolah, program_keahlian, elemen, pembimbing`,
     sort: sort
   })
 

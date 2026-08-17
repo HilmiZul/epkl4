@@ -124,9 +124,11 @@ if(role != 'jurusan' && role != 'admin' && role != 'guru') navigateTo('/404')
 
 async function getNilai() {
   isLoading.value = true
+
   client.autoCancellation(false)
   let res = await client.collection('nilai').getFullList({
-    filter: `program_keahlian="${prokel}" && iduka.pembimbing_sekolah="${user.user.value.id}" && isEntrust=True && isValid=True`,
+    // filter: `program_keahlian="${prokel}" && iduka.pembimbing_sekolah="${user.user.value.id}" && isEntrust=True && isValid=True`,
+    filter: `pembimbing="${user.user.value.id}" && isEntrust=True && isValid=True`,
     expand: `siswa, program_keahlian, iduka`,
   })
   if(res) {

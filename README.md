@@ -1,6 +1,6 @@
 # e-PKL
 
-Ini versi mayor yang ditulis ulang menggunakan Javascript (Vue Framework). Perubahan mengikuti perkembangan Kurikulum dengan mengubah PKL sebagai mata pelajaran dan menyesuaikan dengan kebutuhan general lingkungan sekolah.
+Aplikasi pemetaan, jurnal dan rapor PKL untuk Kepsek, Wakasek, Jurusan, Guru Pembimbing dan TU.
 
 Original proyek (versi awal) ini sudah diarsipkan, lihat [dsini](https://github.com/hilmizul/epkl).
 

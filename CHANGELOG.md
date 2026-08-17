@@ -1,5 +1,9 @@
 # Changelog
 
+### 5.0-rc (14 Agustus 2026)
+
+- All-new design, features and business flow 🎉
+
 ### 4.24.5-rc (18 Juli 2026)
 - Add description text when Project Student is empty
 

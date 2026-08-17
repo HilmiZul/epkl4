@@ -27,26 +27,30 @@
           </div>
           <form @submit.prevent="simpanPerubahan">
             <div class="mt-3 mb-4">
-              <label for="nis">NIS (temp)</label>
+              <label for="nis">NIS <span class="text-danger">*</span></label>
               <input v-model="form.nis" :disabled="isLoading || isLoadingSave" id="nis" type="text" class="form form-control form-control-lg" placeholder="NIS sebenarnya!" required>
             </div>
+
             <div class="mb-4">
-              <label for="nisn">NISN (temp)</label>
+              <label for="nisn">NISN <span class="text-danger">*</span></label>
               <input v-model="form.nisn" :disabled="isLoading || isLoadingSave" id="nisn" type="text" class="form form-control form-control-lg" placeholder="NISN sebenarnya!" required>
             </div>
+
             <div class="mb-4">
-              <label for="walikelas">Walikelas</label>
+              <label for="walikelas">Walikelas <span class="text-danger">*</span></label>
               <select v-model="form.walikelas" class="form form-select form-select-lg" id="walikelas">
                 <option value="">- Pilih -</option>
                 <option v-for="w in walikelas" :key="w.id" :value="w.id">{{ w.expand.rombel.nama }} &#8212; {{ w.nama }}</option>
               </select>
             </div>
+
             <div class="my-3 form-check form-switch">
               <input v-model="form.status_rapot" :checked="form.status_rapot" :disabled="isLoading || isLoadingSave" class="form-check-input" type="checkbox" id="checkRapor" switch>
               <label class="form-check-label" for="checkRapor">
                 Ketuntasan Rapor
               </label>
             </div>
+
             <div class="mb-4 text-muted fw-bold">
               <span v-if="form.status_pemetaan_pkl"><i class="bi bi-check-circle"></i> Sudah pemetaan PKL</span>
               <span v-else class="text-danger"><i class="bi bi-x-circle"></i> Belum pemetaan PKL</span>
@@ -55,6 +59,7 @@
               <!--   Pemetaan PKL -->
               <!-- </label> -->
             </div>
+
             <!-- <div v-if="form.status_pemetaan_pkl" class="mb-3 form-check form-switch">
               <input v-model="form.status_acc_pkl" :checked="form.status_acc_pkl" class="form-check-input" type="checkbox" id="checkAcc" switch>
               <label class="form-check-label" for="checkAcc">
@@ -238,7 +243,9 @@ const formReset = ref({
 
 let walikelas = ref('')
 let new_user_update = ref('')
-if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
+let rombel = ref([]) // Next pengembangan, direlasikan dengan rombel
+
+if(role != 'jurusan' && role != 'admin' && role != 'wakasek') navigateTo('/404')
 
 async function simpanPerubahan() {
   try {
@@ -283,8 +290,27 @@ async function getStudentById(loading=true) {
   let res_siswa = await client.collection('siswa').getOne(route.params.id, {
     expand: 'program_keahlian'
   })
+
   if(res_siswa) {
     form.value = res_siswa
+
+    let filterProkel = prokel.map(id => `program_keahlian ?= "${id}"`).join(' || ')
+    let filters = ``
+
+    if(role == 'wakasek') {
+      filterProkel = ``
+      filters = `program_keahlian="${form.value.program_keahlian}"`
+    }
+
+    let res_walikelas = await client.collection('walikelas').getFullList({
+      filter: filterProkel + filters,
+      expand: `rombel`,
+      sort: `rombel.nama, program_keahlian `
+    })
+    if(res_walikelas) {
+      walikelas.value = res_walikelas
+    }
+
     try {
       let res_users = await client.collection('student_users').getList(1,1, {
         filter: "siswa='"+route.params.id+"'"
@@ -334,13 +360,6 @@ async function updateUsername() {
 }
 
 async function getWalikelas() {
-  let res = await client.collection('walikelas').getFullList({
-    filter: `program_keahlian="${prokel}"`,
-    expand: `rombel`
-  })
-  if(res) {
-    walikelas.value = res
-  }
 }
 
 // TODO: belum selesai. masih 400 err code

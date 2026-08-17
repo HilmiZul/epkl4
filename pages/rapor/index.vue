@@ -78,10 +78,12 @@ let toPdf = ref(null) // var untuk nyimpen component yang downloadable PDF
 
 async function getNilai() {
   isLoading.value = true
+
   client.autoCancellation(false)
   let res = await client.collection('nilai').getFullList({
-    filter: `iduka.pembimbing_sekolah="${user?.user.value.id}" && program_keahlian="${prokel}" && isValid=true`,
-    expand: `iduka, iduka.pembimbing_sekolah, siswa, siswa.walikelas, program_keahlian`,
+    // filter: `iduka.pembimbing_sekolah="${user?.user.value.id}" && program_keahlian="${prokel}" && isValid=true`,
+    filter: `pembimbing="${user?.user.value.id}" && isValid=true`,
+    expand: `iduka, siswa, siswa.walikelas, program_keahlian, pembimbing`,
     sort: `-siswa.nama`
   })
   if(res) {

@@ -15,7 +15,7 @@
               <multiselect
                 v-model="form.pembimbing"
                 :options="teachers"
-                :custom-label="({nama}) => `${nama}`"
+                :custom-label="({nama, expand}) => `${nama}`"
                 track-by="nama"
                 label="nama"
                 id="pembimbing"
@@ -122,14 +122,15 @@ let siswa = ref([])
 let form = ref({
   pembimbing: '',
   siswa: [],
-  program_keahlian: ''
+  program_keahlian: []
 })
 
 if(role == 'guru' || role == 'tu') navigateTo('/404')
 
 
 async function buatPemetaan() {
-  form.value.program_keahlian = prokel
+  // form.value.program_keahlian = prokel
+  form.value.program_keahlian = form.value.pembimbing.program_keahlian
   form.value.pembimbing = form.value.pembimbing.id
   let tempStudents = []
   for(let i=0; i<form.value.siswa.length; i++) {
@@ -138,11 +139,16 @@ async function buatPemetaan() {
   isSending.value = true
   isSaved.value = false
   form.value.siswa = tempStudents
+
   let data = await client.collection('pemetaan_pembimbing').create(form.value)
   // ubah status pemetaan guru dan siswa
+  // ubah poembimbing pada table `student_users` dengan id pembimbing baru?
   await client.collection('teacher_users').update(form.value.pembimbing, { status_pemetaan:true })
   for(let i=0; i<form.value.siswa.length; i++) {
-    await client.collection('siswa').update(form.value.siswa[i], { status_pemetaan_pembimbing:true })
+    await client.collection('siswa').update(form.value.siswa[i], { 
+      status_pemetaan_pembimbing:true,
+      guru_pembimbing: form.value.pembimbing
+    })
   }
   if(data) {
     isSending.value = false
@@ -153,21 +159,33 @@ async function buatPemetaan() {
 
 async function getReferences() {
   isLoading.value = true
+
   client.autoCancellation(false)
   let res_teachers = await client.collection('teacher_users').getFullList({
-    filter: `jjm >= 2 && konversi_jjm_ke_jumlah_siswa > 0 && program_keahlian="${prokel}" && role!="admin" && status_pemetaan=false`,
+  // let res_teachers = await client.collection('teacher_users_duplicate').getFullList({
+    // filter: `jjm >= 2 && konversi_jjm_ke_jumlah_siswa > 0 && program_keahlian="${prokel}" && role!="admin" && status_pemetaan=false`,
+    // filter: `jjm >= 2 && konversi_jjm_ke_jumlah_siswa > 0 && role!="admin" && status_pemetaan=false`,
+    filter: client.filter(`program_keahlian ~ "${prokel}" && jjm >= 2 && konversi_jjm_ke_jumlah_siswa > 0 && role!="admin" && status_pemetaan=false`),
     expand: `program_keahlian`,
-    sort: "nama"
+    sort: "program_keahlian, nama"
   })
-  let res_students = await client.collection('siswa').getFullList({
-    // filter: "program_keahlian='"+prokel+"' && status_pemetaan_pembimbing=false",
-    filter: "status_pemetaan_pembimbing=false",
-    sort: "program_keahlian, kelas, nama"
-  })
-  if(res_teachers && res_students) {
+
+  if(res_teachers) {
     isLoading.value = false
     teachers.value = res_teachers
-    students.value = res_students
+    form.value.program_keahlian = teachers.value.program_keahlian
+
+    let res_students = await client.collection('siswa').getFullList({
+      // filter: "program_keahlian='"+prokel+"' && status_pemetaan_pembimbing=false",
+      // filter: "status_pemetaan_pembimbing=false",
+      // filter: client.filter("program_keahlian ?= {:p}", { p: prokel }),
+      filter: client.filter(`program_keahlian ?= "${prokel}" && status_pemetaan_pembimbing=false`),
+      sort: "program_keahlian, kelas, nama"
+    })
+
+    if(res_students) {
+      students.value = res_students
+    }
   }
 }
 

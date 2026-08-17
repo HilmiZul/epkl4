@@ -118,13 +118,17 @@ if(role == 'guru' || role == 'tu') navigateTo('/404')
 async function updatePemetaan() {
   isSending.value = true
   isSaved.value = false
+
   let tempStudents = curr_students.value.concat(form.value.siswa)
-  // console.log(tempStudents)
   let tempStudentsUpdate = []
   for(let i=0; i<tempStudents.length; i++) {
     tempStudentsUpdate.push(tempStudents[i].id)
-    await client.collection('siswa').update(tempStudents[i].id, { status_pemetaan_pembimbing: true })
+    await client.collection('siswa').update(tempStudents[i].id, { 
+      status_pemetaan_pembimbing: true,
+      guru_pembimbing: pemetaan.value.pembimbing
+    })
   }
+
   client.autoCancellation(false)
   let res = await client.collection('pemetaan_pembimbing').update(route.params.id, { siswa: tempStudentsUpdate })
   if(res) {
@@ -143,7 +147,8 @@ async function getReference() {
   })
   let res_students = await client.collection('siswa').getFullList({
     // filter: "program_keahlian='"+prokel+"' && status_pemetaan_pembimbing=false",
-    filter: "status_pemetaan_pembimbing=false",
+    // filter: "status_pemetaan_pembimbing=false",
+    filter: client.filter(`program_keahlian ?= "${prokel}" && status_pemetaan_pembimbing=false`),
     sort: "program_keahlian, kelas, nama"
   })
   if(res_pemetaan && res_students) {

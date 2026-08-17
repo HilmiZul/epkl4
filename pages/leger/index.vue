@@ -251,16 +251,17 @@ let journalValidCount = ref(0)
 
 async function getNilai(loading=true) {
   isLoading.value = loading
-  let filter = ''
+  let filter = `pembimbing="${user_id}"`
   if(keyword.value) {
     searchActived.value = true
-    filter = ` && siswa.nama~"${keyword.value}"`
+    filter = filter + ` && siswa.nama~"${keyword.value}"`
   } else {
     searchActived.value = false
   }
   client.autoCancellation(false)
   let res = await client.collection('nilai').getFullList({
-    filter: `iduka.pembimbing_sekolah="${user_id}" ${filter}`,
+    // filter: `iduka.pembimbing_sekolah="${user_id}" ${filter}`,
+    filter: filter,
     expand: "siswa, iduka, program_keahlian",
     sort: "isValid, siswa",
   })
@@ -274,7 +275,8 @@ async function getNilaiByNotVerify() {
   isLoading.value = true
   client.autoCancellation(false)
   let res = await client.collection('nilai').getFullList({
-    filter: `iduka.pembimbing_sekolah="${user_id}" && isValid=false`
+    // filter: `iduka.pembimbing_sekolah="${user_id}" && isValid=false`
+    filter: `pembimbing="${user_id}" && isValid=false`
   })
   if(res) {
     nilaiNotValid.value = res
@@ -286,7 +288,8 @@ async function getEntrust() {
   isLoading.value = true
   client.autoCancellation(false)
   let res = await client.collection('nilai').getFullList({
-    filter: `iduka.pembimbing_sekolah="${user_id}" && isEntrust=true`,
+    // filter: `iduka.pembimbing_sekolah="${user_id}" && isEntrust=true`,
+    filter: `pembimbing="${user_id}" && isEntrust=true`,
   })
   if(res) {
     count_entrust.value = res
@@ -299,7 +302,8 @@ async function getNilaiFilterByClass() {
 
   let res_nilai = await client.collection('nilai').getFullList({
     filter: `siswa.kelas="${opsiKelas.value}" && isValid=true`,
-    expand: `iduka.pembimbing_sekolah, siswa, program_keahlian`,
+    // expand: `iduka.pembimbing_sekolah, siswa, program_keahlian`,
+    expand: `pembimbing, siswa, program_keahlian, iduka`,
     sort: `program_keahlian, siswa.kelas, siswa.nama`
   })
 
@@ -331,7 +335,7 @@ function unduhLeger() {
     kelas: `XII.${row.expand.siswa.kelas}`,
     iduka: row.expand.iduka.nama,
     instruktur: row.expand.iduka.pembimbing_iduka,
-    guru_pembimbing: row.expand.iduka.expand.pembimbing_sekolah.nama,
+    guru_pembimbing: row.expand.pembimbing.nama,
     nilai_elemen1: row.nilai_elemen1,
     nilai_elemen2: row.nilai_elemen2,
     nilai_elemen3: row.nilai_elemen3,
@@ -359,7 +363,8 @@ function unduhLeger() {
 // FETCH JURNAL by pembimbing.id where draft=false and isValid=false
 async function getJurnalByPembimbing() {
   let res = await client.collection('jurnal').getList(1, 1, {
-    filter: `iduka.pembimbing_sekolah="${user?.user.value.id}" && isDraft=false && isValid=false`
+    // filter: `iduka.pembimbing_sekolah="${user?.user.value.id}" && isDraft=false && isValid=false`
+    filter: `pembimbing="${user?.user.value.id}" && isDraft=false && isValid=false`
   })
 
   if(res) {

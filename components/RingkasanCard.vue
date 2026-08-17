@@ -100,7 +100,7 @@ async function countPeserta() {
 async function countPembimbing() {
   isLoadingPembimbing.value = true
   let res_pembimbing = await client.collection('teacher_users').getFullList({
-    filter: "program_keahlian='"+prokel+"' && role!='admin'"
+    filter: `program_keahlian ~ "${prokel}" && role!='admin'`
   })
   if(res_pembimbing) {
     isLoadingPembimbing.value = false

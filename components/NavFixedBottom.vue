@@ -8,12 +8,21 @@
             <span class="smallest">Home</span>
           </nuxt-link>
         </li>
+
         <li class="nav-item me-2">
-          <nuxt-link class="nav-link text-dark" to="/pemetaan/pkl">
-            <i class="bi bi-diagram-3-fill fs-5"></i> <br>
-            <span class="smallest">Pemetaan</span>
+          <nuxt-link class="nav-link text-dark" to="/iduka">
+            <i class="bi bi-buildings fs-5"></i> <br>
+            <span class="smallest">IDUKA</span>
           </nuxt-link>
         </li>
+
+        <li class="nav-item me-2">
+          <nuxt-link class="nav-link text-dark" href="/peserta">
+            <i class="bi bi-people fs-5"></i> <br>
+            <span class="smallest">Peserta</span>
+          </nuxt-link>
+        </li>
+
         <li class="nav-item me-2">
           <nuxt-link class="nav-link text-dark" to="/jurnal">
             <div v-if="countInvalidatedJournal > 0" class="badge bg-danger rounded-5 smallest">
@@ -23,21 +32,14 @@
             <span class="smallest">Jurnal</span>
           </nuxt-link>
         </li>
-        <li class="nav-item me-2">
-          <nuxt-link class="nav-link text-dark" href="/leger">
-            <div v-if="countInvalidatedNilai > 0" class="badge bg-danger rounded-5 smallest">
-              {{ countInvalidatedNilai }}
-            </div>
-            <i class="bi bi-patch-check fs-5"></i> <br>
-            <span class="smallest">Leger</span>
-          </nuxt-link>
-        </li>
+
         <li class="nav-item">
           <nuxt-link class="nav-link text-dark" href="/profil">
             <i class="bi bi-person fs-5"></i> <br>
             <span class="smallest">Profil</span>
           </nuxt-link>
         </li>
+
         <!-- <li class="nav-item">
           <nuxt-link class="nav-link  text-dark" href="/ubah-password">
             <i class="bi bi-key fs-4"></i> <br>
@@ -59,7 +61,8 @@ let countInvalidatedNilai = ref(0)
 
 async function getCountInvalidatedJournal() {
   let res = await client.collection('jurnal').getList(1,1, {
-    filter: `iduka.pembimbing_sekolah="${user.user.value.id}" && isValid=false && isDraft=false`
+    // filter: `iduka.pembimbing_sekolah="${user.user.value.id}" && isValid=false && isDraft=false`
+    filter: `pembimbing="${user.user.value.id}" && isValid=false && isDraft=false`
   })
   if(res) {
     countInvalidatedJournal.value = res.totalItems
@@ -68,7 +71,8 @@ async function getCountInvalidatedJournal() {
 
 async function getCountInvalidatedNilai() {
   let res = await client.collection('nilai').getList(1,1, {
-    filter: `iduka.pembimbing_sekolah="${user.user.value.id}" && isValid=false`,
+    // filter: `iduka.pembimbing_sekolah="${user.user.value.id}" && isValid=false`,
+    filter: `pembimbing="${user.user.value.id}" && isValid=false`,
   })
   if(res) {
     countInvalidatedNilai.value = res.totalItems
@@ -81,9 +85,9 @@ onMounted(() => {
   client.collection('jurnal').subscribe('*', function(e){
     if(e.action == 'create' || e.action == 'update') getCountInvalidatedJournal()
   },{})
-  client.collection('nilai').subscribe('*', function(e){
-    if(e.action == 'create' || e.action == 'update') getCountInvalidatedNilai()
-  },{})
+  // client.collection('nilai').subscribe('*', function(e){
+  //   if(e.action == 'create' || e.action == 'update') getCountInvalidatedNilai()
+  // },{})
 })
 </script>
 

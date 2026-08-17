@@ -35,7 +35,7 @@
                   <hr>
                 </div>
                 <div class="col-lg-12">
-                  <div v-if="isSaved" class="alert alert-success">Berhasil tersimpan!</div>
+                  <div v-if="isSaved" class="alert alert-secondary">Berhasil tersimpan!</div>
                 </div>
 
                 <div class="col-lg-6">
@@ -512,6 +512,40 @@ async function getNilai(loading=true, isCert=false) {
       deskripsi_temp4.value = form.value.deskripsi_elemen4 || []
       isLoading.value = false
       isCertificate.value = true
+
+      isLoadingElemen.value = true
+
+      // cek dulu apakah nilai sudah di muat?
+      // kalau udah, baru await ke collection elemen_cp
+      // fetch elemen_cp berdasarkan prokel yang sama dengan nilai, single to single
+      if(form.value) {
+        client.autoCancellation(false)
+        let res = await client.collection('elemen_cp').getFullList({
+          filter: `program_keahlian="${form.value.program_keahlian}" && elemen!="Lain-lain"`
+        })
+
+        if(res) {
+          elemens.value = res
+          isLoadingElemen.value = false
+          for (let i = 0; i < elemens.value.length; i++) {
+            if(elemens.value[i].elemen == 'Internalisasi dan penerapan soft skills') {
+              deskripsi.value.elemen1.push(elemens.value[i].tujuan)
+            }
+            else if(elemens.value[i].elemen == 'Penerapan hard skills') {
+              deskripsi.value.elemen2.push(elemens.value[i].tujuan)
+            }
+            else if(elemens.value[i].elemen == 'Peningkatan dan pengembangan hard skills') {
+              deskripsi.value.elemen3.push(elemens.value[i].tujuan)
+            }
+            else if(elemens.value[i].elemen == 'Penyiapan Kemandirian Berwirausaha') {
+              deskripsi.value.elemen4.push(elemens.value[i].tujuan)
+            }
+          }
+          // gabungin tujuan hardskill el 2 dan 3 (pengembangan)
+          // lalu deskripsi.elemen2 di looping di Peningkatan dan Pengembangan hardskill
+          deskripsi.value.elemen2 = deskripsi.value.elemen2.concat(deskripsi.value.elemen3)
+        }
+      }
     }
   } catch(error) {
     isLoading.value = false
@@ -533,39 +567,8 @@ function compressFileLogo(e) {
   })
 }
 
-async function getElemen() {
-  isLoadingElemen.value = true
-  client.autoCancellation(false)
-  let res = await client.collection('elemen_cp').getFullList({
-    filter: `program_keahlian="${prokel}" && elemen!="Lain-lain"`
-  })
-  if(res) {
-    elemens.value = res
-    isLoadingElemen.value = false
-    for (let i = 0; i < elemens.value.length; i++) {
-      if(elemens.value[i].elemen == 'Internalisasi dan penerapan soft skills') {
-        deskripsi.value.elemen1.push(elemens.value[i].tujuan)
-      }
-      else if(elemens.value[i].elemen == 'Penerapan hard skills') {
-        deskripsi.value.elemen2.push(elemens.value[i].tujuan)
-      }
-      else if(elemens.value[i].elemen == 'Peningkatan dan pengembangan hard skills') {
-        deskripsi.value.elemen3.push(elemens.value[i].tujuan)
-      }
-      else if(elemens.value[i].elemen == 'Penyiapan Kemandirian Berwirausaha') {
-        deskripsi.value.elemen4.push(elemens.value[i].tujuan)
-      }
-    }
-    // gabungin tujuan hardskill el 2 dan 3 (pengembangan)
-    // lalu deskripsi.elemen2 di looping di Peningkatan dan Pengembangan hardskill
-    deskripsi.value.elemen2 = deskripsi.value.elemen2.concat(deskripsi.value.elemen3)
-
-  }
-}
-
 onMounted(() => {
   getNilai()
-  getElemen()
   // client.autoCancellation(false)
   // client.collection('nilai').subscribe('*', function(e) {
   //   // getNilai params:

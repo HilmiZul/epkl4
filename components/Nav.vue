@@ -16,19 +16,19 @@
               <nuxt-link to="/profil" v-if="role ==='admin' || role === 'jurusan' || role === 'guru'" :activeClass="activeClass">
                 <li class="list-group-item"><i class="bi bi-person-fill"></i> Profil</li>
               </nuxt-link>
-              <!-- <nuxt-link to="/walikelas" v-if="role ==='admin' || role === 'jurusan' || role === 'wakasek'" :activeClass="activeClass"> -->
-              <!--   <li class="list-group-item"><i class="bi bi-person-workspace"></i> Walikelas</li> -->
-              <!-- </nuxt-link> -->
+              <nuxt-link to="/walikelas" v-if="role ==='admin' || role === 'wakasek'" :activeClass="activeClass">
+                <li class="list-group-item"><i class="bi bi-person-workspace"></i> Walikelas</li>
+              </nuxt-link>
               <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" to="/elemen" :activeClass="activeClass">
                 <li class="list-group-item"><i class="bi bi-journal-bookmark-fill"></i> Elemen</li>
               </nuxt-link>
               <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role === 'wakasek' || role == 'tu'" to="/pembimbing" :activeClass="activeClass">
                 <li class="list-group-item"><i class="bi bi-emoji-smile"></i> Pembimbing</li>
               </nuxt-link>
-              <nuxt-link v-if="role === 'admin' || role === 'jurusan'" to="/peserta" :activeClass="activeClass">
-                <li class="list-group-item"><i class="bi bi-people-fill"></i> Peserta <span v-if="peserta > 0" class="badge rounded-5 text-dark float-end">{{ peserta }}</span></li>
+              <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role == 'guru' || role == 'wakasek'" to="/peserta" :activeClass="activeClass">
+                <li class="list-group-item"><i class="bi bi-people-fill"></i> Peserta <span v-if="(role == 'admin' || role == 'jurusna') && peserta > 0" class="badge rounded-5 text-bg-danger float-end">{{ peserta }}</span></li>
               </nuxt-link>
-              <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role === 'wakasek' || role === 'tu'" to="/iduka" :activeClass="activeClass">
+              <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role == 'guru' || role === 'wakasek' || role === 'tu'" to="/iduka" :activeClass="activeClass">
                 <li class="list-group-item"><i class="bi bi-buildings-fill"></i> IDUKA</li>
               </nuxt-link>
               <nuxt-link to="/pemetaan/pkl" :activeClass="activeClass">
@@ -41,10 +41,10 @@
                 <li class="list-group-item"><i class="bi bi-people-fill"></i> Pemetaan Pembimbing</li>
               </nuxt-link> -->
               <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" to="/jurnal" :activeClass="activeClass">
-                <li class="list-group-item"><i class="bi bi-journals"></i> Jurnal<span v-if="jurnal > 0" class="badge rounded-5 text-dark float-end">{{ jurnal }}</span></li>
+                <li class="list-group-item"><i class="bi bi-journals"></i> Jurnal<span v-if="jurnal > 0" class="badge rounded-5 text-bg-danger float-end">{{ jurnal }}</span></li>
               </nuxt-link>
               <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role == 'guru' || role == 'wakasek'" to="/leger" :activeClass="activeClass">
-                <li class="list-group-item"><i class="bi bi-patch-check"></i> Leger <span v-if="nilai > 0" class="badge rounded-5 text-dark float-end">{{ nilai }}</span></li>
+                <li class="list-group-item"><i class="bi bi-patch-check"></i> Leger <span v-if="nilai > 0" class="badge rounded-5 text-bg-danger float-end">{{ nilai }}</span></li>
               </nuxt-link>
               <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role == 'guru'" to="/rapor" :activeClass="activeClass">
                 <li class="list-group-item"><i class="bi bi-book"></i> Rapor</li>
@@ -114,7 +114,8 @@ const moreConfetti = async () => {
 async function getNilai() {
   client.autoCancellation(false)
   let res = await client.collection('nilai').getList(1, 1, {
-    filter: `iduka.pembimbing_sekolah="${user.user.value.id}" && isValid=false`,
+    // filter: `iduka.pembimbing_sekolah="${user.user.value.id}" && isValid=false`,
+    filter: `pembimbing="${user.user.value.id}" && isValid=false`,
   })
   if(res) {
     nilai.value = res.totalItems
@@ -124,7 +125,8 @@ async function getNilai() {
 async function getJurnal() {
   client.autoCancellation(false)
   let res = await client.collection('jurnal').getList(1,1, {
-    filter: `iduka.pembimbing_sekolah="${user.user.value.id}" && isValid=false && isDraft=false`
+    // filter: `iduka.pembimbing_sekolah="${user.user.value.id}" && isValid=false && isDraft=false`
+    filter: `pembimbing="${user.user.value.id}" && isValid=false && isDraft=false`
   })
   if(res) {
     jurnal.value = res.totalItems
@@ -145,25 +147,25 @@ onMounted(() => {
   getNilai()
   getJurnal()
   getPeserta()
-  client.collection('jurnal').subscribe('*', function(e){
-    if(e.action == 'update' || e.action == 'create') getJurnal()
-  },{})
+  // client.collection('jurnal').subscribe('*', function(e){
+  //   if(e.action == 'update' || e.action == 'create') getJurnal()
+  // },{})
 
-  client.collection('siswa').subscribe('*', function(e){
-    if(e.action == 'update') getPeserta()
-  },{})
+  // client.collection('siswa').subscribe('*', function(e){
+  //   if(e.action == 'update') getPeserta()
+  // },{})
 
-  client.collection('iduka').subscribe('*', function(e){
-    if(e.action == 'update') getJurnal()
-  },{})
+  // client.collection('iduka').subscribe('*', function(e){
+  //   if(e.action == 'update') getJurnal()
+  // },{})
 
-  client.collection('teacher_users').subscribe('*', function(e){
-    if(e.action == 'update') user?.user.value
-  },{})
+  // client.collection('teacher_users').subscribe('*', function(e){
+  //   if(e.action == 'update') user?.user.value
+  // },{})
 
-  client.collection('nilai').subscribe('*', function(e){
-    if(e.action == 'update') getNilai()
-  },{})
+  // client.collection('nilai').subscribe('*', function(e){
+  //   if(e.action == 'update') getNilai()
+  // },{})
 })
 </script>
 

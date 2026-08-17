@@ -8,7 +8,7 @@
         <h5 class="fw-bold">Peserta belum terpetakan</h5>
         <div class="small text-muted">{{ students.totalItems }} peserta</div>
       </div>
-      <table class="table table-striped border border-3 border-dark small">
+      <table class="table table-striped small">
         <tbody>
           <tr v-for="(s,i) in students.items" :key="s.id" class="fw-bold">
             <td>
@@ -25,10 +25,10 @@
         </div>
       </div>
       <button :disabled="isMovingPage || students.page < 2" @click="pagination(students.page - 1, false)" class="btn btn-dark me-2 border border-2 border-dark">
-        <i class="bi bi-arrow-left"></i> sebelumnya
+        <i class="bi bi-arrow-left"></i>
       </button>
       <button :disabled="isMovingPage || students.page >= students.totalPages" @click="pagination(students.page + 1, false)" class="btn btn-outline-dark border border-2 border-dark">
-        selanjutnya <i class="bi bi-arrow-right"></i>
+        <i class="bi bi-arrow-right"></i>
       </button>
     </div>
   </div>
@@ -41,7 +41,7 @@ let prokel = user?.user.value.program_keahlian
 let students = ref([])
 let isLoading = ref(false)
 let isMovingPage = ref(false)
-let totalPerPage = 10
+let totalPerPage = 7
 
 async function getPesertaBelumTerpetakanByProkel() {
   isLoading.value = true

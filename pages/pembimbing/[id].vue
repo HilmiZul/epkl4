@@ -14,23 +14,39 @@
           <form @submit.prevent="updatePembimbingBaru">
             <div v-if="role == 'wakasek'" class="mb-4">
               <label for="program_keahlian">Program Keahlian</label>
-              <select v-model="form.program_keahlian" class="form form-select form-select-lg" id="program_keahlian" required>
-                <option disabled value="">&#8212;</option>
-                <option v-for="p in program_keahlians" :key="p.id" :value="p.id">{{ p.nama }}</option>
-              </select>
+              <multiselect
+                v-model="form.program_keahlian"
+                :options="program_keahlians"
+                :custom-label="({nama}) => `${nama}`"
+                :multiple="true"
+                track-by="nama"
+                label="nama"
+                id="pembimbing"
+                placeholder="Pilih satu atau lebih"
+                required>
+                <template v-slot:singleLabel="{ option }"><strong>{{ option.nama }}</strong></template>
+              </multiselect>
+              <!-- <select v-model="form.program_keahlian" class="form form-select form-select-lg" id="program_keahlian" required> -->
+              <!--   <option disabled value="">&#8212;</option> -->
+              <!--   <option v-for="p in program_keahlians" :key="p.id" :value="p.id">{{ p.nama }}</option> -->
+              <!-- </select> -->
             </div>
+
             <div class="mb-4">
               <label for="username">Username</label>
-              <input v-model="form.username" :disabled="isLoading || form.program_keahlian.length < 1"  type="text" id="username" class="form form-control form-control-lg" placeholder="masukkan username" required autofocus>
+              <input v-model="form.username" :disabled="isLoading"  type="text" id="username" class="form form-control form-control-lg" placeholder="masukkan username" required autofocus>
             </div>
+
             <div class="my-4">
               <label for="nama">Nama Lengkap dan Gelar</label>
               <input v-model="form.nama" :disabled="isLoading" type="text" id="nama" class="form form-control form-control-lg" placeholder="masukkan nama Guru Pembimbing" required>
             </div>
+
             <div class="my-4">
               <label for="nip">NIP</label>
               <input v-model="form.nip" :disabled="isLoading" type="text" id="nip" class="form form-control form-control-lg" placeholder="kosongkan jika tidak ada">
             </div>
+
             <div class="my-4">
               <label for="pangkat_golongan">Pangkat Golongan</label>
               <select v-model="form.pangkat_golongan" :disabled="form.nama.length < 4" id="pangkat_golongan" class="form form-control form-select form-select-lg" required>
@@ -44,17 +60,20 @@
                 <option value="IV/c">IV/c</option>
                 <option value="IV/d">IV/d</option>
                 <option value="IV/e">IV/e</option>
-                <option value="IX/IX">IX/IX</option>
+                <option value="IX">IX</option>
+                <option value="-">-</option>
               </select>
             </div>
+
             <div class="my-4">
               <label for="kelompok_mapel">Kelompok Mapel</label>
-              <select v-model="form.kelompok_mapel" :disabled="form.pangkat_golongan.length < 4" id="kelompok_mapel" class="form form-control form-select form-select-lg" required>
+              <select v-model="form.kelompok_mapel" :disabled="form.pangkat_golongan.length < 1" id="kelompok_mapel" class="form form-control form-select form-select-lg" required>
                 <option disabled value="">—</option>
                 <option value="Guru Kejuruan">Guru Kejuruan</option>
                 <option value="Guru Umum">Guru Umum</option>
               </select>
             </div>
+
             <div class="my-4">
               <label for="role">Role</label>
               <select v-model="form.role" id="role" class="form form-control form-select form-select-lg" required>
@@ -63,6 +82,7 @@
                 <option value="guru">Guru Pembimbing</option>
               </select>
             </div>
+
             <div class="my-4 alert alert-secondary">
               <label for="jjm">Jumlah Jam Mengajar (minimal 2 JP)</label>
               <input @input="jumlahPesertaDidik" v-model="form.jjm" :disabled="form.kelompok_mapel.length < 4" type="number" id="jjm" min="2" max="40" class="form form-control form-control-lg" required>
@@ -70,6 +90,7 @@
                 Membimbing <span class="fw-bold">{{ form.konversi_jjm_ke_jumlah_siswa }}</span> peserta didik
               </div>
             </div>
+
             <button :disabled="isSending || isLoading || form.username == '' || form.email == '' || form.password == '' || form.nama == '' || form.role == ''" class="btn btn-dark me-2 border border-2 border-dark me-3">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
@@ -79,31 +100,6 @@
           </form>
         </div>
         <!-- tutup .col-md-5 -->
-
-        <div class="col-md-6">
-          <div class="alert">
-            <div class="fs-5 fw-bold mb-3"><i class="bi bi-lock-fill"></i> Reset Password</div>
-
-            <div v-if="isSuccessReset" class="alert alert-success">Password berhasil direset!</div>
-            <div v-if="isResetError" class="alert alert-danger">Password tidak sama!</div>
-
-            <form @submit.prevent="resetPassword">
-              <div class="mb-4">
-                <label for="password">Password (minimal 8 karakter)</label>
-                <input v-model="formReset.password" type="password" id="password" class="form form-control form-control-lg" placeholder="masukkan password min.8 karakter" required>
-              </div>
-              <div class="my-4">
-                <label for="passwordConfirm">Konfirmasi Password</label>
-                <input v-model="formReset.passwordConfirm" :disabled="formReset.password.length < 8" type="password" id="passwordConfirm" class="form form-control form-control-lg" placeholder="ketik ulang password" required>
-              </div>
-
-              <button :disabled="isSendingReset || formReset.password == '' || formReset.passwordConfirm.length < 8" class="btn btn-dark me-2 border border-2 border-dark">
-                <span v-if="!isSendingReset">Simpan</span>
-                <span v-else>Sedang menyimpan</span>
-              </button>
-            </form>
-          </div>
-        </div>
       </div>
       <!-- tutup .row -->
     </div>
@@ -124,12 +120,9 @@ let route = useRoute()
 let prokel = user.user.value.program_keahlian
 let isSaved = ref(false)
 let isSending = ref(false)
-let isSendingReset = ref(false)
 let isLoading = ref(true)
 let isFail = ref(false)
 let errMessage = ref('')
-let isSuccessReset = ref(false)
-let isResetError = ref(false)
 
 let form = ref({
   username: 'loading',
@@ -139,13 +132,8 @@ let form = ref({
   kelompok_mapel: 'loading',
   jjm: '2',
   konversi_jjm_ke_jumlah_siswa: 0,
-  program_keahlian: '',
+  program_keahlian: [],
   role: 'loading',
-})
-
-let formReset = ref({
-  password: "",
-  passwordConfirm: "",
 })
 
 let program_keahlians = ref([])
@@ -159,6 +147,15 @@ async function updatePembimbingBaru() {
     isSending.value = true
     isSaved.value = false
     form.value.username = form.value.username.toLowerCase()
+
+    // untuk multiple prokel
+    let tempProkel = []
+    for(let i=0; i<form.value.program_keahlian.length; i++) {
+      tempProkel.push(form.value.program_keahlian[i].id)
+    }
+    form.value.program_keahlian = tempProkel
+
+    // let data = await client.collection('teacher_users').update(route.params.id, form.value)
     let data = await client.collection('teacher_users').update(route.params.id, form.value)
     if(data) {
       isSending.value = false
@@ -176,12 +173,16 @@ async function updatePembimbingBaru() {
 async function getPembimbingByIdAndStudentByProkel(loading=true) {
   isLoading.value = loading
   let data = await client.collection('teacher_users').getOne(route.params.id, {
+  // let data = await client.collection('teacher_users_duplicate').getOne(route.params.id, {
     expand: `program_keahlian`
   })
 
   if(data) {
     isLoading.value = false
     form.value = data
+
+    // update nilai form.program_keahlian saat ini dengan full obj dari expand.program_keahlian
+    form.value.program_keahlian = data.expand.program_keahlian
 
     let res_students = await client.collection('siswa').getList(1, 1)
 
@@ -195,29 +196,6 @@ async function getProkel() {
   let res = await client.collection('program_keahlian').getFullList()
   if(res) {
     program_keahlians.value = res
-  }
-}
-
-async function resetPassword() {
-  isSendingReset.value = true
-  isSuccessReset.value = false
-  isResetError.value = false
-
-  try {
-    let res = await client.collection('teacher_users').update(route.params.id, formReset.value)
-
-    if(res) {
-      isSendingReset.value = false
-      isSuccessReset.value = true
-      formReset.value.password = ""
-      formReset.value.passwordConfirm = ""
-    }
-  } catch (err) {
-    isResetError.value = true
-    isSuccessReset.value = false
-    isSendingReset.value = false
-    formReset.value.password = ""
-    formReset.value.passwordConfirm = ""
   }
 }
 

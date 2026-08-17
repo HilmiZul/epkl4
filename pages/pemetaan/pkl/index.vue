@@ -6,7 +6,7 @@
         <nuxt-link to="/pemetaan/pembimbing" class="btn btn-light btn-sm border border-2 border-dark ms-2">Pembimbing</nuxt-link>
       </div>
       <div v-if="isIdukaAvailable?.totalItems > 0" class="float-end">
-        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/pemetaan/pkl/tambah" class="btn btn-dark btn-sm border border-2 border-dark"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
+        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/pemetaan/pkl/tambah" class="btn btn-dark btn-sm border border-2 border-dark"><i class="bi bi-plus-lg"></i> PKL</nuxt-link>
       </div>
     </div>
     <div class="card-body">
@@ -22,7 +22,7 @@
 
         <div v-if="role == 'admin' || role == 'jurusan'" class="col-md-3 mb-3">
           <select @change="getPemetaan" v-model="selectedPembimbing" name="filterPembimbing" id="" class="form form-select form-select-lg">
-            <option value="">&#8212; Pembimbing &#8212;</option>
+            <option value="">Semua Pembimbing</option>
             <option v-for="p in pembimbing" :key="p.id" :value="p.id">{{ p.nama }}</option>
           </select>
         </div> 
@@ -133,10 +133,10 @@
                 </div>
               </div>
               <button :disabled="isMovingPage || mapping.page < 2" @click="pagination(mapping.page - 1, false)" class="btn btn-dark me-2 border border-2 border-dark">
-                <i class="bi bi-arrow-left"></i> sebelumnya
+                <i class="bi bi-arrow-left"></i>
               </button>
               <button :disabled="isMovingPage || mapping.page >= mapping.totalPages" @click="pagination(mapping.page + 1, false)" class="btn btn-outline-dark border border-2 border-dark">
-                selanjutnya <i class="bi bi-arrow-right"></i>
+                <i class="bi bi-arrow-right"></i>
               </button>
             </span>
           </div>
@@ -318,14 +318,17 @@ async function handleAccPkl(iduka) {
 async function getPemetaan() {
   isLoading.value = true
   let searchActive = ''
+
   if(keyword.value != '') {
     searchActivated.value = true
     searchActive = " && (iduka.nama~'"+keyword.value+"' || siswa.nama~'"+keyword.value+"')"
   } else {
     searchActivated.value = false
   }
+
   // atur filter berdasarkan role: `tu` atau selain `tu`
-  let filterQuery = "program_keahlian='"+prokel+"' && iduka.pembimbing_sekolah='"+user.user.value.id+"'"
+  const filters = prokel.map(id => `program_keahlian ?= "${id}"`).join(' || ')
+  let filterQuery = `${filters} && iduka.pembimbing_sekolah="${user.user.value.id}"`
 
   // filterQuery dikosongkan untuk role: TU tanpa keyword pencarian
   // atau dengan opsi filter prokel
@@ -334,7 +337,7 @@ async function getPemetaan() {
     searchActive = ""
     if(keyword.value != '' && selectedProkel.value != '') {
       searchActivated.value = true
-      filterQuery = "program_keahlian='"+selectedProkel.value+"'"
+      filterQuery = `program_keahlian="${selectedProkel.value}"`
       searchActive = " && (iduka.nama~'"+keyword.value+"' || siswa.nama~'"+keyword.value+"')"
     }
     else if(keyword.value != '') {
@@ -342,7 +345,7 @@ async function getPemetaan() {
       searchActive = "iduka.nama~'"+keyword.value+"' || siswa.nama~'"+keyword.value+"'"
     }
     else if(selectedProkel.value != '') {
-      filterQuery = "program_keahlian='"+selectedProkel.value+"'"
+      filterQuery = `program_keahlian="${selectedProkel.value}"`
       // searchActive = " && (iduka.nama~'"+keyword.value+"' || siswa.nama~'"+keyword.value+"')"
     }
   }
@@ -351,13 +354,16 @@ async function getPemetaan() {
   // filterQuery untuk role: jurusan/manajemen
   else if(role == 'jurusan') {
     if(selectedPembimbing.value) {
-      filterQuery = `program_keahlian="${prokel}" && iduka.pembimbing_sekolah="${selectedPembimbing.value}"`
+      filterQuery = `${filters} && iduka.pembimbing_sekolah="${selectedPembimbing.value}"`
     } else {
-      filterQuery = `program_keahlian="${prokel}"`
+      filterQuery = `${filters}`
     }
   }
+
   // filterQuery untuk role: guru pembimbing
-  else if(role == 'guru') filterQuery = "program_keahlian='"+prokel+"' && iduka.pembimbing_sekolah='"+user.user.value.id+"'"
+  else if(role == 'guru') {
+    filterQuery = `iduka.pembimbing_sekolah="${user.user.value.id}"`
+  }
   // else if(role == 'guru') filterQuery = "program_keahlian='"+prokel+"' && siswa.pembimbing='"+user.user.value.id+"'"
 
   client.autoCancellation(false)
@@ -366,6 +372,7 @@ async function getPemetaan() {
     expand: "iduka, iduka.pembimbing_sekolah, siswa, program_keahlian",
     sort: "status_acc_pkl, iduka.wilayah, iduka.nama",
   })
+
   if(data) {
     isLoading.value = false
     mapping.value = data
@@ -403,29 +410,50 @@ async function getPemetaan() {
   }
 }
 
+
 async function pagination(page, loading=true) {
   isLoading.value = loading
   isMovingPage.value = true
   let searchActive = ''
+
+  if(keyword.value != '') {
+    searchActivated.value = true
+    searchActive = " && (iduka.nama~'"+keyword.value+"' || siswa.nama~'"+keyword.value+"')"
+  } else {
+    searchActivated.value = false
+  }
+
   // atur filter berdasarkan role: `tu` atau selain `tu`
-  let filterQuery = "program_keahlian='"+prokel+"' && iduka.pembimbing_sekolah='"+user.user.value.id+"'"
+  const filters = prokel.map(id => `program_keahlian ?= "${id}"`).join(' || ')
+  let filterQuery = `${filters} && iduka.pembimbing_sekolah="${user.user.value.id}"`
+
   if(role == 'tu' || role == 'wakasek') {
     filterQuery = ""
     searchActive = ""
     if(keyword.value != '' && selectedProkel.value != '') {
-      filterQuery = "program_keahlian='"+selectedProkel.value+"'"
+      filterQuery = `program_keahlian="${selectedProkel.value}"`
       searchActive = " && (iduka.nama~'"+keyword.value+"' || siswa.nama~'"+keyword.value+"')"
     }
     else if(keyword.value != '') {
       searchActive = "iduka.nama~'"+keyword.value+"' || siswa.nama~'"+keyword.value+"'"
     }
     else if(selectedProkel.value != '') {
-      filterQuery = "program_keahlian='"+selectedProkel.value+"'"
+      filterQuery = `program_keahlian="${selectedProkel.value}"`
       // searchActive = " && (iduka.nama~'"+keyword.value+"' || siswa.nama~'"+keyword.value+"')"
     }
   }
-  else if(role == 'jurusan') filterQuery = "program_keahlian='"+prokel+"'"
-  else if(role == 'guru') filterQuery = "program_keahlian='"+prokel+"' && iduka.pembimbing_sekolah='"+user.user.value.id+"'"
+  else if(role == 'jurusan') {
+    if(selectedPembimbing.value) {
+      filterQuery = `${filters} && iduka.pembimbing_sekolah="${selectedPembimbing.value}"`
+    } else {
+      filterQuery = `${filters}`
+    }
+  }
+
+  // filterQuery untuk role: guru pembimbing
+  else if(role == 'guru') {
+    filterQuery = `iduka.pembimbing_sekolah="${user.user.value.id}"`
+  }
   // else if(role == 'guru') filterQuery = "program_keahlian='"+prokel+"' && siswa.pembimbing='"+user.user.value.id+"'"
 
   client.autoCancellation(false)
@@ -434,6 +462,7 @@ async function pagination(page, loading=true) {
     expand: "iduka, iduka.pembimbing_sekolah, siswa, program_keahlian",
     sort: "status_acc_pkl, iduka.wilayah, iduka.nama",
   })
+
   if(data) {
     isLoading.value = false
     mapping.value = data
@@ -497,7 +526,7 @@ async function getIdukaIsAvailable(loading=true) {
 async function getPembimbing() {
   isLoading.value = true
   let res = await client.collection('teacher_users').getFullList({
-    filter: `program_keahlian="${prokel}" && role!='admin'`,
+    filter: `program_keahlian ~ "${prokel}" && role!="admin"`,
     sort: `nama`
   })
   if(res) {

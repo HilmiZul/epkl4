@@ -12,7 +12,7 @@
           IDUKA yang diarsipkan tidak dapat diisi/petakan. Untuk membukanya, klik lagi icon <i class="bi bi-chat-right-text"></i> lalu klik tombol <span class="fw-bold">Buka arsip</span>.
           <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>-->
-        <ringkasan-notif-jurnal />
+        <!-- <ringkasan-notif-jurnal /> -->
         <ringkasan-personal />
         <!-- <ringkasan-fyi v-if="role == 'admin' || role == 'jurusan'" /> -->
         <ringkasan-card />
@@ -35,7 +35,7 @@
       <div class="card-body">
         <div class="row">
           <div class="col-lg-12">
-            <ringkasan-notif-jurnal />
+            <!-- <ringkasan-notif-jurnal /> -->
             <ringkasan-personal />
           </div>
         </div>

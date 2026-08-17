@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="card-body">
-      <div v-if="peserta_belum_pemetaan?.totalItems > 0" class="alert alert-secondary">
+      <div v-if="role == 'jurusan' && peserta_belum_pemetaan?.totalItems > 0" class="alert alert-secondary">
         Ada <span class="fw-bold">{{ peserta_belum_pemetaan.totalItems }}</span> yang belum pemetaan PKL. <span class="hand-cursor border-bottom border-2 border-dark" data-bs-toggle="modal" data-bs-target="#peserta-belum-pemetaan">Lihat</span>
       </div>
 
@@ -43,7 +43,7 @@
               <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-              <div class="text-muted">{{ peserta_belum_pemetaan?.totalItems }} peserta</div>
+              <div class="text-muted badge border-1 border-grey">{{ peserta_belum_pemetaan?.totalItems }} peserta</div>
               <table class="table table-striped border border-2 border-dark my-2">
                 <tbody>
                   <tr v-for="(p,i) in peserta_belum_pemetaan.items" :key="p.id" class="fw-bold">
@@ -58,10 +58,10 @@
                 <span v-if="peserta_belum_pemetaan?.totalItems">Halaman {{ peserta_belum_pemetaan.page }} dari {{ peserta_belum_pemetaan.totalPages }}</span>
               </div>
               <button :disabled="isMovingPageModal || peserta_belum_pemetaan.page < 2" @click="paginationPesertaBelumPemetaan(peserta_belum_pemetaan.page - 1)" class="btn btn-dark btn-sm me-2 border border-2 border-dark">
-                <i class="bi bi-arrow-left"></i> sebelumnya
+                <i class="bi bi-arrow-left"></i>
               </button>
               <button :disabled="isMovingPageModal || peserta_belum_pemetaan.page >= peserta_belum_pemetaan.totalPages" @click="paginationPesertaBelumPemetaan(peserta_belum_pemetaan.page + 1)" class="btn btn-outline-dark btn-sm border border-2 border-dark">
-                selanjutnya <i class="bi bi-arrow-right"></i>
+                <i class="bi bi-arrow-right"></i>
               </button>
             </div>
           </div>
@@ -87,6 +87,16 @@
             </div>
           </form>
         </div>
+
+        <div v-if="role == 'tu' || role == 'wakasek'" class="col-lg-3">
+          <div class="my-3 mt-0">
+            <select v-model="selectedProkel" @change="getStudents()" class="form form-select form-select-lg">
+              <option value="">Semua Jurusan</option>
+              <option v-for="p in opsiProkel" :key="p.id" :value="p.id">{{ p.nama }}</option>
+            </select>
+          </div>
+        </div>
+
         <div class="col align-content-center">
           <LoadingPlaceholder v-if="isLoading" col="12" row="1" />
           <div v-else class="mb-3 text-grey float-end badge">{{ students.totalItems }} peserta</div>
@@ -101,10 +111,11 @@
                 <tr>
                   <th>Nama</th>
                   <th width="10%">Kelas</th>
-                  <th width="15%">Rapor</th>
-                  <th width="10%">Pemetaan</th>
+                  <th v-if="role != 'guru'" width="15%">Rapor</th>
+                  <th v-if="role != 'guru'" width="10%">Pemetaan</th>
                 </tr>
               </thead>
+
               <tbody>
                 <tr v-if="isLoading" class="text-center my-5">
                   <td colspan="5">
@@ -115,6 +126,7 @@
                     <LoadingPlaceholder col="12" row="1" />
                   </td>
                 </tr>
+
                 <tr v-else-if="!isLoading && students.totalItems < 1" class="text-center my-5">
                   <td v-if="searchActivated" colspan="5">
                     <div class="text-muted"><i class="bi bi-search fs-1"></i></div>
@@ -125,24 +137,27 @@
                     <div class="pb-3 text-muted">Peserta belum tersedia</div>
                   </td>
                 </tr>
+
                 <tr v-else v-for="(student,i) in students.items" :key="student.id">
                   <td class="fw-bold">
                     <!-- <span v-if="student.walikelas" class="text-danger me-2">W</span> -->
-                    <nuxt-link :to="`/peserta/${student.id}`" class="link">{{ student.nama }}</nuxt-link>
+                    <nuxt-link v-if="role == 'admin' || role == 'jurusan' || role == 'wakasek'" :to="`/peserta/${student.id}`" class="link">{{ student.nama }}</nuxt-link>
+                    <span v-else>{{ student.nama }}</span>
                   </td>
                   <!-- <td>{{ student.pembimbing }}</td> -->
                   <td>{{ student.kelas }}</td>
-                  <td>
+                  <td v-if="role != 'guru'">
                     <span v-if="student.status_rapot" class="badge text-bg-white text-dark">Tuntas</span>
                     <span v-else class="badge bg-danger">Belum tuntas</span>
                   </td>
-                  <td>
+                  <td v-if="role != 'guru'">
                     <span v-if="student.status_pemetaan_pkl" class="badge text-bg-white text-dark">Sudah</span>
                     <span v-else class="badge bg-danger">Belum</span>
                   </td>
                 </tr>
               </tbody>
             </table>
+
           </div>
         </div>
         <div class="col-md-12 mt-2">
@@ -155,10 +170,10 @@
               </div>
             </div>
             <button :disabled="isMovingPage || students.page < 2" @click="pagination(students.page - 1, false)" class="btn btn-dark me-2 border border-2 border-dark">
-              <i class="bi bi-arrow-left"></i> sebelumnya
+              <i class="bi bi-arrow-left"></i>
             </button>
             <button :disabled="isMovingPage || students.page >= students.totalPages" @click="pagination(students.page + 1, false)" class="btn btn-outline-dark border border-2 border-dark">
-              selanjutnya <i class="bi bi-arrow-right"></i>
+              <i class="bi bi-arrow-right"></i>
             </button>
           </span>
         </div>
@@ -186,7 +201,7 @@ let isCreatingUser = ref(false)
 let isCreated = ref(false)
 let count_users = ref([])
 let count_pemetaan = ref([]) // untuk menghitung jumlah pemetaan = jumlah peserta itu sendiri. maka tombol buat akun user muncul.
-if(user?.user.value.role != 'jurusan' && user?.user.value.role != 'admin') navigateTo('/404')
+
 let perPage = 20
 let isMovingPage = ref(false)
 let isMovingPageModal = ref(false)
@@ -194,8 +209,15 @@ let allStudent = ref([])
 let peserta_belum_pemetaan = ref('')
 let searchActivated = ref(false)
 
+let selectedProkel = ref('')
+let opsiProkel = ref([])
+
+if(role != 'jurusan' && role != 'admin' && role != 'guru' && role != 'wakasek') navigateTo('/404')
+
 const getStudents = async (loading=true) => {
   isLoading.value = loading
+
+  let filterQuery = `program_keahlian="${prokel}"`
   let searchFilter = ''
   if(keyword.value != '') {
     searchActivated.value = true
@@ -203,18 +225,41 @@ const getStudents = async (loading=true) => {
   } else {
     searchActivated.value = false
   }
+
+  if(role == 'guru') {
+    filterQuery = `guru_pembimbing="${user.user.value.id}"`
+  }
+  else if(role == 'wakasek') {
+    filterQuery = ``
+    searchFilter = ``
+    searchActivated.value = false
+    if(keyword.value != '' && selectedProkel.value != '') {
+      searchActivated.value = true
+      searchFilter = `nama~"${keyword.value}" && program_keahlian="${selectedProkel.value}"`
+    }
+    else if(keyword.value != '') {
+      searchActivated.value = true
+      searchFilter = `nama~"${keyword.value}"`
+    }
+    else if(selectedProkel.value != '') {
+      searchActivated.value = true
+      searchFilter = `program_keahlian="${selectedProkel.value}"`
+    }
+  }
+
   client.autoCancellation(false)
   const res_student = await client
     .collection('siswa')
     .getList(1, perPage, {
-      filter: "program_keahlian='"+prokel+"'" + searchFilter,
+      filter: filterQuery + searchFilter,
       sort: 'kelas, nama',
     })
   const res_all_student = await client.collection('siswa')
     .getFullList({
-      filter: "program_keahlian='"+prokel+"'",
+      filter: filterQuery,
       sort: 'kelas, status_rapot, status_pemetaan_pkl',
     })
+
   if(res_student) {
     students.value = res_student
     if(res_all_student) {
@@ -226,9 +271,40 @@ const getStudents = async (loading=true) => {
 
 async function pagination(page) {
   isMovingPage.value = true
+
+  let filterQuery = `program_keahlian="${prokel}"`
+  let searchFilter = ''
+  if(keyword.value != '') {
+    searchActivated.value = true
+    searchFilter = " && nama~'"+keyword.value+"'"
+  } else {
+    searchActivated.value = false
+  }
+
+  if(role == 'guru') {
+    filterQuery = `guru_pembimbing="${user.user.value.id}"`
+  }
+  else if(role == 'wakasek') {
+    filterQuery = ``
+    searchFilter = ``
+    searchActivated.value = false
+    if(keyword.value != '' && selectedProkel.value != '') {
+      searchActivated.value = true
+      searchFilter = `nama~"${keyword.value}" && program_keahlian="${selectedProkel.value}"`
+    }
+    else if(keyword.value != '') {
+      searchActivated.value = true
+      searchFilter = `nama~"${keyword.value}"`
+    }
+    else if(selectedProkel.value != '') {
+      searchActivated.value = true
+      searchFilter = `program_keahlian="${selectedProkel.value}"`
+    }
+  }
+
   client.autoCancellation(false)
   let res_student = await client.collection('siswa').getList(page, perPage, {
-    filter: "program_keahlian='"+prokel+"'",
+    filter: filterQuery + searchFilter,
     sort: 'kelas, nama',
   })
   if(res_student) {
@@ -327,10 +403,21 @@ async function paginationPesertaBelumPemetaan(page) {
 //   })
 // })
 
+
+async function getProkelForOption() {
+  if(role == 'wakasek') {
+    let res_prokel = await client.collection('program_keahlian').getFullList({
+      sort: "created"
+    })
+    if(res_prokel) opsiProkel.value = res_prokel
+  }
+}
+
 onMounted(() => {
   getStudents()
   getUsers()
   getPesertaBelumPemetaan()
+  getProkelForOption()
   client.autoCancellation(false)
   client.collection('student_users').subscribe('*', function (e) {
     if(e.action == 'create') getUsers()

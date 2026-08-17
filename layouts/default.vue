@@ -240,6 +240,8 @@ input[type="checkbox"]:not(:checked) {
   background-color: #bababa;
 }
 .badge {
+  border-radius: 32px !important;
+  corner-shape: squircle;
   font-size: small;
 }
 .hand-cursor {
@@ -311,5 +313,19 @@ ul.list-group > a:hover {
 
 textarea {
   field-sizing: content;
+}
+
+.accordion, .accordion .accordion-flush {
+  box-shadow: none;
+  border-radius: 32px !important;
+  corner-shape: squircle;
+}
+
+.accordion .accordion-button,
+.accordion .accordion-button:active,
+.accordion .accordion-button:active {
+  box-shadow: none;
+  background-color: transparent;
+  color: #212529;
 }
 </style>

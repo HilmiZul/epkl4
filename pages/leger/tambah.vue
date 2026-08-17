@@ -25,7 +25,7 @@
                   <div class="mb-4">
                     <select @change="getIdukaByCurrentUser" v-model="form.siswa" class="form form-select" required>
                       <option value="">Pilih Peserta</option>
-                      <option v-for="student in students" :key="student.siswa" :value="student.siswa">{{ student?.expand.siswa.nama }}</option>
+                      <option v-for="student in students" :key="student.id" :value="student.id">{{ student.nama }} &#8212; {{ student.kelas }}</option>
                     </select>
                   </div>
                 </div>
@@ -319,6 +319,7 @@ let isSaved = ref(false)
 let isError = ref(false)
 let prokel = user.user.value.program_keahlian
 let elemens = ref('')
+
 let form = ref({
   "nilai_elemen1": 0,
   "nilai_elemen2": 0,
@@ -338,7 +339,8 @@ let form = ref({
   "deskripsi_elemen4": '',
   "siswa": "",
   "iduka": "",
-  "program_keahlian": prokel
+  "program_keahlian": prokel,
+  "pembimbing": ""
 })
 
 let deskripsi = ref({
@@ -405,45 +407,59 @@ function compressFileLogo(e) {
   })
 }
 
-async function getElemen() {
-  isLoadingElemen.value = true
-  client.autoCancellation(false)
-  let res = await client.collection('elemen_cp').getFullList({
-    filter: `program_keahlian="${prokel}" && elemen!="Lain-lain"`
-  })
-  if(res) {
-    elemens.value = res
-    isLoadingElemen.value = false
-    for (let i = 0; i < elemens.value.length; i++) {
-      if(elemens.value[i].elemen == 'Internalisasi dan penerapan soft skills') {
-        deskripsi.value.elemen1.push(elemens.value[i].tujuan)
-      }
-      else if(elemens.value[i].elemen == 'Penerapan hard skills') {
-        deskripsi.value.elemen2.push(elemens.value[i].tujuan)
-      }
-      else if(elemens.value[i].elemen == 'Peningkatan dan pengembangan hard skills') {
-        deskripsi.value.elemen3.push(elemens.value[i].tujuan)
-      }
-      else if(elemens.value[i].elemen == 'Penyiapan Kemandirian Berwirausaha') {
-        deskripsi.value.elemen4.push(elemens.value[i].tujuan)
-      }
-    }
-    // gabungin tujuan hardskill el 2 dan 3 (pengembangan)
-    // lalu deskripsi.elemen2 di looping di Peningkatan dan Pengembangan hardskill
-    deskripsi.value.elemen2 = deskripsi.value.elemen2.concat(deskripsi.value.elemen3)
-
-  }
-}
-
 async function getIdukaByCurrentUser() {
   if(role == 'jurusan' || role == 'guru') {
-    let res = await client.collection('pemetaan').getFirstListItem(`siswa="${form.value.siswa}"`, {
-      expand: `iduka`
-    })
+    if(form.value.siswa) {
+      let res = await client.collection('pemetaan').getFirstListItem(`siswa="${form.value.siswa}"`, {
+        expand: `iduka, siswa`
+      })
 
-    if(res) {
-      id_iduka.value = res.iduka
-      formIduka.value.pembimbing_iduka = res.expand?.iduka.pembimbing_iduka
+      if(res) {
+        id_iduka.value = res.iduka
+        formIduka.value.pembimbing_iduka = res.expand?.iduka.pembimbing_iduka
+
+        // fetch elemen sesuai siswa yang Pilih
+        // masukkan prokel ke filter elemen_cp dan 
+        // guru_pembimbing ke form.value.pembimbing
+        // program_keahlian ke form.value.program_keahlian
+        form.value.pembimbing = res.expand.siswa.guru_pembimbing
+        form.value.program_keahlian = res.program_keahlian
+
+        isLoadingElemen.value = true
+        client.autoCancellation(false)
+        let res_elemen = await client.collection('elemen_cp').getFullList({
+          filter: `program_keahlian="${res.program_keahlian}" && elemen!="Lain-lain"`
+        })
+
+        if(res_elemen) {
+          elemens.value = res_elemen
+          isLoadingElemen.value = false
+
+          // kosongkan dulul temporary deskripsi elemen 1 s.d 4
+          deskripsi.value.elemen1 = []
+          deskripsi.value.elemen2 = []
+          deskripsi.value.elemen3 = []
+          deskripsi.value.elemen4 = []
+
+          for (let i = 0; i < elemens.value.length; i++) {
+            if(elemens.value[i].elemen == 'Internalisasi dan penerapan soft skills') {
+              deskripsi.value.elemen1.push(elemens.value[i].tujuan)
+            }
+            else if(elemens.value[i].elemen == 'Penerapan hard skills') {
+              deskripsi.value.elemen2.push(elemens.value[i].tujuan)
+            }
+            else if(elemens.value[i].elemen == 'Peningkatan dan pengembangan hard skills') {
+              deskripsi.value.elemen3.push(elemens.value[i].tujuan)
+            }
+            else if(elemens.value[i].elemen == 'Penyiapan Kemandirian Berwirausaha') {
+              deskripsi.value.elemen4.push(elemens.value[i].tujuan)
+            }
+          }
+          // gabungin tujuan hardskill el 2 dan 3 (pengembangan)
+          // lalu deskripsi.elemen2 di looping di Peningkatan dan Pengembangan hardskill
+          deskripsi.value.elemen2 = deskripsi.value.elemen2.concat(deskripsi.value.elemen3)
+        }
+      }
     }
   }
 }
@@ -451,9 +467,9 @@ async function getIdukaByCurrentUser() {
 async function getPesertaByPemetaanPembimbing() {
   isLoadingPeserta.value = true
 
-  let res = await client.collection('pemetaan').getFullList({
-    filter: `iduka.pembimbing_sekolah="${user?.user.value.id}"`,
-    expand: `siswa`
+  let res = await client.collection('siswa').getFullList({
+    filter: `guru_pembimbing="${user?.user.value.id}"`,
+    sort: `kelas, nama`
   })
 
   if(res) {
@@ -463,7 +479,6 @@ async function getPesertaByPemetaanPembimbing() {
 }
 
 onMounted(() => {
-  getElemen()
   getPesertaByPemetaanPembimbing()
   // client.autoCancellation(false)
   // client.collection('nilai').subscribe('*', function(e) {

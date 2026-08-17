@@ -68,7 +68,7 @@
 
                 <!-- MODAL FOTO PREVIEW -->
                 <div v-if="journal.foto" class="modal" :id="`foto-${journal.id}`" tabindex="-1">
-                  <div class="modal-dialog modal-dialog-centered modal-fullscreen">
+                  <div class="modal-dialog modal-dialog-centered modal-xl">
                     <div class="modal-content border border-3 border-dark shadow-lg">
                       <div class="modal-header border-bottom border-3 border-dark fs-4 fw-bold">
                         Preview
@@ -76,6 +76,9 @@
                       </div>
                       <div class="modal-body p-0">
                         <img :src="`${host}/api/files/${journal.collectionId}/${journal.id}/${journal.foto}`" :alt="journal.deskripsi" class="foto-preview" />
+                      </div>
+                      <div class="modal-footer">
+                        <button class="btn btn-dark btn-sm" data-bs-dismiss="modal">Tutup</button>
                       </div>
                     </div>
                   </div>
@@ -151,18 +154,20 @@
             <!--   <label for="filter">Filter Tanggal</label> -->
             <!--   <input @change="getJournals" v-model="tanggal" type="date" id="filter" class="form form-control picker"> -->
             <!-- </div> -->
-            <div class="mb-4">
-              <label for="filter-iduka">Filter IDUKA</label>
-              <select @change="getJournals" v-model="opsiIduka" name="filter-iduka" id="filter-iduka" class="form form-select">
-                <option value="">&#8212; Semua &#8212;</option>
-                <option v-for="i in iduka" :key="i.id" :value="i.id">{{ i.nama }}</option>
-              </select>
-            </div>
-            <div class="mb-4">
+
+            <!-- <div class="mb-4"> -->
+            <!--   <label for="filter-iduka">Filter IDUKA</label> -->
+            <!--   <select @change="getJournals" v-model="opsiIduka" name="filter-iduka" id="filter-iduka" class="form form-select"> -->
+            <!--     <option value="">&#8212; Semua &#8212;</option> -->
+            <!--     <option v-for="i in iduka" :key="i.id" :value="i.id">{{ i.nama }}</option> -->
+            <!--   </select> -->
+            <!-- </div> -->
+
+            <div v-if="students?.length > 0" class="mb-4">
               <label for="filter-peserta">Filter Peserta</label>
               <select @change="getJournals" v-model="opsiPeserta" name="filter-peserta" id="filter-peserta" class="form form-select">
                 <option value="">&#8212; Semua &#8212;</option>
-                <option v-for="student in students" :key="student.id" :value="student.siswa">{{ student.expand.siswa.nama }}</option>
+                <option v-for="student in students[0]?.expand?.siswa" :key="student.id" :value="student.id">{{ student.nama }} &#8212; {{ student.kelas }}</option>
               </select>
             </div>
             <div class="mb-4">
@@ -208,7 +213,7 @@ let isLoadingIduka = ref(true)
 let isLoadingValidate = ref(false)
 
 let journals = ref([])
-let perPage = 10
+let perPage = 20
 let count_not_valid = ref(0)
 let count_sesuai = ref(0)
 let count_tidak_sesuai = ref(0)
@@ -229,30 +234,33 @@ let indexJournal = ref()
 let isLoadingTotalSesuai = ref(true)
 let count_total_sesuai = ref(0)
 
+const filterProkel = prokel.map(id => `program_keahlian ?= "${id}"`).join(' || ')
+
 
 // ambil total semua jurnal yang sesuai elemen
 // masukkan ke var count_total_sesuai 
 async function getCurrentStatJournalBySesuaiElemen() {
   isLoadingTotalSesuai.value = true
 
-  let queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && isValid=true && isDraft=false && elemen.elemen!="Lain-lain"`
+  // let queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && isValid=true && isDraft=false && elemen.elemen!="Lain-lain"`
+  let queryFilter = `pembimbing="${user.user.value.id}" && isValid=true && isDraft=false && elemen.elemen!="Lain-lain"`
   if(tanggal.value && opsiPeserta.value) {
-    queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && isValid=true && created~"${tanggal.value}" && siswa.siswa.id="${opsiPeserta.value}" && isDraft=false && elemen.elemen!="Lain-lain"`
+    queryFilter = `pembimbing="${user.user.value.id}" && isValid=true && created~"${tanggal.value}" && siswa.siswa.id="${opsiPeserta.value}" && isDraft=false && elemen.elemen!="Lain-lain"`
   }
   else if(tanggal.value) {
-    queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && created~"${tanggal.value}" && isValid=true && isDraft=false && elemen.elemen!="Lain-lain"`
+    queryFilter = `pembimbing="${user.user.value.id}" && created~"${tanggal.value}" && isValid=true && isDraft=false && elemen.elemen!="Lain-lain"`
   }
   else if(opsiIduka.value && opsiPeserta.value) {
-    queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && siswa.siswa.id="${opsiPeserta.value}" && iduka.id="${opsiIduka.value}" && isValid=true && isDraft=false && elemen.elemen!="Lain-lain"`
+    queryFilter = `pembimbing="${user.user.value.id}" && siswa.siswa.id="${opsiPeserta.value}" && iduka.id="${opsiIduka.value}" && isValid=true && isDraft=false && elemen.elemen!="Lain-lain"`
   }
   else if(opsiPeserta.value) {
-    queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && siswa.siswa.id="${opsiPeserta.value}" && isValid=true && isDraft=false && elemen.elemen!="Lain-lain"`
+    queryFilter = `pembimbing="${user.user.value.id}" && siswa.siswa.id="${opsiPeserta.value}" && isValid=true && isDraft=false && elemen.elemen!="Lain-lain"`
   }
   else if(opsiIduka.value) {
-    queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && iduka="${opsiIduka.value}" && isValid=true && isDraft=false && elemen.elemen!="Lain-lain"`
+    queryFilter = `pembimbing="${user.user.value.id}" && iduka="${opsiIduka.value}" && isValid=true && isDraft=false && elemen.elemen!="Lain-lain"`
   }
   else {
-    queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && isValid=true && isDraft=false && elemen.elemen!="Lain-lain"`
+    queryFilter = `pembimbing="${user.user.value.id}" && isValid=true && isDraft=false && elemen.elemen!="Lain-lain"`
   }
 
   let res = await client.collection('jurnal').getList(1, 1, {
@@ -268,24 +276,24 @@ async function getCurrentStatJournalBySesuaiElemen() {
 async function getJournals(loading=true) {
   getCurrentStatJournalBySesuaiElemen()
   isLoadingJournals.value = loading
-  let queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && isDraft=false`
+  let queryFilter = `pembimbing="${user.user.value.id}" && isDraft=false`
   if(tanggal.value && opsiPeserta.value) {
-    queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && created~"${tanggal.value}" && siswa.siswa.id="${opsiPeserta.value}" && isDraft=false`
+    queryFilter = `pembimbing="${user.user.value.id}" && created~"${tanggal.value}" && siswa.siswa.id="${opsiPeserta.value}" && isDraft=false`
   }
   else if(tanggal.value) {
-    queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && created~"${tanggal.value}" && isDraft=false`
+    queryFilter = `siswa.siswa.guru_pembimbing="${user.user.value.id}" && created~"${tanggal.value}" && isDraft=false`
   }
   else if(opsiIduka.value && opsiPeserta.value) {
-    queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && siswa.siswa.id="${opsiPeserta.value}" && iduka.id="${opsiIduka.value}" && isDraft=false`
+    queryFilter = `pembimbing="${user.user.value.id}" && siswa.siswa.id="${opsiPeserta.value}" && iduka.id="${opsiIduka.value}" && isDraft=false`
   }
   else if(opsiPeserta.value) {
-    queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && siswa.siswa.id="${opsiPeserta.value}" && isDraft=false`
+    queryFilter = `pembimbing="${user.user.value.id}" && siswa.siswa.id="${opsiPeserta.value}" && isDraft=false`
   }
   else if(opsiIduka.value) {
-    queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && iduka="${opsiIduka.value}" && isDraft=false`
+    queryFilter = `pembimbing="${user.user.value.id}" && iduka="${opsiIduka.value}" && isDraft=false`
   }
   else {
-    queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && isDraft=false`
+    queryFilter = `pembimbing.id="${user.user.value.id}" && isDraft=false`
   }
   if(user.user.value.role == 'admin') queryFilter = ""
 
@@ -324,18 +332,24 @@ async function getJournals(loading=true) {
 async function pagination(page, loading=true) {
   isLoadingJournals.value = loading
   isMovingPage.value = true
-  let queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && isDraft=false`
-  if(tanggal.value) {
-    queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && created~"${tanggal.value}" && isDraft=false`
+  let queryFilter = `pembimbing="${user.user.value.id}" && isDraft=false`
+  if(tanggal.value && opsiPeserta.value) {
+    queryFilter = `siswa.guru_pembimbing="${user.user.value.id}" && created~"${tanggal.value}" && siswa.siswa.id="${opsiPeserta.value}" && isDraft=false`
+  }
+  else if(tanggal.value) {
+    queryFilter = `siswa.guru_pembimbing="${user.user.value.id}" && created~"${tanggal.value}" && isDraft=false`
   }
   else if(opsiIduka.value && opsiPeserta.value) {
-    queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && siswa.siswa.id="${opsiPeserta.value}" && iduka.id="${opsiIduka.value}" && isDraft=false`
+    queryFilter = `pembimbing="${user.user.value.id}" && siswa.siswa.id="${opsiPeserta.value}" && iduka.id="${opsiIduka.value}" && isDraft=false`
   }
   else if(opsiPeserta.value) {
-    queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && siswa.siswa.id="${opsiPeserta.value}" && isDraft=false`
+    queryFilter = `pembimbing="${user.user.value.id}" && siswa.siswa.id="${opsiPeserta.value}" && isDraft=false`
   }
   else if(opsiIduka.value) {
-    queryFilter = `iduka.pembimbing_sekolah="${user.user.value.id}" && iduka="${opsiIduka.value}" && isDraft=false`
+    queryFilter = `pembimbing="${user.user.value.id}" && iduka="${opsiIduka.value}" && isDraft=false`
+  }
+  else {
+    queryFilter = `pembimbing="${user.user.value.id}" && isDraft=false`
   }
   if(user.user.value.role == 'admin') queryFilter = ""
 
@@ -395,7 +409,7 @@ async function getJournalCountNotValid(loading=true) {
   isLoadingJournals.value = loading
   client.autoCancellation(false)
   let res = await client.collection('jurnal').getFullList({
-    filter: `iduka.pembimbing_sekolah="${user.user.value.id}" && isValid=false && isDraft=false`
+    filter: `pembimbing="${user.user.value.id}" && isValid=false && isDraft=false`
   })
   if(res) {
     isLoadingJournals.value = false
@@ -423,10 +437,16 @@ async function getJournalCountNotValid(loading=true) {
 
 async function getStudentsByPemetaan() {
   isLoadingStudent.value = true
-  let res_student = await client.collection("pemetaan").getFullList({
-    filter: "program_keahlian='"+prokel+"' && iduka.pembimbing_sekolah='"+user.user.value.id+"'",
-    expand: "iduka, iduka.pembimbing_sekolah, siswa, program_keahlian",
-    sort: "siswa.nama",
+  // let res_student = await client.collection("pemetaan").getFullList({
+  //   filter: "program_keahlian='"+prokel+"' && iduka.pembimbing_sekolah='"+user.user.value.id+"'",
+  //   expand: "iduka, iduka.pembimbing_sekolah, siswa, program_keahlian",
+  //   sort: "siswa.nama",
+  // })
+
+  let res_student = await client.collection("pemetaan_pembimbing").getFullList({
+    filter: `pembimbing="${user.user.value.id}"`,
+    expand: "pembimbing, siswa, program_keahlian",
+    sort: "siswa",
   })
   if(res_student) {
     isLoadingStudent.value = false
@@ -493,21 +513,21 @@ onMounted(() => {
   getCurrentStatJournalBySesuaiElemen()
   client.autoCancellation(false)
   client.collection('jurnal').subscribe('*', function(e) {
-    if(e.action == 'create') {
-      getJournals(false)
-      getCurrentStatJournalBySesuaiElemen()
-    }
+    // if(e.action == 'create') {
+    //   getJournals(false)
+    //   getCurrentStatJournalBySesuaiElemen()
+    // }
     if(e.action == 'update') {
       getJournalCountNotValid(false)
       getCurrentStatJournalBySesuaiElemen()
       //getJournalCountSesuaiElemen(false)
     }
   },{})
-  client.collection('siswa').subscribe('*', function(e) {
-    if(e.action == 'update') {
-      getJournals(false)
-    }
-  })
+  // client.collection('siswa').subscribe('*', function(e) {
+  //   if(e.action == 'update') {
+  //     getJournals(false)
+  //   }
+  // })
 })
 
 onUnmounted(() => {

@@ -188,6 +188,7 @@ let currentCatatan = ref('')
 async function getProjectsByProkelOrPembimbing(loading=true) {
   isLoading.value = loading
   isError.value = false
+  const filterProkel = prokel.map(id => `program_keahlian ?= "${id}"`).join(' || ')
 
   try {
     let filter
@@ -195,24 +196,24 @@ async function getProjectsByProkelOrPembimbing(loading=true) {
     if(role == 'jurusan') {
       if(keyword.value) {
         searchActivated.value = true
-        filter = `program_keahlian="${prokel}" && (judul~"${keyword.value}" || siswa.nama~"${keyword.value}")`
+        filter = `${filterProkel} && (judul~"${keyword.value}" || siswa.nama~"${keyword.value}")`
       } else {
         searchActivated.value = false
-        filter = `program_keahlian="${prokel}"`
+        filter = `${filterProkel}`
       }
     } else {
       if(keyword.value) {
         searchActivated.value = true
-        filter = `program_keahlian="${prokel}" && iduka.pembimbing_sekolah="${id_pembimbing}" && (judul~"${keyword.value}" || siswa.nama~"${keyword.value}")`
+        filter = `pembimbing="${id_pembimbing}" && (judul~"${keyword.value}" || siswa.nama~"${keyword.value}")`
       } else {
         searchActivated.value = false
-        filter = `program_keahlian="${prokel}" && iduka.pembimbing_sekolah="${id_pembimbing}"`
+        filter = `pembimbing="${id_pembimbing}"`
       }
     }
 
     let res = await client.collection('proyek').getList(1, perPage, {
       filter: filter,
-      expand: `program_keahlian, siswa, iduka.pembimbing_sekolah`,
+      expand: `iduka, program_keahlian, siswa, pembimbing`,
       sort: `-created`
     })
 
@@ -231,6 +232,7 @@ async function loadMore(page, loading=true) {
   isLoading.value = loading
   isError.value = false
   isMovingPage.value = true
+  const filterProkel = prokel.map(id => `program_keahlian ?= "${id}"`).join(' || ')
 
   try {
     let filter
@@ -238,24 +240,24 @@ async function loadMore(page, loading=true) {
     if(role == 'jurusan') {
       if(keyword.value) {
         searchActivated.value = true
-        filter = `program_keahlian="${prokel}" && (judul="${keyword.value}" || siswa.nama~"${keyword.value}")`
+        filter = `${filterProkel} && (judul~"${keyword.value}" || siswa.nama~"${keyword.value}")`
       } else {
         searchActivated.value = false
-        filter = `program_keahlian="${prokel}"`
+        filter = `${filterProkel}`
       }
     } else {
       if(keyword.value) {
         searchActivated.value = true
-        filter = `program_keahlian="${prokel}" && iduka.pembimbing_sekolah="${id_pembimbing}" && (judul="${keyword.value}" || siswa.nama~"${keyword.value}")`
+        filter = `${filterProkel} && pembimbing="${id_pembimbing}" && (judul~"${keyword.value}" || siswa.nama~"${keyword.value}")`
       } else {
         searchActivated.value = false
-        filter = `program_keahlian="${prokel}" && iduka.pembimbing_sekolah="${id_pembimbing}"`
+        filter = `${filterProkel} && pembimbing="${id_pembimbing}"`
       }
     }
 
     let res = await client.collection('proyek').getList(page, perPage, {
       filter: filter,
-      expand: `program_keahlian, siswa, iduka.pembimbing_sekolah`,
+      expand: `program_keahlian, siswa, pembimbing`,
       sort: `-created`
     })
 

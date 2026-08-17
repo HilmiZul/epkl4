@@ -10,6 +10,7 @@ type userType = {
   role: string,
   program_keahlian: string,
   status_pemetaan: boolean,
+  kelompok_mapel: string,
 }
 
 export const usePocketBaseUser = () => {
@@ -27,6 +28,7 @@ export const usePocketBaseUser = () => {
       role: client?.authStore?.model?.role,
       program_keahlian: client?.authStore?.model?.program_keahlian,
       status_pemetaan: client?.authStore?.model?.status_pemetaan,
+      kelompok_mapel: client?.authStore?.model?.kelompok_mapel,
     }
   } else {
     user.value = null

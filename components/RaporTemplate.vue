@@ -62,7 +62,8 @@
             <tr>
               <td>Nama Pembimbing</td>
               <td>:</td>
-              <td v-if="props.isLoaded">{{ props.rapor?.expand.iduka.expand.pembimbing_sekolah.nama }}</td>
+              <!-- <td v-if="props.isLoaded">{{ props.rapor?.expand.iduka.expand.pembimbing_sekolah.nama }}</td> -->
+              <td v-if="props.isLoaded">{{ props.rapor?.expand.pembimbing.nama }}</td>
               <td v-else>&#8212;</td>
             </tr>
           </tbody>
@@ -199,12 +200,12 @@
         <div>Guru Pembimbing PKL</div>
         <br><br><br><br>
         <div v-if="props.isLoaded" class="fw-bold">
-          <span v-if="props.rapor?.iduka">{{ props.rapor?.expand.iduka.expand.pembimbing_sekolah.nama }}</span>
+          <span v-if="props.rapor?.iduka">{{ props.rapor?.expand.pembimbing.nama }}</span>
           <span v-else>-</span>
         </div>
         <div v-else class="fw-bold">[Nama Pembimbing]</div>
         <div v-if="props.isLoaded">NIP.
-          <span v-if="props.rapor?.iduka">{{ props.rapor?.expand.iduka.expand.pembimbing_sekolah.nip }}</span>
+          <span v-if="props.rapor?.iduka">{{ props.rapor?.expand.pembimbing.nip }}</span>
           <span v-else>-</span>
         </div>
         <div v-else>NIP. [Nomor Pegawai]</div>

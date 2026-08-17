@@ -14,20 +14,20 @@
             Terjadi kesalahan. Periksa kembali input form.
           </div>
 
-          <form @submit.prevent="buatWalikelasBaru">
+          <form @submit.prevent="updateWalikelas">
             <div class="mb-4">
               <label for="nama">Nama <span class="text-danger">*</span></label>
-              <input v-model="form.nama" type="text" id="nama" class="form form-control form-control-lg" placeholder="nama lengkap dan gelar" required autofocus>
+              <input v-model="form.nama" :disabled="isLoading" type="text" id="nama" class="form form-control form-control-lg" placeholder="nama lengkap dan gelar" required autofocus>
             </div>
 
             <div class="mb-4">
               <label for="nip">NIP <span class="text-muted">(opsional)</span></label>
-              <input v-model="form.nip" type="text" id="nip" class="form form-control form-control-lg" placeholder="NIP apabila ada">
+              <input v-model="form.nip" :disabled="isLoading" type="text" id="nip" class="form form-control form-control-lg" placeholder="NIP apabila ada">
             </div>
 
             <div class="mb-4">
               <label for="program_keahlian">Program Keahlian <span class="text-danger">*</span></label>
-              <select @change="getRombel" v-model="form.program_keahlian" class="form form-select form-select-lg" id="program_keahlian" required>
+              <select @change="getRombel" v-model="form.program_keahlian" :disabled="isLoading" class="form form-select form-select-lg" id="program_keahlian" required>
                 <option disabled value="">&#8212;</option>
                 <option v-for="item in program_keahlian" :key="item.id" :value="item.id">{{ item.nama }}</option>
               </select>
@@ -35,7 +35,7 @@
 
             <div class="mb-4">
               <label for="rombel">Rombel <span class="text-danger">*</span></label>
-              <select v-model="form.rombel" :disabled="isLoading || form.program_keahlian.length < 3" class="form form-select form-select-lg" id="rombel" required>
+              <select v-model="form.rombel" :disabled="isLoading || form.program_keahlian.length < 2" class="form form-select form-select-lg" id="rombel" required>
                 <option disabled value="">&#8212;</option>
                 <option v-for="item in rombel" :key="item.id" :value="item.id">{{ item.nama }}</option>
               </select>
@@ -60,6 +60,8 @@ useHead({ title: "Tambah Walikelas — e-PKL / SMKN 4 Tasikmalaya." })
 
 let user = usePocketBaseUser()
 let client = usePocketBaseClient()
+let route = useRoute()
+
 let role = user.user.value.role
 let prokel = user.user.value.prokel
 
@@ -77,12 +79,12 @@ let form = ref({
   "program_keahlian": ""
 })
 
-async function buatWalikelasBaru() {
+async function updateWalikelas() {
   isSending.value = true
   isError.value = false
 
   try {
-    let res = await client.collection('walikelas').create(form.value)
+    let res = await client.collection('walikelas').update(route.params.id, form.value)
 
     if(res) {
       isSending.value = false
@@ -96,9 +98,29 @@ async function buatWalikelasBaru() {
   }
 }
 
-async function getRombel() {
+
+async function getWalikelasById() {
   isLoading.value = true
 
+  let res = await client.collection('walikelas').getOne(route.params.id)
+
+  if(res) {
+    form.value = res
+    isLoading.value = false
+
+    let res_rombel = await client.collection('rombel').getFullList({
+      filter: `program_keahlian="${res.program_keahlian}"`,
+      sort: `created`
+    })
+
+    if(res_rombel) {
+      rombel.value = res_rombel
+    }
+  }
+}
+
+
+async function getRombel() {
   let res = await client.collection('rombel').getFullList({
     filter: `program_keahlian="${form.value.program_keahlian}"`,
     sort: `created`
@@ -106,25 +128,22 @@ async function getRombel() {
 
   if(res) {
     rombel.value = res
-    isLoading.value = false
   }
 }
 
 async function getProkel() {
-  isLoading.value = true
-
   let res = await client.collection('program_keahlian').getFullList({
     sort: `created`
   })
 
   if(res) {
     program_keahlian.value = res
-    isLoading.value = false
   }
 }
 
 onMounted(() => {
   getProkel()
+  getWalikelasById()
 })
 
 </script>

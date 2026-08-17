@@ -2,6 +2,9 @@
   <div class="card shadow-lg">
     <div class="card-header">
       <span class="h5 quicksand fw-bold"><i class="bi bi-diagram-3-fill"></i> Pemetaan Pembimbing</span>
+      <span class="float-end ms-2">
+        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/pemetaan/pkl" class="btn btn-light btn-sm border border-2 border-dark">Kembali</nuxt-link>
+      </span>
       <div v-if="isPembimbingAvailable.length > 0" class="float-end">
         <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/pemetaan/pembimbing/tambah" class="btn btn-dark btn-sm border border-2 border-dark"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
       </div>
@@ -13,13 +16,15 @@
             <ul>
               <li>Fitur ini masih dalam tahap pengembangan</li>
               <li>Daftar berikut digunakan untuk pemenuhan rasio</li>
-              <li>Pembimbing/yang bertanggung jawab terhadap IDUKA tetap satu Guru pembimbing, tidak akan beririsan</li>
+              <li>Pemetaan Pembimbing berikut akan memvalidasi Jurnal, Leger Nilai, Rapor dan Sertifikat Peserta</li>
+              <li>Pembimbing yang dipetakan ke IDUKA hanya sebagai PIC dari Sekolah ke IDUKA bersangkutan</li>
+              <li><strong>Usahakan Pemetaan PIC ke IDUKA selesai dan disamakan agar tidak <em>paciweuh</em> irisan antara sebagai PIC dan Validator</strong></li>
             </ul>
           </div>
         </div>
         <div class="col-lg-6">
           <div class="my-3 mt-0">
-            <input @input="searchByKeyword" v-model="keyword" type="search" class="form form-control form-control-lg" placeholder="🔎 Cari nama pembimbing">
+            <input v-model="keyword" type="search" class="form form-control form-control-lg" placeholder="Cari nama pembimbing">
           </div>
         </div>
         <div class="col align-content-center">
@@ -38,27 +43,34 @@
                   <th>Peserta Didik</th>
                 </tr>
               </thead>
+
               <tbody>
                 <tr v-if="isLoading" class="text-center my-5">
                   <td colspan="3"><Loading /></td>
                 </tr>
-                <tr v-else-if="mapping.length < 1" class="text-center">
+                <tr v-else-if="mappingFiltered.length < 1" class="text-center">
                   <td colspan="3">Data tidak ditemukan</td>
                 </tr>
-                <tr v-for="(pemetaan) in mapping" :key="pemetaan.id">
+
+                <tr v-for="(pemetaan) in mappingFiltered" :key="pemetaan.id">
                   <!-- <td><span class="badge text-dark">{{ i+1 }}</span></td> -->
                   <td>
-                    <span class="fw-bold">{{ pemetaan.expand.pembimbing.nama }}</span>
-                    <p v-if="pemetaan?.siswa?.length < pemetaan.expand.pembimbing.konversi_jjm_ke_jumlah_siswa" class="my-2 small text-muted">
+                    <div class="fw-bold mb-2">{{ pemetaan.expand.pembimbing.nama }}</div>
+                    <div class="fw-bold text-muted small mb-2">{{ pemetaan.expand.pembimbing.kelompok_mapel }}</div>
+                    <div class="small mb-2">
+                      <span v-for="(prokel, i) in pemetaan?.expand.program_keahlian" :key="i" class="badge border border-1 border-grey text-muted rounded-pill me-1">{{ prokel.nama }}</span>
+                    </div>
+                    <div v-if="pemetaan?.siswa?.length < pemetaan.expand.pembimbing.konversi_jjm_ke_jumlah_siswa" class="small text-muted">
                       <i class="bi bi-people"></i> {{ pemetaan.siswa.length }} dari {{ pemetaan.expand.pembimbing.konversi_jjm_ke_jumlah_siswa }} peserta
-                    </p>
-                    <p v-else class="my-2 small text-muted">
+                    </div>
+                    <div v-else class="small text-muted">
                       <i class="bi bi-people"></i> {{ pemetaan.siswa.length }} peserta
-                    </p>
-                    <NuxtLink v-if="pemetaan.siswa.length < 1 || pemetaan?.expand?.siswa?.length < pemetaan.expand.pembimbing.konversi_jjm_ke_jumlah_siswa" :to="`/pemetaan/pembimbing/${pemetaan.id}`" class="btn btn-light btn-sm border border-2 border-dark">
+                    </div>
+                    <NuxtLink v-if="pemetaan.siswa.length < 1 || pemetaan?.expand?.siswa?.length < pemetaan.expand.pembimbing.konversi_jjm_ke_jumlah_siswa" :to="`/pemetaan/pembimbing/${pemetaan.id}`" class="btn btn-light btn-sm border border-2 border-dark mt-2">
                       <i class="bi bi-plus"></i> Tambah Peserta
                     </NuxtLink>
                   </td>
+
                   <td>
                     <table class="table">
                       <tbody>
@@ -126,13 +138,15 @@ if(role == 'guru' || role == 'tu') navigateTo('/404')
 async function hapusPesertaDariBimbingan(id_pemetaan, id_siswa) {
   client.autoCancellation(false)
   let res = await client.collection('siswa').update(id_siswa, { status_pemetaan_pembimbing: false})
+  await client.collection('siswa').update(id_siswa, { guru_pembimbing: '' })
   let res_siswa = await client.collection('pemetaan_pembimbing').getOne(id_pemetaan, {
     expand: "siswa"
   })
-  // console.log(res_siswa)
+
   if(res_siswa.siswa.length == 1) {
     await client.collection('pemetaan_pembimbing').update(id_pemetaan, { siswa: [] })
   }
+
   let tempSiswaKetemu = []
   for(let i=0; i<res_siswa.siswa.length; i++) {
     if(res_siswa.siswa[i] != id_siswa) {
@@ -140,7 +154,7 @@ async function hapusPesertaDariBimbingan(id_pemetaan, id_siswa) {
       await client.collection('pemetaan_pembimbing').update(id_pemetaan, { siswa:tempSiswaKetemu })
     }
   }
-  // console.log(tempSiswaKetemu)
+
   if(res) {
     isLoading.value = false
   }
@@ -148,15 +162,23 @@ async function hapusPesertaDariBimbingan(id_pemetaan, id_siswa) {
 
 async function getPemetaanPembimbing() {
   isLoading.value = true
+
+  let filters = `program_keahlian ~ "${prokel}"`
+  if(keyword.value) {
+    filters = `program_keahlian ~ "${prokel}" && pembimbing.nama~"${keyword.value}"`
+  }
+
   client.autoCancellation(false)
   let res_pemetaan = await client.collection("pemetaan_pembimbing").getFullList({
     // filter: "program_keahlian='"+prokel+"'",
-    expand: "pembimbing, siswa, progarm_keahlian",
+    filter: filters,
+    expand: "pembimbing, siswa, program_keahlian",
     sort: "pembimbing.nama"
   })
   // memeriksa apakah Prokel tersebut memiliki Pembimbing? (kecuali admin)
   // kalo belum, proses pemetaan pembimbing ga diizinin haha
   // bagian hanya dilakukan saat halaman ini dibuka
+  // let res_pembimbing = await client.collection('teacher_users').getFullList({
   let res_pembimbing = await client.collection('teacher_users').getFullList({
     // filter: "program_keahlian='"+prokel+"' && role!='admin'"
     filter: "role!='admin'"

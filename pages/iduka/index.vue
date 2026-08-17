@@ -62,7 +62,7 @@
                 <tr>
                   <!-- <th width="2%">#</th> -->
                   <th width="60%">Nama</th>
-                  <th width="10%">Wilayah</th>
+                  <th v-if="role != 'guru'" width="10%">Wilayah</th>
                   <th v-if="role == 'admin' || role == 'jurusan'" width="6%">Terisi</th>
                   <th v-if="role == 'admin' || role == 'jurusan'" width="17%">PIC Sekolah</th>
                   <th v-if="role == 'wakasek' || role == 'tu'" width="17%">Program Keahlian</th>
@@ -101,10 +101,11 @@
                       <span v-if="company.isArchive" class="text-muted">{{ company.nama }}</span>
                       <span v-else>{{ company.nama }}</span>
                     </nuxt-link>
-                    <span v-else>{{ company.nama }}</span>
+                    <span v-else>{{ company.nama }} &nbsp;<nuxt-link :to="`https://www.google.com/maps/search/?api=1&query=${company.nama} ${company.alamat}`" target="_blank" class="link smallest text-grey"><i class="bi bi-box-arrow-up-right"></i></nuxt-link></span>
+
                     <!-- <nuxt-link v-if="(role == 'admin' || role == 'jurusan') && company.alamat" :to="`https://www.google.com/maps/search/?api=1&query=${company.nama} ${company.alamat}`" target="_blannk" class="hand-cursor ms-2 text-dark"><i class="bi bi-geo-alt-fill"></i></nuxt-link> -->
                   </td>
-                  <td class="smallest">{{ company.wilayah.charAt(0).toUpperCase() + company.wilayah.slice(1) }} kota </td>
+                  <td v-if="role != 'guru'" class="smallest">{{ company.wilayah.charAt(0).toUpperCase() + company.wilayah.slice(1) }} kota </td>
                   <td v-if="role == 'admin' || role == 'jurusan'" class="smallest">
                     <span v-if="company.terisi < company.jumlah_kuota">{{ company.terisi }} / {{ company.jumlah_kuota }}</span>
                     <span v-else class="badge text-dark">Penuh</span>
@@ -133,10 +134,10 @@
             </div>
           </div>
           <button :disabled="isMovingPage || companies.page < 2" @click="pagination(companies.page - 1, false)" class="btn btn-dark me-2 border border-2 border-dark">
-            <i class="bi bi-arrow-left"></i> sebelumnya
+            <i class="bi bi-arrow-left"></i>
           </button>
           <button :disabled="isMovingPage || companies.page >= companies.totalPages" @click="pagination(companies.page + 1, false)" class="btn btn-outline-dark border border-2 border-dark">
-            selanjutnya <i class="bi bi-arrow-right"></i>
+            <i class="bi bi-arrow-right"></i>
           </button>
         </span>
       </div>
@@ -226,7 +227,7 @@ let isDeleted = ref(false)
 let keyword = ref('')
 let prokel = user.user.value.program_keahlian
 let opsiWilayah = ref('')
-if(role == 'guru') navigateTo('/404')
+
 let perPage = 20
 let isMovingPage = ref(false)
 let company_id = ref('') // single data untuk render ke Modal Delete
@@ -303,6 +304,10 @@ async function getCompanies(loading=true) {
     } else {
       filterQuery = `isArchive=false`
     }
+  }
+
+  if(role == 'guru') {
+    filterQuery = `pembimbing_sekolah="${user.user.value.id}" `
   }
 
   let data = await client.collection('iduka').getList(1, perPage, {
@@ -433,7 +438,6 @@ onMounted(() => {
   getCompanies()
   getProkelForOption()
   getCompaniesArchived()
-  client.autoCancellation(false)
   client.collection('iduka').subscribe('*', function(e) {
     if(e.action == 'delete' || e.action == 'update') {
       getCompanies(false)
