@@ -1,9 +1,14 @@
 # Changelog
 
+### 5.0 (18 Agustus 2026)
+
+- Major version released 🎉
+
 ### 5.0-rc (14 Agustus 2026)
 
 - All-new design, features and business flow 🎉
 - bug fix tambah leger
+- remove journal description and label 'guru pembimbing'
 
 ### 4.24.5-rc (18 Juli 2026)
 - Add description text when Project Student is empty
