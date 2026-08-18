@@ -281,7 +281,7 @@ async function getJumlahBelumPemetaan() {
     tkj_jumlah_belum_pemetaan.value = res_tkj.length
     tsm_jumlah_belum_pemetaan.value = res_tsm.length
     dkv_jumlah_belum_pemetaan.value = res_dkv.length
-    tsm_jumlah_belum_pemetaan.value = res_toi.length
+    toi_jumlah_belum_pemetaan.value = res_toi.length
     isLoadingJumlahBelumPemetaan.value = false
   }
 }
