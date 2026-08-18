@@ -468,7 +468,7 @@ async function getPesertaByPemetaanPembimbing() {
   isLoadingPeserta.value = true
 
   let res = await client.collection('siswa').getFullList({
-    filter: `guru_pembimbing="${user?.user.value.id}"`,
+    filter: `guru_pembimbing="${user?.user.value.id}" && status_pemetaan_pkl=true`,
     sort: `kelas, nama`
   })
 
