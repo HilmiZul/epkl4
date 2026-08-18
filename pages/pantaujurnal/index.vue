@@ -49,15 +49,14 @@
                 <i v-else class="bi bi-bookmark text-dark"></i>
                 {{ journal.expand.iduka.nama }}
               </div>
-              <div class="small text-muted pt-2">{{ journal.created }}</div>
-              <div class="text-muted py-3 pre-text">{{ journal.deskripsi.slice(0, 50) }}*****</div>
+              <div class="small text-muted py-2">{{ journal.created }}</div>
               <div class="badge text-muted border-grey rounded-pill small text-muted">{{ journal.expand.program_keahlian.nama }}</div>
               <div class="small fw-bold pt-1 text-muted">
-                Guru Pembimbing: {{ journal.expand.pembimbing.nama }}
+                {{ journal.expand.pembimbing.nama }}
               </div>
             </div>
           </div>
-          
+
           <div v-if="isMovingPage" class="my-2">
             <loading-placeholder row="1" col="8" />
             <loading-placeholder row="1" col="10" />
