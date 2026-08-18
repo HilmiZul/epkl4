@@ -25,10 +25,12 @@
         <loading-placeholder row="1" col="3" />
       </div>
       <div v-else class="mb-3">
-        <button v-if="form.terisi < 1 && !form.isArchive" @click="handleArchive(true, route.params.id)" class="btn btn-light btn-sm border border-2 border-dark"><i class="bi bi-archive"></i> Arsipkan</button>
-        <button v-if="form.isArchive" @click="handleArchive(false, route.params.id)" class="btn btn-light btn-sm border border-2 border-dark"><i class="bi bi-archive"></i> Buka arsip</button>
+        <span v-if="role == 'jurusan'">
+          <button v-if="form.terisi < 1 && !form.isArchive" @click="handleArchive(true, route.params.id)" class="btn btn-light btn-sm border border-2 border-dark"><i class="bi bi-archive"></i> Arsipkan</button>
+          <button v-if="form.isArchive" @click="handleArchive(false, route.params.id)" class="btn btn-light btn-sm border border-2 border-dark"><i class="bi bi-archive"></i> Buka arsip</button>
+        </span>
       </div>
-      <hr v-if="form.terisi < 1">
+      <hr v-if="form.terisi < 1 && role == 'jurusan'">
       <form @submit.prevent="updateIduka" class="form-horizontal">
         <div class="row">
           <!-- <div class="col-md-12"><div v-if="isSaved" class="my-3 alert alert-success border-2 border-success py-2"><i class="bi bi-check-circle"></i> Berhasil tersimpan!</div></div> -->
@@ -91,7 +93,7 @@
               </div>
             </div>
           </div>
-          <div v-if="!form.isArchive" class="col-md-6">
+          <div v-if="!form.isArchive && role == 'jurusan'" class="col-md-6">
             <LoadingPlaceholder v-if="isLoading" col="3" row="1" />
             <div v-else class="mb-1">Terisi:
               <span v-if="form.terisi < form.jumlah_kuota" class="fw-bold">{{ form.terisi }} dari {{ form.jumlah_kuota }}</span>

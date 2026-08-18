@@ -133,7 +133,8 @@ let siswaId = ref('')
 let siswaNama = ref('')
 let pembimbingNama = ref('')
 let pemetaanId = ref('')
-if(role == 'guru' || role == 'tu') navigateTo('/404')
+
+if(role == 'guru' || role == 'tu' || role == 'wakasek') navigateTo('/404')
 
 async function hapusPesertaDariBimbingan(id_pemetaan, id_siswa) {
   client.autoCancellation(false)

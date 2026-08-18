@@ -91,6 +91,8 @@
 </template>
 
 <script setup>
+import { navigateTo } from 'nuxt/app'
+
 definePageMeta({ middleware: 'auth' })
 useHead({ title: "Tambah Pemetaan — e-PKL / SMKN 4 Tasikmalaya." })
 let user = usePocketBaseUser()
@@ -113,6 +115,8 @@ let form = ref({
   status_acc_pkl: false
 })
 let wilayah = ref(['dalam', 'luar'])
+
+if(user.user.value.role != 'jurusan') navigateTo('/404')
 
 async function buatPemetaan() {
   try {

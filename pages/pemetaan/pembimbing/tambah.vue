@@ -125,7 +125,7 @@ let form = ref({
   program_keahlian: []
 })
 
-if(role == 'guru' || role == 'tu') navigateTo('/404')
+if(role == 'guru' || role == 'tu' || role == 'wakasek') navigateTo('/404')
 
 
 async function buatPemetaan() {
