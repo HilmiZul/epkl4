@@ -3,6 +3,7 @@
 ### 5.0 (18 Agustus 2026)
 
 - Major version released 🎉
+- Fix all middleware authorization
 
 ### 5.0-rc (14 Agustus 2026)
 
