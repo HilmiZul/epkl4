@@ -26,7 +26,7 @@
                 <li class="list-group-item"><i class="bi bi-emoji-smile"></i> Pembimbing</li>
               </nuxt-link>
               <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role == 'guru' || role == 'wakasek'" to="/peserta" :activeClass="activeClass">
-                <li class="list-group-item"><i class="bi bi-people-fill"></i> Peserta <span v-if="(role == 'admin' || role == 'jurusna') && peserta > 0" class="badge rounded-5 text-bg-danger float-end">{{ peserta }}</span></li>
+                <li class="list-group-item"><i class="bi bi-people-fill"></i> Peserta <span v-if="(role == 'admin' || role == 'jurusan') && peserta > 0" class="badge rounded-5 text-bg-danger float-end">{{ peserta }}</span></li>
               </nuxt-link>
               <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role == 'guru' || role === 'wakasek' || role === 'tu'" to="/iduka" :activeClass="activeClass">
                 <li class="list-group-item"><i class="bi bi-buildings-fill"></i> IDUKA</li>
