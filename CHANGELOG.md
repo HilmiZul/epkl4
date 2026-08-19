@@ -4,6 +4,8 @@
 
 - Major version released 🎉
 - Fix all middleware authorization
+- Bug fix opsi kelas dan re-fetch dari rombel
+- Change flow algorithm: pemetaan pembimbing ke siswa sesuai siswa mendapatkan/dipetakan ke IDUKA
 
 ### 5.0-rc (14 Agustus 2026)
 
