@@ -3,7 +3,7 @@
     <div class="card-header">
       <span class="h5 quicksand fw-bold"><i class="bi bi-patch-check"></i> Leger</span>
       <span v-if="role == 'jurusan' || role == 'guru'" class="float-end">
-        <NuxtLink v-if="journalValidCount < 1" to="/leger/tambah" class="btn btn-dark btn-sm border border-2 border-dark">
+        <NuxtLink v-if="journalCount > 0 && journalNotValidCount < 1" to="/leger/tambah" class="btn btn-dark btn-sm border border-2 border-dark">
           <i class="bi bi-plus"></i> Tambah
         </NuxtLink>
       </span>
@@ -21,7 +21,7 @@
         <div class="col-md-2">
           <select @change="getNilaiFilterByClass" v-model="opsiKelas" name="opsiKelas" class="form form-select">
             <option value="">Kelas</option>
-            <option v-for="(k,i) in kelas" :key="i" :value="k">{{ k }}</option>
+            <option v-for="(k,i) in kelas" :key="i" :value="k.nama">{{ k.nama }}</option>
           </select>
         </div>
 
@@ -93,7 +93,7 @@
     </div>
 
     <div v-else-if="role == 'jurusan' || role == 'guru'" class="card-body">
-      <div v-if="journalValidCount < 1">
+      <div v-if="journalCount > 0 && journalNotValidCount < 1">
         <div v-if="nilaiNotValid?.length > 0" class="alert alert-secondary fs-6">
           Ada <span class="fw-bold">{{ nilaiNotValid.length }}</span> Nilai yang belum divalidasi
         </div>
@@ -217,7 +217,7 @@ let user = usePocketBaseUser()
 let user_id = user?.user.value.id
 let role = user?.user.value.role
 let prokel = user?.user.value.program_keahlian
-let nilai = ref()
+let nilai = ref([])
 let isLoaded = ref(false)
 let isLoading = ref(true)
 let keyword = ref('')
@@ -225,29 +225,24 @@ let nilaiNotValid = ref('')
 let count_entrust = ref('')
 let searchActived = ref(false)
 if(role == 'tu') navigateTo('/404')
-let kelas = ref([
-  'TSM-1',
-  'TSM-2',
-  'TSM-3',
-  'TSM-4',
-  'TJKT-1',
-  'TJKT-2',
-  'TJKT-3',
-  'TJKT-4',
-  'PPLG-1',
-  'PPLG-2',
-  'PPLG-3',
-  'PPLG-4',
-  'DKV-1',
-  'DKV-2',
-  'TOI',
-])
+let kelas = ref([])
 let opsiKelas = ref('')
 let listLeger = ref([])
 let countSiswaOnRombel = ref(0)
 let walikelas = ref('')
 
-let journalValidCount = ref(0)
+let journalNotValidCount = ref(0)
+let journalCount = ref(0)
+
+async function getRombel() {
+  let res = await client.collection('rombel').getFullList({
+    sort: `nama`
+  })
+
+  if(res) {
+    kelas.value = res
+  }
+}
 
 async function getNilai(loading=true) {
   isLoading.value = loading
@@ -314,7 +309,7 @@ async function getNilaiFilterByClass() {
 
   if(res_rombel) {
     countSiswaOnRombel.value = res_rombel.totalItems
-    walikelas.value = res_rombel.items[0].expand?.walikelas?.nama
+    walikelas.value = res_rombel.items[0]?.expand?.walikelas?.nama
 
     if(res_nilai) {
       listLeger.value = res_nilai
@@ -368,16 +363,32 @@ async function getJurnalByPembimbing() {
   })
 
   if(res) {
-    journalValidCount.value = res.totalItems
+    journalNotValidCount.value = res.totalItems
   }
 }
 
 
+// FETCH JURNAL hanya berdasarkan guru pembimbing saja
+async function getJurnalOnlyByPembimbing() {
+  let res = await client.collection('jurnal').getList(1, 1, {
+    // filter: `iduka.pembimbing_sekolah="${user?.user.value.id}" && isDraft=false && isValid=false`
+    filter: `pembimbing="${user?.user.value.id}"`
+  })
+
+  if(res) {
+    journalCount.value = res.totalItems
+  }
+}
+
+
+
 onMounted(() => {
   getNilai()
+  getRombel()
   getEntrust()
   getNilaiByNotVerify()
   getJurnalByPembimbing()
+  getJurnalOnlyByPembimbing()
   // client.autoCancellation(false)
   // client.collection('nilai').subscribe('*', function(e) {
   //   if(e.action == 'create' || e.action == 'update') getNilai(false)
