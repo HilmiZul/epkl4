@@ -14,22 +14,22 @@
         <div class="col-md-6 mb-3">
           <form @submit.prevent="updatePemetaan">
             <div class="mb-4">
-              <label for="pembimbing">Tambah peserta? (pilih lebih dari satu)</label>
+              <label for="siswa">Tambah peserta? (pilih lebih dari satu)</label>
               <multiselect
                 v-model="form.siswa"
                 :options="students"
                 :multiple="true"
                 :close-on-search="false"
                 :clear-on-select="false"
-                :custom-label="({nama, kelas}) => `${nama} - ${kelas}`"
+                :custom-label="({expand}) => `${expand?.siswa?.nama} - ${expand?.siswa?.kelas} - ${expand?.iduka?.nama}`"
                 :disabled="pemetaan?.expand.pembimbing.konversi_jjm_ke_jumlah_siswa == form.siswa.length+curr_students.length"
-                id="pembimbing"
+                id="siswa"
                 placeholder="Pilih lebih dari satu"
                 label="nama"
-                track-by="nama"
                 required>
               </multiselect>
             </div>
+
             <button :disabled="isSending || form.siswa.length < 1" class="btn btn-dark me-3 border border-2 border-dark">
               <span v-if="isSending">Sedang memetakan</span>
               <span v-else>Simpan</span>
@@ -76,8 +76,8 @@
           <ul v-for="(s,i) in form.siswa" :key="s.id" class="list-group list-group-flush">
             <li class="list-group-item">
               <button @click="()=>form.siswa.splice(i, 1)" class="border-0 bg-transparent float-end">X</button>
-              {{ s.nama }} <br>
-              <span class="small text-muted">{{ s.kelas }}</span>
+              {{ s?.expand?.siswa?.nama }} - {{ s.expand?.iduka?.nama }} <br>
+              <span class="small text-muted">{{ s.expand?.siswa?.kelas }}</span>
             </li>
           </ul>
           <!-- <table class="table border-0">
@@ -120,7 +120,21 @@ async function updatePemetaan() {
   isSending.value = true
   isSaved.value = false
 
-  let tempStudents = curr_students.value.concat(form.value.siswa)
+  // TODO: MERGE SISWA ARRAY MASIH BELUM FIX!!
+
+  // 1: Ekstrak list siswa dari pemetaan dan masukkan ke var `tempStudents`
+  let tempStudents = []
+  for(let i=0; i<form.value.siswa.length; i++) {
+    // masukkan id siswa dari field pemetaan.siswa ke form.value.siswa dengan cara push array
+    // tempStudents.push(form.value.siswa[i].siswa)
+    tempStudents.push(form.value.siswa[i].expand.siswa)
+  }
+
+  // 2: Gabungkan list siswa yang sudah diesktrak dengan data siswa lama jika ada, ini tersimpan pada var curr_students
+  tempStudents = tempStudents.concat(curr_students.value)
+
+  // 3: buat var untuk nampun dan ekstrak id siswa dengan nama tempStudentsUpdate,
+  // field yang di update pada siswa: status_pemetaan_pembimbing dan guru_pembimbing
   let tempStudentsUpdate = []
   for(let i=0; i<tempStudents.length; i++) {
     tempStudentsUpdate.push(tempStudents[i].id)
@@ -130,6 +144,7 @@ async function updatePemetaan() {
     })
   }
 
+  // 4: update multiple relasi pada field siswa di pemetaan_pembimbing dengan yang baru, data yang baru tersimpan pada tempStudentsUpdate
   client.autoCancellation(false)
   let res = await client.collection('pemetaan_pembimbing').update(route.params.id, { siswa: tempStudentsUpdate })
   if(res) {
@@ -146,12 +161,22 @@ async function getReference() {
     filter: `pembimbing.jjm >= 2 && pembimbing.konversi_jjm_ke_jumlah_siswa > 0 && program_keahlian="${prokel}" && pembimbing.role!="admin" && status_pemetaan=false`,
     expand: "pembimbing, siswa",
   })
-  let res_students = await client.collection('siswa').getFullList({
+
+  // let res_students = await client.collection('siswa').getFullList({
+  //   // filter: "program_keahlian='"+prokel+"' && status_pemetaan_pembimbing=false",
+  //   // filter: "status_pemetaan_pembimbing=false",
+  //   filter: client.filter(`program_keahlian ?= "${prokel}" && status_pemetaan_pembimbing=false`),
+  //   sort: "program_keahlian, kelas, nama"
+  // })
+  let res_students = await client.collection('pemetaan').getFullList({
     // filter: "program_keahlian='"+prokel+"' && status_pemetaan_pembimbing=false",
     // filter: "status_pemetaan_pembimbing=false",
-    filter: client.filter(`program_keahlian ?= "${prokel}" && status_pemetaan_pembimbing=false`),
-    sort: "program_keahlian, kelas, nama"
+    // filter: client.filter("program_keahlian ?= {:p}", { p: prokel }),
+    // filter: client.filter(`program_keahlian ?= "${prokel}" && status_pemetaan_pembimbing=false`),
+    filter: `program_keahlian="${prokel}" && siswa.status_pemetaan_pembimbing=false`,
+    expand: `siswa, program_keahlian, iduka`,
   })
+
   if(res_pemetaan && res_students) {
     isLoading.value = false
     pemetaan.value = res_pemetaan

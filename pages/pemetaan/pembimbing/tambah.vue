@@ -24,6 +24,7 @@
                 <template v-slot:singleLabel="{ option }"><strong>{{ option.nama }}</strong></template>
               </multiselect>
             </div>
+
             <div class="mb-4">
               <label for="siswa">Peserta didik (pilih lebih dari satu)</label>
               <multiselect
@@ -33,11 +34,10 @@
                 :close-on-search="false"
                 :clear-on-select="false"
                 :disabled="!form.pembimbing || form.pembimbing.konversi_jjm_ke_jumlah_siswa == form.siswa.length"
-                :custom-label="({nama, kelas}) => `${nama} - ${kelas}`"
+                :custom-label="({expand}) => `${expand?.siswa.nama} - ${expand?.siswa.kelas} - ${expand?.iduka.nama}`"
                 id="siswa"
                 placeholder="Pilih lebih dari satu"
                 label="nama"
-                track-by="nama"
                 required>
               </multiselect>
               <!-- <multiselect
@@ -58,6 +58,7 @@
                 </template>
               </multiselect> -->
             </div>
+
             <button :disabled="isSending || !form.siswa || !form.pembimbing" class="btn btn-dark me-3 border border-2 border-dark">
               <span v-if="isSending">Sedang memetakan</span>
               <span v-else>Simpan</span>
@@ -95,8 +96,8 @@
             <ul v-for="(s,i) in form.siswa" :key="s.id" class="list-group list-group-flush">
               <li class="list-group-item">
                 </br><button @click="()=>form.siswa.splice(i, 1)" class="border-0 bg-transparent float-end">X</button>
-                {{ s.nama }} <br>
-                <span class="small text-muted">{{ s.kelas }}</span>
+                {{ s?.expand?.siswa?.nama }} - {{ s.expand?.iduka?.nama }} <br>
+                <span class="small text-muted">{{ s.expand?.siswa?.kelas }}</span>
               </li>
             </ul>
           </div>
@@ -134,7 +135,8 @@ async function buatPemetaan() {
   form.value.pembimbing = form.value.pembimbing.id
   let tempStudents = []
   for(let i=0; i<form.value.siswa.length; i++) {
-    tempStudents.push(form.value.siswa[i].id)
+    // masukkan id siswa dari field pemetaan.siswa ke form.value.siswa dengan cara push array
+    tempStudents.push(form.value.siswa[i].siswa)
   }
   isSending.value = true
   isSaved.value = false
@@ -175,12 +177,22 @@ async function getReferences() {
     teachers.value = res_teachers
     form.value.program_keahlian = teachers.value.program_keahlian
 
-    let res_students = await client.collection('siswa').getFullList({
+    // TODO: siswa diambil dari pemetaan PKL yang sudah dipetakan!
+    // id siswa dimasukkan ke field pemetaan_pembimbing.siswa[array]
+    // let res_students = await client.collection('siswa').getFullList({
+    //   // filter: "program_keahlian='"+prokel+"' && status_pemetaan_pembimbing=false",
+    //   // filter: "status_pemetaan_pembimbing=false",
+    //   // filter: client.filter("program_keahlian ?= {:p}", { p: prokel }),
+    //   filter: client.filter(`program_keahlian ?= "${prokel}" && status_pemetaan_pembimbing=false`),
+    //   sort: "program_keahlian, kelas, nama"
+    // })
+    let res_students = await client.collection('pemetaan').getFullList({
       // filter: "program_keahlian='"+prokel+"' && status_pemetaan_pembimbing=false",
       // filter: "status_pemetaan_pembimbing=false",
       // filter: client.filter("program_keahlian ?= {:p}", { p: prokel }),
-      filter: client.filter(`program_keahlian ?= "${prokel}" && status_pemetaan_pembimbing=false`),
-      sort: "program_keahlian, kelas, nama"
+      // filter: client.filter(`program_keahlian ?= "${prokel}" && status_pemetaan_pembimbing=false`),
+      filter: `program_keahlian="${prokel}" && siswa.status_pemetaan_pembimbing=false`,
+      expand: `siswa, program_keahlian, iduka`,
     })
 
     if(res_students) {
