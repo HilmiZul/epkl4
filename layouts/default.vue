@@ -237,7 +237,7 @@ input[type="checkbox"]:not(:checked) {
   color: #4f4f4f;
 }
 .bg-grey {
-  background-color: #bababa;
+  background-color: #bababa !important;
 }
 .badge {
   border-radius: 32px !important;
