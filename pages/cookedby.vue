@@ -20,15 +20,14 @@
       </p>
 
       <div>
-        <strong>Thanks to</strong>
+        Thanks to
         <ul>
           <li>Taufik Hidayat</li>
           <li>Deni Ridwan</li>
-          <li>Arip</li>
-          <li>Saepudin</li>
-          <li>Nisa Nuraeni</li>
-          <li>Kurniawan</li>
-          <li>and SGD Team</li>
+          <li>Urfan</li>
+          <li>Pram</li>
+          <li>Reza</li>
+          <li>Dita</li>
         </ul>
       </div>
 
