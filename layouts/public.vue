@@ -64,6 +64,7 @@ a.link {
   padding-bottom: .01rem;
   font-weight: bolder;
 }
+
 .btn {
   font-weight: 600;
   transition: all 0.1s ease-in-out;
@@ -72,11 +73,20 @@ a.link {
   corner-shape: squircle;
   box-shadow: 0.2rem 0.2rem 0 #000000 !important;
 }
+
 .btn:hover {
   transform: translate(2px,2px);
   /* border: 1.9px solid transparent !important; */
   box-shadow: none !important;
 }
+
+.btn:disabled {
+  border: 1.9px solid #000000;
+  box-shadow: none !important;
+  color: #000 !important;
+  background-color: #bababa !important;
+}
+
 table th {
   background-color: #000 !important;
   color: #fff;
