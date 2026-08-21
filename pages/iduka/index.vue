@@ -168,23 +168,19 @@
 
   <!-- Single Modal: Pratinjau / Quick preview -->
   <div class="modal" id="catatan" aria-hidden="true" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content border border-3 border-dark shadow-lg">
         <div class="modal-header fw-bold border-bottom border-3 border-dark">
-          <div class="fs-4">Pratinjau <span v-if="pratinjau_iduka.isArchive" class="badge text-bg-white text-dark">Arsip</span></div>
+          <div class="fs-4">{{ pratinjau_iduka?.nama }} <span v-if="pratinjau_iduka.isArchive" class="badge text-bg-white text-muted border-grey">Arsip</span></div>
           <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
         </div>
         <div v-if="pratinjau_iduka" class="modal-body py-3">
-          <div v-if="pratinjau_iduka.wilayah == 'dalam'" class="mb-3 badge bg-dark">{{ pratinjau_iduka.wilayah.charAt(0).toUpperCase() + pratinjau_iduka.wilayah.slice(1) }} kota</div>
-          <div v-else class="mb-3 badge text-dark">{{ pratinjau_iduka.wilayah.charAt(0).toUpperCase() + pratinjau_iduka.wilayah.slice(1) }} kota</div>
-          
-          <span v-if="pratinjau_iduka.jumlah_kuota" class="ms-2 badge text-dark">
+          <div v-if="pratinjau_iduka.wilayah == 'dalam'" class="mb-3 badge border-grey text-muted">{{ pratinjau_iduka.wilayah.charAt(0).toUpperCase() + pratinjau_iduka.wilayah.slice(1) }} kota</div>
+          <div v-else class="mb-3 badge border-grey text-muted">{{ pratinjau_iduka.wilayah.charAt(0).toUpperCase() + pratinjau_iduka.wilayah.slice(1) }} kota</div>
+
+          <span v-if="pratinjau_iduka.jumlah_kuota" class="ms-2 badge text-muted border-grey">
             Kuota: {{ pratinjau_iduka.jumlah_kuota }}
           </span>
-
-          <!-- <loading-placeholder v-if="isLoadingModalCatatan" col="12" row="1" /> -->
-          <div class="fw-bold">Nama </div>
-          <p>{{ pratinjau_iduka.nama }}</p>
 
           <div class="fw-bold">Alamat</div>
           <p>{{ pratinjau_iduka.alamat }}</p>
