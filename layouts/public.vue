@@ -81,4 +81,16 @@ table th {
   background-color: #000 !important;
   color: #fff;
 }
+a.link-footer {
+  text-decoration: none;
+  color: inherit;
+  transition: all .1s ease-in-out;
+  padding-bottom: .01rem;
+}
+a.link-footer:hover {
+  border-bottom: 1px solid #777777
+}
+.hand-cursor {
+  cursor: pointer;
+}
 </style>
