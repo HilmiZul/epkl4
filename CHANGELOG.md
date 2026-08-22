@@ -2,10 +2,20 @@
 
 ### 5.0 (18 Agustus 2026)
 
-- Major version released 🎉
+> Major version was released 🎉
+
+- Jumlah Jam Mengajar (JJM) Guru dapat dikonversi ke Jumlah Siswa yang akan dibimbing
+- Pemetaan Guru pembimbing dapat dipasangkan dengan siswa yang diambil dari pemetaan Siswa ke IDUKA
+- Validator Jurnal, Leger nilai, cetak rapor dan atau Sertifikat dialihkan ke Guru yang membimbing langsung Siswa, bukan dari Pembimbing IDUKA
+- Multiple Program Keahlian untuk Guru umum/kejuruan yang mengajar dilebih dari satu Program keahlian
+- One Teacher One User!
+- Pembimbing dapat melihat keseluruhan prosentase Jurnal siswa yang dibimbingnya atau salah satu
+- Pembimbing dapat membuat daftar leger nilai dalam kondisional
+- Jurusan dapat reset password Pembibming
+- Kurikulum dapat mengelola Walikelas, Guru Pembimbing dan menerima Leger nilai rapor
+- New UI with minimalist and monochromatic 💅🏻
 - Fix all middleware authorization
-- Bug fix opsi kelas dan re-fetch dari rombel
-- Change flow algorithm: pemetaan pembimbing ke siswa sesuai siswa mendapatkan/dipetakan ke IDUKA
+- Bug fix leger nilai pada opsi kelas: re-fetch dari rombel
 
 ### 5.0-rc (14 Agustus 2026)
 
