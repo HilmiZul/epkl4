@@ -1,6 +1,6 @@
 # e-PKL
 
-Aplikasi pemetaan, jurnal dan rapor PKL untuk Kepsek, Wakasek, Jurusan, Guru Pembimbing dan TU.
+Pemetaan, Jurnal dan Rapor PKL.
 
 Original proyek (versi awal) ini sudah diarsipkan, lihat [dsini](https://github.com/hilmizul/epkl).
 
