@@ -12,10 +12,8 @@
     <div class="card-body">
       <div class="row">
         <div class="col-lg-12">
-          <div class="alert alert-warning pb-0">
+          <div class="alert alert-secondary pb-0">
             <ul>
-              <li>Fitur ini masih dalam tahap pengembangan</li>
-              <li>Daftar berikut digunakan untuk pemenuhan rasio</li>
               <li>Pemetaan Pembimbing berikut akan memvalidasi Jurnal, Leger Nilai, Rapor dan Sertifikat Peserta</li>
               <li>Pembimbing yang dipetakan ke IDUKA hanya sebagai PIC dari Sekolah ke IDUKA bersangkutan</li>
               <li><strong>Usahakan Pemetaan PIC ke IDUKA selesai dan disamakan agar tidak <em>paciweuh</em> irisan antara sebagai PIC dan Validator</strong></li>
