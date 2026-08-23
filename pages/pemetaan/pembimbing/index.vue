@@ -24,11 +24,11 @@
         </div>
         <div class="col-lg-6">
           <div class="my-3 mt-0">
-            <input v-model="keyword" type="search" class="form form-control form-control-lg" placeholder="Cari nama pembimbing">
+            <input v-model="keyword" type="search" class="form form-control form-control-lg" placeholder="Cari nama pembimbing / peserta">
           </div>
         </div>
         <div class="col align-content-center">
-          <div class="mb-3 text-grey float-end badge text-dark">{{ mapping.length }} pemetaan</div>
+          <div class="mb-3 text-grey float-end badge text-dark">{{ mappingFiltered.length }} pemetaan</div>
         </div>
       </div>
 
@@ -49,7 +49,10 @@
                   <td colspan="3"><Loading /></td>
                 </tr>
                 <tr v-else-if="mappingFiltered.length < 1" class="text-center">
-                  <td colspan="3">Data tidak ditemukan</td>
+                  <td colspan="3">
+                    <div class="text-muted"><i class="bi bi-database-fill fs-1"></i></div>
+                    <div class="pb-3 text-muted">Belum tersedia/tidak ditemukan</div>
+                  </td>
                 </tr>
 
                 <tr v-for="(pemetaan) in mappingFiltered" :key="pemetaan.id">
@@ -201,23 +204,23 @@ function setModalHapusPemetaan(getSiswaId, getSiswaNama, getPembimbingNama, getP
   pemetaanId.value = getPemetaanId
 }
 
-async function searchByKeyword() {
-  isLoading.value = true
-  client.autoCancellation(false)
-  if(keyword.value.length > 0) {
-    let data = await client.collection('pemetaan_pembimbing').getFullList({
-      filter: `program_keahlian="${prokel}" && pembimbing.nama~"${keyword.value}"`,
-      expand: "pembimbing, siswa, program_keahlian",
-      sort: "pembimbing.nama"
-    })
-    if(data) {
-      isLoading.value = false
-      mapping.value = data
-    }
-  } else {
-    getPemetaanPembimbing()
-  }
-}
+// async function searchByKeyword() {
+//   isLoading.value = true
+//   client.autoCancellation(false)
+//   if(keyword.value.length > 0) {
+//     let data = await client.collection('pemetaan_pembimbing').getFullList({
+//       filter: `program_keahlian="${prokel}" && pembimbing.nama~"${keyword.value}"`,
+//       expand: "pembimbing, siswa, program_keahlian",
+//       sort: "pembimbing.nama"
+//     })
+//     if(data) {
+//       isLoading.value = false
+//       mapping.value = data
+//     }
+//   } else {
+//     getPemetaanPembimbing()
+//   }
+// }
 
 const mappingFiltered = computed(() => {
   return mapping.value.filter((i) => {
