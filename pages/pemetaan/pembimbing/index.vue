@@ -223,8 +223,8 @@ function setModalHapusPemetaan(getSiswaId, getSiswaNama, getPembimbingNama, getP
 const mappingFiltered = computed(() => {
   return mapping.value.filter((i) => {
     return (
-      i.expand.pembimbing.nama.toLowerCase().includes(keyword.value.toLowerCase()) ||
-      i.expand.siswa.some((j) => j.nama.toLowerCase().includes(keyword.value.toLowerCase()))
+      i.expand?.pembimbing?.nama?.toLowerCase().includes(keyword.value.toLowerCase()) ||
+      i.expand?.siswa?.some((j) => j.nama.toLowerCase().includes(keyword.value.toLowerCase()))
     )
   })
 })
