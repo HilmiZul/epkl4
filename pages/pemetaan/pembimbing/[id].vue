@@ -9,6 +9,13 @@
       </span>
     </div>
     <div class="card-body">
+      <div class="alert alert-secondary pb-0">
+        <ul>
+          <li>Peserta didik yang muncul hanya yang sudah dipetakan ke IDUKA</li>
+          <li>Untuk meminimalisir sebrangan, usahakan memilih Peserta yang IDUKA-nya dipegang oleh Pembimbing ybs</li>
+        </ul>
+      </div>
+
       <div v-if="isLoading"><Loading /></div>
       <div v-else class="row">
         <div class="col-md-6 mb-3">
@@ -21,12 +28,19 @@
                 :multiple="true"
                 :close-on-search="false"
                 :clear-on-select="false"
-                :custom-label="({expand}) => `${expand?.siswa?.nama} - ${expand?.siswa?.kelas} - ${expand?.iduka?.nama}`"
+                :custom-label="({expand}) => `${expand?.siswa?.nama} - ${expand?.siswa?.kelas}`"
                 :disabled="pemetaan?.expand.pembimbing.konversi_jjm_ke_jumlah_siswa == form.siswa.length+curr_students.length"
+                track-by="siswa"
                 id="siswa"
                 placeholder="Pilih lebih dari satu"
                 label="nama"
                 required>
+                <template #option="props">
+                  <div class="fw-bold mb-1">{{ props.option.expand.siswa.nama }}</div>
+                  <div class="small mb-2">{{ props.option.expand.siswa.kelas }}</div>
+                  <div class="small mb-1">{{ props.option.expand.iduka.nama }}</div>
+                  <div class="small">{{ props.option.expand.iduka.expand?.pembimbing_sekolah?.nama }}</div>
+                </template>
               </multiselect>
             </div>
 
@@ -174,7 +188,7 @@ async function getReference() {
     // filter: client.filter("program_keahlian ?= {:p}", { p: prokel }),
     // filter: client.filter(`program_keahlian ?= "${prokel}" && status_pemetaan_pembimbing=false`),
     filter: `program_keahlian="${prokel}" && siswa.status_pemetaan_pembimbing=false`,
-    expand: `siswa, program_keahlian, iduka`,
+    expand: `siswa, program_keahlian, iduka, iduka.pembimbing_sekolah`,
   })
 
   if(res_pemetaan && res_students) {

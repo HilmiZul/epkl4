@@ -39,11 +39,13 @@
                 placeholder="dalam atau luar kota?"
                 required>
               </multiselect> -->
+
               <select @change="getCompanies" v-model="selectWilayah" id="wilayah" class="form form-control form-select form-select-lg" required>
                 <option value="dalam" selected>Dalam kota</option>
                 <option value="luar">Luar kota</option>
               </select>
             </div>
+
             <div class="mb-4">
               <label for="iduka">IDUKA</label>
               <multiselect
@@ -57,9 +59,13 @@
                 id="iduka"
                 placeholder="Pilih satu"
                 required>
-                <template v-slot:singleLabel="{ option }"><strong>{{ option.nama }} / {{ option.terisi }} dari {{ option.jumlah_kuota }}</strong></template>
+                <template v-slot:option="{ option }">
+                  <div class="fw-bold mb-2">{{ option.nama }}</div>
+                  <div class="small">Terisi {{ option.terisi }} dari {{ option.jumlah_kuota }}</div>
+                </template>
               </multiselect>
             </div>
+
             <button :disabled="isSending" class="btn btn-dark me-3 mb-3 border border-2 border-dark">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>

@@ -37,6 +37,7 @@
                 <option value="luar">Luar kota</option>
               </select>
             </div>
+
             <div class="mb-4">
               <label for="iduka">IDUKA</label>
               <multiselect
@@ -50,9 +51,13 @@
                 id="iduka"
                 placeholder="Pilih satu"
                 required>
-                <template v-slot:singleLabel="{ option }"><strong>{{ option.nama }} / {{ option.terisi }} dari {{ option.jumlah_kuota }}</strong></template>
+                <template v-slot:option="{ option }">
+                  <div class="fw-bold mb-2">{{ option.nama }}</div>
+                  <div class="small">Terisi {{ option.terisi }} dari {{ option.jumlah_kuota }}</div>
+                </template>
               </multiselect>
             </div>
+
             <div class="mb-4">
               <label for="peserta">Peserta didik</label>
               <multiselect
@@ -66,9 +71,13 @@
                 id="peserta"
                 placeholder="Pilih satu"
                 required>
-                <template v-slot:singleLabel="{ option }"><strong>{{ option.nama }} — {{ option.kelas }}</strong></template>
+                <template v-slot:option="{ option }">
+                  <div class="fw-bold mb-2">{{ option.nama }}</div>
+                  <div class="small">{{ option.kelas }}</div>
+                </template>
               </multiselect>
             </div>
+
             <button :disabled="isSending" class="btn btn-dark me-3 mb-3 border border-2 border-dark">
               <span v-if="!isSending">Simpan</span>
               <span v-else>Sedang menyimpan</span>
