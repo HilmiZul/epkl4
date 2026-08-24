@@ -6,7 +6,7 @@
         <span v-if="role == 'admin' || role == 'jurusan'">
           <button v-if="students.totalItems > 0 && count_users.length < 1" data-bs-toggle="modal" data-bs-target="#buat-akun-peserta" class="btn btn-light btn-sm border border-2 border-dark"><i class="bi bi-person-plus"></i> Buat akun</button>
         </span>
-        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/peserta/import" class="btn btn-dark btn-sm ms-2 border border-2 border-dark"><i class="bi bi-download"></i> Impor dari .csv</nuxt-link>
+        <!-- <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/peserta/import" class="btn btn-dark btn-sm ms-2 border border-2 border-dark"><i class="bi bi-download"></i> Impor dari .csv</nuxt-link> -->
       </span>
       <div class="modal" id="buat-akun-peserta" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
