@@ -79,8 +79,9 @@
 
                   <div class="text-muted mb-2">
                     <span class="badge border border-1 border-grey smallest text-muted rounded-pill me-1">{{ company.wilayah.charAt(0).toUpperCase() + company.wilayah.slice(1) }} kota</span>
-                    <span v-if="company.terisi < company.jumlah_kuota" class="badge border border-1 border-grey smallest text-muted rounded-pill me-1">{{ company.terisi }} / {{ company.jumlah_kuota }}</span>
-                    <span v-else class="badge border border-1 border-dark smallest text-bg-danger rounded-pill me-1">penuh</span>
+                    <span v-if="role == 'wakasek'" class="badge border border-1 border-grey smallest text-muted rounded-pill me-1">{{ company.expand.program_keahlian.nama }}</span>
+                    <span v-if="company.terisi < company.jumlah_kuota && role == 'jurusan'" class="badge border border-1 border-grey smallest text-muted rounded-pill me-1">{{ company.terisi }} / {{ company.jumlah_kuota }}</span>
+                    <span v-else-if="company.terisi >= company.jumlah_kuota && role == 'jurusan'" class="badge border border-1 border-dark smallest text-bg-danger rounded-pill me-1">penuh</span>
                   </div>
 
                   <div v-if="company.terisi < 1 && role == 'jurusan'">
@@ -103,7 +104,8 @@
                 </div>
 
                 <div class="text-muted small">
-                  <span class="badge border border-1 border-grey text-muted rounded-pill me-1">{{ company.wilayah.charAt(0).toUpperCase() + company.wilayah.slice(1) }} kota</span>
+                  <span class="badge border border-1 border-grey smallest text-muted rounded-pill me-1">{{ company.wilayah.charAt(0).toUpperCase() + company.wilayah.slice(1) }} kota</span>
+                  <span class="badge border border-1 border-grey smallest text-muted rounded-pill me-1">{{ company.expand.program_keahlian.nama }}</span>
                 </div>
               </div>
             </li>
