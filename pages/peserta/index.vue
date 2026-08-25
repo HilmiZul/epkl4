@@ -44,7 +44,7 @@
             </div>
             <div class="modal-body">
               <div class="text-muted badge border-1 border-grey">{{ peserta_belum_pemetaan?.totalItems }} peserta</div>
-              <table class="table table-striped border border-2 border-dark my-2">
+              <table class="table table-striped my-2">
                 <tbody>
                   <tr v-for="(p,i) in peserta_belum_pemetaan.items" :key="p.id" class="fw-bold">
                     <td>
@@ -103,62 +103,59 @@
         </div>
       </div>
       <!-- <div v-if="isLoading"><Loading /></div> -->
+
       <div class="row">
         <div class="col-md-12">
-          <div class="table-responsive">
-            <table class="table table-hover table-striped table-borderless">
-              <thead>
-                <tr>
-                  <th>Nama</th>
-                  <th width="10%">Kelas</th>
-                  <th v-if="role != 'guru'" width="15%">Rapor</th>
-                  <th v-if="role != 'guru'" width="10%">Pemetaan</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                <tr v-if="isLoading" class="text-center my-5">
-                  <td colspan="5">
-                    <LoadingPlaceholder col="12" row="1" />
-                    <LoadingPlaceholder col="12" row="1" />
-                    <LoadingPlaceholder col="12" row="1" />
-                    <LoadingPlaceholder col="12" row="1" />
-                    <LoadingPlaceholder col="12" row="1" />
-                  </td>
-                </tr>
-
-                <tr v-else-if="!isLoading && students.totalItems < 1" class="text-center my-5">
-                  <td v-if="searchActivated" colspan="5">
-                    <div class="text-muted"><i class="bi bi-search fs-1"></i></div>
-                    <div class="pb-3 text-muted">Pencarian tidak ditemukan</div>
-                  </td>
-                  <td v-else colspan="5">
-                    <div class="text-muted"><i class="bi bi-database-fill fs-1"></i></div>
-                    <div class="pb-3 text-muted">Peserta belum tersedia</div>
-                  </td>
-                </tr>
-
-                <tr v-else v-for="(student,i) in students.items" :key="student.id">
-                  <td class="fw-bold">
-                    <!-- <span v-if="student.walikelas" class="text-danger me-2">W</span> -->
-                    <nuxt-link v-if="role == 'admin' || role == 'jurusan' || role == 'wakasek'" :to="`/peserta/${student.id}`" class="link">{{ student.nama }}</nuxt-link>
-                    <span v-else>{{ student.nama }}</span>
-                  </td>
-                  <!-- <td>{{ student.pembimbing }}</td> -->
-                  <td>{{ student.kelas }}</td>
-                  <td v-if="role != 'guru'">
-                    <span v-if="student.status_rapot" class="badge text-bg-white text-dark">Tuntas</span>
-                    <span v-else class="badge bg-danger">Belum tuntas</span>
-                  </td>
-                  <td v-if="role != 'guru'">
-                    <span v-if="student.status_pemetaan_pkl" class="badge text-bg-white text-dark">Sudah</span>
-                    <span v-else class="badge bg-danger">Belum</span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-
+          <div v-if="isLoading" class="text-center my-5">
+            <LoadingPlaceholder :col="12" :row="5" />
           </div>
+
+          <div v-else-if="!isLoading && students.totalItems < 1" class="text-center my-5">
+            <div v-if="searchActivated">
+              <div class="text-muted"><i class="bi bi-search fs-1"></i></div>
+              <div class="pb-3 text-muted">Pencarian tidak ditemukan</div>
+            </div>
+            <div v-else>
+              <div class="text-muted"><i class="bi bi-database-fill fs-1"></i></div>
+              <div class="pb-3 text-muted">Belum tersedia</div>
+            </div>
+          </div>
+
+          <!-- list display item -->
+          <ul v-else v-for="(student,i) in students.items" :key="student.id" class="list-group list-group-flush">
+            <nuxt-link v-if="role == 'jurusan' || role == 'wakasek'" :to="`/peserta/${student.id}`" class="link">
+              <li class="list-group-item d-flex justify-content-between align-items-start py-3 border-bottom border-1 border-grey">
+                <div class="ms-2 me-auto fw-bold">
+                  <div class="fs-6">{{ student.nama.toUpperCase() }}</div>
+
+                  <div class="text-muted small mb-2">
+                    {{ student.kelas }}
+                  </div>
+
+                  <div class="smallest">
+                    <span v-if="!student.status_rapot" class="badge border border-1 border-grey text-muted rounded-pill me-1">Belum tuntas</span>
+                    <span v-if="!student.status_pemetaan_pkl" class="badge border border-1 border-grey text-muted rounded-pill">Belum terpetakan</span>
+                  </div>
+                </div>
+              </li>
+            </nuxt-link>
+
+            <li v-else class="list-group-item d-flex justify-content-between align-items-start py-3 border-bottom border-1 border-grey">
+              <div class="ms-2 me-auto fw-bold">
+                <div class="fs-6">{{ student.nama.toUpperCase() }}</div>
+
+                <div class="text-muted small mb-2">
+                  {{ student.kelas }}
+                </div>
+
+                <div class="smallest">
+                  <span v-if="!student.status_rapot" class="badge border border-1 border-grey text-muted rounded-pill me-1">Belum tuntas</span>
+                  <span v-if="!student.status_pemetaan_pkl" class="badge border border-1 border-grey text-muted rounded-pill">Belum terpetakan</span>
+                </div>
+              </div>
+            </li>
+          </ul>
+
         </div>
         <div class="col-md-12 mt-2">
           <loading-placeholder v-if="isLoading" col="3" row="1" />
@@ -178,6 +175,7 @@
           </span>
         </div>
       </div>
+
     </div>
   </div>
 </template>

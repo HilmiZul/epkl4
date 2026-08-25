@@ -8,16 +8,6 @@
       </span>
     </div>
     <div class="card-body small">
-      <!--<div v-if="role == 'admin' || role == 'jurusan'" class="row">
-        <div class="col-lg-12">
-          <div class="alert alert-info alert-dismissible">
-            <div class="fs-5 fw-bold"><i class="bi bi-lightbulb-fill"></i> Ada yang baru!</div>
-            Sekarang Anda dapat mengarsipkan IDUKA yang tidak terisi dan memfilternya. Klik icon <i class="bi bi-chat-right-text"></i> lalu klik tombol <span class="fw-bold">Arsipkan</span>. <br>
-            IDUKA yang diarsipkan tidak dapat diisi/petakan. Untuk membukanya, klik lagi icon <i class="bi bi-chat-right-text"></i> lalu klik tombol <span class="fw-bold">Buka arsip</span>.
-            <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-        </div>
-      </div>-->
       <div class="row">
         <div class="col-lg-6">
           <form @submit.prevent="getCompanies">
@@ -52,75 +42,72 @@
           </span>
         </div>
       </div>
+
       <div class="row">
         <div class="col-md-12">
-          <div class="table-responsive">
-
-            <table class="table table-hover table-striped table-bordereless">
-
-              <thead>
-                <tr>
-                  <!-- <th width="2%">#</th> -->
-                  <th width="60%">Nama</th>
-                  <th v-if="role != 'guru'" width="10%">Wilayah</th>
-                  <th v-if="role == 'admin' || role == 'jurusan'" width="6%">Terisi</th>
-                  <th v-if="role == 'admin' || role == 'jurusan'" width="17%">PIC Sekolah</th>
-                  <th v-if="role == 'wakasek' || role == 'tu'" width="17%">Program Keahlian</th>
-                  <th v-if="role == 'admin' || role == 'jurusan'" width="5%">Hapus</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                <tr v-if="isLoading" class="text-center my-5">
-                  <td colspan="6">
-                    <LoadingPlaceholder col="12" row="1" />
-                    <LoadingPlaceholder col="12" row="1" />
-                    <LoadingPlaceholder col="12" row="1" />
-                    <LoadingPlaceholder col="12" row="1" />
-                    <LoadingPlaceholder col="12" row="1" />
-                  </td>
-                </tr>
-
-                <tr v-else-if="companies && companies.totalItems < 1" class="text-center my-5">
-                  <td v-if="searchActivated" colspan="6">
-                    <div class="text-muted"><i class="bi bi-search fs-1"></i></div>
-                    <div class="pb-3 text-muted">Pencarian tidak ditemukan</div>
-                  </td>
-                  <td v-else colspan="6">
-                    <div class="text-muted"><i class="bi bi-database-fill fs-1"></i></div>
-                    <div class="pb-3 text-muted">IDUKA belum tersedia</div>
-                  </td>
-                </tr>
-
-                <!-- tanda merah menandakan IDUKA yang diarsipkan -->
-                <tr v-else v-for="(company, i) in companies.items" :key="i">
-                  <td class="fw-bold">
-                    <span @click="setModalCatatanById(company.id, company)" data-bs-toggle="modal" data-bs-target="#catatan" class="hand-cursor me-3"><i class="bi bi-chat-right-text"></i></span>
-                    <span v-if="(role == 'admin' || role == 'jurusan') && company.isArchive" class="text-danger me-1">&bull;</span>
-                    <nuxt-link v-if="role == 'admin' || role == 'jurusan' || role == 'wakasek'" :to="`/iduka/${company.id}`" class="link">
-                      <span v-if="company.isArchive" class="text-muted">{{ company.nama }}</span>
-                      <span v-else>{{ company.nama }}</span>
-                    </nuxt-link>
-                    <span v-else>{{ company.nama }} &nbsp;<nuxt-link :to="`https://www.google.com/maps/search/?api=1&query=${company.nama} ${company.alamat}`" target="_blank" class="link smallest text-grey"><i class="bi bi-box-arrow-up-right"></i></nuxt-link></span>
-
-                    <!-- <nuxt-link v-if="(role == 'admin' || role == 'jurusan') && company.alamat" :to="`https://www.google.com/maps/search/?api=1&query=${company.nama} ${company.alamat}`" target="_blannk" class="hand-cursor ms-2 text-dark"><i class="bi bi-geo-alt-fill"></i></nuxt-link> -->
-                  </td>
-                  <td v-if="role != 'guru'" class="smallest">{{ company.wilayah.charAt(0).toUpperCase() + company.wilayah.slice(1) }} kota </td>
-                  <td v-if="role == 'admin' || role == 'jurusan'" class="smallest">
-                    <span v-if="company.terisi < company.jumlah_kuota">{{ company.terisi }} / {{ company.jumlah_kuota }}</span>
-                    <span v-else class="badge text-dark">Penuh</span>
-                  </td>
-                  <td v-if="role == 'admin' || role == 'jurusan'" class="smallest">{{ company.expand.pembimbing_sekolah?.nama }} </td>
-                  <td v-if="role == 'wakasek' || role == 'tu'" class="smallest">{{ company.expand.program_keahlian?.nama }} </td>
-                  <td v-if="role == 'admin' || role == 'jurusan'" class="smallest">
-                    <button v-if="company.terisi < 1" @click="setModalDeleteById(company.id, company.nama)" class="btn btn-danger btn-sm border border-2 border-dark" data-bs-toggle="modal" data-bs-target="#delete"><i class="bi bi-trash3"></i></button>
-                    <button v-else class="btn btn-sm btn-disabled" disabled><i class="bi bi-trash3"></i></button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-
+          <div v-if="isLoading" class="text-center my-5">
+            <LoadingPlaceholder :col="12" :row="5" />
           </div>
+
+          <div v-else-if="companies && companies.totalItems < 1" class="text-center my-5">
+            <div v-if="searchActivated">
+              <div class="text-muted"><i class="bi bi-search fs-1"></i></div>
+              <div class="pb-3 text-muted">Pencarian tidak ditemukan</div>
+            </div>
+            <div v-else>
+              <div class="text-muted"><i class="bi bi-database-fill fs-1"></i></div>
+              <div class="pb-3 text-muted">Belum tersedia</div>
+            </div>
+          </div>
+
+          <!-- list display item -->
+          <ul v-else v-for="(company, i) in companies.items" :key="i" class="list-group list-group-flush">
+            <nuxt-link v-if="role == 'jurusan' || role == 'wakasek'" :to="`/iduka/${company.id}`" class="link">
+              <li class="list-group-item d-flex justify-content-between align-items-start py-3 border-bottom border-1 border-grey">
+                <a @click="setModalCatatanById(company.id, company)" data-bs-toggle="modal" data-bs-target="#catatan" class="text-muted fs-6 hand-cursor me-1"><i class="bi bi-chat-right-text"></i></a>
+                <div class="ms-2 me-auto fw-bold">
+                  <span v-if="(role == 'admin' || role == 'jurusan') && company.isArchive" class="badge smallest text-bg-dark rounded-pill">Arsip</span>
+
+                  <div class="fs-6 mb-2">
+                    <span v-if="company.isArchive" class="text-muted">{{ company.nama.toUpperCase() }}</span>
+                    <span v-else>{{ company.nama.toUpperCase() }}</span>
+                  </div>
+
+                  <div class="text-muted mb-2">
+                    {{ company?.expand.pembimbing_sekolah?.nama }}
+                  </div>
+
+                  <div class="text-muted mb-2">
+                    <span class="badge border border-1 border-grey smallest text-muted rounded-pill me-1">{{ company.wilayah.charAt(0).toUpperCase() + company.wilayah.slice(1) }} kota</span>
+                    <span v-if="company.terisi < company.jumlah_kuota" class="badge border border-1 border-grey smallest text-muted rounded-pill me-1">{{ company.terisi }} / {{ company.jumlah_kuota }}</span>
+                    <span v-else class="badge border border-1 border-dark smallest text-bg-danger rounded-pill me-1">penuh</span>
+                  </div>
+
+                  <div v-if="company.terisi < 1 && role == 'jurusan'">
+                    <a @click="setModalDeleteById(company.id, company.nama)" class="link text-muted" data-bs-toggle="modal" data-bs-target="#delete"><i class="bi bi-trash"></i> hapus</a>
+                  </div>
+                </div>
+
+                <NuxtLink :to="`https://www.google.com/maps/search/?api=1&query=${company.nama} ${company.alamat}`" target="_blank" class="link text-grey"><i class="bi bi-arrow-up-right-square"></i></NuxtLink>
+              </li>
+            </nuxt-link>
+
+            <li v-else class="list-group-item d-flex justify-content-between align-items-start py-3 border-bottom border-1 border-grey">
+              <div class="ms-2 me-auto fw-bold">
+                <div class="fs-6 mb-2">
+                  {{ company.nama }}
+                </div>
+
+                <div class="text-muted mb-2">
+                  <NuxtLink :to="`https://www.google.com/maps/search/?api=1&query=${company.nama} ${company.alamat}`" target="_blank" class="link text-grey">Lihat peta <i class="bi bi-arrow-up-right-square"></i></NuxtLink>
+                </div>
+
+                <div class="text-muted small">
+                  <span class="badge border border-1 border-grey text-muted rounded-pill me-1">{{ company.wilayah.charAt(0).toUpperCase() + company.wilayah.slice(1) }} kota</span>
+                </div>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
 
