@@ -12,7 +12,7 @@
     "compressorjs": "^1.2.1",
     "html2pdf.js": "^0.12.1",
     "nuxt": "3.18",
-    "pocketbase": "^0.21.5",
+    "pocketbase": "^0.28.0",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
   },
   "description": "Pemetaan PKL",
