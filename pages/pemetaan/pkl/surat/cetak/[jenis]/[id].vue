@@ -211,7 +211,7 @@
               <tr>
                 <td></td>
                 <td width="31%">
-                  Tasikmalaya,.......................2025 <br>
+                  Tasikmalaya,.......................{{ year }} <br>
                   <div class="mt-2">Hormat Kami,</div>
                   <div class="mt-2">a.n PT / CV ................................</div>
                   <br>
@@ -249,6 +249,8 @@ const date_options = {
   dateStyle: "long",
 };
 let tanggal = new Intl.DateTimeFormat('id-ID', date_options).format(date_now);
+
+let year = date_now.getFullYear()
 
 async function getPengaturanAndPemetaanById() {
   isLoading.value = true
