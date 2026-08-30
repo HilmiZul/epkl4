@@ -33,7 +33,7 @@ html, body {
   border-radius: 32px !important;
   corner-shape: squircle;
   border: 2.5px solid #000000 !important;
-  box-shadow: 0.4rem 0.4rem 0 #000000 !important;
+  box-shadow: 0.2rem 0.2rem 0 #000000 !important;
 }
 .card .card-header {
   border-bottom: 2.5px solid #000 !important;

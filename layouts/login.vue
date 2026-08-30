@@ -40,13 +40,13 @@ html, body {
   font-style: normal;
 }
 .shadow-lg {
-  box-shadow: 0.5rem 0.5rem 0 #000000 !important;
+  box-shadow: 0.2rem 0.2rem 0 #000 !important;
 }
 .card {
   border-radius: 32px !important;
   corner-shape: squircle;
   border: 2.5px solid #212529 !important;
-  box-shadow: 0.4rem 0.4rem 0 #000 !important;
+  box-shadow: 0.2rem 0.2rem 0 #000 !important;
 }
 .btn {
   font-weight: 600;
@@ -54,7 +54,7 @@ html, body {
   /*border: 1.9px solid #000000;*/
   border-radius: 32px !important;
   corner-shape: squircle;
-  box-shadow: 0.19rem 0.19rem 0 #000000 !important;
+  box-shadow: 0.2rem 0.2rem 0 #000 !important;
 }
 .btn:hover {
   transform: translate(2px,2px);
@@ -71,7 +71,7 @@ html, body {
   border: 2.5px solid #000000;
   border-radius: 32px !important;
   corner-shape: squircle;
-  box-shadow: 0.19rem 0.19rem 0 #000000 !important;
+  box-shadow: 0.2rem 0.2rem 0 #000 !important;
 }
 .form:focus {
   border-color: #000000;
