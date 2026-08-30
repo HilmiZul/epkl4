@@ -38,7 +38,7 @@
           <LoadingPlaceholder v-if="isLoading" col="12" row="1" />
           <span v-else>
             <div v-if="arsip" class="mb-3 ms-1 bg-dark float-end badge">{{ arsip }} Arsip</div>
-            <div class="mb-3 text-grey float-end badge">{{ companies.totalItems }} IDUKA</div>
+            <div class="mb-3 text-grey float-end badge">{{ companies?.items.length }} IDUKA</div>
           </span>
         </div>
       </div>
@@ -113,22 +113,13 @@
         </div>
       </div>
 
-      <div class="col-md-12 mt-2">
-        <loading-placeholder v-if="isLoading" col="3" row="1" />
-        <span v-else>
-          <div v-if="isMovingPage" class="text-muted small mb-2 fst-italic">sedang berpindah halaman</div>
-          <div v-else>
-            <div v-if="companies || isMovingPage" class="text-muted small mb-2">
-              <span v-if="companies.totalItems">Halaman {{ companies.page }} dari {{ companies.totalPages }}</span>
-            </div>
-          </div>
-          <button :disabled="isMovingPage || companies.page < 2" @click="pagination(companies.page - 1, false)" class="btn btn-dark me-2 border border-2 border-dark">
-            <i class="bi bi-arrow-left"></i>
+      <div class="col-md-12 mt-3">
+        <loading-placeholder v-if="isMovingPage" :row="5" :col="12" />
+        <div class="text-center">
+          <button v-if="companies?.totalItems" :disabled="isMovingPage || companies.page >= companies.totalPages" @click="pagination(companies.page + 1, false)" class="btn btn-dark border border-2 border-dark">
+            muat lagi <i class="bi bi-arrow-down"></i>
           </button>
-          <button :disabled="isMovingPage || companies.page >= companies.totalPages" @click="pagination(companies.page + 1, false)" class="btn btn-outline-dark border border-2 border-dark">
-            <i class="bi bi-arrow-right"></i>
-          </button>
-        </span>
+        </div>
       </div>
 
     </div>
@@ -345,7 +336,12 @@ async function pagination(page, loading=true) {
     sort: 'program_keahlian, terisi, -wilayah, nama'
   })
   if (data) {
-    companies.value = data
+    companies.value.page = data.page
+    companies.value.perPage = data.perPage
+    companies.value.totalItems = data.totalItems
+    companies.value.totalPages = data.totalPages
+    companies.value.items = companies.value.items.concat(data.items)
+
     isLoading.value = false
     isMovingPage.value = false
     // console.log(companies.value[0].expand.pembimbing_sekolah.nama)

@@ -99,7 +99,7 @@
 
         <div class="col align-content-center">
           <LoadingPlaceholder v-if="isLoading" col="12" row="1" />
-          <div v-else class="mb-3 text-grey float-end badge">{{ students.totalItems }} peserta</div>
+          <div v-else class="mb-3 text-grey float-end badge">{{ students?.items.length }} peserta</div>
         </div>
       </div>
       <!-- <div v-if="isLoading"><Loading /></div> -->
@@ -157,22 +157,14 @@
           </ul>
 
         </div>
-        <div class="col-md-12 mt-2">
-          <loading-placeholder v-if="isLoading" col="3" row="1" />
-          <span v-else>
-            <div v-if="isMovingPage" class="text-muted small mb-2 fst-italic">sedang berpindah halaman</div>
-            <div v-else>
-              <div v-if="students || isMovingPage" class="text-muted small mb-2">
-                <span v-if="students.totalItems">Halaman {{ students.page }} dari {{ students.totalPages }}</span>
-              </div>
-            </div>
-            <button :disabled="isMovingPage || students.page < 2" @click="pagination(students.page - 1, false)" class="btn btn-dark me-2 border border-2 border-dark">
-              <i class="bi bi-arrow-left"></i>
+
+        <div class="col-md-12 mt-3">
+          <loading-placeholder v-if="isMovingPage" :row="5" :col="12" />
+          <div class="text-center">
+            <button v-if="students?.totalItems" :disabled="isMovingPage || students.page >= students.totalPages" @click="pagination(students.page + 1, false)" class="btn btn-dark border border-2 border-dark">
+              muat lagi <i class="bi bi-arrow-down"></i>
             </button>
-            <button :disabled="isMovingPage || students.page >= students.totalPages" @click="pagination(students.page + 1, false)" class="btn btn-outline-dark border border-2 border-dark">
-              <i class="bi bi-arrow-right"></i>
-            </button>
-          </span>
+          </div>
         </div>
       </div>
 
@@ -306,7 +298,12 @@ async function pagination(page) {
     sort: 'kelas, nama',
   })
   if(res_student) {
-    students.value = res_student
+    students.value.page = res_student.page
+    students.value.perPage = res_student.perPage
+    students.value.totalItems = res_student.totalItems
+    students.value.totalPages = res_student.totalPages
+    students.value.items = students.value.items.concat(res_student.items)
+
     isMovingPage.value = false
   }
 }
