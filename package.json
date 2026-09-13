@@ -12,6 +12,7 @@
     "html2pdf.js": "^0.14.0",
     "nuxt": "^4.5.2",
     "pocketbase": "^0.28.1",
+    "vue-multiselect": "^3.5.0",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
   },
   "description": "Pemetaan PKL",
@@ -20,8 +21,5 @@
     "dev": "nuxt dev",
     "build": "nuxt build",
     "preview": "node .output/server/index.mjs"
-  },
-  "devDependencies": {
-    "vue-multiselect": "^3.5.0"
   }
 }
