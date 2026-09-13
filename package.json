@@ -1,6 +1,6 @@
 {
   "name": "epkl4",
-  "version": "5.0",
+  "version": "5.1",
   "author": "Zul Hilmi",
   "dependencies": {
     "@nuxtjs/device": "^3.2.4",
