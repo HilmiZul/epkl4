@@ -1,6 +1,5 @@
 <template>
   <div class="card">
-    <div v-if="pemetaan?.status_acc_pkl" v-confetti class="posiiton-absolute top-0 start-50 translate-middle-x"></div>
     <div class="card-header">
       <loading-placeholder v-if="isLoading" col="5" row="1" />
       <span v-else class="h5 quicksand fw-bold text-muted">
@@ -121,7 +120,6 @@
 </template>
 
 <script setup>
-import { vConfetti } from '@neoconfetti/vue'
 definePageMeta({ middleware: 'auth' })
 useHead({ title: "Update Pemetaan — e-PKL / SMKN 4 Tasikmalaya." })
 let user = usePocketBaseUser()

@@ -3,10 +3,8 @@
     <div class="side-nav sticky smallest">
       <Header />
       <div class="card shadow-lg">
-        <div v-confetti v-if="isConfetti" class="posiiton-absolute top-0 start-50 translate-middle-x"></div>
         <div class="card-body p-0">
           <div v-if="user" class="fw-bold text-center py-2 text-muted">Halo, <span class="text-dark">{{ username.toUpperCase() }}</span>!
-            <!-- <span @click="moreConfetti" class="hand-cursor">😃</span> -->
           </div>
           <nav>
             <ol class="list-group list-group-flush quicksand fw-bold">
@@ -91,25 +89,17 @@
 </template>
 
 <script setup>
-import { vConfetti } from '@neoconfetti/vue'
-
 let user = usePocketBaseUser()
 let client = usePocketBaseClient()
 let prokel = user.user.value.program_keahlian
 let nama = user?.user.value.nama
 let role = user?.user.value.role
 let username = user?.user.value.username
-let isConfetti = ref(false)
 let activeClass = ref('list-group-item-active')
 let nilai = ref(0)
 let jurnal = ref(0)
 let peserta = ref(0)
 
-const moreConfetti = async () => {
-  isConfetti.value = false
-  await Promise.resolve()
-  isConfetti.value = true
-}
 
 async function getNilai() {
   client.autoCancellation(false)
