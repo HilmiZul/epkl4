@@ -5,3 +5,4 @@ node_modules
 tes.env
 .data
 bun.lockb
+package-lock.json
