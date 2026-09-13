@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.1 (13 September 2026)
+
+- Upgrade Nuxt v4.5
+- Update director structure
+- Prepare for vapor mode
+
 ### 5.0 (18 Agustus 2026)
 
 > Major version was released 🎉
