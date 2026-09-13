@@ -58,5 +58,8 @@ export default defineNuxtConfig({
         }
       },
     ],
-  }
+  },
+  vue: {
+    vapor: true,
+  },
 })
