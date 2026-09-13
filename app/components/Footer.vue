@@ -1,0 +1,55 @@
+<template>
+  <div>
+    <footer class="my-4 text-grey text-center small fw-bold">
+      v{{ version }} <br>
+      <nuxt-link class="hand-cursor link-footer" to="/privacy">Privacy</nuxt-link> |
+      <nuxt-link class="hand-cursor link-footer" to="/terms">Terms</nuxt-link> <br>
+      <!-- <span class="hand-cursor link-footer" data-bs-toggle="modal" data-bs-target="#terms">Terms</span> <br> -->
+      <!-- &copy;2018 - {{ year }} <span class="hand-cursor link-footer" data-bs-toggle="modal" data-bs-target="#cooked">e-PKL</span>. <br> -->
+      &copy;2018 - {{ year }} <nuxt-link class="hand-cursor link-footer" to="/cookedby">e-PKL</nuxt-link>.
+    </footer>
+    <!-- about e-PKL -->
+    <!-- <div class="modal" id="cooked">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-0 border border-3 border-dark shadow-lg text-muted">
+          <div class="modal-header border-bottom border-3 border-dark bg-success rounded-0">
+            <span class="fs-5 fw-bold">What is e-PKL?</span>
+            <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body small">
+            <p>
+              <strong>e-PKL</strong> (<strong>PKL</strong> stand for Praktik Kerja Lapangan) is an internship mapping app for students.
+              I made this project is just for fun, because the Head of the Software Engineering Department challenged me to make an app that can generate letters.
+            </p>
+            <p>
+              Original written in Python (with Django Framework) since 2018 and rewrite to Javascript (with Vue Framework) in 2022.
+            </p>
+            <p>
+              This project is an open source software under MIT Licensed. Feel free if you want to contribute to this <nuxt-link to="https://github.com/hilmizul/epkl4" target="_blank" class="link-footer">project</nuxt-link>.
+            </p>
+            <div class="pt-3">
+              Best regards,
+              <div class="fw-bold">
+                <nuxt-link to="https://zulhilmi.id" class="link-footer" target="_blank">Author</nuxt-link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- /about e-PKL -->
+  </div>
+
+</template>
+
+<script setup vapor>
+let config = useRuntimeConfig()
+let version = config.public.appVersion
+let year = new Date().getFullYear()
+</script>
+
+<style scoped>
+.smallest {
+  font-size: .75em;
+}
+</style>

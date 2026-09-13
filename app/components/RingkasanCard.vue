@@ -1,0 +1,133 @@
+<template>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <h5 class="mb-3 fw-bold">Statistik</h5>
+    </div>
+    <div class="col-md-3">
+      <nuxt-link to="/peserta" class="link border-0">
+        <div class="alert text-bg-dark mb-3">
+          <h2 v-if="!isLoadingPeserta" class="fs-2 fw-bold">{{ count_peserta.length }}</h2>
+          <h4 v-else>
+            <p class="placeholder-glow">
+              <span class="placeholder col-6"></span>
+            </p>
+          </h4>
+          <span class="fw-normal">Peserta <i class="bi bi-arrow-up-right-square"></i></span>
+        </div>
+      </nuxt-link>
+    </div>
+
+    <div class="col-md-3">
+      <nuxt-link to="/pembimbing" class="link border-0">
+        <div class="alert text-bg-dark mb-3">
+          <h2 v-if="!isLoadingPembimbing" class="fs-2 fw-bold">{{ count_pembimbing.length }}</h2>
+          <h4 v-else>
+            <p class="placeholder-glow">
+              <span class="placeholder col-6"></span>
+            </p>
+          </h4>
+          <span class="fw-normal">Pembimbing <i class="bi bi-arrow-up-right-square"></i></span>
+        </div>
+      </nuxt-link>
+    </div>
+
+    <div class="col-md-3">
+      <nuxt-link to="/iduka" class="link border-0">
+        <div class="alert text-bg-dark">
+          <h2 v-if="!isLoadingIduka" class="fs-2 fw-bold">{{ count_iduka.length }}</h2>
+          <h4 v-else>
+            <p class="placeholder-glow">
+              <span class="placeholder col-6"></span>
+            </p>
+          </h4>
+          <span class="fw-normal">IDUKA <i class="bi bi-arrow-up-right-square"></i></span>
+        </div>
+      </nuxt-link>
+    </div>
+
+    <div class="col-md-3">
+      <nuxt-link to="/pemetaan/pkl" class="link border-0">
+        <div class="alert text-bg-dark">
+          <h2 v-if="!isLoadingTerserap" class="fs-2 fw-bold">{{ count_pemetaan_diterima}} <span class="fs-6">{{ prosentase_pemetaan.toFixed(0) }}%</span></h2>
+          <h4 v-else>
+            <p class="placeholder-glow">
+              <span class="placeholder col-6"></span>
+            </p>
+          </h4>
+          <span class="fw-normal">Terserap <i class="bi bi-arrow-up-right-square"></i></span>
+        </div>
+      </nuxt-link>
+    </div>
+  </div>
+</template>
+
+<script setup vapor>
+let user = usePocketBaseUser()
+let client = usePocketBaseClient()
+let role = user.user.value.role
+let prokel = user.user.value.program_keahlian
+let isLoadingPeserta = ref(true)
+let isLoadingPembimbing = ref(true)
+let isLoadingIduka = ref(true)
+let isLoadingTerserap = ref(true)
+let count_peserta = ref(0)
+let count_pembimbing = ref(0)
+let count_iduka = ref(0)
+let prosentase_pemetaan = ref(0)
+let count_pemetaan_diterima = ref(0)
+
+async function countPeserta() {
+  isLoadingPeserta.value = true
+  isLoadingTerserap.value = true
+  client.autoCancellation(false)
+  let res_peserta = await client.collection('siswa').getFullList({
+    filter: "program_keahlian='"+prokel+"'"
+  })
+  let res_pemetaan = await client.collection('pemetaan').getFullList({
+    filter: "program_keahlian='"+prokel+"' && status_acc_pkl=true",
+  })
+  if(res_peserta) {
+    isLoadingPeserta.value = false
+    count_peserta.value = res_peserta
+  }
+  if(res_pemetaan) {
+    isLoadingTerserap.value = false
+    count_pemetaan_diterima.value = res_pemetaan.length
+    prosentase_pemetaan.value = (res_pemetaan.length / count_peserta.value.length) * 100
+  }
+}
+
+async function countPembimbing() {
+  isLoadingPembimbing.value = true
+  let res_pembimbing = await client.collection('teacher_users').getFullList({
+    filter: `program_keahlian ~ "${prokel}" && role!='admin'`
+  })
+  if(res_pembimbing) {
+    isLoadingPembimbing.value = false
+    count_pembimbing.value = res_pembimbing
+  }
+}
+
+async function countIduka() {
+  isLoadingIduka.value = true
+  let res_iduka = await client.collection('iduka').getFullList({
+    filter: `program_keahlian="${prokel}" && isArchive=false`
+  })
+  if(res_iduka) {
+    isLoadingIduka.value = false
+    count_iduka.value = res_iduka
+  }
+}
+
+onMounted(() => {
+  countPeserta()
+  countPembimbing()
+  countIduka()
+})
+</script>
+
+<style scoped>
+.fw-bold {
+  letter-spacing: .03em;
+}
+</style>

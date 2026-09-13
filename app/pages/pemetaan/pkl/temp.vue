@@ -1,0 +1,311 @@
+<template>
+  <div class="card shadow-lg">
+    <div class="card-header">
+      <span class="h4 quicksand"><i class="bi bi-diagram-3-fill"></i> Pemetaan PKL</span>
+      <div v-if="isIdukaAvailable.length > 0" class="float-end">
+        <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/pemetaan/pkl/tambah" class="btn btn-info btn-sm"><i class="bi bi-plus-lg"></i> Tambah</nuxt-link>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="my-3 mt-0">
+            <input v-model="keyword" type="search" class="form form-control" placeholder="🔎 Cari nama IDUKA" />
+          </div>
+        </div>
+        <div class="col align-content-center small">
+          <div class="mb-3 text-grey float-end">{{ mappingFiltered.length }} peserta terpetakan</div>
+        </div>
+      </div>
+      <!-- <div v-if="isLoading"><Loading /></div> -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive border-0">
+            <div class="row">
+              <Loading v-if="isLoading" />
+              <div v-if="mappingFiltered.length < 1" class="col-md-12">Data tidak ditemukan</div>
+              <div v-else v-for="(pemetaan) in mappingFiltered" :key="pemetaan.id" class="col-md-12">
+                <div class="card border-0">
+                  <div class="card-body">
+                    <div v-if="pemetaan.showIduka">
+                      {{ pemetaan.expand.iduka.nama }}
+                    </div>
+                    <div v-else>lkj</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- modal pertanyaan apakah diterima IDUKA PKL? -->
+          <div>
+            <div v-for="(pemetaan) in mapping" :key="pemetaan.id">
+              <div class="modal" :id="`status-${pemetaan.id}`" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
+                    <div class="modal-header rounded-0 h4 bg-warning quicksand">
+                      Konfrimasi Penerimaan
+                    </div>
+                    <div class="modal-body text-dark">
+                      Apakah <strong>{{ pemetaan.expand.iduka.nama }}</strong> sudah konfirmasi menerima Peserta?
+                    </div>
+                    <div class="modal-footer">
+                      <button @click="handleAccPkl(pemetaan.iduka)" class="btn btn-success" data-bs-dismiss="modal">Udah dong!</button>
+                      <button class="btn btn-light" data-bs-dismiss="modal">eh belum</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+definePageMeta({ middleware: 'auth' })
+useHead({ title: "Pemetaan PKL — e-PKL / SMKN 4 Tasikmalaya." })
+let client = usePocketBaseClient()
+let user = usePocketBaseUser()
+let role = user.user.value.role
+let prokel = user.user.value.program_keahlian
+let mapping = ref([])
+let newMapping = ref([])
+let isLoading = ref(true)
+let opsiWilayah = ref('')
+let keyword = ref('')
+let isIdukaAvailable = ref([])
+
+async function handleAccPkl(iduka) {
+  // kumpulkan peserta yang iduka-nya sama. ubah status Acc. PKL dengan looping
+  let idukaById = await client.collection('pemetaan').getFullList({
+    filter: "program_keahlian='"+prokel+"' && iduka='"+iduka+"'"
+  })
+  if(idukaById) {
+    for(let i=0; i<idukaById.length; i++) {
+      // console.log(count_dudi[i].id)
+      // console.log('ubah ke true')
+      // console.log('--------------------')
+      await client.collection('pemetaan').update(idukaById[i].id, { status_acc_pkl: true })
+    }
+  }
+}
+
+async function getPemetaan() {
+  isLoading.value = true
+  // atur filter berdasarkan role: `tu` atau selain `tu`
+  let filterQuery = "program_keahlian='"+prokel+"' && iduka.pembimbing_sekolah='"+user.user.value.id+"'"
+  if(role == 'tu') filterQuery = ""
+  else if(role == 'jurusan') filterQuery = "program_keahlian='"+prokel+"'"
+  else if(role == 'guru') filterQuery = "program_keahlian='"+prokel+"' && iduka.pembimbing_sekolah='"+user.user.value.id+"'"
+  // else if(role == 'guru') filterQuery = "program_keahlian='"+prokel+"' && siswa.pembimbing='"+user.user.value.id+"'"
+
+  client.autoCancellation(false)
+  let data = await client.collection("pemetaan").getFullList({
+    filter: filterQuery,
+    expand: "iduka, iduka.pembimbing_sekolah, siswa, program_keahlian",
+    sort: "status_acc_pkl, iduka.wilayah, iduka.nama",
+  })
+  if(data) {
+    isLoading.value = false
+    mapping.value = data
+
+    // grouping untuk rowspan
+    const tempMapping = []
+    let prevIduka = null
+    let rowspanCount = 0
+    mapping.value.forEach((item, index) => {
+      if(item.iduka !== prevIduka) {
+        rowspanCount = 1
+        // cari banyaknya baris dari banyaknya iduka yang sama
+        for(let i=index+1; i<mapping.value.length; i++) {
+          if(mapping.value[i].iduka === item.iduka) {
+            rowspanCount++
+          } else {
+            break
+          }
+        }
+        tempMapping.push({
+          ...item,
+          showIduka: true,
+          idukaRowspan: rowspanCount
+        })
+      } else {
+        tempMapping.push({
+          ...item,
+          showIduka: false,
+          idukaRowspan: 1
+        })
+      }
+      prevIduka = item.iduka
+    })
+    mapping.value = tempMapping
+  }
+}
+
+async function filterByWilayah() {
+  isLoading.value = true
+  if(opsiWilayah.value.length > 0) {
+    client.autoCancellation(false)
+    const data = await client
+      .collection('pemetaan')
+      .getFullList({
+        filter: "iduka.wilayah='"+opsiWilayah.value+"' && program_keahlian='"+prokel+"'",
+        expand: "iduka, siswa, program_keahlian",
+        sort: "iduka.wilayah, iduka.nama"
+      })
+    if(data) {
+      isLoading.value = false
+      mapping.value = data
+
+      // grouping untuk rowspan
+      const tempMapping = []
+      let prevIduka = null
+      let rowspanCount = 0
+      mapping.value.forEach((item, index) => {
+        if(item.iduka !== prevIduka) {
+          rowspanCount = 1
+          // cari banyaknya baris dari banyaknya iduka yang sama
+          for(let i=index+1; i<mapping.value.length; i++) {
+            if(mapping.value[i].iduka === item.iduka) {
+              rowspanCount++
+            } else {
+              break
+            }
+          }
+          tempMapping.push({
+            ...item,
+            showIduka: true,
+            idukaRowspan: rowspanCount
+          })
+        } else {
+          tempMapping.push({
+            ...item,
+            showIduka: false,
+            idukaRowspan: 1
+          })
+        }
+        prevIduka = item.iduka
+      })
+      mapping.value = tempMapping
+    }
+  } else {
+    getPemetaan()
+  }
+}
+
+async function searchByKeyword() {
+  isLoading.value = true
+  client.autoCancellation(false)
+  if(keyword.value.length > 0) {
+    let data = await client
+      .collection('pemetaan')
+      .getFullList({
+        filter: "iduka.nama~'"+keyword.value+"' || siswa.nama~'"+keyword.value+"' && program_keahlian='"+prokel+"'",
+        expand: "iduka, siswa, program_keahlian",
+        sort: "iduka.wilayah"
+      })
+    if(data) {
+      isLoading.value = false
+      mapping.value = data
+
+      // grouping untuk rowspan
+      const tempMapping = []
+      let prevIduka = null
+      let rowspanCount = 0
+      mapping.value.forEach((item, index) => {
+        if(item.iduka !== prevIduka) {
+          rowspanCount = 1
+          // cari banyaknya baris dari banyaknya iduka yang sama
+          for(let i=index+1; i<mapping.value.length; i++) {
+            if(mapping.value[i].iduka === item.iduka) {
+              rowspanCount++
+            } else {
+              break
+            }
+          }
+          tempMapping.push({
+            ...item,
+            showIduka: true,
+            idukaRowspan: rowspanCount
+          })
+        } else {
+          tempMapping.push({
+            ...item,
+            showIduka: false,
+            idukaRowspan: 1
+          })
+        }
+        prevIduka = item.iduka
+      })
+      mapping.value = tempMapping
+    }
+  } else {
+    getPemetaan()
+  }
+}
+
+const mappingFiltered = computed(() => {
+  return mapping.value.filter((i) => {
+    return (
+      i.expand.iduka.nama.toLowerCase().includes(keyword.value.toLowerCase()) ||
+      i.expand.iduka.wilayah.toLowerCase().includes(keyword.value.toLowerCase())
+      // i.expand.siswa.nama.toLowerCase().includes(keyword.value.toLowerCase())
+    )
+  })
+})
+
+async function getIdukaIsAvailable() {
+  // memeriksa apakah Prokel tersebut sudah memiliki daftar IDUKA?
+  // apabila belum, maka proses pemetaan belum diizinkan. :D
+  isLoading.value = true
+  let data = await client.collection('iduka').getFullList({
+    filter: "program_keahlian='"+prokel+"'"
+  })
+  if(data) {
+    isLoading.value = false
+    isIdukaAvailable.value = data
+  }
+}
+
+onMounted(() => {
+  getPemetaan()
+  getIdukaIsAvailable()
+  client.autoCancellation(false)
+  client.collection('pemetaan').subscribe('*', function(e) {
+    if(e.action == 'update') {
+      getPemetaan()
+      getIdukaIsAvailable()
+    }
+  },{})
+})
+</script>
+
+<style scoped>
+.count {
+  position: relative;
+}
+.count_num {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 1.6em;
+  height: 1.6em;
+  border-radius: 100%;
+  border: 2px solid #000;
+  text-align: center;
+  font-size: 1.5em;
+}
+a.link.link-card .card:hover {
+  transform: scale(.995);
+  box-shadow: 1px 1px 0 #000 !important;
+}
+a.link.link-card .card {
+  transition: all 0.2s ease-out;
+}
+.smallest {
+  font-size: 12px;
+}
+</style>

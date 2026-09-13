@@ -1,0 +1,14 @@
+<template>
+  <div class="card py-5">
+    <div class="card-body text-center text-muted quicksand">
+      <h2>404</h2>
+      <h3>Halaman yang kamu tuju tidak ada.</h3>
+    </div>
+  </div>
+</template>
+
+<script setup vapor>
+useHead({
+  title: "404: Halaman yang kamu tuju tidak ada"
+})
+</script>

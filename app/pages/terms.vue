@@ -1,0 +1,124 @@
+<template>
+  <nuxt-link to="/" class="btn btn-light btn-sm border border-2 border-dark"><i class="bi bi-arrow-left"></i> Kembali</nuxt-link>
+  <nuxt-link to="/privacy" class="btn btn-dark btn-sm border border-2 border-dark ms-2">Kebijakan Privasi</nuxt-link>
+  <div class="card mt-3">
+    <div class="card-header fw-bold fs-5">
+      Aturan dan Syarat Penggunaan
+    </div>
+    <div class="card-body text-dark">
+      <p class="text-muted small">
+        Diperbaharui pada 15 Juli 2026
+      </p>
+      <h5 class="fw-bold">Akun Anggota e-PKL</h5>
+      <ul>
+        <li>Warga sekolah di SMKN 4 Tasikmalaya.</li>
+        <li>Manajemen, diantaranya Kepala Sekolah, Wakil Kepala, Kepala Program dan Kepala Bengkel.</li>
+        <li>Guru yang mengampu pada tingkat XII.</li>
+        <li>Tata Usaha bagian persuratan.</li>
+        <li>Setiap anggota yang terdaftar artinya sepakat dengan Kebijakan Privasi aplikasi e-PKL.</li>
+        <li>Setiap anggota dianjurkan memperbaharui password secara berkala.</li>
+        <li>e-PKL berhak menonaktifkan akun anggota apabila terjadi hal lain misalnya perubahan jadwal atau cuti.</li>
+      </ul>
+
+      <h5 class="fw-bold">Alur Pemetaan PKL</h5>
+      <ul>
+        <li>Hanya peserta didik yang sudah tuntas nilai rapor 4 semester terakhir yang dapat dipetakan.</li>
+        <li>Jurusan wajib mengajak peserta didik melakukan konsultasi sebelum survey tempat PKL.</li>
+        <li>
+          Jurusan wajib memfasilitasi, melayani dan mengarahkan peserta didik kepada IDUKA yang sesuai kompetensi,
+          apabila terdaftar pada halaman IDUKA dan masih kosong.
+        </li>
+        <li>Peserta didik masih dapat mengubah pilihan IDUKA selama surat permohonan belum terbit.</li>
+        <li>Surat permohonan akan di <em>generate</em> oleh aplikasi e-PKL pasca pemetaan peserta ke IDUKA selesai.</li>
+        <li>Surat permohonan akan di TTE oleh TU Persuratan apabila jumlah kuota IDUKA terisi penuh.</li>
+        <li>TU Persuratan akan merilis dan mencetak surat permohonan yang telah selesai di TTE paling lambat setengah hari (tergantung ketersediaan personil).</li>
+        <li>Upayakan peserta didik tidak mengubah atau mengundurkan diri dari IDUKA apabila telah diterima. Jika hal tersebut terjadi, maka peserta didik tersebut harus dipetakan ulang.</li>
+      </ul>
+
+      <h5 class="fw-bold">Terkait Elemen</h5>
+      <ul>
+        <li>
+          Berdasarkan <nuxt-link to="https://guru.kemendikdasmen.go.id/dokumen/WZ20mN6AdE?parentCategory=Implementasi%20Kurikulum%20Nasional" target="_blank">Permendikbud Nomor 50 Tahun 2020</nuxt-link>
+          tentang PKL sebagai mata pelajaran dalam implementasi kurikulum merdeka.
+        </li>
+        <li>Elemen berisi CP dan tujuan dari mata pelajaran PKL.</li>
+        <li>Dilarang keras mengubah Elemen default yang sudah ada pada aplikasi e-PKL.</li>
+        <li>Setiap Kepala Program Keahlian wajib mengisi poin-poin elemen yang telah disusun bersama Kurikulum.</li>
+        <li>Elemen ini akan digunakan oleh peserta didik untuk mengisi Jurnal Harian.</li>
+      </ul>
+
+      <h5 class="fw-bold">Terkait Jurnal Harian</h5>
+      <ul>
+        <li>Setiap Guru Pembimbing wajib memantau dan memvalidasi aktivitas peserta pada halaman Jurnal Harian.</li>
+        <li>Setiap jurnal peserta memiliki pita berwarna Putih (sesuai elemen) dan <span class="text-dark">Hitam (tidak sesuai elemen)</span>.</li>
+        <li>Guru Pembimbing hanya diperbolehkan memvalidasi Jurnal peserta apabila:
+          <table class="table text-muted small mt-3">
+            <tbody>
+              <tr>
+                <td><i class="bi bi-bookmark"></i> Pita Putih</td>
+                <td>Sesuai dengan elemen yang dipilih</td>
+              </tr>
+              <tr>
+                <td><i class="bi bi-bookmark"></i> Pita Putih</td>
+                <td>Ada hubungannya dengan elemen yang dipilih</td>
+              </tr>
+              <tr>
+                <td> <i class="bi bi-bookmark-fill text-dark"></i> Pita Hitam</td>
+                <td>Lintas konsentrasi keahlian atau aktivitas masih berhubungan dengan pekerjaan</td>
+              </tr>
+            </tbody>
+          </table>
+          Yang tidak tercantum diatas, Guru Pembimbing tidak berkenan memvalidasi jurnal.
+        </li>
+        <li>Jurnal peserta akan diurutkan berdasarkan status yang belum valid.</li>
+        <li>Guru Pembimbing dapat memfilter jurnal berdasarkan tanggal dan atau peserta didik.</li>
+        <li>Wakasek Kurikulum dapat memantau aktivitas jurnal peserta secara <em>realtime</em> berdasarkan yang belum divalidasi Guru Pembimbing.</li>
+      </ul>
+
+      <h5 class="fw-bold">Terkait Komentar</h5>
+      <ul>
+        <li>Guru Pembimbing dapat memberikan dukungan berupa komentar tertulis pada Jurnal peserta.</li>
+        <li>Komentar dapat berupa motivasi atau apresiasi dan kritik yang membangun.</li>
+      </ul>
+      <h5 class="fw-bold">Terkait Leger Nilai</h5>
+      <ul>
+        <li>Guru Pembimbing berkewajiban mengingatkan peserta untuk menyerahkan nilai PKL.</li>
+        <li>Guru Pembimbing berkewajiban memeriksa dan memastikan data yang diserahkan peserta sesuai dengan foto halaman nilai dan rekapan kehadiran.</li>
+        <li>Guru Pembimbing berkewajiban memvalidasi nilai yang yang sudah diperiksa dan sesuai.</li>
+        <li>Kurikulum memantau leger nilai per kelas yang telah divalidasi oleh Guru Pembimbing dan dapat mengunduhnya kedalam berkas <span class="text-success">.xlsx</span></li>
+      </ul>
+
+      <h5 class="fw-bold">Terkait Rapor PKL</h5>
+      <ul>
+        <li>
+          Berdasarkan <nuxt-link to="https://guru.kemendikdasmen.go.id/dokumen/WZ20mN6AdE?parentCategory=Implementasi%20Kurikulum%20Nasional" target="_blank">Permendikbud Nomor 50 Tahun 2020</nuxt-link>,
+          bahwa hasil asesmen disampaikan dalam rapor dengan mencantumkan keterangan industri tentang kinerja secara keseluruhan
+          berdasarkan jurnal PKL, sertifikat atau surat keterangan PKL dari dunia kerja.
+        </li>
+        <li>Guru Pembimbing berkewajiban mencetak Rapor peserta dan menandatangani.</li>
+        <li>Guru Pembimbing berkewajiban menyerahkan Rapor yang sudah ditanda tangan kepada Walikelas.</li>
+      </ul>
+
+      <h5 class="fw-bold">Terkait Sertifikat</h5>
+      <ul>
+        <li>Sertifikat bersifat <span class="fw-bold border-bottom border-2 border-dark">tidak wajib</span>. Namun Guru Pembimbing bertanggungjawab apabila IDUKA menitipkan sertifikat untuk dicetak disekolah.</li>
+        <li>Guru Pembimbing mengumpulkan dan menyerahkan Sertifikat yang sudah ditanda tangan oleh IDUKA bersangkutan kepada HUBIN.</li>
+      </ul>
+
+      <h5 class="fw-bold">Terkait Proyek Peserta</h5>
+      <ul>
+        <li>Guru Pembimbing berhak memberi <em>feedback</em> dalam bentuk catatan kedalam Proyek Peserta.</li>
+      </ul>
+    </div>
+  </div>
+</template>
+
+<script setup vapor>
+definePageMeta({ layout: 'public' })
+useHead({
+  title: "Aturan dan Syarat Penggunaan — e-PKL / SMKN 4 Tasikmalaya.",
+  meta: [
+    { name: "description", content: "Aturan dan Syarat Penggunaan pada SaaS/App Pemetaan dan Jurnal Peserta PKL (Praktik Kerja Lapangan) tingkat SMK."}
+  ]
+})
+</script>

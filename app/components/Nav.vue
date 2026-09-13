@@ -1,0 +1,194 @@
+<template>
+  <div class="col-lg-2">
+    <div class="side-nav sticky smallest">
+      <Header />
+      <div class="card shadow-lg">
+        <div class="card-body p-0">
+          <div v-if="user" class="fw-bold text-center py-2 text-muted">Halo, <span class="text-dark">{{ username.toUpperCase() }}</span>!
+          </div>
+          <nav>
+            <ol class="list-group list-group-flush quicksand fw-bold">
+              <nuxt-link to="/" :activeClass="activeClass">
+                <li class="list-group-item"><i class="bi bi-pie-chart-fill"></i> Overview</li>
+              </nuxt-link>
+              <nuxt-link to="/profil" v-if="role ==='admin' || role === 'jurusan' || role === 'guru'" :activeClass="activeClass">
+                <li class="list-group-item"><i class="bi bi-person-fill"></i> Profil</li>
+              </nuxt-link>
+              <nuxt-link to="/walikelas" v-if="role ==='admin' || role === 'wakasek'" :activeClass="activeClass">
+                <li class="list-group-item"><i class="bi bi-person-workspace"></i> Walikelas</li>
+              </nuxt-link>
+              <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" to="/elemen" :activeClass="activeClass">
+                <li class="list-group-item"><i class="bi bi-journal-bookmark-fill"></i> Elemen</li>
+              </nuxt-link>
+              <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role === 'wakasek' || role == 'tu'" to="/pembimbing" :activeClass="activeClass">
+                <li class="list-group-item"><i class="bi bi-emoji-smile"></i> Pembimbing</li>
+              </nuxt-link>
+              <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role == 'guru' || role == 'wakasek'" to="/peserta" :activeClass="activeClass">
+                <li class="list-group-item"><i class="bi bi-people-fill"></i> Peserta <span v-if="(role == 'admin' || role == 'jurusan') && peserta > 0" class="badge rounded-5 text-bg-danger float-end">{{ peserta }}</span></li>
+              </nuxt-link>
+              <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role == 'guru' || role === 'wakasek' || role === 'tu'" to="/iduka" :activeClass="activeClass">
+                <li class="list-group-item"><i class="bi bi-buildings-fill"></i> IDUKA</li>
+              </nuxt-link>
+              <nuxt-link to="/pemetaan/pkl" :activeClass="activeClass">
+                <li class="list-group-item"><i class="bi bi-diagram-3-fill"></i> Pemetaan</li>
+              </nuxt-link>
+              <!-- <nuxt-link v-if="role == 'admin' || role == 'jurusan'" to="/peserta/users">
+                <li class="list-group-item"><i class="bi bi-people-fill"></i> User Peserta</li>
+              </nuxt-link> -->
+              <!-- <nuxt-link to="/pemetaan/pembimbing">
+                <li class="list-group-item"><i class="bi bi-people-fill"></i> Pemetaan Pembimbing</li>
+              </nuxt-link> -->
+              <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" to="/jurnal" :activeClass="activeClass">
+                <li class="list-group-item"><i class="bi bi-journals"></i> Jurnal<span v-if="jurnal > 0" class="badge rounded-5 text-bg-danger float-end">{{ jurnal }}</span></li>
+              </nuxt-link>
+              <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role == 'guru' || role == 'wakasek'" to="/leger" :activeClass="activeClass">
+                <li class="list-group-item"><i class="bi bi-patch-check"></i> Leger <span v-if="nilai > 0" class="badge rounded-5 text-bg-danger float-end">{{ nilai }}</span></li>
+              </nuxt-link>
+              <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role == 'guru'" to="/rapor" :activeClass="activeClass">
+                <li class="list-group-item"><i class="bi bi-book"></i> Rapor</li>
+              </nuxt-link>
+              <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role == 'guru'" to="/sertifikat" :activeClass="activeClass">
+                <li class="list-group-item"><i class="bi bi-person-vcard-fill"></i> Sertifikat</li>
+              </nuxt-link>
+              <nuxt-link v-if="role === 'admin' || role === 'tu' || role === 'wakasek'" to="/pengaturan" :activeClass="activeClass">
+                <li class="list-group-item"><i class="bi bi-sliders"></i> Pengaturan</li>
+              </nuxt-link>
+              <nuxt-link v-if="role === 'admin' || role === 'jurusan' || role === 'guru'" to="/proyek" :activeClass="activeClass">
+                <li class="list-group-item"><i class="bi bi-easel"></i> Proyek</li>
+              </nuxt-link>
+              <nuxt-link to="/ubah-password" :activeClass="activeClass">
+                <li class="list-group-item"><i class="bi bi-key"></i> Password</li>
+              </nuxt-link>
+              <!-- <nuxt-link to="/analitik">
+                <li class="list-group-item"><i class="bi bi-bar-chart-fill"></i> Analitik</li>
+              </nuxt-link> -->
+              <nuxt-link to="/logout" :activeClass="activeClass">
+                <li class="list-group-item text-danger mb-3"><i class="bi bi-box-arrow-right"></i> Keluar</li>
+              </nuxt-link>
+              <div class="modal" id="logout" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header"><h3>Logout</h3></div>
+                    <div class="modal-body">
+                      keluar dari app?
+                    </div>
+                    <div class="modal-footer">
+                      <nuxt-link to="/logout" class="btn btn-success">keluar</nuxt-link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ol>
+          </nav>
+        </div>
+      </div>
+      <!-- tutup ./card -->
+
+    </div>
+  </div>
+</template>
+
+<script setup vapor>
+let user = usePocketBaseUser()
+let client = usePocketBaseClient()
+let prokel = user.user.value.program_keahlian
+let nama = user?.user.value.nama
+let role = user?.user.value.role
+let username = user?.user.value.username
+let activeClass = ref('list-group-item-active')
+let nilai = ref(0)
+let jurnal = ref(0)
+let peserta = ref(0)
+
+
+async function getNilai() {
+  client.autoCancellation(false)
+  let res = await client.collection('nilai').getList(1, 1, {
+    // filter: `iduka.pembimbing_sekolah="${user.user.value.id}" && isValid=false`,
+    filter: `pembimbing="${user.user.value.id}" && isValid=false`,
+  })
+  if(res) {
+    nilai.value = res.totalItems
+  }
+}
+
+async function getJurnal() {
+  client.autoCancellation(false)
+  let res = await client.collection('jurnal').getList(1,1, {
+    // filter: `iduka.pembimbing_sekolah="${user.user.value.id}" && isValid=false && isDraft=false`
+    filter: `pembimbing="${user.user.value.id}" && isValid=false && isDraft=false`
+  })
+  if(res) {
+    jurnal.value = res.totalItems
+  }
+}
+
+async function getPeserta() {
+  client.autoCancellation(false)
+  let res = await client.collection('siswa').getList(1, 1, {
+    filter: `program_keahlian="${prokel}" && status_pemetaan_pkl=false`,
+  })
+  if(res) {
+    peserta.value = res.totalItems
+  }
+}
+
+onMounted(() => {
+  getNilai()
+  getJurnal()
+  getPeserta()
+  // client.collection('jurnal').subscribe('*', function(e){
+  //   if(e.action == 'update' || e.action == 'create') getJurnal()
+  // },{})
+
+  // client.collection('siswa').subscribe('*', function(e){
+  //   if(e.action == 'update') getPeserta()
+  // },{})
+
+  // client.collection('iduka').subscribe('*', function(e){
+  //   if(e.action == 'update') getJurnal()
+  // },{})
+
+  // client.collection('teacher_users').subscribe('*', function(e){
+  //   if(e.action == 'update') user?.user.value
+  // },{})
+
+  // client.collection('nilai').subscribe('*', function(e){
+  //   if(e.action == 'update') getNilai()
+  // },{})
+})
+</script>
+
+<style scoped>
+a {
+  text-decoration: none;
+}
+a:hover > li {
+  background-color: #f0f0f0;
+}
+.list-group-item {
+  font-size: 1.2em;
+  border: none !important;
+  /* border-bottom: 2px solid #212529 !important; */
+  background-color: transparent;
+}
+.list-group-item:hover,
+a.list-group-item-active > li {
+  /* background-color: #b5d2ad !important; */
+  background-color: #212529 !important;
+  color: #fff;
+}
+
+.list-group-item:hover .badge,
+.list-group-item-active .badge {
+  border: #fff;
+  color: #fff;
+  background-color: #fff;
+}
+
+@media screen and (max-width: 992px) {
+  .side-nav {
+    display: none;
+  }
+}
+</style>

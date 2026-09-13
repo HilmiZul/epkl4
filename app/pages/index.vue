@@ -1,0 +1,249 @@
+<template>
+  <div>
+    <!-- ROLE: ADMIN & JURUSAN (MANAJEMEN) -->
+    <div v-if="role == 'admin' || role == 'jurusan'" class="card">
+      <div class="card-header">
+        <span class="h5 quicksand fw-bold"><i class="bi bi-pie-chart-fill"></i> Overview</span>
+      </div>
+      <div class="card-body">
+        <!--<div class="alert alert-info alert-dismissible small">
+          <div class="fs-5 fw-bold"><i class="bi bi-lightbulb-fill"></i> Ada yang baru!</div>
+          Sekarang Anda dapat mengarsipkan IDUKA yang tidak terisi dan memfilternya. Klik icon <i class="bi bi-chat-right-text"></i> lalu klik tombol <span class="fw-bold">Arsipkan</span>. <br>
+          IDUKA yang diarsipkan tidak dapat diisi/petakan. Untuk membukanya, klik lagi icon <i class="bi bi-chat-right-text"></i> lalu klik tombol <span class="fw-bold">Buka arsip</span>.
+          <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>-->
+        <!-- <ringkasan-notif-jurnal /> -->
+        <ringkasan-personal />
+        <!-- <ringkasan-fyi v-if="role == 'admin' || role == 'jurusan'" /> -->
+        <ringkasan-card />
+        <ringkasan-detail-statistik />
+
+        <div class="row mt-4 justify-content-center">
+          <ringkasan-chart />
+          <RingkasanDaftarPesertaBelumTerpetakan />
+        </div>
+        <div class="row">
+        </div>
+      </div>
+    </div>
+
+    <!-- ROLE: GURU PEMBIMBING -->
+    <div v-else-if="role == 'guru'" class="card">
+      <div class="card-header">
+        <span class="h5 quicksand fw-bold"><i class="bi bi-pie-chart-fill"></i> Overview</span>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-lg-12">
+            <!-- <ringkasan-notif-jurnal /> -->
+            <ringkasan-personal />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROLE: TU & WAKASEK -->
+    <div v-else class="card">
+      <div class="card-header">
+        <span class="h5 quicksand fw-bold"><i class="bi bi-pie-chart-fill"></i> Overview</span>
+      </div>
+      <div class="card-body">
+
+        <div v-if="role == 'wakasek'" class="row">
+          <div class="col-lg-12">
+            <div v-if="isLoadingJurnal">
+              <loading-placeholder row="1" col="12" />
+              <loading-placeholder row="1" col="2" />
+            </div>
+            <div v-if="jumlah_jurnal_belum_valid > 0" class="alert alert-warning">
+              Ada <strong>{{ jumlah_jurnal_belum_valid }}</strong> Jurnal Peserta yang belum divalidasi Guru Pembimbing!
+              <NuxtLink to="/pantaujurnal">
+                <div class="mt-3">
+                  <button class="btn btn-outline-dark border border-2 border-dark">Intip sini <i class="bi bi-chevron-right"></i></button>
+                </div>
+              </NuxtLink>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <nuxt-link to="/pembimbing" class="link border-0">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <h2 v-if="!isLoading" class="fw-bold">{{ jumlah_pembimbing }}</h2>
+                  <h4 v-else>
+                    <p class="placeholder-glow">
+                      <span class="placeholder col-6"></span>
+                    </p>
+                  </h4>
+                  <span class="fw-normal">Pembimbing <i class="bi bi-arrow-up-right-square"></i></span>
+                </div>
+              </div>
+            </nuxt-link>
+          </div>
+
+          <div class="col-md-3">
+            <nuxt-link to="/iduka" class="link border-0">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <h2 v-if="!isLoading" class="fw-bold">{{ jumlah_iduka }}</h2>
+                  <h4 v-else>
+                    <p class="placeholder-glow">
+                      <span class="placeholder col-6"></span>
+                    </p>
+                  </h4>
+                  <span class="fw-normal">IDUKA <i class="bi bi-arrow-up-right-square"></i></span>
+                </div>
+              </div>
+            </nuxt-link>
+          </div>
+
+          <div class="col-md-3">
+            <nuxt-link to="/pemetaan/pkl" class="link border-0">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <h2 v-if="!isLoading" class="fw-bold">{{ jumlah_pemetaan.length }}</h2>
+                  <h4 v-else>
+                    <p class="placeholder-glow">
+                      <span class="placeholder col-6"></span>
+                    </p>
+                  </h4>
+                  <span class="fw-normal">Pemetaan <i class="bi bi-arrow-up-right-square"></i></span>
+                </div>
+              </div>
+            </nuxt-link>
+          </div>
+
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body">
+                <h2 v-if="!isLoadingPeserta" class="fw-bold">{{ jumlah_peserta }}</h2>
+                <h4 v-else>
+                  <p class="placeholder-glow">
+                    <span class="placeholder col-6"></span>
+                  </p>
+                </h4>
+                <span class="fw-normal">Pesetrta</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <h5 class="fw-bold text-muted"><i class="bi bi-emoji-smile"></i> Statistik Pembimbing</h5>
+            <ringkasan-stat-pembimbing />
+          </div>
+
+        <!-- </div>
+        <div class="row mt-4"> -->
+          <div class="col-md-6">
+            <h5 class="fw-bold text-muted"><i class="bi bi-buildings-fill"></i> Statistik IDUKA</h5>
+            <ringkasan-stat-iduka />
+          </div>
+        </div>
+
+        <div class="row mt-4 justify-content-center">
+          <div class="col-md-12">
+            <h5 class="fw-bold text-muted"><i class="bi bi-diagram-3-fill"></i> Statistik Pemetaan</h5>
+          </div>
+          <ringkasan-stat-per-jurusan />
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+definePageMeta({
+  middleware: 'auth',
+})
+useHead({
+  title: "e-PKL / SMKN 4 Tasikmalaya.",
+  meta: [
+    { name: "description", content: "SaaS/App Pemetaan dan Jurnal Peserta PKL (Praktik Kerja Lapangan) tingkat SMK."}
+  ]
+})
+let user = usePocketBaseUser()
+let client = usePocketBaseClient()
+let role = user?.user.value.role
+let isLoading = ref(true)
+let isLoadingPeserta = ref(true)
+let isLoadingIduka = ref(true)
+let isLoadingPembimbing = ref(true)
+let isLoadingJurnal = ref(true)
+let jumlah_pemetaan = ref([])
+let jumlah_peserta = ref(0)
+let jumlah_iduka = ref(0)
+let jumlah_pembimbing = ref(0)
+let jumlah_jurnal_belum_valid = ref(0)
+
+async function getInfo() {
+  isLoading.value = true
+  client.autoCancellation(false)
+  let res_pemetaan = await client.collection('pemetaan').getFullList()
+  if(res_pemetaan) {
+    isLoading.value = false
+    jumlah_pemetaan.value = res_pemetaan
+  }
+}
+
+async function getPeserta() {
+  isLoadingPeserta.value = true
+  client.autoCancellation(false)
+  let res_siswa = await client.collection('siswa').getList(1,1)
+  if(res_siswa) {
+    jumlah_peserta.value = res_siswa.totalItems
+    isLoadingPeserta.value = false
+  }
+}
+
+async function getIduka() {
+  isLoadingIduka.value = true
+  client.autoCancellation(false)
+  let res_iduka = await client.collection('iduka').getList(1,1, {
+    filter: `isArchive=false`
+  })
+  if(res_iduka) {
+    jumlah_iduka.value = res_iduka.totalItems
+    isLoadingIduka.value = false
+  }
+}
+
+async function getPembimbing() {
+  isLoadingPembimbing.value = true
+  client.autoCancellation(false)
+  let res = await client.collection('teacher_users').getList(1,1, {
+    filter: `role="jurusan" || role="guru"`
+  })
+  if(res) {
+    jumlah_pembimbing.value = res.totalItems
+    isLoadingPembimbing.value = false
+  }
+}
+
+async function getJournalNotValidYet(loading=true) {
+  isLoadingJurnal.value = loading 
+  let res = await client.collection('jurnal').getList(1,1, {
+    filter: `isDraft=false && isValid=false`
+  })
+  if(res) {
+    jumlah_jurnal_belum_valid.value = res.totalItems
+    isLoadingJurnal.value = false
+  }
+}
+
+onMounted(() => {
+  getInfo()
+  getPeserta()
+  getIduka()
+  getPembimbing()
+  getJournalNotValidYet()
+  client.collection('jurnal').subscribe('*', function(e) {
+    if(e.action == 'create' || e.action == 'update') {
+      getJournalNotValidYet(false)
+    }
+  },{})
+})
+</script>
