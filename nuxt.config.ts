@@ -43,7 +43,7 @@ export default defineNuxtConfig({
     build: {
       // limit hasil build yg >= 700 dalam kB
       // lieur warning wae lah
-      chunkSizeWarningLimit: 900
+      chunkSizeWarningLimit: 950,
     },
     assetsInclude: ['**/*.xlsx'], // xlsx file should be treated as assets
 
