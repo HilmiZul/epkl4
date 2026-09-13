@@ -1,4 +1,3 @@
-import { build } from 'nuxt'
 import pkg from './package.json'
 import { readFileSync } from 'fs'
 import { read, utils } from 'xlsx'
