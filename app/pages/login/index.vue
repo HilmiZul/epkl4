@@ -12,7 +12,7 @@
         </div>
         <div class="mb-4">
           <label for="password">Password</label>
-          <input v-model="password" :disabled="username.length < 3 || sending" type="password" class="form form-control form-control-lg" name="password" id="password" placeholder="password-nya juga" required>
+          <input v-model="password" :disabled="username.length < 3 || sending" type="password" class="form form-control form-control-lg" name="password" id="password" placeholder="masukkan password" required>
         </div>
         <div class="d-grid gap-2 mt-5">
           <button :disabled="sending || username.length < 3 || password.length < 8" class="btn btn-dark btn-lg border border-2 border-dark">
