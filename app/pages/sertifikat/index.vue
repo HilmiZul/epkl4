@@ -43,7 +43,8 @@
             Belum tersedia
           </div>
           <div class="text-center">
-            Pastikan peserta sudah menyerahkan nilai dan divalidasi oleh Anda.
+            Pastikan peserta sudah menyerahkan nilai dan divalidasi oleh Anda. <br>
+            Jika Peserta tidak menitipkan sertifikat, maka abaikan halaman ini.
           </div>
         </div>
       </div>
