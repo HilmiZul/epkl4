@@ -98,7 +98,7 @@
           Ada <span class="fw-bold">{{ nilaiNotValid.length }}</span> Nilai yang belum divalidasi
         </div>
 
-        <div class="row">
+        <div v-if="nilai?.length > 0" class="row">
           <div class="col-lg-6">
             <form @submit.prevent="getNilai">
               <div class="my-3 mt-0 input-group">
@@ -131,7 +131,8 @@
               <span v-else>
                 <div class="fs-1"><i class="bi bi-database-fill"></i></div>
                 <div class="fs-4">Belum tersedia</div>
-                <div class="pb-3">Nilai akan tampil apabila masa PKL selesai & peserta menyerehkan nilai.</div>
+                <div>Nilai akan tampil apabila masa PKL selesai & peserta menyerehkan nilai.</div>
+                <div>Jika darurat, Guru Pembimbing dapat menambahkan dengan syarat memiliki daftar nilai dari IDUKA <i class="bi bi-arrow-up-right"></i></div>
               </span>
             </div>
             <ul v-else v-for="(n, i) in nilai" :key="i" class="list-group list-group-flush">
