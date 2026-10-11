@@ -5,7 +5,7 @@
     </div>
 
     <div class="card-body">
-      <div class="row">
+      <div v-if="projects?.totalItems > 0" class="row">
         <div class="col-md-6">
           <form @submit.prevent="getProjectsByProkelOrPembimbing">
             <div class="my-3 mt-0 input-group">
@@ -30,7 +30,7 @@
             <loading-placeholder row="1" col="12" />
           </div>
 
-          <div v-else-if="!isLoading && projects?.totalItems < 1" class="text-muted text-center my-3">
+          <div v-else-if="!isLoading && projects?.totalItems < 1" class="text-muted text-center my-2">
             <div v-if="searchActivated">
               <div class="fs-1"><i class="bi bi-search"></i></div>
               <div class="fs-4">Pencarian tidak ditemukan</div>
