@@ -1,5 +1,10 @@
 # Changelog
 
+### 5.2 (24 Oktober 2026)
+
+- Upgrade Nuxt
+- Upgrade runtime
+
 ### 5.1 (13 September 2026)
 
 - Upgrade Nuxt v4.5
