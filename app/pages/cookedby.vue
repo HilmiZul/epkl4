@@ -4,20 +4,18 @@
   <div class="card mt-3">
     <div class="card-body text-dark">
       <p>
-        <strong>e-PKL</strong> (<strong>PKL</strong> stand for Praktik Kerja Lapangan) is an internship mapping app for
-        students.
-        I made this project is just for fun, because the Head of the Software Engineering Department challenged me to
-        make
-        an app that can generate letters.
+        <strong>e-PKL</strong> (<strong>PKL</strong> stand for Praktik Kerja Lapangan) is an internship mapping app.
+        I developed this project purely for fun after the Head of the Software Engineering Department challenged me to 
+        create an application that can generate official letters.
       </p>
       <p>
         Original written in Python (with Django Framework) since 2018 and rewrite to Javascript (with Vue Framework) in
         2022.
       </p>
-      <p>
-        This project is an open source software under MIT Licensed. Feel free if you want to contribute to this
-        <nuxt-link to="https://github.com/hilmizul/epkl4" target="_blank" class="link-footer">project</nuxt-link>.
-      </p>
+      <!-- <p> -->
+      <!--   This project is an open source software under MIT Licensed. Feel free if you want to contribute to this -->
+      <!--   <nuxt-link to="https://github.com/hilmizul/epkl4" target="_blank" class="link-footer">project</nuxt-link>. -->
+      <!-- </p> -->
 
       <div>
         Thanks to
