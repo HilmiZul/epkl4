@@ -5,7 +5,7 @@
     <div class="card-body text-dark">
       <p>
         <strong>e-PKL</strong> (<strong>PKL</strong> stand for Praktik Kerja Lapangan) is an internship mapping app.
-        I developed this project purely for fun after the Head of the Software Engineering Department challenged me to 
+        I developed this project purely for fun after the Head of the Software Eng. Dept. challenged me to 
         create an application that can generate official letters.
       </p>
       <p>
