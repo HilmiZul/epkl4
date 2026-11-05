@@ -1,5 +1,9 @@
 # Changelog
 
+### 5.2.1 (5 November 2026)
+
+- Upgrade Nuxt version 4.6.4
+
 ### 5.2 (24 Oktober 2026)
 
 - Upgrade Nuxt
