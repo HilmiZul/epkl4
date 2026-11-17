@@ -1,5 +1,15 @@
 # Changelog
 
+### 5.2.2 (17 November 2026)
+
+Bug fixes:
+
+- Nuxt 4.6.4 `devServer` since npm v12. solution, create .npmrc file.
+- Disable vapor mode (enable soon)
+
+Improvement:
+- vite.optimezeDeps
+
 ### 5.2.1 (5 November 2026)
 
 - Upgrade Nuxt version 4.6.4
