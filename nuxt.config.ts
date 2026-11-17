@@ -1,4 +1,4 @@
-import pkg from './package.json'
+import pkg from './package.json' with { type: 'json' }
 import { readFileSync } from 'fs'
 import { read, utils } from 'xlsx'
 
@@ -34,6 +34,13 @@ export default defineNuxtConfig({
       author: pkg.author,
 		},
 	},
+  // Workaround bug Nuxt 4.6.4: `devServer.host` yang tidak di-set akan
+  // ter-resolve menjadi objek kosong `{}` (bukan string/undefined), sehingga
+  // `nuxt dev` gagal dengan "options.hostname.toLowerCase is not a function".
+  // Nilainya di-set eksplisit agar selalu berupa string.
+  devServer: {
+    host: process.env.NUXT_HOST || process.env.NITRO_HOST || process.env.HOST || 'localhost',
+  },
   robots: {
     UserAgent: '*',
     Disallow: '/'
@@ -43,6 +50,18 @@ export default defineNuxtConfig({
       // limit hasil build yg >= 700 dalam kB
       // lieur warning wae lah
       chunkSizeWarningLimit: 950,
+    },
+    // Pre-bundle dependensi client supaya tidak ditemukan saat runtime
+    // (menghindari reload/re-optimize di tengah pemakaian).
+    optimizeDeps: {
+      include: [
+        'chart.js/auto',
+        'compressorjs',
+        'html2pdf.js',
+        'pocketbase',
+        'vue-multiselect',
+        'xlsx',
+      ],
     },
     assetsInclude: ['**/*.xlsx'], // xlsx file should be treated as assets
 
@@ -59,6 +78,6 @@ export default defineNuxtConfig({
     ],
   },
   vue: {
-    vapor: true,
+    vapor: false,
   },
 })
