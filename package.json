@@ -1,6 +1,6 @@
 {
   "name": "epkl4",
-  "version": "5.2.2",
+  "version": "5.2.3",
   "author": "Zul Hilmi",
   "type": "module",
   "dependencies": {
@@ -12,7 +12,7 @@
     "compressorjs": "^1.3.0",
     "html2pdf.js": "^0.14.0",
     "nuxt": "^4.6.4",
-    "pocketbase": "^0.28.1",
+    "pocketbase": "^0.29.0",
     "vue-multiselect": "^3.5.0",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
   },

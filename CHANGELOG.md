@@ -1,5 +1,10 @@
 # Changelog
 
+### 5.2.3 (19 November 2026)
+
+Update dependency:
+- js-sdk v0.29.0
+
 ### 5.2.2 (17 November 2026)
 
 Bug fixes:
