@@ -1,5 +1,9 @@
 # Changelog
 
+### 5.2.4 (21 November 2026)
+
+- docs(UI message): relayoting message and remove log
+
 ### 5.2.3 (19 November 2026)
 
 Update dependency:
