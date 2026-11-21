@@ -103,7 +103,6 @@
               <div class="text-muted fw-bold">Password</div>
               <div class="fw-bold">
                 <nuxt-link data-bs-toggle="modal" data-bs-target="#reset-password" class="hand-cursor link-external">Reset?</nuxt-link>
-                <!-- <div class="text-danger">//TODO: masih return 400 err code</div> -->
               </div>
             </div>
 
@@ -120,6 +119,8 @@
                     <button @click="() => usernameUpdated = false" class="btn-close" label="Close" data-bs-dismiss="modal"></button>
                   </div>
                   <div class="modal-body text-dark">
+                    <div v-if="usernameUpdated" class="alert alert-secondary">Username berhasil diubah!</div>
+
                     <form @submit.prevent="updateUsername">
                       <div class="mb-4">
                         <label for="username">Username</label>
@@ -130,7 +131,6 @@
                           <span v-if="isUpdateUsername">Sedang menyimpan</span>
                           <span v-else>Simpan</span>
                         </button>
-                        <span v-if="usernameUpdated" class="ms-2 fst-italic text-muted">Username berhasil diubah!</span>
                       </div>
                     </form>
                   </div>
@@ -147,6 +147,9 @@
                     <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
                   </div>
                   <div class="modal-body text-dark">
+                    <div v-if="isSuccessResetPassword" class="alert alert-secondary">Password berhasil reset!</div>
+                    <div v-if="isErrorResetPassword" class="alert alert-danger">Konfirmasi password tidak sama!</div>
+
                     <form @submit.prevent="resetPassword">
                       <div class="mb-4">
                         <label for="password">Password baru</label>
@@ -157,8 +160,6 @@
                         <input v-model="formReset.passwordConfirm" id="passwordConfirm" minlength="8" type="password" class="form form-control form-control-lg" placeholder="Ketik ulang password baru" required>
                       </div>
                       <button class="btn btn-dark border border-2 border-dark">Reset</button>
-                      <span v-if="isSuccessResetPassword" class="ms-2 fst-italic text-muted">Password berhasil direset!</span>
-                      <span v-if="isErrorResetPassword" class="ms-2 fst-italic text-danger">Password gagal reset!</span>
                     </form>
                   </div>
                 </div>
@@ -362,7 +363,6 @@ async function updateUsername() {
 async function getWalikelas() {
 }
 
-// TODO: belum selesai. masih 400 err code
 async function resetPassword() {
   isSuccessResetPassword.value = false
   isErrorResetPassword.value = false
@@ -373,8 +373,9 @@ async function resetPassword() {
     let res = await client.collection('student_users').update(user_id, formReset.value)
 
     if(res) {
-      console.log('success??')
       isSuccessResetPassword.value = true
+      formReset.value.password = ""
+      formReset.value.passwordConfirm = ""
     }
   } catch (err) {
     console.error(err)
