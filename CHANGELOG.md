@@ -1,5 +1,9 @@
 # Changelog
 
+### 5.2.5 (24 November 2026)
+
+- UI improvements
+
 ### 5.2.4 (21 November 2026)
 
 - docs(UI message): relayoting message and remove log
