@@ -75,7 +75,7 @@
           <div class="modal" id="pratinjau" tabindex="-1" aria-hidden="false">
             <div class="modal-dialog modal-dialog-centered modal-lg">
               <div class="modal-content border border-3 border-dark shadow-lg">
-                <div class="modal-header fw-bold border-bottom border-3 border-dark">
+                <div class="modal-header fw-bold border-bottom border-bottom-0">
                   {{ pratinjau?.judul }}
                   <button class="btn-close" data-bs-dismiss="modal" label="Close"></button>
                 </div>
@@ -133,7 +133,7 @@
           <div class="modal" id="ubah-catatan" tabindex="-1" aria-hidden="false">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content border border-3 border-dark shadow-lg">
-                <div class="modal-header fw-bold border-bottom border-3 border-dark">
+                <div class="modal-header fw-bold border-bottom border-bottom-0">
                   Ubah catatan
                   <button class="btn-close" data-bs-dismiss="modal" label="Close"></button>
                 </div>

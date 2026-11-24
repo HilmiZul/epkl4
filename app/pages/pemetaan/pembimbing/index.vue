@@ -98,7 +98,7 @@
           <div class="modal" id="hapus-pemetaan" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content rounded-0 border border-2 border-dark shadow-lg">
-                <div class="modal-header rounded-0 h4 bg-danger quicksand">
+                <div class="modal-header rounded-0 h5 bg-danger quicksand border-bottom border-bottom-0">
                   Hapus dari Pembimbing
                 </div>
                 <div class="modal-body text-dark">

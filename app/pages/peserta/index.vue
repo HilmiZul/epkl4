@@ -38,12 +38,13 @@
       <div class="modal" id="peserta-belum-pemetaan">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content border border-3 border-dark shadow-lg">
-            <div class="modal-header fw-bold border-bottom border-3 border-dark">
+            <div class="modal-header fw-bold border-bottom border-bottom-0">
               <div class="fs-5">Peserta yang belum pemetaan</div>
               <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-              <div class="text-muted badge border-1 border-grey">{{ peserta_belum_pemetaan?.totalItems }} peserta</div>
+              <!-- <div class="text-muted badge border-1 border-grey">{{ peserta_belum_pemetaan?.totalItems }} peserta</div> -->
+
               <table class="table table-striped my-2">
                 <tbody>
                   <tr v-for="(p,i) in peserta_belum_pemetaan.items" :key="p.id" class="fw-bold">

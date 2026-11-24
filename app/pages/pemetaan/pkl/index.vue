@@ -145,7 +145,7 @@
           <div class="modal" id="cetak" aria-hidden="true" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content border border-3 border-dark shadow-lg">
-                <div class="modal-header h4 fw-bold border-bottom border-3 border-dark">
+                <div class="modal-header h4 fw-bold border-bottom border-bottom-0">
                   Konfirmasi Jenis Surat
                   <button class="btn-close small" data-bs-dismiss="modal" label="Close"></button>
                 </div>
@@ -165,10 +165,10 @@
           </div>
 
           <!-- Single Modal: Konfirmasi penerimaan -->
-          <div class="modal" id="konfirmasi-penerimaan" aria-hidden="true">
+          <div class="modal" id="konfirmasi-penerimaan" aria-hidden="true" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content border border-3 border-dark shadow-lg">
-                <div class="modal-header h4 fw-bold border-bottom border-3 border-dark">
+                <div class="modal-header h4 fw-bold border-bottom border-bottom-0">
                   Konfrimasi Penerimaan
                 </div>
                 <div class="modal-body text-dark">

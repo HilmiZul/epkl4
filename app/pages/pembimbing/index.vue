@@ -96,7 +96,7 @@
     <div class="modal" id="reset-password" tabindex="-1">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border border-2 border-dark shadow-lg">
-          <div class="modal-header h4 text-bg-white quicksand border-bottom border-3 border-dark">
+          <div class="modal-header h4 text-bg-white quicksand border-bottom border-bottom-0">
             Reset Password
           </div>
           <div class="modal-body text-dark small">

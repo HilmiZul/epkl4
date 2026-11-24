@@ -129,7 +129,7 @@
   <div class="modal" id="delete" aria-hidden="true" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-        <div class="modal-header rounded-0 h4 bg-danger fw-bold border-bottom border-3 border-dark">
+        <div class="modal-header rounded-0 h4 bg-danger fw-bold border-bottom border-bottom-0">
           Peringatan!
         </div>
         <div class="modal-body">
@@ -150,7 +150,7 @@
   <div class="modal" id="catatan" aria-hidden="true" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content border border-3 border-dark shadow-lg">
-        <div class="modal-header fw-bold border-bottom border-3 border-dark">
+        <div class="modal-header fw-bold border-bottom border-bottom-0">
           <div class="fs-4">{{ pratinjau_iduka?.nama }} <span v-if="pratinjau_iduka.isArchive" class="badge text-bg-white text-muted border-grey">Arsip</span></div>
           <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
         </div>

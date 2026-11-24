@@ -53,14 +53,14 @@
             <div class="modal" id="relasi-iduka" aria-hidden="true" tabindex="-1">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content border border-3 border-dark shadow-lg">
-                  <div class="modal-header fw-bold border-bottom border-3 border-dark">
+                  <div class="modal-header fw-bold border-bottom border-bottom-0">
                     <span class="fs-5">Relasi ke IDUKA</span>
                     <button class="btn-close" data-bs-dismiss="modal" label="Close"></button>
                   </div>
                   <div class="modal-body">
-                    <div class="text-center">
-                      <span v-if="iduka?.totalItems > 0" class="badge text-muted mb-3 small border-grey">{{ iduka?.totalItems }} IDUKA</span>
-                    </div>
+                    <!-- <div class="text-center"> -->
+                    <!--   <span v-if="iduka?.totalItems > 0" class="badge text-muted mb-3 small border-grey">{{ iduka?.totalItems }} IDUKA</span> -->
+                    <!-- </div> -->
                     <div v-if="iduka?.totalItems > 0" class="text-muted mb-3">
                       <ul v-for="(company,i) in iduka?.items" :key="i" class="list-group list-group-flush">
                         <li class="list-group-item text-grey">
@@ -106,14 +106,14 @@
             <div class="modal" id="relasi-peserta" aria-hidden="true" tabindex="-1">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content border border-3 border-dark shadow-lg">
-                  <div class="modal-header fw-bold border-bottom border-3 border-dark">
+                  <div class="modal-header fw-bold border-bottom border-bottom-0">
                     <span class="fs-5">Peserta yang dibimbing</span>
                     <button class="btn-close" data-bs-dismiss="modal" label="Close"></button>
                   </div>
                   <div class="modal-body">
-                    <div class="text-center">
-                      <span v-if="pemetaan?.totalItems > 0" class="badge text-muted mb-3 small border-grey">{{ pemetaan?.totalItems }} Peserta</span>
-                    </div>
+                    <!-- <div class="text-center"> -->
+                    <!--   <span v-if="pemetaan?.totalItems > 0" class="badge text-muted mb-3 small border-grey">{{ pemetaan?.totalItems }} Peserta</span> -->
+                    <!-- </div> -->
                     <div v-if="pemetaan?.totalItems > 0" class="text-muted mb-3">
                       <ul v-for="(p,i) in pemetaan?.items" :key="i" class="list-group list-group-flush">
                         <li class="list-group-item text-grey">

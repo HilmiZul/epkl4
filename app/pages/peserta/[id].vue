@@ -114,8 +114,8 @@
             <div class="modal" id="update-username" tabindex="-1">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content border border-3 border-dark shadow-lg">
-                  <div class="modal-header border-bottom border-3 border-dark">
-                    <span class="fs-4 fw-bold">Custom Username Peserta</span>
+                  <div class="modal-header border-bottom border-bottom-0">
+                    <span class="fs-5 fw-bold">Custom Username Peserta</span>
                     <button @click="() => usernameUpdated = false" class="btn-close" label="Close" data-bs-dismiss="modal"></button>
                   </div>
                   <div class="modal-body text-dark">
@@ -142,8 +142,8 @@
             <div class="modal" id="reset-password" tabindex="-1">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content border border-3 border-dark shadow-lg">
-                  <div class="modal-header fw-bold border-bottom border-3 border-dark">
-                    <span class="fs-4 fw-bold">Reset Password</span>
+                  <div class="modal-header fw-bold border-bottom border-bottom-0">
+                    <span class="fs-5 fw-bold">Reset Password</span>
                     <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
                   </div>
                   <div class="modal-body text-dark">
@@ -182,7 +182,7 @@
             <div class="modal" :id="`siswa-${form.id}`" aria-hidden="true" tabindex="-1">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-                  <div class="modal-header rounded-0 h4 bg-danger fw-bold border-bottom border-3 border-dark">
+                  <div class="modal-header rounded-0 h4 bg-danger fw-bold border-bottom border-bottom-0">
                     Peringatan!
                   </div>
                   <div class="modal-body text-dark">

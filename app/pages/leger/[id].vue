@@ -320,7 +320,7 @@
             <div class="modal" id="preview-nilai" tabindex="-1">
               <div class="modal-dialog modal-dialog-centered modal-fullscreen">
                 <div class="modal-content border border-3 border-dark shadow-lg">
-                  <div class="modal-header border-bottom border-3 border-dark fs-4 fw-bold">
+                  <div class="modal-header border-bottom border-bottom-0 fs-5 fw-bold">
                     Foto Nilai side by side
                     <button class="btn-close" label="Close" data-bs-dismiss="modal"></button>
                   </div>

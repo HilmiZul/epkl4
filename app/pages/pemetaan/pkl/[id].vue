@@ -99,7 +99,7 @@
             <div class="modal" :id="`pemetaan-${pemetaanId}`" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content rounded-0 border border-3 border-dark shadow-lg">
-                  <div class="modal-header rounded-0 h4 bg-danger fw-bold border-bottom border-3 border-dark">
+                  <div class="modal-header rounded-0 h4 bg-danger fw-bold border-bottom border-bottom-0">
                     Peringatan!
                   </div>
                   <div class="modal-body text-dark">
