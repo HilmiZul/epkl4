@@ -16,7 +16,7 @@
       </div>
       <loading-placeholder v-if="isLoading" row="1" col="4" />
       <div v-else class="row">
-        <div v-if="nilai.length > 0" class="col-lg-4">
+        <div v-if="nilai.length > 0" class="col-lg-5">
           <!--<label for="peserta">Pilih Nama Peserta</label>-->
           <multiselect
             @update:modelValue="getNilaiById"
@@ -29,7 +29,12 @@
             id="peserta"
             placeholder="Pilih Nama Peserta"
             required>
-            <template v-slot:singleLabel="{ option }"><strong>{{ option.expand.siswa.nama }}</strong></template>
+            <!-- <template v-slot:singleLabel="{ option }"><strong>{{ option.expand.siswa.nama }}</strong></template> -->
+            <template #option="props">
+              <div class="fw-bold mb-1">{{ props.option.expand.siswa.nama }}</div>
+              <div class="small mb-2">{{ props.option.expand.siswa.kelas }}</div>
+              <div class="small mb-1">{{ props.option.expand.iduka.nama }}</div>
+            </template>
           </multiselect>
         </div>
         <div v-if="nilai.length > 0" class="col-lg-4">
@@ -121,15 +126,24 @@ let sertifikat = ref({
   "nomor_pegawai": "",
 })
 let toPdf = ref(null) // var untuk nyimpen component yang downloadable PDF
-if(role != 'jurusan' && role != 'admin' && role != 'guru') navigateTo('/404')
+if(role != "jurusan" && role != "admin" && role != "guru" && role != "wakasek") navigateTo("/404")
 
 async function getNilai() {
   isLoading.value = true
 
+  let filterQuery = `pembimbing="${user.user.value.id}" && isEntrust=True && isValid=True`
+
+  // berikan akses untuk role == wakasek agar HUBIN dan staf dapat `unduh` sertifikat tanpamenunggu dari Guru Pembimbing,
+  // tampilkan semua muanya a aduh pusing kepala harus fetch semua nilai yang jumlah record-nya gak seberapa itu.
+  // meskipun bisa menampilkan tanpa filter guru pembimbing, agar tampil ttp harus valid oleh Guru Pembimbing wkwk
+  if(role == "wakasek") {
+    filterQuery = `isEntrust=True && isValid=True`
+  }
+
   client.autoCancellation(false)
   let res = await client.collection('nilai').getFullList({
     // filter: `program_keahlian="${prokel}" && iduka.pembimbing_sekolah="${user.user.value.id}" && isEntrust=True && isValid=True`,
-    filter: `pembimbing="${user.user.value.id}" && isEntrust=True && isValid=True`,
+    filter: filterQuery,
     expand: `siswa, program_keahlian, iduka`,
   })
   if(res) {
