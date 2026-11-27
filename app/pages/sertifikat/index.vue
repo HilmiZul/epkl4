@@ -42,15 +42,20 @@
             <i class="bi bi-download"></i> Unduh
           </button>
         </div>
+
         <div v-else class="p-4 text-muted">
           <div class="text-center fs-4">
             <i class="bi bi-database-fill fs-1"></i> <br>
             Belum tersedia
           </div>
-          <div class="text-center">
+          <div v-if="role == 'jurusan' || role == 'guru'" class="text-center">
             Pastikan peserta sudah menyerahkan nilai dan divalidasi oleh Anda. <br>
             Jika Peserta tidak menitipkan sertifikat, maka abaikan halaman ini.
           </div>
+          <div v-if="role == 'wakasek'" class="text-center">
+            Tunggu sampai Guru Pembimbing memvalidasi Leger nilai. <br>
+          </div>
+
         </div>
       </div>
       <!-- <div class="row">
