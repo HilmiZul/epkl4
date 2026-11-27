@@ -1,5 +1,10 @@
 # Changelog
 
+### 5.2.6 (27 November 2026)
+
+- Allowed `wakasek` access Sertifikat
+- Bug fix and improvement
+
 ### 5.2.5 (24 November 2026)
 
 - UI improvements
